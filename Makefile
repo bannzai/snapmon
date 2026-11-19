@@ -35,7 +35,11 @@ ios-device: flutter-version-check
 # 環境変数 RECAPTCHA_ENTERPRISE_SITE_KEY が無ければ gh の Variable (deploy-hosting.yml と同じ値) から取る。
 # どちらも無ければ空のまま渡し、Web の App Check は始まらない (Functions が App Check を強制している間は呼び出しが 401 になる)
 RECAPTCHA_ENTERPRISE_SITE_KEY ?= $(shell gh variable get RECAPTCHA_ENTERPRISE_SITE_KEY 2>/dev/null)
-web_dart_defines = --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=$(RECAPTCHA_ENTERPRISE_SITE_KEY)
+# Web の RevenueCat の public API key (公開値。Web 版の販売の鍵。lib/firebase/purchases.dart が --dart-define で受ける)。
+# 環境変数が無ければ gh の Variable から取る。どちらも無ければ空のまま渡し、Web 版は課金が無効のビルドになる
+# (Variable は Web 版の販売を始める時に登録する。documents/generation-ticket-release.md「Web 版で売る準備」)
+REVENUECAT_PUBLIC_API_KEY_WEB ?= $(shell gh variable get REVENUECAT_PUBLIC_API_KEY_WEB 2>/dev/null)
+web_dart_defines = --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=$(RECAPTCHA_ENTERPRISE_SITE_KEY) --dart-define=REVENUECAT_PUBLIC_API_KEY_WEB=$(REVENUECAT_PUBLIC_API_KEY_WEB)
 # debug ビルドだけ、環境変数 FIREBASE_APPCHECK_DEBUG_TOKEN_WEB (App Check の Web の debug token。発行は
 # scripts/set-webtunnel-setup-env-secret.sh のヘッダー) があれば reCAPTCHA の代わりに debug provider で App Check を通す
 web_debug_dart_defines = $(web_dart_defines) --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=$(FIREBASE_APPCHECK_DEBUG_TOKEN_WEB)

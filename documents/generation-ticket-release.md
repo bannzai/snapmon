@@ -83,7 +83,7 @@ Web 版は、同じ offering の package を RevenueCat の Web での販売の�
    | `snapmon_actioncardrank2_300yen_web` | 300 円 | `actioncard_rank2` |
    | `snapmon_actioncardrank3_500yen_web` | 500 円 | `actioncard_rank3` |
 
-5. Web の設定の public API key (公開値) を GitHub の Variable `REVENUECAT_PUBLIC_API_KEY_WEB` に登録し、Web 版をビルドする場所 (`.github/workflows/deploy-hosting.yml`・`.github/workflows/browser-session.yml` の `flutter build web` と、Makefile の `web_dart_defines`) に `--dart-define=REVENUECAT_PUBLIC_API_KEY_WEB=<Variable の値>` を足す。鍵を渡していない Web のビルドは SDK を初期化せず、購入の画面を出さない
+5. Web の設定の public API key (公開値) を GitHub の Variable `REVENUECAT_PUBLIC_API_KEY_WEB` に登録し、Web 版をビルドする workflow (`.github/workflows/deploy-hosting.yml`・`.github/workflows/browser-session.yml` の `flutter build web`) に `--dart-define=REVENUECAT_PUBLIC_API_KEY_WEB=<Variable の値>` を足す。手元の `make web`・`make build-web` とエディタの実行 (`make dart-defines-file`) は、Variable を登録すれば Makefile が読んで渡す (workflow を直す必要は無い)。鍵を渡していない Web のビルドは SDK を初期化せず、購入の画面を出さない
 6. `docs/SpecifiedCommercialTransactions.md` (特定商取引法に基づく表記) と `docs/Terms.md` 第4条の2 の Web の販売条件 (返品・キャンセル・返金に応じない等) を owner が読んで確かめる
 7. Apple Pay・Google Pay を決済の画面に出す時は、Stripe に Web 版のドメイン (`play.snapmonster.app`) を登録する (「You only need to register a domain manually in Stripe if you're initiating purchases with the Web SDK on your own domain.」 https://www.revenuecat.com/docs/web/web-billing/payment-methods 、2026-11-19 に確認)
 8. Stripe の sandbox の購入で次を確かめる (どれも未確認。実際の購入は Stripe の接続が前提のため、実装の時には確かめていない)

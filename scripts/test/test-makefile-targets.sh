@@ -9,7 +9,7 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
 failures=0
 # 手元のシェルで export したサイトキー・debug token・RevenueCat の鍵が Makefile の変数に効き、gh の差し替えを使うテストの期待値を変えるため外す
-unset RECAPTCHA_ENTERPRISE_SITE_KEY FIREBASE_APPCHECK_DEBUG_TOKEN_WEB REVENUECAT_PUBLIC_API_KEY_IOS REVENUECAT_PUBLIC_API_KEY_ANDROID
+unset RECAPTCHA_ENTERPRISE_SITE_KEY FIREBASE_APPCHECK_DEBUG_TOKEN_WEB REVENUECAT_PUBLIC_API_KEY_IOS REVENUECAT_PUBLIC_API_KEY_ANDROID REVENUECAT_PUBLIC_API_KEY_WEB
 # 手元のシェルの指定が web のブラウザの選択と差し替えの振る舞いを変えるため外す
 unset CHROME_EXECUTABLE FAKE_UNAME FAKE_UNAME_MACHINE
 
@@ -159,14 +159,19 @@ test_ios_device_uses_device_variable() {
   pass "ios-device: DEVICE= の指定をそのまま使う"
 }
 
-# 引数: 作業ディレクトリ、gh variable get が返すサイトキー (空なら未登録として exit 1)。Makefile が呼ぶ gh の差し替えを置く
+# 引数: 作業ディレクトリ、gh variable get が返すサイトキー (空なら未登録として exit 1)、gh variable get が返す Web の RevenueCat の鍵
+# (省略か空なら未登録として exit 1。Web 版の販売を始めるまで Variable を登録しない今の状態と同じ)。Makefile が呼ぶ gh の差し替えを置く
 prepare_gh_stub() {
-  local work=$1 site_key=$2
+  local work=$1 site_key=$2 revenuecat_web_key=${3:-}
   cat > "$work/bin/gh" <<EOF
 #!/usr/bin/env bash
 if [ "\$1 \$2 \$3" = "variable get RECAPTCHA_ENTERPRISE_SITE_KEY" ]; then
   [ -n "$site_key" ] || exit 1
   printf '%s\n' "$site_key"
+fi
+if [ "\$1 \$2 \$3" = "variable get REVENUECAT_PUBLIC_API_KEY_WEB" ]; then
+  [ -n "$revenuecat_web_key" ] || exit 1
+  printf '%s\n' "$revenuecat_web_key"
 fi
 EOF
   chmod +x "$work/bin/gh"
@@ -181,7 +186,7 @@ test_web_enables_web_then_runs_chrome() {
     fail "web: 失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if [ "$(cat "$work/flutter-args")" != $'config --enable-web\nrun --debug -d chrome --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=site-key-from-gh --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=' ]; then
+  if [ "$(cat "$work/flutter-args")" != $'config --enable-web\nrun --debug -d chrome --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=site-key-from-gh --dart-define=REVENUECAT_PUBLIC_API_KEY_WEB= --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=' ]; then
     fail "web: config --enable-web の後に、gh の Variable のサイトキーを付けて run --debug -d chrome を呼んでいない ($(cat "$work/flutter-args"))"
     return
   fi
@@ -197,7 +202,7 @@ test_web_prefers_environment_site_key() {
     fail "web: 環境変数のサイトキー指定で失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if [ "$(recorded_run "$work")" != "run --debug -d chrome --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=site-key-from-env --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=" ]; then
+  if [ "$(recorded_run "$work")" != "run --debug -d chrome --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=site-key-from-env --dart-define=REVENUECAT_PUBLIC_API_KEY_WEB= --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=" ]; then
     fail "web: 環境変数 RECAPTCHA_ENTERPRISE_SITE_KEY を gh の Variable より優先していない ($(recorded_run "$work"))"
     return
   fi
@@ -213,7 +218,7 @@ test_web_runs_without_site_key() {
     fail "web: サイトキー未設定で失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if [ "$(recorded_run "$work")" != "run --debug -d chrome --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY= --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=" ]; then
+  if [ "$(recorded_run "$work")" != "run --debug -d chrome --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY= --dart-define=REVENUECAT_PUBLIC_API_KEY_WEB= --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=" ]; then
     fail "web: サイトキーが無い時に空の --dart-define で起動していない ($(recorded_run "$work"))"
     return
   fi
@@ -229,11 +234,43 @@ test_web_passes_debug_token_from_environment() {
     fail "web: debug token の指定で失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if [ "$(recorded_run "$work")" != "run --debug -d chrome --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=site-key-from-gh --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=debug-token-from-env" ]; then
+  if [ "$(recorded_run "$work")" != "run --debug -d chrome --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=site-key-from-gh --dart-define=REVENUECAT_PUBLIC_API_KEY_WEB= --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=debug-token-from-env" ]; then
     fail "web: 環境変数 FIREBASE_APPCHECK_DEBUG_TOKEN_WEB を --dart-define に渡していない ($(recorded_run "$work"))"
     return
   fi
   pass "web: 環境変数の debug token を --dart-define に渡す"
+}
+
+test_web_passes_revenuecat_web_key_from_gh_variable() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  prepare_gh_stub "$work" "site-key-from-gh" "web-key-from-gh"
+  if ! run_make "$work" '[]' web; then
+    fail "web: Web の RevenueCat の鍵が gh の Variable にある時に失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(recorded_run "$work")" != "run --debug -d chrome --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=site-key-from-gh --dart-define=REVENUECAT_PUBLIC_API_KEY_WEB=web-key-from-gh --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=" ]; then
+    fail "web: gh の Variable の Web の RevenueCat の鍵を --dart-define に渡していない ($(recorded_run "$work"))"
+    return
+  fi
+  pass "web: gh の Variable の Web の RevenueCat の鍵を --dart-define に渡す"
+}
+
+test_web_prefers_environment_revenuecat_web_key() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  prepare_gh_stub "$work" "site-key-from-gh" "web-key-from-gh"
+  if ! REVENUECAT_PUBLIC_API_KEY_WEB=web-key-from-env run_make "$work" '[]' web; then
+    fail "web: 環境変数の Web の RevenueCat の鍵の指定で失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(recorded_run "$work")" != "run --debug -d chrome --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=site-key-from-gh --dart-define=REVENUECAT_PUBLIC_API_KEY_WEB=web-key-from-env --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=" ]; then
+    fail "web: 環境変数 REVENUECAT_PUBLIC_API_KEY_WEB を gh の Variable より優先していない ($(recorded_run "$work"))"
+    return
+  fi
+  pass "web: 環境変数の Web の RevenueCat の鍵を gh の Variable より優先する"
 }
 
 test_web_opens_newest_installed_chrome_for_testing() {
@@ -357,16 +394,16 @@ test_build_web_does_not_pass_debug_token() {
   local work
   work="$(mktemp -d)"
   prepare_workspace "$work"
-  prepare_gh_stub "$work" "site-key-from-gh"
+  prepare_gh_stub "$work" "site-key-from-gh" "web-key-from-gh"
   if ! FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=debug-token-from-env run_make "$work" '[]' build-web; then
     fail "build-web: 失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if [ "$(cat "$work/flutter-args")" != "build web --release --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=site-key-from-gh" ]; then
-    fail "build-web: release のビルドに debug token を渡さない・サイトキーを付ける、になっていない ($(cat "$work/flutter-args"))"
+  if [ "$(cat "$work/flutter-args")" != "build web --release --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=site-key-from-gh --dart-define=REVENUECAT_PUBLIC_API_KEY_WEB=web-key-from-gh" ]; then
+    fail "build-web: release のビルドに debug token を渡さない・公開値 (サイトキーと Web の RevenueCat の鍵) を付ける、になっていない ($(cat "$work/flutter-args"))"
     return
   fi
-  pass "build-web: release のビルドには debug token を渡さない"
+  pass "build-web: release のビルドには公開値だけを渡し、debug token を渡さない"
 }
 
 # 引数: 作業ディレクトリ、差し替えの flutter が --version --machine に返す版。prepare_workspace の flutter の版を置き換える
@@ -420,12 +457,13 @@ test_dart_defines_file_writes_public_values() {
   prepare_gh_stub "$work" "site-key-from-gh"
   # 値に = を含んでも最初の = でキーと値に分かれることを確かめるため、iOS の鍵に = を入れる
   if ! REVENUECAT_PUBLIC_API_KEY_IOS='ios-key=from-env' REVENUECAT_PUBLIC_API_KEY_ANDROID=android-key-from-env \
+    REVENUECAT_PUBLIC_API_KEY_WEB=web-key-from-env \
     FIREBASE_APPCHECK_DEBUG_TOKEN_WEB=debug-token-from-env run_make "$work" '[]' dart-defines-file; then
     fail "dart-defines-file: 失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if [ "$(written_dart_defines "$work")" != '{"RECAPTCHA_ENTERPRISE_SITE_KEY":"site-key-from-gh","REVENUECAT_PUBLIC_API_KEY_ANDROID":"android-key-from-env","REVENUECAT_PUBLIC_API_KEY_IOS":"ios-key=from-env"}' ]; then
-    fail "dart-defines-file: 公開値の 3 つだけ (debug token を除く) を書き出していない ($(written_dart_defines "$work"))"
+  if [ "$(written_dart_defines "$work")" != '{"RECAPTCHA_ENTERPRISE_SITE_KEY":"site-key-from-gh","REVENUECAT_PUBLIC_API_KEY_ANDROID":"android-key-from-env","REVENUECAT_PUBLIC_API_KEY_IOS":"ios-key=from-env","REVENUECAT_PUBLIC_API_KEY_WEB":"web-key-from-env"}' ]; then
+    fail "dart-defines-file: 公開値の 4 つだけ (debug token を除く) を書き出していない ($(written_dart_defines "$work"))"
     return
   fi
   if [ -s "$work/flutter-args" ]; then
@@ -444,7 +482,7 @@ test_dart_defines_file_writes_empty_values_without_keys() {
     fail "dart-defines-file: 鍵が無い時に失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if [ "$(written_dart_defines "$work")" != '{"RECAPTCHA_ENTERPRISE_SITE_KEY":"","REVENUECAT_PUBLIC_API_KEY_ANDROID":"","REVENUECAT_PUBLIC_API_KEY_IOS":""}' ]; then
+  if [ "$(written_dart_defines "$work")" != '{"RECAPTCHA_ENTERPRISE_SITE_KEY":"","REVENUECAT_PUBLIC_API_KEY_ANDROID":"","REVENUECAT_PUBLIC_API_KEY_IOS":"","REVENUECAT_PUBLIC_API_KEY_WEB":""}' ]; then
     fail "dart-defines-file: 鍵が無い時に空の値で書き出していない ($(written_dart_defines "$work"))"
     return
   fi
@@ -516,6 +554,8 @@ test_web_enables_web_then_runs_chrome
 test_web_prefers_environment_site_key
 test_web_runs_without_site_key
 test_web_passes_debug_token_from_environment
+test_web_passes_revenuecat_web_key_from_gh_variable
+test_web_prefers_environment_revenuecat_web_key
 test_web_opens_newest_installed_chrome_for_testing
 test_web_opens_intel_chrome_for_testing_on_intel_mac
 test_web_falls_back_to_default_chrome_when_chrome_for_testing_is_missing
