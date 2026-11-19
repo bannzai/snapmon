@@ -259,7 +259,7 @@ export async function handleRevenueCatWebhook(
     productID: productID!,
     transactionID: optionalString(event.transaction_id),
     environment,
-    store: optionalString(event.store),
+    store: null,
     createdAt: Timestamp.fromDate(dependencies.now()),
   };
   const purchaseDocument =

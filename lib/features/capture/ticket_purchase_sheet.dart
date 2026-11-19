@@ -153,9 +153,7 @@ class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
             'step': step.stepName,
             // 同じ商品をアプリと Web で同じ値に揃える (購入の記録の productID と同じ扱い)
             if (package != null)
-              'product': appProductIDOfStoreProductID(
-                storeProductID: package.storeProduct.identifier,
-              ),
+              'product': package.storeProduct.identifier,
           },
         )
         .catchError((Object _) {}),
