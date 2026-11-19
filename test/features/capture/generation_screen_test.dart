@@ -22,6 +22,7 @@ import '../../battle_recorder_fixture.dart';
 import '../../card_sharer_fixture.dart';
 import '../../game_audio_fixture.dart';
 import '../../monster_generator_fixture.dart';
+import '../../pvp_battle_fixture.dart';
 import '../../pvp_client_fixture.dart';
 import '../../sample_data_fixture.dart';
 
@@ -1339,6 +1340,7 @@ void main() {
     }) {
       final signedOutClient = signedOutPvpClient(calls: RecordedPvpCalls());
       return PvpClient(
+        battleClient: signedOutClient.battleClient,
         fetchOpponents: signedOutClient.fetchOpponents,
         fetchDefinitions: signedOutClient.fetchDefinitions,
         reportMonster: signedOutClient.reportMonster,
@@ -1479,6 +1481,205 @@ void main() {
       await pumpUntilResult(tester: tester);
       expect(find.text('Exception: master-unavailable'), findsOneWidget);
       expect(find.byType(BattleScreen), findsNothing);
+    });
+
+    group('人との対戦の相手を 5 秒だけ探す (issue #386)', () {
+      late AppLocalizations l10n;
+      late FakePvpBattleServer server;
+
+      setUp(() async {
+        l10n = await AppLocalizations.delegate.load(const Locale('ja'));
+        // 相手が先に待っていて、生まれたばかりの m1 の利用者が後から来る
+        server = FakePvpBattleServer(
+          host: pvpTrainerFixture(
+            uid: 'opponent-uid',
+            displayName: 'あいて',
+            monsters: [sampleData.monsterByID(monsterID: 'sample-noton')],
+          ),
+          guest: pvpTrainerFixture(
+            uid: 'player-uid',
+            displayName: 'じぶん',
+            monsters: [generatedWaxMonster(monsterID: 'm1')],
+          ),
+          randomSeed: 1,
+          turnSeconds: 60,
+        );
+      });
+
+      /// ログインしていて、[server] で人との対戦の相手を探せる利用者 (player-uid) の [PvpClient]。
+      PvpClient signedInPvpClient() => fakePvpClient(
+        calls: RecordedPvpCalls(),
+        battleClient: server.clientOf(uid: 'player-uid'),
+        fetchOpponents: () async => [],
+        extraDefinitions: null,
+        battleRecord: null,
+        profile: (displayName: 'じぶん', iconPath: null),
+        reportMonster: () async {},
+        blockUser: () async {},
+        updateDisplayName: ({required displayName}) async => displayName,
+        updateIcon: ({required photo}) async =>
+            'users/player-uid/icons/upload.png',
+      );
+
+      /// 初回の導線の生成の画面を開き、m1 が生まれて人との対戦の相手を探し始めた直後 (探し始めてから 100 ミリ秒以内) まで進める。
+      Future<void> pumpUntilSearchStarted({required WidgetTester tester}) async {
+        await pumpGenerationScreen(
+          tester: tester,
+          startsFirstBattle: true,
+          pvpClient: signedInPvpClient(),
+          generator: savedM1Generator(),
+        );
+        // 100 回 (10 秒): 生成の結果が届くまでの見本の待ちより十分長く、探し始めない不具合でテストが止まらない上限
+        for (
+          var count = 0;
+          count < 100 && server.joinCalls.isEmpty;
+          count++
+        ) {
+          await tester.pump(const Duration(milliseconds: 100));
+        }
+        expect(server.joinCalls, hasLength(1));
+      }
+
+      testWidgets('5 秒の間に他の利用者と組み合わされたら、その利用者との対戦に進み、「あらわれた」には相手の表示名を出さない', (
+        tester,
+      ) async {
+        await pumpUntilSearchStarted(tester: tester);
+        expect(server.joinCalls.single.rulesVersion, '1.${dexStore.definitions.version}');
+        expect(find.text(l10n.generationSearchingOpponent), findsOneWidget);
+
+        await tester.pump(const Duration(seconds: 2));
+        expect(find.textContaining(RegExp(r'あらわれた$')), findsNothing);
+        server.match();
+        // 探し始めてから 3 秒後の、次の相手を探す呼び出しが対戦の ID を受け取る
+        await tester.pump(const Duration(seconds: 1));
+        await tester.pump();
+
+        expect(find.text(l10n.generationTrainerAppeared), findsOneWidget);
+        expect(find.textContaining('あいて'), findsNothing);
+        expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsNothing);
+        expect(server.leaveCalls, isEmpty);
+
+        await tester.pump(const Duration(seconds: 2));
+        await tester.pump(const Duration(seconds: 1));
+        final battleScreen = tester.widget<BattleScreen>(
+          find.byType(BattleScreen),
+        );
+        expect(battleScreen.opponentKind, BattleOpponentKind.pvp);
+        expect(battleScreen.pvpSession!.opponent.uid, 'opponent-uid');
+        expect(battleScreen.opponentDisplayName, 'あいて');
+        expect(battleScreen.firstBattleBornMonster!.definition.id, 'm1');
+        expect(
+          [
+            for (final monster in battleScreen.opponentParty)
+              monster.definition.id,
+          ],
+          ['sample-noton'],
+        );
+        expect(find.byKey(const Key('opponent-safety-menu')), findsOneWidget);
+        expect(firstExperienceSteps(), [
+          'photo_selected',
+          'matchmaking',
+          'battle_started',
+        ]);
+      });
+
+      testWidgets('5 秒の前は探し続け、5 秒組み合わされなければ探すのをやめて CPU トレーナーとの対戦に進む', (
+        tester,
+      ) async {
+        await pumpUntilSearchStarted(tester: tester);
+
+        // 探し始めてから 4.8〜4.9 秒
+        await tester.pump(const Duration(milliseconds: 4800));
+        expect(find.text(l10n.generationSearchingOpponent), findsOneWidget);
+        expect(find.textContaining(RegExp(r'あらわれた$')), findsNothing);
+        expect(server.leaveCalls, isEmpty);
+        // 0 秒と 3 秒の 2 回探している
+        expect(server.joinCalls, hasLength(2));
+
+        // 探し始めてから 5.0〜5.1 秒
+        await tester.pump(const Duration(milliseconds: 200));
+        await tester.pump();
+        expect(server.leaveCalls, [
+          (uid: 'player-uid', searchID: server.joinCalls.first.searchID),
+        ]);
+        expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsOneWidget);
+        expect(find.text(l10n.generationTrainerAppeared), findsNothing);
+
+        await tester.pump(const Duration(seconds: 2));
+        await tester.pump(const Duration(seconds: 1));
+        final battleScreen = tester.widget<BattleScreen>(
+          find.byType(BattleScreen),
+        );
+        expect(battleScreen.opponentKind, BattleOpponentKind.cpu);
+        expect(battleScreen.pvpSession, isNull);
+        expect(find.byKey(const Key('opponent-safety-menu')), findsNothing);
+        // やめた後は探さない
+        await tester.pump(const Duration(seconds: 10));
+        expect(server.joinCalls, hasLength(2));
+      });
+
+      testWidgets('探すのをやめる時に既に組み合わされていたら、その利用者との対戦に進む', (tester) async {
+        await pumpUntilSearchStarted(tester: tester);
+        // 3 秒の相手を探す呼び出しの後、5 秒でやめる前に組み合わされた
+        await tester.pump(const Duration(seconds: 4));
+        server.match();
+        await tester.pump(const Duration(milliseconds: 1100));
+        await tester.pump();
+
+        expect(server.leaveCalls, hasLength(1));
+        expect(find.text(l10n.generationTrainerAppeared), findsOneWidget);
+        await tester.pump(const Duration(seconds: 2));
+        await tester.pump(const Duration(seconds: 1));
+        expect(
+          tester.widget<BattleScreen>(find.byType(BattleScreen)).opponentKind,
+          BattleOpponentKind.pvp,
+        );
+      });
+
+      testWidgets('相手を探す呼び出しが失敗した時は、待たずに CPU トレーナーとの対戦に進む', (tester) async {
+        server.joinError = StateError('通信に失敗');
+        await pumpUntilSearchStarted(tester: tester);
+        await tester.pump(const Duration(milliseconds: 100));
+
+        expect(find.textContaining(RegExp(r'^CPU .+ があらわれた$')), findsOneWidget);
+        expect(find.text('Bad state: 通信に失敗'), findsNothing);
+        await tester.pump(const Duration(seconds: 2));
+        await tester.pump(const Duration(seconds: 1));
+        expect(
+          tester.widget<BattleScreen>(find.byType(BattleScreen)).opponentKind,
+          BattleOpponentKind.cpu,
+        );
+        await tester.pump(const Duration(seconds: 10));
+        expect(server.joinCalls, hasLength(1));
+      });
+
+      testWidgets('組み合わされた対戦を読めない時は、エラーをそのまま出して CPU の対戦に進めない', (tester) async {
+        await pumpUntilSearchStarted(tester: tester);
+        server
+          ..match()
+          ..deleteBattle();
+        await tester.pump(const Duration(seconds: 3));
+        await tester.pump();
+
+        expect(find.text('Bad state: 対戦を読み込めませんでした'), findsOneWidget);
+        expect(find.textContaining(RegExp(r'あらわれた$')), findsNothing);
+        await tester.pump(const Duration(seconds: 5));
+        expect(find.byType(BattleScreen), findsNothing);
+      });
+
+      testWidgets('探している間に画面を閉じたら、探すのをやめる', (tester) async {
+        await pumpUntilSearchStarted(tester: tester);
+        await tester.pump(const Duration(seconds: 1));
+
+        Navigator.of(tester.element(find.byType(GenerationScreen))).pop();
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 1));
+
+        expect(server.leaveCalls, hasLength(1));
+        await tester.pump(const Duration(seconds: 10));
+        expect(server.joinCalls, hasLength(1));
+        expect(find.byType(BattleScreen), findsNothing);
+      });
     });
   });
 }

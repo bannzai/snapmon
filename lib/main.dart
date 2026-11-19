@@ -19,6 +19,7 @@ import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/capture/photo_preparation.dart';
 import 'package:snapmon/features/capture/subject_mask.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/features/opponent/pvp_battle_client.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/session/session_store.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
@@ -197,6 +198,16 @@ Future<void> main() async {
         fetchProfile: fetchProfileWithFirebase,
         updateDisplayName: updateDisplayNameWithFirebase,
         updateIcon: updateProfileIconWithFirebase,
+        battleClient: PvpBattleClient(
+          signedInUid: signedInUidWithFirebase,
+          createSearchID: createPvpSearchID,
+          joinMatch: joinPvpMatchWithFirebase,
+          leaveMatch: leavePvpMatchWithFirebase,
+          watchBattle: watchPvpBattleWithFirebase,
+          submitAction: submitPvpActionWithFirebase,
+          claimTimeout: claimPvpTimeoutWithFirebase,
+          reportResult: reportPvpResultWithFirebase,
+        ),
       ),
       monsterGenerator: MonsterGenerator(
         listCameras: availableCameras,

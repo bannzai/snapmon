@@ -24,6 +24,7 @@ import '../../monster_ui/move_card.dart';
 import '../../monster_ui/trainer_icon.dart';
 import '../dex/owned_monster.dart';
 import '../help/help_screen.dart';
+import '../opponent/pvp_battle_session.dart';
 import '../opponent/pvp_client.dart';
 import '../reference/move_detail_screen.dart';
 import '../settings/settings_screen.dart';
@@ -40,7 +41,8 @@ enum BattleScreenAction {
   /// 図鑑のシーンを開く (勝敗の画面の「図鑑を見る」)。
   openDex,
 
-  /// 乱数で決めた別の CPU の相手ともう一度戦う (勝敗の画面の「もう一回対戦する」)。
+  /// 同じ種類の相手ともう一度戦う (勝敗の画面の「もう一回対戦する」)。CPU との対戦の後は乱数で決めた別の CPU の相手と、
+  /// 人との対戦の後は相手を探し直して戦う。
   rematch,
 }
 
@@ -49,8 +51,8 @@ enum BattleOpponentKind {
   /// CPU トレーナー。
   cpu,
 
-  /// 他のユーザーの手持ち (非同期 PvP。相手の行動は CPU の規則で決める)。本人の操作なしに他人の手持ちを CPU に操作させないため、
-  /// 今はどの画面も使わない (issue #130。PvP の次の形は documents/DIRECTION.md の 2026-10-31 の行で判断待ち)。
+  /// 他の利用者 (人との対戦。同じ時に相手を探していた利用者と組み合わされ、互いに自分の端末で行動を選ぶ。issue #386)。
+  /// 2026-10-31 までに送った `pvp` は、他の利用者の手持ちを CPU の規則で動かす対戦 (issue #130 で無くした) の値。
   pvp,
 }
 
@@ -108,6 +110,10 @@ const double _battleLogGapBesideCard = 8;
 /// 2 枚のカードは横に重なる (幅 390 では 20 + 190 + 190 + 20 = 420 に足りない) ため、上下に空ける最小の間を、ログの帯とカードの間と揃えた
 const double _stackedStatusCardGap = 8;
 
+/// 人との対戦で、行動を選ぶ残り時間をログの帯に出し始める秒数。
+/// 技のボタン 4 つの相性と数値を見比べて 1 つ選び直せる長さを残し、それより前は直前のターンのログを読めるよう帯に残す。
+const int _turnTimeWarningSeconds = 15;
+
 /// 技のボタン (と勝敗) の欄に使う画面の高さの割合の上限。
 /// 0.6 は 390×844 で勝敗・カード・ボタンが全部収まり、フィールドの相手のカードが隠れない割合にした
 const double _commandsPanelMaxHeightRatio = 0.6;
@@ -139,6 +145,7 @@ const double _landscapeBattleFieldGap = 8;
 
 /// バトル画面 (モックの Battle.dc.html)。フィールドは Flame の [BattleFieldGame]、名前・HP・技のボタン・ログの帯・勝敗は Flutter で描く。
 /// 技を選ぶと CPU の行動と合わせて 1 ラウンド (両陣営 1 ターンずつ) を [advanceRound] で解決し、増えたバトルのログを 1 件ずつ演出して見せる。
+/// 人との対戦 ([pvpSession]) では、自分の行動を出して相手の行動を待ち、2 人の行動がそろってからラウンドを解決する。
 /// 決着がつくと勝敗と、戦闘に出た自分のモンスターのレベルの上がり方を出し、Functions に結果を記録して Analytics にバトル完了を送る。
 class BattleScreen extends StatefulWidget {
   /// [playerParty] と [opponentParty] (それぞれ 1〜3 体) のバトル画面を作る。
@@ -147,6 +154,8 @@ class BattleScreen extends StatefulWidget {
     required this.playerParty,
     required this.opponentParty,
     required this.opponentKind,
+    required this.pvpSession,
+    required this.opponentSafetyMenuBuilder,
     required this.definitions,
     required this.randomSeed,
     required this.battleRecorder,
@@ -162,7 +171,8 @@ class BattleScreen extends StatefulWidget {
   /// ログインが無い時 (DEBUG ビルドでログインを飛ばした時) と読めなかった時は null で、出さない (バトルは止めない)。
   final PlayerProfile? playerProfile;
 
-  /// 相手の表示名。相手の情報カードの上に出す。相手は CPU トレーナーだけでアイコンが無く、既定の印を描く。
+  /// 相手の表示名。相手の情報カードの上に出す。CPU トレーナーはアイコンが無く既定の印を描き、
+  /// 人との対戦の相手は登録したアイコン ([pvpSession] の相手のアイコン) を描く。
   final String opponentDisplayName;
 
   /// [firstBattleBornMonster] がこの導線で新しく生まれたか。同じ被写体でもう図鑑にいたモンスターで戦う時は false で、
@@ -180,7 +190,18 @@ class BattleScreen extends StatefulWidget {
   /// 相手の手持ち。
   final List<OwnedMonster> opponentParty;
 
-  /// 相手の種類 (バトル完了の計測に付ける)。
+  /// 人との対戦の同期。相手の行動を、この端末の CPU の規則ではなく相手の利用者が選ぶ時に渡す (その時の [opponentKind] は
+  /// [BattleOpponentKind.pvp])。null の時は相手の行動を CPU の規則で決める。null 以外の時は、[playerParty]・[opponentParty] に
+  /// 組み合わせた時点の 2 人の手持ちの写し ([PvpBattleSession.player]・[PvpBattleSession.opponent] のモンスター) を渡す
+  /// (2 人の端末が同じ入力から計算するため)。この画面が始め、閉じる時に止める。
+  final PvpBattleSession? pvpSession;
+
+  /// 相手の通報・ブロックのメニュー (ストアの UGC 要件) を作る。人との対戦の時だけ渡し、ログの帯の右端に出す。CPU との対戦は null。
+  /// [revealedOpponentMonsters] は相手の手持ちのうち場に出たことがあるモンスターで、通報の対象にする (控えの手持ちをメニューで見せないため)。
+  final Widget Function({required List<OwnedMonster> revealedOpponentMonsters})?
+  opponentSafetyMenuBuilder;
+
+  /// 相手の種類。バトル完了の計測に付け、[BattleOpponentKind.cpu] の時だけ相手のダメージと最大 HP に CPU の補正を掛ける。
   final BattleOpponentKind opponentKind;
 
   /// 属性・技・エフェクトの定義。
@@ -250,8 +271,14 @@ class _BattleScreenState extends State<BattleScreen>
   /// 文言そのものではなく作り方を持つ。
   late String Function(AppLocalizations l10n) _logText;
 
-  /// 演出を再生しているか。再生中は技・交代を押せない。
+  /// 演出を再生しているか。再生中は技・交代を押せない。人との対戦で相手の行動を待っている間も true にする。
   bool _isPlaying = false;
+
+  /// 人との対戦で、自分の行動を出して相手の行動を待っているか。待っている間はログの帯にそのことを出す。
+  bool _isWaitingForOpponent = false;
+
+  /// 計算の決着の前に人との対戦が終わった時の終わり方。演出の途中に届いた分を、演出が終わってから出すために持つ。
+  PvpBattleInterruption? _pendingPvpInterruption;
 
   /// startBattle の呼び出し。決着の後に battleID を受け取って recordBattle に使う。
   late final Future<String?> _battleRecordStart;
@@ -296,7 +323,7 @@ class _BattleScreenState extends State<BattleScreen>
           maximumHitPointsPercent: maximumHitPointsPercent,
         ),
     ];
-    // PvP の相手は他のユーザーが育てたモンスターで、表示するレベルどおりの強さで戦わせるため、ダメージも最大 HP も補正しない
+    // 人との対戦の相手は他の利用者が育てたモンスターで、表示するレベルどおりの強さで戦わせるため、ダメージも最大 HP も補正しない
     final isCpu = widget.opponentKind == BattleOpponentKind.cpu;
     _battleState = startBattle(
       playerMembers: prepare(
@@ -308,7 +335,8 @@ class _BattleScreenState extends State<BattleScreen>
         maximumHitPointsPercent: isCpu ? cpuHitPointsPercent : 100,
       ),
       randomSeed: widget.randomSeed,
-      battleDate: DateTime.now(),
+      // 人との対戦は、2 人の端末の時計に関係なく同じ計算にするため、サーバーが決めた対戦日を使う
+      battleDate: widget.pvpSession?.battleDate ?? DateTime.now(),
       opponentDamagePercent: isCpu ? cpuDamagePercent : 100,
     );
     _displayedActiveMembers = _activeMembersOf(state: _battleState);
@@ -360,6 +388,10 @@ class _BattleScreenState extends State<BattleScreen>
     );
     // 決着の前に失敗しても、ここでは扱わず決着の後に出す (未処理の例外として報告させないため)
     _battleRecordStart.ignore();
+    if (widget.pvpSession case final pvpSession?) {
+      pvpSession.start();
+      unawaited(pvpSession.interruption.then(_onPvpBattleInterrupted));
+    }
   }
 
   /// 幅の上限の内側では MediaQuery が変わらないリサイズでも、元のウィンドウで配置を判定し直す。
@@ -371,6 +403,7 @@ class _BattleScreenState extends State<BattleScreen>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    widget.pvpSession?.dispose();
     for (final artImage in _loadedArtImages) {
       artImage.dispose();
     }
@@ -413,19 +446,45 @@ class _BattleScreenState extends State<BattleScreen>
       side: state.partyOf(side: side).activeMember,
   };
 
-  /// [playerAction] と CPU の行動で 1 ラウンド (両陣営 1 ターンずつ) を進め、増えたログを順に演出する。決着がついたら [_finishBattle] に進む。
+  /// [playerAction] と相手の行動で 1 ラウンド (両陣営 1 ターンずつ) を進め、増えたログを順に演出する。決着がついたら [_concludeBattle] に進む。
+  /// 相手の行動は、CPU との対戦では [chooseCpuAction] で決め、人との対戦では相手が選ぶのを待つ
+  /// (待つ間に対戦が終わった時は進めず、終わり方を [_settleInterruptedPvpBattle] が出す)。
   Future<void> _selectAction({required BattleAction playerAction}) async {
     final previousState = _battleState;
-    final nextState = advanceRound(
-      state: previousState,
-      playerAction: playerAction,
-      opponentAction: chooseCpuAction(
+    final BattleState nextState;
+    if (widget.pvpSession case final pvpSession?) {
+      setState(() {
+        _isPlaying = true;
+        _isWaitingForOpponent = true;
+      });
+      final resolvedState = await pvpSession.advance(
         state: previousState,
-        side: BattleSideID.opponent,
+        playerAction: playerAction,
+      );
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _isWaitingForOpponent = false;
+        _isPlaying = resolvedState != null;
+      });
+      if (resolvedState == null) {
+        await _settleInterruptedPvpBattle();
+        return;
+      }
+      nextState = resolvedState;
+    } else {
+      nextState = advanceRound(
+        state: previousState,
+        playerAction: playerAction,
+        opponentAction: chooseCpuAction(
+          state: previousState,
+          side: BattleSideID.opponent,
+          master: widget.definitions,
+        ),
         master: widget.definitions,
-      ),
-      master: widget.definitions,
-    );
+      );
+    }
     setState(() {
       _battleState = nextState;
       _isPlaying = true;
@@ -449,18 +508,101 @@ class _BattleScreenState extends State<BattleScreen>
       _isPlaying = false;
     });
     if (nextState.winner != null) {
-      // 決着の曲は無いため BGM を止め、勝敗の効果音だけを鳴らす (画面を閉じるとホームの画面の曲に戻る)
-      unawaited(_gameAudio.stopBackgroundMusic());
-      unawaited(
-        _gameAudio.playSoundEffect(
-          effect: nextState.winner == BattleSideID.player
-              ? SoundEffect.victory
-              : SoundEffect.defeat,
-        ),
-      );
-      await _finishBattle(finishedState: nextState);
+      await _concludeBattle(finishedState: nextState);
+      return;
+    }
+    await _settleInterruptedPvpBattle();
+  }
+
+  /// 決着した [finishedState] の勝敗の効果音を鳴らし、結果を記録する ([_finishBattle])。
+  Future<void> _concludeBattle({required BattleState finishedState}) async {
+    // 決着の曲は無いため BGM を止め、勝敗の効果音だけを鳴らす (画面を閉じるとホームの画面の曲に戻る)
+    unawaited(_gameAudio.stopBackgroundMusic());
+    unawaited(
+      _gameAudio.playSoundEffect(
+        effect: finishedState.winner == BattleSideID.player
+            ? SoundEffect.victory
+            : SoundEffect.defeat,
+      ),
+    );
+    await _finishBattle(finishedState: finishedState);
+  }
+
+  /// 計算の決着の前に人との対戦が終わった ([PvpBattleSession.interruption]) 時に、その終わり方 [interruption] を受け取る。
+  /// 演出の途中なら演出が終わってから、そうでなければすぐに [_settleInterruptedPvpBattle] で出す。
+  void _onPvpBattleInterrupted(PvpBattleInterruption interruption) {
+    if (!mounted) {
+      return;
+    }
+    _pendingPvpInterruption = interruption;
+    if (!_isPlaying) {
+      unawaited(_settleInterruptedPvpBattle());
     }
   }
+
+  /// 受け取ってある終わり方 ([_pendingPvpInterruption]) で人との対戦を終える。受け取っていない時と、計算で決着した後は何もしない。
+  /// 行動の期限を過ぎて勝った陣営がある時は、その陣営の勝ちとして決着させて勝敗の画面に進む ([finishBattleByForfeit])。
+  /// 勝敗を付けずに終わった時 (どちらも選ばなかった・ブロックした・2 人の勝者が食い違った) は、そのことを知らせて画面を閉じる (結果を記録しない)。
+  Future<void> _settleInterruptedPvpBattle() async {
+    final interruption = _pendingPvpInterruption;
+    if (interruption == null || _battleState.winner != null) {
+      return;
+    }
+    _pendingPvpInterruption = null;
+    final winner = interruption.winner;
+    if (winner == null) {
+      // 交代のシートを開いたまま終わった時も、シートではなくこの画面まで閉じる
+      final battleRoute = ModalRoute.of(context);
+      // 閉じるまでの間に技を選ばせない
+      setState(() => _isPlaying = true);
+      await showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (dialogContext) => AlertDialog(
+          title: Text(dialogContext.l10n.battleNoContestTitle),
+          content: Text(dialogContext.l10n.battleNoContestMessage),
+          actions: [
+            TextButton(
+              key: const Key('battle-no-contest-close'),
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              child: Text(dialogContext.l10n.commonClose),
+            ),
+          ],
+        ),
+      );
+      if (mounted) {
+        Navigator.of(context)
+          ..popUntil((route) => route == battleRoute)
+          ..pop();
+      }
+      return;
+    }
+    final finishedState = finishBattleByForfeit(
+      state: _battleState,
+      winner: winner,
+    );
+    setState(() {
+      _battleState = finishedState;
+      _logText = (l10n) => switch (winner) {
+        BattleSideID.player => l10n.battleLogOpponentTimedOut,
+        BattleSideID.opponent => l10n.battleLogPlayerTimedOut,
+      };
+    });
+    await _concludeBattle(finishedState: finishedState);
+  }
+
+  /// 相手の手持ちのうち、場に出たことがあるモンスター (先頭のモンスターと、交代で場に出たモンスター)。通報の対象にする。
+  List<OwnedMonster> get _revealedOpponentMonsters => [
+    for (final (index, monster) in widget.opponentParty.indexed)
+      if (index == 0 ||
+          _battleState.events.any(
+            (event) =>
+                event is MonsterSwitchedInEvent &&
+                event.side == BattleSideID.opponent &&
+                event.monsterID == monster.definition.id,
+          ))
+        monster,
+  ];
 
   /// 手持ちの交代できるモンスター ([switchableMemberIndices]) をシートで選ばせ、選んだら交代の行動でラウンドを進める。
   /// シートを閉じただけの時は何もしない。
@@ -1432,7 +1574,6 @@ class _BattleScreenState extends State<BattleScreen>
           cardSharer: widget.cardSharer,
           firstBattleBornMonster: widget.firstBattleBornMonster,
           firstBattleMonsterIsNewlyBorn: widget.firstBattleMonsterIsNewlyBorn,
-          opponentKind: widget.opponentKind,
           canRematch: _hasFinishedRecording,
         )
       : _buildCommands(
@@ -1442,21 +1583,48 @@ class _BattleScreenState extends State<BattleScreen>
         );
 
   /// ログの帯 (今のログの文言を出す暗い地の帯)。幅は親の幅いっぱいにする。
+  /// 人との対戦では、相手を待っていること・行動を選ぶ残り時間が少ないことを文言の代わりに出し、右端に相手の通報・ブロックのメニューを出す
+  /// (帯はどの配置でも画面に出ていて、決着の後も残るため、相手の絵と名前が出ている間はいつでも通報・ブロックできる)。
   Widget _buildBattleLog({required BuildContext context}) => DecoratedBox(
     decoration: const BoxDecoration(
       color: SnapmonColors.scrim,
       borderRadius: SnapmonRadii.button,
     ),
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-      child: SizedBox(
-        width: double.infinity,
-        child: Text(
-          _logText(context.l10n),
-          key: const Key('battle-log'),
-          style: SnapmonTextStyles.body,
+    // メニューのボタン (高さ 44) を文言の余白の外に置き、1 行の帯の高さ (40) をほぼ変えない
+    child: Row(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            child: switch (widget.pvpSession) {
+              null => Text(
+                _logText(context.l10n),
+                key: const Key('battle-log'),
+                style: SnapmonTextStyles.body,
+              ),
+              final pvpSession? => ValueListenableBuilder(
+                valueListenable: pvpSession.remainingSeconds,
+                builder: (context, remainingSeconds, _) => Text(
+                  _isWaitingForOpponent
+                      ? context.l10n.battleLogWaitingForOpponent
+                      : !_isPlaying &&
+                            _battleState.winner == null &&
+                            remainingSeconds <= _turnTimeWarningSeconds
+                      ? context.l10n.battleLogTurnTimeRemaining(
+                          remainingSeconds,
+                        )
+                      : _logText(context.l10n),
+                  key: const Key('battle-log'),
+                  style: SnapmonTextStyles.body,
+                ),
+              ),
+            },
+          ),
         ),
-      ),
+        ?widget.opponentSafetyMenuBuilder?.call(
+          revealedOpponentMonsters: _revealedOpponentMonsters,
+        ),
+      ],
     ),
   );
 
@@ -1519,7 +1687,7 @@ class _BattleScreenState extends State<BattleScreen>
             child: _TrainerLabelPlate(
               key: const Key('battle-opponent-trainer'),
               displayName: widget.opponentDisplayName,
-              iconPath: null,
+              iconPath: widget.pvpSession?.opponent.iconPath,
             ),
           ),
         ),
@@ -1712,7 +1880,6 @@ class _BattleResultPanel extends StatelessWidget {
     required this.cardSharer,
     required this.firstBattleBornMonster,
     required this.firstBattleMonsterIsNewlyBorn,
-    required this.opponentKind,
     required this.canRematch,
   });
 
@@ -1725,10 +1892,6 @@ class _BattleResultPanel extends StatelessWidget {
       : null;
 
   final BattleSideID winner;
-
-  /// 相手が CPU トレーナーか他のユーザーか ([BattleScreen.opponentKind])。「もう一回対戦する」は乱数で選び直した CPU トレーナーと戦うため、
-  /// CPU トレーナーとの対戦の時だけ出す。
-  final BattleOpponentKind opponentKind;
 
   /// 初回の 1 戦で生まれたモンスター ([BattleScreen.firstBattleBornMonster])。それ以外の対戦は null。
   final OwnedMonster? firstBattleBornMonster;
@@ -1917,12 +2080,7 @@ class _BattleResultPanel extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        if (bornMonster == null && opponentKind != BattleOpponentKind.cpu)
-          FilledButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(context.l10n.commonBack),
-          )
-        else if (bornMonster == null)
+        if (bornMonster == null)
           Row(
             children: [
               Expanded(

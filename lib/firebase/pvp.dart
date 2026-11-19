@@ -6,18 +6,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';
 
+import '../domain/battle/battle_state.dart';
 import '../domain/master/master_data.dart';
+import '../features/opponent/pvp_battle.dart';
 import '../features/opponent/pvp_client.dart';
 import '../features/opponent/pvp_opponent.dart';
 import '../features/opponent/report_reason.dart';
 import '../master/master_repository.dart';
 import 'session.dart';
 
-// 非同期 PvP の Functions (functions/src/pvp.ts) の呼び出しと、自分の戦績の読み込み。
+// 他の利用者との対戦の Functions (functions/src/pvp.ts・pvp_battle.ts) の呼び出しと、人との対戦の状態・自分の戦績の読み込み。
 
 /// ログインしていれば、その uid を返す。無ければ null
 /// (Functions と Rules がログインの無い呼び出しを拒否するため。DEBUG ビルドでログインを飛ばした時に当たる)。
-String? _signedInUid() => FirebaseAuth.instance.currentUser?.uid;
+String? signedInUidWithFirebase() => FirebaseAuth.instance.currentUser?.uid;
 
 /// Functions の callable [name] を [data] で呼び、返った値を返す。
 Future<Map<Object?, Object?>> _call({
@@ -31,7 +33,7 @@ Future<Map<Object?, Object?>> _call({
 
 /// Functions の fetchOpponents を呼び、相手の候補を返す。ログインが無い時は呼ばずに null を返す。
 Future<List<PvpOpponent>?> fetchPvpOpponentsWithFirebase() async {
-  if (_signedInUid() == null) {
+  if (signedInUidWithFirebase() == null) {
     return null;
   }
   final result = await _call(name: 'fetchOpponents', data: null);
@@ -97,7 +99,7 @@ Future<void> blockUserWithFirebase({required String blockedUid}) =>
 /// 自分の `users/{uid}/battles` のうち、勝った・負けた記録の数を数えて返す (集計を Firestore に持たないため、数えるクエリで読む。
 /// .claude/rules/firestore.md)。ログインが無い時は null を返す。
 Future<({int wins, int losses})?> fetchBattleRecordWithFirebase() async {
-  final uid = _signedInUid();
+  final uid = signedInUidWithFirebase();
   if (uid == null) {
     return null;
   }
@@ -114,7 +116,7 @@ Future<({int wins, int losses})?> fetchBattleRecordWithFirebase() async {
 /// Functions の getDisplayName を呼び、自分の表示名とアイコンを返す。ログインが無い時は呼ばずに null を返す。
 /// iconPath を返さない古い Functions (アイコンを足す前の版) の応答は、アイコンの無いプロフィールとして読む。
 Future<PlayerProfile?> fetchProfileWithFirebase() async {
-  if (_signedInUid() == null) {
+  if (signedInUidWithFirebase() == null) {
     return null;
   }
   final result = await _call(name: 'getDisplayName', data: null);
@@ -127,7 +129,7 @@ Future<PlayerProfile?> fetchProfileWithFirebase() async {
 /// [photo] (JPEG) を Storage の `users/{uid}/iconUploads/{uploadID}` に置いてから Functions の setProfileIcon を呼び、
 /// 保存したアイコンのパスを返す。uploadID は呼ぶたびに作る (同じ写真を選び直しても、別のアイコンとして検査し直すため)。
 Future<String> updateProfileIconWithFirebase({required Uint8List photo}) async {
-  final uid = _signedInUid();
+  final uid = signedInUidWithFirebase();
   if (uid == null) {
     throw StateError('ログインしていないためアイコンを変えられません');
   }
@@ -151,3 +153,67 @@ Future<String> updateDisplayNameWithFirebase({
           data: {'displayName': displayName},
         ))['displayName']!
         as String;
+
+/// 人との対戦の相手を探す 1 回の操作の ID (UUID) を作る。
+String createPvpSearchID() => const Uuid().v4();
+
+/// Functions の joinPvpMatch を呼び、組み合わされた対戦の ID を返す。まだ組み合わされていなければ null。
+Future<String?> joinPvpMatchWithFirebase({
+  required String rulesVersion,
+  required String searchID,
+}) async =>
+    (await _call(
+          name: 'joinPvpMatch',
+          data: {'rulesVersion': rulesVersion, 'searchID': searchID},
+        ))['battleID']
+        as String?;
+
+/// Functions の leavePvpMatch を呼び、やめる前に組み合わされていた対戦の ID を返す。組み合わされていなければ null。
+Future<String?> leavePvpMatchWithFirebase({required String searchID}) async =>
+    (await _call(
+          name: 'leavePvpMatch',
+          data: {'searchID': searchID},
+        ))['battleID']
+        as String?;
+
+/// Firestore の `pvpBattles/{battleID}` の今の状態と、その後の変化を流す。ドキュメントが無い時は null を流す。
+Stream<PvpBattle?> watchPvpBattleWithFirebase({required String battleID}) =>
+    FirebaseFirestore.instance
+        .doc('pvpBattles/$battleID')
+        .snapshots()
+        .map(
+          (snapshot) => switch (snapshot.data()) {
+            null => null,
+            final battleJson => PvpBattle.fromJson(
+              battleID: battleID,
+              json: _toJson(battleJson)! as Map<String, dynamic>,
+            ),
+          },
+        );
+
+/// Functions の submitPvpAction を呼び、対戦 [battleID] の [round] 番目のターンに自分の行動 [action] を出す。
+Future<void> submitPvpActionWithFirebase({
+  required String battleID,
+  required int round,
+  required BattleAction action,
+}) => _call(
+  name: 'submitPvpAction',
+  data: {
+    'battleID': battleID,
+    'round': round,
+    'action': battleActionToJson(action: action),
+  },
+);
+
+/// Functions の claimPvpTimeout を呼び、対戦 [battleID] の今のターンを時間切れとして終えるよう頼む。
+Future<void> claimPvpTimeoutWithFirebase({required String battleID}) =>
+    _call(name: 'claimPvpTimeout', data: {'battleID': battleID});
+
+/// Functions の reportPvpResult を呼び、対戦 [battleID] の自分の計算の勝者 [winnerUid] (決着していなければ null) を報告する。
+Future<void> reportPvpResultWithFirebase({
+  required String battleID,
+  required String? winnerUid,
+}) => _call(
+  name: 'reportPvpResult',
+  data: {'battleID': battleID, 'winnerUid': winnerUid},
+);

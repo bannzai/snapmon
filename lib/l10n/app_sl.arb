@@ -41,7 +41,6 @@
   "opponentSearching": "Iščemo trenerja",
   "opponentSearchAgain": "Poišči znova",
   "opponentNoneAvailable": "Trenutno ni trenerja, s katerim bi se boril\nLahko se boriš s CPU-trenerjem",
-  "opponentRandomBattle": "Bori se z naključnim nasprotnikom",
   "opponentCpuBattle": "Bori se proti CPU",
   "settingsLinked": "Povezano s {providerName}",
   "settingsSwitchAccountTitle": "Želiš preklopiti na povezani račun?",

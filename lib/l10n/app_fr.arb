@@ -41,7 +41,6 @@
   "opponentSearching": "Recherche d’un dresseur",
   "opponentSearchAgain": "Chercher encore",
   "opponentNoneAvailable": "Aucun dresseur à affronter pour le moment\nTu peux affronter un dresseur CPU",
-  "opponentRandomBattle": "Affronter un adversaire au hasard",
   "opponentCpuBattle": "Affronter le CPU",
   "settingsLinked": "Ton compte est lié à {providerName}",
   "settingsSwitchAccountTitle": "Tu veux passer à ton compte déjà associé ?",

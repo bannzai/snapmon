@@ -7,6 +7,7 @@ import 'package:snapmon/features/opponent/pvp_opponent.dart';
 
 import '../../monster_generator_fixture.dart';
 import '../../sample_data_fixture.dart';
+import '../../pvp_battle_fixture.dart';
 
 void main() {
   final sampleData = loadSampleDataFixture();
@@ -23,6 +24,7 @@ void main() {
         );
       var fetchOpponentsCount = 0;
       final pvpClient = PvpClient(
+        battleClient: signedOutPvpBattleClient(),
         fetchOpponents: () async {
           fetchOpponentsCount++;
           return [
@@ -89,6 +91,7 @@ void main() {
       final opponent = await prepareFirstBattleOpponent(
         dexStore: dexStore,
         pvpClient: PvpClient(
+          battleClient: signedOutPvpBattleClient(),
           fetchOpponents: () => throw StateError('fetchOpponents は呼ばない'),
           fetchDefinitions: ({required base, required definitionIDs}) =>
               throw StateError('fetchDefinitions は呼ばない'),

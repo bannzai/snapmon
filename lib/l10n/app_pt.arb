@@ -41,7 +41,6 @@
   "opponentSearching": "Procurando um treinador",
   "opponentSearchAgain": "Buscar de novo",
   "opponentNoneAvailable": "Não há treinador disponível para batalhar agora\nVocê pode batalhar com um treinador CPU",
-  "opponentRandomBattle": "Batalhe contra um adversário aleatório",
   "opponentCpuBattle": "Enfrente o CPU",
   "settingsLinked": "Conectado ao {providerName}",
   "settingsSwitchAccountTitle": "Quer mudar para a conta vinculada?",

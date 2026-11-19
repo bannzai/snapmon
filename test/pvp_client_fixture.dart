@@ -1,9 +1,12 @@
 import 'dart:typed_data';
 
 import 'package:snapmon/domain/master/master_data.dart';
+import 'package:snapmon/features/opponent/pvp_battle_client.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/opponent/pvp_opponent.dart';
 import 'package:snapmon/features/opponent/report_reason.dart';
+
+import 'pvp_battle_fixture.dart';
 
 /// テスト用の [PvpClient] が受け取った呼び出し。
 class RecordedPvpCalls {
@@ -31,8 +34,10 @@ class RecordedPvpCalls {
 /// fetchOpponents は [fetchOpponents] の結果を、fetchDefinitions は base に [extraDefinitions] を足した定義を返す
 /// ([extraDefinitions] が null なら base のまま)。戦績とプロフィールは [battleRecord]・[profile] を返し、
 /// 通報・ブロック・表示名とアイコンの変更は [reportMonster]・[blockUser]・[updateDisplayName]・[updateIcon] を呼ぶ。
+/// 人との対戦の組み合わせと同期は [battleClient] に任せる (人との対戦をしないテストは [signedOutPvpBattleClient])。
 PvpClient fakePvpClient({
   required RecordedPvpCalls calls,
+  required PvpBattleClient battleClient,
   required Future<List<PvpOpponent>?> Function() fetchOpponents,
   required MasterData? extraDefinitions,
   required ({int wins, int losses})? battleRecord,
@@ -76,12 +81,14 @@ PvpClient fakePvpClient({
     calls.updatedIconPhotos.add(photo);
     return updateIcon(photo: photo);
   },
+  battleClient: battleClient,
 );
 
 /// ログインが無い時の [PvpClient] (相手・戦績・プロフィールは null で、見本の対戦相手を代わりに出す)。
 PvpClient signedOutPvpClient({required RecordedPvpCalls calls}) =>
     fakePvpClient(
       calls: calls,
+      battleClient: signedOutPvpBattleClient(),
       fetchOpponents: () async => null,
       extraDefinitions: null,
       battleRecord: null,

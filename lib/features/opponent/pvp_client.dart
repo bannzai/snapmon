@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import '../../domain/master/master_data.dart';
+import 'pvp_battle_client.dart';
 import 'pvp_opponent.dart';
 import 'report_reason.dart';
 
@@ -13,7 +14,7 @@ typedef PlayerProfile = ({
   String? iconPath,
 });
 
-/// 非同期 PvP の相手の取得・通報・ブロック・戦績・プロフィール (表示名とアイコン) を呼ぶ関数の組。
+/// 他の利用者との対戦に関わる、相手の取得・人との対戦の同期・通報・ブロック・戦績・プロフィール (表示名とアイコン) を呼ぶ関数の組。
 /// 対戦相手と設定の画面を Firebase と切り離してテストするため、実体 (lib/firebase/pvp.dart) は main.dart から渡す。
 /// ログインが無い時 (DEBUG ビルドでログインを飛ばした時) に null を返す関数は、その旨を各関数に書く。
 class PvpClient {
@@ -27,7 +28,11 @@ class PvpClient {
     required this.fetchProfile,
     required this.updateDisplayName,
     required this.updateIcon,
+    required this.battleClient,
   });
+
+  /// 人との対戦 (互いに自分の端末で行動を選ぶ対戦) の組み合わせと同期を呼ぶ関数の組。
+  final PvpBattleClient battleClient;
 
   /// 相手の候補 (最大 3 人。手持ちの平均レベルが自分に近い順) を返す。ログインが無い時は null。
   final Future<List<PvpOpponent>?> Function() fetchOpponents;

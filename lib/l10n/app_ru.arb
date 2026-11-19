@@ -41,7 +41,6 @@
   "opponentSearching": "Ищем тренера",
   "opponentSearchAgain": "Искать снова",
   "opponentNoneAvailable": "Сейчас нет тренера, с которым можно сразиться\nТы можешь сразиться с CPU-тренером",
-  "opponentRandomBattle": "Сразись со случайным соперником",
   "opponentCpuBattle": "Сразись с CPU",
   "settingsLinked": "Подключено к {providerName}",
   "settingsSwitchAccountTitle": "Хочешь переключиться на привязанный аккаунт?",

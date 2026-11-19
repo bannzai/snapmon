@@ -41,7 +41,6 @@
   "opponentSearching": "ٹرینر کی تلاش جاری ہے",
   "opponentSearchAgain": "پھر سے ڈھونڈو",
   "opponentNoneAvailable": "ابھی لڑنے کے لیے کوئی ٹرینر نہیں ہے\nتم CPU ٹرینر سے لڑ سکتے ہو",
-  "opponentRandomBattle": "کسی بھی بے ترتیب حریف سے لڑو",
   "opponentCpuBattle": "CPU سے لڑو",
   "settingsLinked": "{providerName} سے منسلک ہو گیا",
   "settingsSwitchAccountTitle": "کیا تم منسلک اکاؤنٹ پر جانا چاہتے ہو؟",

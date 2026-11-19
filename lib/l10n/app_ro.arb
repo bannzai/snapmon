@@ -41,7 +41,6 @@
   "opponentSearching": "Se caută un antrenor",
   "opponentSearchAgain": "Caută din nou",
   "opponentNoneAvailable": "Acum nu e niciun antrenor disponibil pentru luptă\nPoți lupta cu un antrenor CPU",
-  "opponentRandomBattle": "Luptă cu un adversar aleatoriu",
   "opponentCpuBattle": "Luptă cu CPU",
   "settingsLinked": "Conectat la {providerName}",
   "settingsSwitchAccountTitle": "Vrei să treci la contul conectat?",

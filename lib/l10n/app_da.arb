@@ -41,7 +41,6 @@
   "opponentSearching": "Leder efter en træner",
   "opponentSearchAgain": "Søg igen",
   "opponentNoneAvailable": "Der er ingen træner at kæmpe mod lige nu\nDu kan kæmpe mod en CPU-træner",
-  "opponentRandomBattle": "Kæmp mod en tilfældig modstander",
   "opponentCpuBattle": "Kæmp mod CPU",
   "settingsLinked": "Forbundet med {providerName}",
   "settingsSwitchAccountTitle": "Vil du skifte til den tilknyttede konto?",

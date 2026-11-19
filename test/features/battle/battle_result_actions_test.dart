@@ -64,7 +64,7 @@ void main() {
     required List<OwnedMonster> playerParty,
     required List<OwnedMonster> opponentParty,
     required OwnedMonster? firstBattleBornMonster,
-    // 既定は CPU: 今のアプリが開く対戦は CPU トレーナーとだけで、他のユーザーとの対戦を確かめるテストだけが替える
+    // 既定は CPU: 他の利用者との対戦 (相手の補正なし) を確かめるテストだけが替える
     BattleOpponentKind opponentKind = BattleOpponentKind.cpu,
     // 既定は記録しない対戦 (null): 決着の後の記録がすぐ終わり、記録の途中を確かめるテストだけが替える
     Future<String?> Function()? startBattleRecord,
@@ -100,6 +100,8 @@ void main() {
               playerParty: playerParty,
               opponentParty: opponentParty,
               opponentKind: opponentKind,
+              pvpSession: null,
+              opponentSafetyMenuBuilder: null,
               definitions: sampleData.definitions,
               randomSeed: 1,
               battleRecorder: fakeBattleRecorder(
@@ -297,8 +299,10 @@ void main() {
     expect(tester.widget<FilledButton>(rematch).onPressed, isNotNull);
   });
 
-  testWidgets('他のユーザーとの対戦の勝敗の画面は「もどる」だけを出し「もう一回対戦する」を出さない', (tester) async {
-    await pumpBattle(
+  testWidgets('他の利用者との対戦の勝敗の画面も「もどる」と「もう一回対戦する」を出し、押すと再戦の値で閉じる (issue #386)', (
+    tester,
+  ) async {
+    final poppedActions = await pumpBattle(
       tester: tester,
       playerParty: party(
         monsterIDs: strongMonsterIDs.take(1).toList(),
@@ -312,7 +316,11 @@ void main() {
       opponentKind: BattleOpponentKind.pvp,
     );
     await playUntilFinished(tester: tester, finishedButton: find.text('もどる'));
-    expect(find.byKey(const Key('battle-rematch')), findsNothing);
+    await tapAndClose(
+      tester: tester,
+      finder: find.byKey(const Key('battle-rematch')),
+    );
+    expect(poppedActions, [BattleScreenAction.rematch]);
   });
 
   testWidgets('初回の 1 戦の勝敗の画面は「図鑑を見る」「もう一回対戦する」「手持ちを増やす」を出し、押した方の値で閉じる', (

@@ -41,7 +41,6 @@
   "opponentSearching": "正在尋找訓練家",
   "opponentSearchAgain": "再找一次",
   "opponentNoneAvailable": "現在沒有可以對戰的訓練家\n你可以和 CPU 訓練家對戰",
-  "opponentRandomBattle": "挑戰隨機對手",
   "opponentCpuBattle": "與 CPU 對戰",
   "settingsLinked": "已連結 {providerName}",
   "settingsSwitchAccountTitle": "要切換到已連結的帳號嗎？",

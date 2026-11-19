@@ -19,15 +19,15 @@ import '../home/home_shell.dart';
 import '../result/result_screen.dart';
 import '../share/card_sharer.dart';
 import 'cpu_party.dart';
+import 'pvp_battle_start.dart';
 import 'pvp_client.dart';
 import 'random_cpu_battle.dart';
 
-/// 対戦の画面 (モックの Pvp.dc.html)。自分のアイコン・表示名と戦績、自分の手持ちを出し、「ランダムな相手と戦う」で
-/// 初回のバトルと同じ決め方 ([chooseRandomCpuOpponent]) で CPU の相手を決めて挑む。相手の一覧は出さない
-/// (対戦の相手は毎回ランダム。issue #217)。他のユーザーの手持ち (Functions の fetchOpponents) は相手にしない
-/// (本人の操作なしに他人の手持ちを CPU に操作させないため。issue #130)。
-/// 「CPU と戦う」は CPU との対戦の入口を「ランダムな相手と戦う」と分けて置いたもの (issue #347)。
-/// PvP の形が決まるまで相手は CPU だけのため、2 つの入口は同じ対戦に入る。
+/// 対戦の画面 (モックの Pvp.dc.html)。自分のアイコン・表示名と戦績、自分の手持ちを出し、対戦の入口を 2 つ置く (issue #386)。
+/// 「対戦をする」は、同じ時に相手を探している他の利用者と組み合わされ、互いに自分の端末で行動を選ぶ対戦に入る
+/// ([prepareMatchedBattleScreen])。「CPU と対戦をする」は、初回のバトルと同じ決め方 ([chooseRandomCpuOpponent]) で決めた
+/// CPU の相手との対戦に入る。相手の一覧は出さない (対戦の相手は毎回ランダム。issue #217)。
+/// 他の利用者の手持ちを本人の操作なしに CPU に操作させる対戦は置かない (issue #130)。
 class OpponentScreen extends StatefulWidget {
   /// 対戦相手の画面を作る。
   const OpponentScreen({
@@ -146,14 +146,15 @@ class _OpponentScreenState extends State<OpponentScreen> {
       ..showSnackBar(SnackBar(content: Text(message)));
   }
 
-  /// 乱数で決めた CPU の相手に挑む。挑んでいる間に呼ばれた時は何もしない。
-  Future<void> _challengeRandomOpponent() async {
+  /// 対戦に挑む。[matchesPlayer] が true なら他の利用者と組み合わされる対戦 (「対戦をする」) に、false なら CPU との対戦
+  /// (「CPU と対戦をする」) に挑む。挑んでいる間に呼ばれた時は何もしない。
+  Future<void> _challenge({required bool matchesPlayer}) async {
     if (_isChallenging) {
       return;
     }
     setState(() => _isChallenging = true);
     try {
-      await _prepareAndStartBattle();
+      await _prepareAndStartBattle(matchesPlayer: matchesPlayer);
     } finally {
       if (mounted) {
         setState(() => _isChallenging = false);
@@ -161,24 +162,44 @@ class _OpponentScreenState extends State<OpponentScreen> {
     }
   }
 
-  /// 乱数で決めた CPU の相手との対戦の画面 ([prepareRandomCpuBattleScreen]) を開き、閉じるまで待つ。
-  /// 勝敗の画面で「もう一回対戦する」を押して閉じた時は、別の相手との対戦の画面を続けて開く。
-  Future<void> _prepareAndStartBattle() async {
+  /// 対戦の画面を開き、閉じるまで待つ。[matchesPlayer] が true なら人との対戦の待つ画面から始める対戦
+  /// ([prepareMatchedBattleScreen]) を、false なら乱数で決めた CPU の相手との対戦 ([prepareRandomCpuBattleScreen]) を開く。
+  /// 待つ画面を「やめる」で閉じた時は何も開かない。
+  /// 勝敗の画面で「もう一回対戦する」を押して閉じた時は、終えた対戦と同じ種類の相手 (人との対戦の後は相手を探し直し、
+  /// CPU との対戦の後は別の CPU の相手) との対戦の画面を続けて開く。
+  Future<void> _prepareAndStartBattle({required bool matchesPlayer}) async {
+    final navigator = Navigator.of(context);
     // 前のバトルの画面の route。再戦の時はこれが閉じる演出を終えて破棄されるまで待ってから次を開く。待たずに開くと、
     // 新しいバトルの画面が BGM を流した後に前の画面の破棄がホームの BGM に戻し、2 戦目でホームの BGM が流れるため
     PageRoute<BattleScreenAction>? previousBattleRoute;
+    var matchesPlayerNext = matchesPlayer;
     while (true) {
       final BattleScreen battleScreen;
-      // 定義を読み直せない時はエラーをそのまま出す
+      // 定義・対戦を読めない時はエラーをそのまま出す
       try {
-        battleScreen = await prepareRandomCpuBattleScreen(
-          dexStore: widget.dexStore,
-          pvpClient: widget.pvpClient,
-          sampleData: widget.sampleData,
-          battleRecorder: widget.battleRecorder,
-          cardSharer: widget.cardSharer,
-          playerProfile: _playerProfile,
-        );
+        final preparedBattleScreen = matchesPlayerNext
+            ? await prepareMatchedBattleScreen(
+                navigator: navigator,
+                dexStore: widget.dexStore,
+                pvpClient: widget.pvpClient,
+                sampleData: widget.sampleData,
+                battleRecorder: widget.battleRecorder,
+                cardSharer: widget.cardSharer,
+                playerProfile: _playerProfile,
+              )
+            : await prepareRandomCpuBattleScreen(
+                dexStore: widget.dexStore,
+                pvpClient: widget.pvpClient,
+                sampleData: widget.sampleData,
+                battleRecorder: widget.battleRecorder,
+                cardSharer: widget.cardSharer,
+                playerProfile: _playerProfile,
+              );
+        // 待つ画面を「やめる」で閉じた
+        if (preparedBattleScreen == null) {
+          return;
+        }
+        battleScreen = preparedBattleScreen;
       } catch (error) {
         if (mounted) {
           _showMessage(message: error.toString());
@@ -194,7 +215,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
         builder: (context) => battleScreen,
       );
       previousBattleRoute = battleRoute;
-      final action = await Navigator.of(context).push(battleRoute);
+      final action = await navigator.push(battleRoute);
       unawaited(_loadBattleRecord());
       if (action == BattleScreenAction.openDex) {
         widget.onSelectScene(scene: HomeScene.dex);
@@ -202,6 +223,7 @@ class _OpponentScreenState extends State<OpponentScreen> {
       if (action != BattleScreenAction.rematch || !mounted) {
         return;
       }
+      matchesPlayerNext = battleScreen.pvpSession != null;
     }
   }
 
@@ -365,15 +387,19 @@ class _OpponentScreenState extends State<OpponentScreen> {
           ],
           const SizedBox(height: 20),
           FilledButton.icon(
-            key: const Key('random-battle'),
-            onPressed: canChallenge ? _challengeRandomOpponent : null,
-            icon: const Icon(Icons.shuffle),
-            label: Text(context.l10n.opponentRandomBattle),
+            key: const Key('pvp-battle'),
+            onPressed: canChallenge
+                ? () => _challenge(matchesPlayer: true)
+                : null,
+            icon: const Icon(Icons.people_alt_outlined),
+            label: Text(context.l10n.opponentPvpBattle),
           ),
           const SizedBox(height: 12),
           OutlinedButton.icon(
             key: const Key('cpu-battle'),
-            onPressed: canChallenge ? _challengeRandomOpponent : null,
+            onPressed: canChallenge
+                ? () => _challenge(matchesPlayer: false)
+                : null,
             icon: const Icon(Icons.smart_toy_outlined),
             label: Text(context.l10n.opponentCpuBattle),
           ),

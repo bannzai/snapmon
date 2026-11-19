@@ -41,7 +41,6 @@
   "opponentSearching": "ટ્રેનર શોધાઈ રહ્યો છે",
   "opponentSearchAgain": "ફરી શોધો",
   "opponentNoneAvailable": "અત્યારે લડવા માટે કોઈ ટ્રેનર નથી\nતમે CPU ટ્રેનર સાથે લડી શકો છો",
-  "opponentRandomBattle": "રેન્ડમ હરીફ સામે લડો",
   "opponentCpuBattle": "CPU સામે લડો",
   "settingsLinked": "{providerName} સાથે જોડાઈ ગયું",
   "settingsSwitchAccountTitle": "શું તમે લિંક કરેલા એકાઉન્ટ પર સ્વિચ કરવા માંગો છો?",

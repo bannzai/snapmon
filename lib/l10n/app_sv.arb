@@ -41,7 +41,6 @@
   "opponentSearching": "Letar efter en tränare",
   "opponentSearchAgain": "Sök igen",
   "opponentNoneAvailable": "Ingen tränare är redo för strid just nu\nDu kan strida mot en CPU-tränare",
-  "opponentRandomBattle": "Strid mot en slumpad motståndare",
   "opponentCpuBattle": "Strid mot CPU",
   "settingsLinked": "Anslutet till {providerName}",
   "settingsSwitchAccountTitle": "Vill du byta till det länkade kontot?",

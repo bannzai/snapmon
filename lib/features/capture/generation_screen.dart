@@ -20,7 +20,9 @@ import '../battle/battle_recorder.dart';
 import '../battle/battle_screen.dart';
 import '../dex/dex_store.dart';
 import '../dex/owned_monster.dart';
+import '../opponent/pvp_battle_start.dart';
 import '../opponent/pvp_client.dart';
+import '../opponent/pvp_match_search.dart';
 import '../opponent/random_cpu_battle.dart';
 import '../result/result_screen.dart';
 import '../share/card_sharer.dart';
@@ -36,6 +38,10 @@ const Duration _monsterArrivalTimeout = Duration(seconds: 30);
 /// 初回の導線で「○○ があらわれた」を出してからバトルの画面を開くまでの時間。
 /// 相手の名前 (表示名は 12 文字まで) を読み切れ、待たされたと感じない長さにした。
 const Duration _opponentRevealDuration = Duration(milliseconds: 1500);
+
+/// 初回の導線で、生まれたモンスターの相手として人との対戦の相手を探す長さ。issue #386 が決めた値
+/// (生まれてから 5 秒だけ人を探し、組み合わされなければ CPU と対戦する)。
+const Duration firstBattlePvpSearchDuration = Duration(seconds: 5);
 
 /// 生成が途中の状態 (processing・pending_judge) で返った後に、結果を取り直し続ける長さ。
 /// owner の指定 (https://github.com/bannzai/snapmon/issues/218)。これを過ぎても終わらない時は「もう少し待ってね」を出す。
@@ -64,8 +70,11 @@ Future<void> _waitUntilPainted() async {
 /// [letsUserChooseSubjectRange] でなければ、操作を挟まず OS の切り出しのマスクで、それも無ければマスク無し (写真全体) で送る。
 ///
 /// 初回の導線 ([startsFirstBattle]) では、生成を待つ間は「相手を探しています」を出し、生まれたら手持ちに入れて相手を決め、
-/// 「○○ があらわれた」の後にバトルの画面を開く。バトルの画面を閉じたら、図鑑を見る時は [ResultScreenAction.openDex]、
-/// それ以外 (手持ちを増やす) は null を返して閉じる。「もう一回対戦する」で閉じた時は別の CPU の相手との対戦を続けて開き、
+/// 「○○ があらわれた」の後にバトルの画面を開く。相手は、[firstBattlePvpSearchDuration] の間に同じ時に相手を探している
+/// 他の利用者と組み合わされたらその利用者、組み合わされなければ CPU の相手にする (issue #386)。
+/// バトルの画面を閉じたら、図鑑を見る時は [ResultScreenAction.openDex]、
+/// それ以外 (手持ちを増やす) は null を返して閉じる。「もう一回対戦する」で閉じた時は、終えた対戦と同じ種類の相手
+/// (人との対戦の後は相手を探し直し、CPU との対戦の後は別の CPU の相手) との対戦を続けて開き、
 /// それを閉じた時に同じ規則で閉じる。生まれなかった時は初回でない時と同じ理由の表示に戻る。
 class GenerationScreen extends StatefulWidget {
   /// 生成の画面を作る。
@@ -197,8 +206,14 @@ class _GenerationScreenState extends State<GenerationScreen> {
   /// 初回の導線で戦うと決めたモンスター。決まるまでは null (例外の後の「もう一度試す」を、生成ではなく対戦の準備のやり直しにする目印)。
   OwnedMonster? _firstBattleMonster;
 
-  /// 初回の導線の対戦相手。決まるまでは null。
+  /// 初回の導線の CPU の対戦相手。決まるまでは null。人との対戦の相手と組み合わされた時 ([_firstPvpBattleScreen]) は使わない。
   FirstBattleOpponent? _firstBattleOpponent;
+
+  /// 初回の導線で他の利用者と組み合わされた時の、その対戦の画面。組み合わされなかった時 (CPU と対戦する) は null。
+  BattleScreen? _firstPvpBattleScreen;
+
+  /// 初回の導線で人との対戦の相手を探している操作。探す前は null。画面を閉じた時に探すのをやめるため State に持つ。
+  PvpMatchSearch? _firstBattlePvpSearch;
 
   /// 初回のバトルの画面に出す自分のアイコンと表示名。読む前・ログインが無い時・読めなかった時は null で、バトルの画面に出さない。
   PlayerProfile? _playerProfile;
@@ -220,6 +235,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
   void dispose() {
     _openFirstBattleTimer?.cancel();
     _pollingTimer?.cancel();
+    // 探している途中で閉じた時に探すのをやめる。結果は _searchFirstBattlePvpMatch が受け取るため、ここでは捨てる
+    _firstBattlePvpSearch?.stop().ignore();
     super.dispose();
   }
 
@@ -508,6 +525,23 @@ class _GenerationScreenState extends State<GenerationScreen> {
           randomSeed: _firstBattleRandomSeed,
         ).then((opponent) => _firstBattleOpponent = opponent),
       ], eagerError: true);
+      // 同じ版の master の利用者と組み合わせるため、相手を決める準備 (定義の読み直し) の後に探す
+      final pvpBattleID = await _searchFirstBattlePvpMatch();
+      if (!mounted) {
+        return;
+      }
+      _firstPvpBattleScreen = pvpBattleID == null
+          ? null
+          : await preparePvpBattleScreen(
+              battleID: pvpBattleID,
+              dexStore: widget.dexStore,
+              pvpClient: widget.pvpClient,
+              battleRecorder: widget.battleRecorder,
+              cardSharer: widget.cardSharer,
+              firstBattleBornMonster: monster,
+              firstBattleMonsterIsNewlyBorn:
+                  monster.definition.id != _alreadyInDexMonster?.definition.id,
+            );
       if (!mounted) {
         return;
       }
@@ -522,6 +556,34 @@ class _GenerationScreenState extends State<GenerationScreen> {
           _error = error;
         });
       }
+    }
+  }
+
+  /// 初回のバトルの相手として、人との対戦の相手を [firstBattlePvpSearchDuration] の間だけ探し、組み合わされた対戦の ID を返す。
+  /// 組み合わされなかった時・ログインが無い時 (DEBUG ビルドでログインを飛ばした時)・探す呼び出しが失敗した時は null を返す
+  /// (CPU と対戦する。人を探すのは見つかれば人と戦わせるためで、探せないことで初回のバトルを止めない)。
+  Future<String?> _searchFirstBattlePvpMatch() async {
+    if (widget.pvpClient.battleClient.signedInUid() == null) {
+      return null;
+    }
+    final search = PvpMatchSearch(
+      client: widget.pvpClient.battleClient,
+      rulesVersion: pvpMatchRulesVersion(
+        definitions: widget.dexStore.definitions,
+      ),
+    )..start();
+    _firstBattlePvpSearch = search;
+    final searchLimitTimer = Timer(
+      firstBattlePvpSearchDuration,
+      () => search.stop().ignore(),
+    );
+    try {
+      return await search.matchedBattleID;
+    } catch (error) {
+      debugPrint('人との対戦の相手を探せませんでした: $error');
+      return null;
+    } finally {
+      searchLimitTimer.cancel();
     }
   }
 
@@ -556,40 +618,63 @@ class _GenerationScreenState extends State<GenerationScreen> {
     final dexStore = widget.dexStore;
     // 経路が作り直されると builder が呼び直されるため、決着の後にレベルが上がった手持ちを渡し直さないよう、開く時の手持ちで固定する
     final playerParty = List.of(dexStore.party);
+    final navigator = Navigator.of(context);
+    final pvpBattleScreen = _firstPvpBattleScreen;
     var battleRoute = sceneRoute<BattleScreenAction>(
-      builder: (context) => BattleScreen(
-        playerParty: playerParty,
-        opponentParty: opponent.cpuOpponent.opponentParty,
-        opponentKind: BattleOpponentKind.cpu,
-        definitions: opponent.definitions,
-        randomSeed: _firstBattleRandomSeed,
-        battleRecorder: widget.battleRecorder,
-        onPlayerLevelsChanged: dexStore.updateLevels,
-        cardSharer: widget.cardSharer,
-        firstBattleBornMonster: monster,
-        firstBattleMonsterIsNewlyBorn:
-            monster.definition.id != _alreadyInDexMonster?.definition.id,
-        playerProfile: _playerProfile,
-        opponentDisplayName: opponent.cpuOpponent.opponentName,
-      ),
+      builder: (context) =>
+          pvpBattleScreen ??
+          BattleScreen(
+            playerParty: playerParty,
+            opponentParty: opponent.cpuOpponent.opponentParty,
+            opponentKind: BattleOpponentKind.cpu,
+            pvpSession: null,
+            opponentSafetyMenuBuilder: null,
+            definitions: opponent.definitions,
+            randomSeed: _firstBattleRandomSeed,
+            battleRecorder: widget.battleRecorder,
+            onPlayerLevelsChanged: dexStore.updateLevels,
+            cardSharer: widget.cardSharer,
+            firstBattleBornMonster: monster,
+            firstBattleMonsterIsNewlyBorn:
+                monster.definition.id != _alreadyInDexMonster?.definition.id,
+            playerProfile: _playerProfile,
+            opponentDisplayName: opponent.cpuOpponent.opponentName,
+          ),
     );
-    var action = await Navigator.of(context).push(battleRoute);
-    // 2 戦目からは初回の導線の計測 (first_experience) を送らない (prepareRandomCpuBattleScreen は firstBattleBornMonster を null にする)
+    var action = await navigator.push(battleRoute);
+    // 「もう一回対戦する」は終えた対戦と同じ種類の相手と戦う (人との対戦の後は相手を探し直す)
+    var matchesPlayerNext = pvpBattleScreen != null;
+    // 2 戦目からは初回の導線の計測 (first_experience) を送らない (2 戦目の対戦の画面は firstBattleBornMonster を null にする)
     while (action == BattleScreenAction.rematch) {
-      // 準備の間に前の相手の「○○ があらわれた」を出したままにすると、乱数で選び直す次の相手と名前が食い違うため、相手を探す表示に戻す
+      // 準備の間に前の相手の「○○ があらわれた」を出したままにすると、選び直す次の相手と食い違うため、相手を探す表示に戻す
       if (mounted) {
         setState(() => _phase = _GenerationPhase.inProgress);
       }
       final BattleScreen battleScreen;
       try {
-        battleScreen = await prepareRandomCpuBattleScreen(
-          dexStore: dexStore,
-          pvpClient: widget.pvpClient,
-          sampleData: widget.sampleData,
-          battleRecorder: widget.battleRecorder,
-          cardSharer: widget.cardSharer,
-          playerProfile: _playerProfile,
-        );
+        final preparedBattleScreen = matchesPlayerNext
+            ? await prepareMatchedBattleScreen(
+                navigator: navigator,
+                dexStore: dexStore,
+                pvpClient: widget.pvpClient,
+                sampleData: widget.sampleData,
+                battleRecorder: widget.battleRecorder,
+                cardSharer: widget.cardSharer,
+                playerProfile: _playerProfile,
+              )
+            : await prepareRandomCpuBattleScreen(
+                dexStore: dexStore,
+                pvpClient: widget.pvpClient,
+                sampleData: widget.sampleData,
+                battleRecorder: widget.battleRecorder,
+                cardSharer: widget.cardSharer,
+                playerProfile: _playerProfile,
+              );
+        // 人との対戦の待つ画面を「やめる」で閉じた
+        if (preparedBattleScreen == null) {
+          break;
+        }
+        battleScreen = preparedBattleScreen;
       } catch (error) {
         // 定義を読み直せない時はエラーをそのまま出し、この画面を閉じる (撮る画面に戻り、対戦のシーンから挑み直せる)
         if (mounted) {
@@ -609,7 +694,8 @@ class _GenerationScreenState extends State<GenerationScreen> {
       battleRoute = sceneRoute<BattleScreenAction>(
         builder: (context) => battleScreen,
       );
-      action = await Navigator.of(context).push(battleRoute);
+      action = await navigator.push(battleRoute);
+      matchesPlayerNext = battleScreen.pvpSession != null;
     }
     // 再戦の準備の間に閉じられた (閉じる演出の途中の) 画面からもう一度 pop すると、下の画面まで閉じてしまうため、前面にある時だけ閉じる
     if (mounted && (ModalRoute.of(context)?.isCurrent ?? false)) {
@@ -923,9 +1009,12 @@ class _GenerationScreenState extends State<GenerationScreen> {
         ],
         _GenerationPhase.opponentFound => [
           Text(
-            l10n.generationOpponentAppeared(
-              _firstBattleOpponent!.cpuOpponent.opponentName,
-            ),
+            // 人との対戦の相手の表示名は、通報・ブロックのできるバトルの画面にだけ出す (ストアの UGC 要件)
+            _firstPvpBattleScreen == null
+                ? l10n.generationOpponentAppeared(
+                    _firstBattleOpponent!.cpuOpponent.opponentName,
+                  )
+                : l10n.generationTrainerAppeared,
             textAlign: TextAlign.center,
             style: SnapmonTextStyles.hero,
           ),

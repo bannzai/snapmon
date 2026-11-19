@@ -41,7 +41,6 @@
   "opponentSearching": "Eğitmen aranıyor",
   "opponentSearchAgain": "Tekrar ara",
   "opponentNoneAvailable": "Şu anda savaşacak eğitmen yok\nBir CPU eğitmeniyle savaşabilirsin",
-  "opponentRandomBattle": "Rastgele bir rakiple savaş",
   "opponentCpuBattle": "CPU ile savaş",
   "settingsLinked": "{providerName} ile bağlantı kuruldu",
   "settingsSwitchAccountTitle": "Bağlı hesaba geçmek ister misin?",
