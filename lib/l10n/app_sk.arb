@@ -270,7 +270,7 @@
   "ticketPurchaseSynced": "Stav nákupu bol synchronizovaný",
   "purchaseLinkRequiredTitle": "Pred nákupom prenes svoje údaje",
   "purchaseLinkRequiredMessage": "Prihlás sa cez {providerName} a nákupy ti zostanú v účte. Ak bez prihlásenia vymažeš údaje prehliadača, už ich neobnovíš.",
-  "purchaseLinkAlreadyUsed": "Tento účet {providerName} je už prepojený s inými hernými dátami. Pred nákupom prepni účet v Nastaveniach → Prenes údaje.",
+  "purchaseLinkAlreadyUsed": "Tento účet {providerName} je už prepojený s inými hernými dátami. Pred nákupom prepni účet v Nastaveniach → Preniesť dáta.",
   "purchaseSpecifiedCommercialTransactions": "Informácie podľa japonského zákona o osobitných obchodných transakciách",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Kúp si útok natrvalo a nauč ho svoju príšeru",
