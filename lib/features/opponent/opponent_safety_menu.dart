@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../dex/owned_monster.dart';
+import '../settings/settings_screen.dart';
 import 'pvp_battle.dart';
 import 'pvp_client.dart';
 import 'report_sheet.dart';
 
-// 人との対戦の相手への通報・ブロック (ストアの UGC 要件) の操作。バトルの画面のログの帯から使う。
+// 人との対戦の相手への通報・ブロックと、お問い合わせ (ストアの UGC 要件の通報・ブロック・連絡先) の操作。バトルの画面のログの帯から使う。
 
 /// [message] を [messenger] の画面の下に出す。送っている間にメニューのボタンが画面から外れても出せるよう、送る前に取った [messenger] を使う。
 void _showMessage({
@@ -90,7 +91,26 @@ Future<void> _blockOpponent({
   }
 }
 
-/// 人との対戦の相手 [opponent] の、モンスター ([reportableMonsters]) ごとの通報と、相手のブロックを選ぶメニューのボタン。
+/// お問い合わせの宛先を [pvpClient] で開く。開けなかった時はそのことを、失敗した時はエラーをそのまま出す。
+Future<void> _openContact({
+  required BuildContext context,
+  required PvpClient pvpClient,
+}) async {
+  final messenger = ScaffoldMessenger.of(context);
+  // 開けなかった時の文言は、外部のアプリから戻った後にも出すため、先に取っておく
+  final couldNotOpenMessage = context.l10n.commonCouldNotOpenURL(
+    contactUri.toString(),
+  );
+  try {
+    if (!await pvpClient.openContact()) {
+      _showMessage(messenger: messenger, message: couldNotOpenMessage);
+    }
+  } catch (error) {
+    _showMessage(messenger: messenger, message: error.toString());
+  }
+}
+
+/// 人との対戦の相手 [opponent] の、モンスター ([reportableMonsters]) ごとの通報・相手のブロック・お問い合わせを選ぶメニューのボタン。
 class OpponentSafetyMenuButton extends StatelessWidget {
   /// [opponent] の通報・ブロックのメニューのボタンを作る。
   const OpponentSafetyMenuButton({
@@ -106,7 +126,7 @@ class OpponentSafetyMenuButton extends StatelessWidget {
   /// 通報できるモンスター (相手の手持ちのうち、場に出たことがあるモンスター)。
   final List<OwnedMonster> reportableMonsters;
 
-  /// 通報・ブロックの送り先。
+  /// 通報・ブロックの送り先と、お問い合わせを開く関数。
   final PvpClient pvpClient;
 
   @override
@@ -134,6 +154,11 @@ class OpponentSafetyMenuButton extends StatelessWidget {
           opponent: opponent,
         ),
         child: Text(context.l10n.opponentBlockTrainer),
+      ),
+      PopupMenuItem(
+        key: const Key('contact-support'),
+        value: () => _openContact(context: context, pvpClient: pvpClient),
+        child: Text(context.l10n.commonContact),
       ),
     ],
     // 押せる範囲を 44 (Apple の Human Interface Guidelines の最小のタップ領域) にし、ログの帯の高さを抑えるため、

@@ -28,6 +28,12 @@ class RecordedPvpCalls {
 
   /// updateIcon に渡された写真 (呼ばれた順)。
   final List<Uint8List> updatedIconPhotos = [];
+
+  /// openContact を呼んだ回数。
+  int openContactCount = 0;
+
+  /// openContact が返す値 (お問い合わせの宛先を開けたか)。開けなかった時を確かめるテストが false にする。
+  bool opensContact = true;
 }
 
 /// Firebase を呼ばずに [calls] へ呼び出しを残す [PvpClient] を返す。
@@ -35,6 +41,7 @@ class RecordedPvpCalls {
 /// ([extraDefinitions] が null なら base のまま)。戦績とプロフィールは [battleRecord]・[profile] を返し、
 /// 通報・ブロック・表示名とアイコンの変更は [reportMonster]・[blockUser]・[updateDisplayName]・[updateIcon] を呼ぶ。
 /// 人との対戦の組み合わせと同期は [battleClient] に任せる (人との対戦をしないテストは [signedOutPvpBattleClient])。
+/// お問い合わせは開かずに [RecordedPvpCalls.opensContact] を返す。
 PvpClient fakePvpClient({
   required RecordedPvpCalls calls,
   required PvpBattleClient battleClient,
@@ -82,6 +89,10 @@ PvpClient fakePvpClient({
     return updateIcon(photo: photo);
   },
   battleClient: battleClient,
+  openContact: () async {
+    calls.openContactCount++;
+    return calls.opensContact;
+  },
 );
 
 /// ログインが無い時の [PvpClient] (相手・戦績・プロフィールは null で、見本の対戦相手を代わりに出す)。

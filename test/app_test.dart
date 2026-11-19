@@ -2451,6 +2451,7 @@ void main() {
       );
       pvpClient = PvpClient(
         battleClient: base.battleClient,
+        openContact: base.openContact,
         fetchOpponents: base.fetchOpponents,
         fetchDefinitions: base.fetchDefinitions,
         reportMonster: base.reportMonster,
@@ -2533,6 +2534,7 @@ void main() {
       );
       pvpClient = PvpClient(
         battleClient: base.battleClient,
+        openContact: base.openContact,
         fetchOpponents: base.fetchOpponents,
         fetchDefinitions: base.fetchDefinitions,
         reportMonster: base.reportMonster,
@@ -2987,6 +2989,7 @@ void main() {
       );
       pvpClient = PvpClient(
         battleClient: signedInPvpClient.battleClient,
+        openContact: signedInPvpClient.openContact,
         fetchOpponents: signedInPvpClient.fetchOpponents,
         fetchDefinitions: signedInPvpClient.fetchDefinitions,
         reportMonster: signedInPvpClient.reportMonster,
@@ -3034,6 +3037,7 @@ void main() {
       );
       pvpClient = PvpClient(
         battleClient: signedInPvpClient.battleClient,
+        openContact: signedInPvpClient.openContact,
         fetchOpponents: signedInPvpClient.fetchOpponents,
         fetchDefinitions: signedInPvpClient.fetchDefinitions,
         reportMonster: signedInPvpClient.reportMonster,

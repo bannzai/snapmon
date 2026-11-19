@@ -1341,6 +1341,7 @@ void main() {
       final signedOutClient = signedOutPvpClient(calls: RecordedPvpCalls());
       return PvpClient(
         battleClient: signedOutClient.battleClient,
+        openContact: signedOutClient.openContact,
         fetchOpponents: signedOutClient.fetchOpponents,
         fetchDefinitions: signedOutClient.fetchDefinitions,
         reportMonster: signedOutClient.reportMonster,

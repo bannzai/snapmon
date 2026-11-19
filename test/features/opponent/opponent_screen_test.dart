@@ -312,6 +312,7 @@ void main() {
       tester: tester,
       pvpClient: PvpClient(
         battleClient: pvpClient.battleClient,
+        openContact: pvpClient.openContact,
         fetchOpponents: pvpClient.fetchOpponents,
         fetchDefinitions: pvpClient.fetchDefinitions,
         reportMonster: pvpClient.reportMonster,
@@ -337,6 +338,7 @@ void main() {
     final pvpClient = signedInPvpClient(calls: RecordedPvpCalls());
     return PvpClient(
       battleClient: pvpClient.battleClient,
+      openContact: pvpClient.openContact,
       fetchOpponents: pvpClient.fetchOpponents,
       fetchDefinitions: pvpClient.fetchDefinitions,
       reportMonster: pvpClient.reportMonster,
@@ -436,6 +438,7 @@ void main() {
     final pvpClient = signedInPvpClient(calls: RecordedPvpCalls());
     return PvpClient(
       battleClient: pvpClient.battleClient,
+      openContact: pvpClient.openContact,
       fetchOpponents: pvpClient.fetchOpponents,
       fetchDefinitions: pvpClient.fetchDefinitions,
       reportMonster: pvpClient.reportMonster,

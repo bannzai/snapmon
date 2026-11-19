@@ -12,6 +12,7 @@ import 'package:snapmon/features/opponent/opponent_screen.dart';
 import 'package:snapmon/features/opponent/pvp_battle.dart';
 import 'package:snapmon/features/opponent/pvp_matching_screen.dart';
 import 'package:snapmon/features/opponent/report_reason.dart';
+import 'package:snapmon/features/settings/settings_screen.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
@@ -613,6 +614,39 @@ void main() {
       expect(pvpCalls.blockedUids, isEmpty);
       expect(find.byType(BattleScreen), findsOneWidget);
       expect(server.battle!.status, PvpBattleStatus.active);
+    });
+
+    testWidgets('メニューの「お問い合わせ」は連絡先を開き、開けなかった時はそのことを出す', (tester) async {
+      await pumpOpponentScreen(tester: tester, blockUser: () async {});
+      await openMatchingScreen(tester: tester);
+      await matchAndOpenBattle(tester: tester);
+
+      await tester.tap(find.byKey(const Key('opponent-safety-menu')));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      await tester.tap(find.byKey(const Key('contact-support')));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      expect(pvpCalls.openContactCount, 1);
+      expect(
+        find.text(l10n.commonCouldNotOpenURL(contactUri.toString())),
+        findsNothing,
+      );
+
+      pvpCalls.opensContact = false;
+      await tester.tap(find.byKey(const Key('opponent-safety-menu')));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      await tester.tap(find.byKey(const Key('contact-support')));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      expect(pvpCalls.openContactCount, 2);
+      expect(
+        find.text(l10n.commonCouldNotOpenURL(contactUri.toString())),
+        findsOneWidget,
+      );
+      // お問い合わせを開いても対戦は続く
+      expect(find.byType(BattleScreen), findsOneWidget);
     });
 
     testWidgets('人との対戦の後の「もう一回対戦する」は、待つ画面を開いて相手を探し直す', (tester) async {

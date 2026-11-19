@@ -25,6 +25,7 @@ void main() {
       var fetchOpponentsCount = 0;
       final pvpClient = PvpClient(
         battleClient: signedOutPvpBattleClient(),
+        openContact: () => throw StateError('openContact は呼ばない'),
         fetchOpponents: () async {
           fetchOpponentsCount++;
           return [
@@ -92,6 +93,7 @@ void main() {
         dexStore: dexStore,
         pvpClient: PvpClient(
           battleClient: signedOutPvpBattleClient(),
+          openContact: () => throw StateError('openContact は呼ばない'),
           fetchOpponents: () => throw StateError('fetchOpponents は呼ばない'),
           fetchDefinitions: ({required base, required definitionIDs}) =>
               throw StateError('fetchDefinitions は呼ばない'),

@@ -26,6 +26,7 @@ import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/render_widget_png.dart';
 import 'package:snapmon/features/share/share_image.dart';
 import 'package:snapmon/features/settings/account_store.dart';
+import 'package:snapmon/features/settings/settings_screen.dart';
 import 'package:snapmon/firebase/account.dart';
 import 'package:snapmon/firebase/action_cards.dart';
 import 'package:snapmon/firebase/battle_record.dart';
@@ -45,6 +46,10 @@ const Map<String, String> _fontLicenseAssetPaths = {
   'Dela Gothic One': 'assets/fonts/dela_gothic_one/OFL.txt',
   'Zen Kaku Gothic New': 'assets/fonts/zen_kaku_gothic_new/OFL.txt',
 };
+
+/// お問い合わせの宛先 ([contactUri]) を外部のアプリ (メール) で開き、開けたかを返す。
+Future<bool> _openContact() =>
+    launchUrl(contactUri, mode: LaunchMode.externalApplication);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -208,6 +213,7 @@ Future<void> main() async {
           claimTimeout: claimPvpTimeoutWithFirebase,
           reportResult: reportPvpResultWithFirebase,
         ),
+        openContact: _openContact,
       ),
       monsterGenerator: MonsterGenerator(
         listCameras: availableCameras,

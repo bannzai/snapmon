@@ -29,10 +29,15 @@ class PvpClient {
     required this.updateDisplayName,
     required this.updateIcon,
     required this.battleClient,
+    required this.openContact,
   });
 
   /// 人との対戦 (互いに自分の端末で行動を選ぶ対戦) の組み合わせと同期を呼ぶ関数の組。
   final PvpBattleClient battleClient;
+
+  /// お問い合わせの宛先 (lib/features/settings/settings_screen.dart の `contactUri`) を外部のアプリで開き、開けたかを返す。
+  /// 人との対戦で相手の絵・名前が出るバトルの画面から、通報・ブロックと並べて連絡先に届けるために使う (ストアの UGC 要件の連絡先)。
+  final Future<bool> Function() openContact;
 
   /// 相手の候補 (最大 3 人。手持ちの平均レベルが自分に近い順) を返す。ログインが無い時は null。
   final Future<List<PvpOpponent>?> Function() fetchOpponents;
