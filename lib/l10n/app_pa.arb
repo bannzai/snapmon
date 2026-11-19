@@ -47,6 +47,7 @@
   "generationTrainerAppeared": "ਇੱਕ ਟ੍ਰੇਨਰ ਆ ਗਿਆ!",
   "battleLogWaitingForOpponent": "ਵਿਰੋਧੀ ਦੀ ਚਾਲ ਦੀ ਉਡੀਕ ਹੈ",
   "battleLogTurnTimeRemaining": "{seconds} ਸਕਿੰਟਾਂ ਵਿੱਚ ਆਪਣੀ ਚਾਲ ਚੁਣੋ",
+  "battleLogOpponentTimedOut": "ਵਿਰੋਧੀ ਨੇ ਸਮੇਂ ਸਿਰ ਚਾਲ ਨਹੀਂ ਚੁਣੀ",
   "settingsLinked": "{providerName} ਨਾਲ ਜੁੜ ਗਿਆ",
   "settingsSwitchAccountTitle": "ਕੀ ਤੁਸੀਂ ਲਿੰਕ ਕੀਤੇ ਖਾਤੇ 'ਤੇ ਜਾਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
   "settingsSwitchAccountMessage": "ਇਹ {providerName} ਖਾਤਾ ਕਿਸੇ ਹੋਰ ਡਿਵਾਈਸ 'ਤੇ ਪਹਿਲਾਂ ਹੀ ਲਿੰਕ ਹੈ। ਇਸ 'ਤੇ ਸਵਿੱਚ ਕਰਨ ਨਾਲ ਇਸ ਡਿਵਾਈਸ ਦਾ ਸੰਗ੍ਰਹਿ (ਮੌਂਸਟਰ: {monsterCount}) ਮਿਟ ਜਾਵੇਗਾ ਅਤੇ ਲਿੰਕ ਕੀਤੇ ਖਾਤੇ ਦਾ ਸੰਗ੍ਰਹਿ ਦਿਖੇਗਾ।",

@@ -47,6 +47,7 @@
   "generationTrainerAppeared": "เทรนเนอร์ปรากฏตัวแล้ว!",
   "battleLogWaitingForOpponent": "กำลังรอคู่ต่อสู้เลือกท่า",
   "battleLogTurnTimeRemaining": "เลือกการกระทำใน {seconds} วินาที",
+  "battleLogOpponentTimedOut": "คู่ต่อสู้เลือกการกระทำไม่ทันเวลา",
   "settingsLinked": "เชื่อมต่อกับ {providerName} แล้ว",
   "settingsSwitchAccountTitle": "จะเปลี่ยนไปใช้บัญชีที่เชื่อมไว้ไหม?",
   "settingsSwitchAccountMessage": "บัญชี {providerName} นี้เชื่อมกับอุปกรณ์อื่นแล้ว หากสลับบัญชี สารานุกรมบนอุปกรณ์นี้ (มอนสเตอร์: {monsterCount}) จะถูกลบ และจะแสดงสารานุกรมของบัญชีที่เชื่อมไว้",

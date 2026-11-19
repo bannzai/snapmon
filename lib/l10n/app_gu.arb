@@ -47,6 +47,7 @@
   "generationTrainerAppeared": "એક ટ્રેનર દેખાયો!",
   "battleLogWaitingForOpponent": "હરીફની ચાલની રાહ જોવાઈ રહી છે",
   "battleLogTurnTimeRemaining": "{seconds} સેકન્ડમાં તમારી ચાલ પસંદ કરો",
+  "battleLogOpponentTimedOut": "હરીફે સમયસર ચાલ પસંદ ન કરી",
   "settingsLinked": "{providerName} સાથે જોડાઈ ગયું",
   "settingsSwitchAccountTitle": "શું તમે લિંક કરેલા એકાઉન્ટ પર સ્વિચ કરવા માંગો છો?",
   "settingsSwitchAccountMessage": "આ {providerName} એકાઉન્ટ બીજા ઉપકરણ પર પહેલેથી જોડાયેલું છે. તેના પર સ્વિચ કરશો તો આ ઉપકરણનો ડેક્સ (મોન્સ્ટર: {monsterCount}) ભૂંસાઈ જશે અને જોડાયેલા એકાઉન્ટનો ડેક્સ દેખાશે.",

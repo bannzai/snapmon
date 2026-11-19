@@ -47,6 +47,7 @@
   "generationTrainerAppeared": "È apparso un allenatore!",
   "battleLogWaitingForOpponent": "In attesa della mossa dell’avversario",
   "battleLogTurnTimeRemaining": "Scegli la tua mossa entro {seconds} s",
+  "battleLogOpponentTimedOut": "L’avversario non ha scelto una mossa in tempo",
   "settingsLinked": "Collegato a {providerName}",
   "settingsSwitchAccountTitle": "Vuoi passare all'account collegato?",
   "settingsSwitchAccountMessage": "Questo account {providerName} è già collegato su un altro dispositivo. Se passi a questo account, il dex su questo dispositivo (mostri: {monsterCount}) verrà cancellato e vedrai il dex dell'account collegato.",

@@ -47,6 +47,7 @@
   "generationTrainerAppeared": "Ein Trainer ist aufgetaucht!",
   "battleLogWaitingForOpponent": "Warte auf den Zug des Gegners",
   "battleLogTurnTimeRemaining": "Wähle deinen Zug in {seconds} Sek.",
+  "battleLogOpponentTimedOut": "Dein Gegner hat nicht rechtzeitig eine Aktion gewählt",
   "settingsLinked": "Mit {providerName} verknüpft",
   "settingsSwitchAccountTitle": "Möchtest du zum verknüpften Konto wechseln?",
   "settingsSwitchAccountMessage": "Dieses {providerName}-Konto ist bereits auf einem anderen Gerät verknüpft. Wenn du wechselst, wird der Dex auf diesem Gerät gelöscht (Monster: {monsterCount}) und der Dex des verknüpften Kontos angezeigt.",

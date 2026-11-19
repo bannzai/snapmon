@@ -47,6 +47,7 @@
   "generationTrainerAppeared": "ଜଣେ ଟ୍ରେନର ଦେଖାଦେଲା!",
   "battleLogWaitingForOpponent": "ପ୍ରତିପକ୍ଷର ଚାଲକୁ ଅପେକ୍ଷା",
   "battleLogTurnTimeRemaining": "{seconds} ସେକେଣ୍ଡ ମଧ୍ୟରେ ତୁମର ଚାଲ ବାଛ",
+  "battleLogOpponentTimedOut": "ପ୍ରତିପକ୍ଷ ସମୟ ଭିତରେ ଚାଲ ବାଛିଲା ନାହିଁ",
   "settingsLinked": "{providerName} ସହ ସଂଯୋଗ ହୋଇଛି",
   "settingsSwitchAccountTitle": "ଲିଙ୍କ୍ ହୋଇଥିବା ଆକାଉଣ୍ଟକୁ ବଦଳାଇବାକୁ ଚାହୁଁଛ କି?",
   "settingsSwitchAccountMessage": "ଏହି {providerName} ଆକାଉଣ୍ଟ ଅନ୍ୟ ଡିଭାଇସ୍‌ରେ ପୂର୍ବରୁ ଲିଙ୍କ୍ ହୋଇଛି। ଏଥିକୁ ବଦଳାଇଲେ ଏହି ଡିଭାଇସ୍‌ର ବିଶ୍ୱକୋଷ (ମନଷ୍ଟର: {monsterCount}) ଲିଭିଯିବ ଏବଂ ଲିଙ୍କ୍ ହୋଇଥିବା ଆକାଉଣ୍ଟର ବିଶ୍ୱକୋଷ ଦେଖାଯିବ।",

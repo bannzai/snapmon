@@ -47,6 +47,7 @@
   "generationTrainerAppeared": "¡Apareció un entrenador!",
   "battleLogWaitingForOpponent": "Esperando el movimiento del rival",
   "battleLogTurnTimeRemaining": "Elige tu acción en {seconds} s",
+  "battleLogOpponentTimedOut": "El rival no eligió una acción a tiempo",
   "settingsLinked": "Cuenta vinculada con {providerName}",
   "settingsSwitchAccountTitle": "¿Quieres cambiar a la cuenta vinculada?",
   "settingsSwitchAccountMessage": "Esta cuenta de {providerName} ya está vinculada en otro dispositivo. Si cambias a ella, se borrará la colección de este dispositivo (monstruos: {monsterCount}) y verás la colección de la cuenta vinculada.",
