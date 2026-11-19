@@ -27,6 +27,7 @@ import 'package:snapmon/features/profile/profile_screen.dart';
 import 'package:snapmon/features/result/result_screen.dart';
 import 'package:snapmon/features/session/session_store.dart';
 import 'package:snapmon/features/settings/account_store.dart';
+import 'package:snapmon/features/settings/direct_sales.dart';
 import 'package:snapmon/features/settings/settings_screen.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/share_cards.dart';
@@ -65,6 +66,9 @@ void main() {
 
   /// [pumpApp] の BGM が Web のように最初の操作を待つか。既定は待たない (iOS・Android)。待つテストは [pumpApp] の前に変える。
   var audioWaitsForUserInteraction = false;
+
+  /// [pumpApp] のアプリが、Web 版のように提供者が直接売るビルドか。既定はストアで売るアプリ (iOS・Android)。直接売るテストは [pumpApp] の前に変える。
+  var isDirectSales = false;
 
   /// タイトル画面が Analytics に送ったイベント (呼ばれた順)。
   late List<({AnalyticsEvent event, Map<String, Object>? parameters})>
@@ -107,6 +111,7 @@ void main() {
   setUp(() {
     albumPhoto = testPhotoBytes;
     audioWaitsForUserInteraction = false;
+    isDirectSales = false;
     startSessionGate = null;
     generationGate = null;
     startBattleRecord = () async => null;
@@ -276,6 +281,7 @@ void main() {
           sessionChanges: sessionStore,
           sampleActionCards: null,
         ),
+        isDirectSales: isDirectSales,
       ),
     );
     await tester.pumpAndSettle();
@@ -842,6 +848,39 @@ void main() {
       await tester.tap(find.text('プライバシー'));
       await tester.pumpAndSettle();
       expect(openedUris, [termsUri, privacyPolicyUri]);
+    });
+
+    testWidgets('ストアで売るアプリには、購入の画面が引く DirectSalesScope を置かない', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(
+        tester
+            .element(find.byType(TitleScreen))
+            .getInheritedWidgetOfExactType<DirectSalesScope>(),
+        isNull,
+      );
+    });
+
+    testWidgets('提供者が直接売るビルド (Web 版) には、アプリの連携とリンクを開く関数を渡した DirectSalesScope を置く', (
+      tester,
+    ) async {
+      isDirectSales = true;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      final directSales = tester
+          .element(find.byType(TitleScreen))
+          .getInheritedWidgetOfExactType<DirectSalesScope>();
+      expect(directSales?.accountStore, same(accountStore));
+      await directSales?.openURL(uri: specifiedCommercialTransactionsUri);
+      expect(openedUris, [specifiedCommercialTransactionsUri]);
     });
 
     testWidgets('前回の起動でログインを済ませた時は、タイトルでログインを始めない', (tester) async {

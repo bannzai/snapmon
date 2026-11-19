@@ -24,6 +24,20 @@ import 'account_store.dart';
 /// [uri] を外部のアプリ (ブラウザ・メール) で開き、開けたかを返す。
 typedef OpenURL = Future<bool> Function({required Uri uri});
 
+/// [uri] を [openURL] で開く。開けた時は null、開けなかった時は利用者に出す文言 (false が返った時は [couldNotOpenMessage]) を返す。
+/// 開くアプリが無い Android では false ではなく例外になるため、例外の時はその内容を返す。
+Future<String?> openAndDescribeFailure({
+  required OpenURL openURL,
+  required Uri uri,
+  required String couldNotOpenMessage,
+}) async {
+  try {
+    return await openURL(uri: uri) ? null : couldNotOpenMessage;
+  } on Exception catch (error) {
+    return error.toString();
+  }
+}
+
 /// お問い合わせの宛先 (docs/index.html のサポートの連絡先と同じ)。
 final Uri contactUri = Uri.parse('mailto:bannzai.app@gmail.com');
 
@@ -39,6 +53,12 @@ final Uri privacyPolicyUri = Uri.parse('https://snapmonster.app/PrivacyPolicy');
 /// アカウントの削除の手順 (docs/AccountDeletion.md を GitHub Pages で公開したページ)。
 final Uri accountDeletionUri = Uri.parse(
   'https://snapmonster.app/AccountDeletion',
+);
+
+/// 特定商取引法に基づく表記 (docs/SpecifiedCommercialTransactions.md を GitHub Pages で公開したページ)。
+/// 提供者が直接売る Web 版の購入の画面から開く (lib/features/settings/direct_sales.dart)。
+final Uri specifiedCommercialTransactionsUri = Uri.parse(
+  'https://snapmonster.app/SpecifiedCommercialTransactions',
 );
 
 /// 設定画面。図鑑・撮る・対戦の各画面の右上の歯車から開く (モックに設定画面は無いため置き場所は agent が決めた)。
@@ -194,9 +214,9 @@ class SettingsScreen extends StatelessWidget {
   }
 
   /// [uri] を開き、開けなかった時 (メールのアプリが無い simulator など) はそのことを伝える。
-  /// 開くアプリが無い Android では false ではなく例外になるため、例外の時はその内容を出す。
   Future<void> _open({required BuildContext context, required Uri uri}) async {
-    final message = await _openAndDescribeFailure(
+    final message = await openAndDescribeFailure(
+      openURL: openURL,
       uri: uri,
       couldNotOpenMessage: context.l10n.commonCouldNotOpenURL(uri.toString()),
     );
@@ -206,18 +226,6 @@ class SettingsScreen extends StatelessWidget {
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text(message)));
-  }
-
-  /// [uri] を開く。開けた時は null、開けなかった時は利用者に出す文言 (false が返った時は [couldNotOpenMessage]) を返す。
-  Future<String?> _openAndDescribeFailure({
-    required Uri uri,
-    required String couldNotOpenMessage,
-  }) async {
-    try {
-      return await openURL(uri: uri) ? null : couldNotOpenMessage;
-    } on Exception catch (error) {
-      return error.toString();
-    }
   }
 
   @override

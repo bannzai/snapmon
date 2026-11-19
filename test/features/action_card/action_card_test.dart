@@ -11,9 +11,12 @@ import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/profile/profile_screen.dart';
 import 'package:snapmon/features/result/result_screen.dart';
+import 'package:snapmon/features/settings/account_store.dart';
+import 'package:snapmon/features/settings/direct_sales.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
+import '../../account_store_fixture.dart';
 import '../../action_card_client_fixture.dart';
 import '../../card_sharer_fixture.dart';
 import '../../pvp_client_fixture.dart';
@@ -39,9 +42,11 @@ void main() {
   });
 
   /// Action Card の [home] を、アプリと同じく Navigator の外の [ActionCardScope] の下で開く。
+  /// [directSalesAccountStore] があれば、提供者が直接売るビルド (Web 版) として [DirectSalesScope] も置く。
   Future<void> pump({
     required WidgetTester tester,
     required Widget home,
+    AccountStore? directSalesAccountStore,
   }) async {
     tester.view
       ..physicalSize = const Size(390, 1400)
@@ -59,8 +64,16 @@ void main() {
         locale: const Locale('ja'),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        builder: (context, child) =>
-            ActionCardScope(actionCardStore: store, child: child!),
+        builder: (context, child) => ActionCardScope(
+          actionCardStore: store,
+          child: directSalesAccountStore == null
+              ? child!
+              : DirectSalesScope(
+                  accountStore: directSalesAccountStore,
+                  openURL: ({required uri}) async => true,
+                  child: child!,
+                ),
+        ),
         home: home,
       ),
     );
@@ -443,6 +456,126 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('action-card-buy-fire_1c')), findsNothing);
       expect(find.byKey(const Key('action-card-buy-water_3')), findsOneWidget);
+    });
+  });
+
+  group('提供者が直接売るビルド (Web 版) で技を買う', () {
+    /// 購入の前の連携の案内。
+    final linkDialog = find.byKey(const Key('link-before-purchase-dialog'));
+
+    /// 技 water_3 (300 円の商品) の購入画面を開く。[accountLink] が null ならストアで売るアプリとして開く。
+    /// 購入の関数が呼ばれたかだけを確かめるため、ストアの購入は利用者がやめたことにする (購入の後の待ちの表示に進めない)。
+    Future<void> pumpPurchaseSheet({
+      required WidgetTester tester,
+      required FakeAccountLink? accountLink,
+    }) async {
+      fakeActionCards
+        ..productIDByMoveID.value = sampleProductIDByMoveID
+        ..purchaseResult = TicketPurchaseResult.cancelled;
+      await pump(
+        tester: tester,
+        home: ActionCardScreen(dexStore: dexStore),
+        directSalesAccountStore: accountLink?.accountStore(),
+      );
+      await tester.tap(find.byKey(const Key('action-card-buy-water_3')));
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets('Web の商品 (ストアの商品 ID の末尾が _web) の値段を出し 買うとアプリの商品の ID で技を控える', (
+      tester,
+    ) async {
+      fakeActionCards.packages = [
+        for (final productID in const [
+          testCheapActionCardProductID,
+          testExpensiveActionCardProductID,
+        ])
+          testWebActionCardPackage(productID: productID),
+      ];
+      await pumpPurchaseSheet(
+        tester: tester,
+        accountLink: FakeAccountLink(isLinked: true),
+      );
+      expect(find.text('¥300 で買う'), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('action-card-purchase-buy')));
+      await tester.pump();
+
+      expect(fakeActionCards.reservedMoves, [
+        (moveID: 'water_3', productID: testExpensiveActionCardProductID),
+      ]);
+      expect(fakeActionCards.purchasedPackageIDs, ['actioncard_test300']);
+    });
+
+    testWidgets('匿名のままなら 技を控えず購入も始めずに 連携の案内を出す', (tester) async {
+      await pumpPurchaseSheet(
+        tester: tester,
+        accountLink: FakeAccountLink(isLinked: false),
+      );
+
+      await tester.tap(find.byKey(const Key('action-card-purchase-buy')));
+      await tester.pumpAndSettle();
+
+      expect(linkDialog, findsOneWidget);
+      expect(fakeActionCards.reservedMoves, isEmpty);
+      expect(fakeActionCards.purchasedPackageIDs, isEmpty);
+    });
+
+    testWidgets('案内から連携できたら 技を控えて購入に進む', (tester) async {
+      final accountLink = FakeAccountLink(isLinked: false);
+      await pumpPurchaseSheet(tester: tester, accountLink: accountLink);
+
+      await tester.tap(find.byKey(const Key('action-card-purchase-buy')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('link-before-purchase-link')));
+      await tester.pumpAndSettle();
+
+      expect(accountLink.linkCallCount, 1);
+      expect(linkDialog, findsNothing);
+      expect(fakeActionCards.reservedMoves, [
+        (moveID: 'water_3', productID: testExpensiveActionCardProductID),
+      ]);
+      expect(fakeActionCards.purchasedPackageIDs, ['actioncard_test300']);
+    });
+
+    testWidgets('連携済みなら 案内を出さずに 技を控えて購入に進む', (tester) async {
+      await pumpPurchaseSheet(
+        tester: tester,
+        accountLink: FakeAccountLink(isLinked: true),
+      );
+
+      await tester.tap(find.byKey(const Key('action-card-purchase-buy')));
+      await tester.pump();
+
+      expect(linkDialog, findsNothing);
+      expect(fakeActionCards.purchasedPackageIDs, ['actioncard_test300']);
+    });
+
+    testWidgets('ストアで売るアプリでは 匿名のままでも案内を出さずに購入に進み 表記へのリンクも出さない', (
+      tester,
+    ) async {
+      await pumpPurchaseSheet(tester: tester, accountLink: null);
+      expect(
+        find.byKey(const Key('specified-commercial-transactions-link')),
+        findsNothing,
+      );
+
+      await tester.tap(find.byKey(const Key('action-card-purchase-buy')));
+      await tester.pump();
+
+      expect(linkDialog, findsNothing);
+      expect(fakeActionCards.purchasedPackageIDs, ['actioncard_test300']);
+    });
+
+    testWidgets('購入画面に 特定商取引法に基づく表記へのリンクを出す', (tester) async {
+      await pumpPurchaseSheet(
+        tester: tester,
+        accountLink: FakeAccountLink(isLinked: true),
+      );
+
+      expect(
+        find.byKey(const Key('specified-commercial-transactions-link')),
+        findsOneWidget,
+      );
     });
   });
 

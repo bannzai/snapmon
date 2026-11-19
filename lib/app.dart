@@ -15,6 +15,7 @@ import 'features/home/home_shell.dart';
 import 'features/opponent/pvp_client.dart';
 import 'features/session/session_store.dart';
 import 'features/settings/account_store.dart';
+import 'features/settings/direct_sales.dart';
 import 'features/settings/settings_screen.dart';
 import 'features/share/card_sharer.dart';
 import 'features/title/title_screen.dart';
@@ -73,7 +74,12 @@ class SnapmonApp extends StatefulWidget {
     required this.accountStore,
     required this.logEvent,
     required this.actionCardStore,
+    required this.isDirectSales,
   });
+
+  /// ストアを通さず提供者が直接売るビルドか (Web 版。main.dart が kIsWeb を渡す)。true の時だけ [DirectSalesScope] を置き、
+  /// 購入の画面が購入の前に連携を確かめ、特定商取引法に基づく表記へのリンクを出す。widget test は両方の値で確かめる。
+  final bool isDirectSales;
 
   /// BGM・効果音。[GameAudioScope] で全画面から引けるようにする。
   final GameAudio gameAudio;
@@ -108,7 +114,7 @@ class SnapmonApp extends StatefulWidget {
   /// 図鑑のカードとバトルの結果の共有に使う関数の組。
   final CardSharer cardSharer;
 
-  /// 設定画面のアカウントの連携と削除。
+  /// 設定画面のアカウントの連携と削除。直接売るビルドでは、購入の前の連携の確認にも使う。
   final AccountStore accountStore;
 
   /// タイトル画面の計測 ([logAnalyticsEvent] と同じ形)。
@@ -166,6 +172,15 @@ class _SnapmonAppState extends State<SnapmonApp> {
     }
   }
 
+  /// 提供者が直接売るビルド ([SnapmonApp.isDirectSales]) の時だけ、[child] の配下から [DirectSalesScope] を引けるようにする。
+  Widget _directSalesScoped({required Widget child}) => widget.isDirectSales
+      ? DirectSalesScope(
+          accountStore: widget.accountStore,
+          openURL: widget.openURL,
+          child: child,
+        )
+      : child;
+
   /// ログインを終えたら、次にログインした時にホームの画面へ飛ばずタイトルから始めるようにする。
   void _onSessionChanged() {
     if (!widget.sessionStore.canEnterApp && _homeScene != null) {
@@ -189,14 +204,16 @@ class _SnapmonAppState extends State<SnapmonApp> {
       gameAudio: widget.gameAudio,
       child: ActionCardScope(
         actionCardStore: widget.actionCardStore,
-        // Web はユーザーが一度ページを操作するまで音を出せないため、最初のタップ・クリックを BGM に伝える (キーは _onHardwareKeyEvent)
-        child: Listener(
-          onPointerDown: (event) =>
-              _notifyPointerInteraction(event: event, isDown: true),
-          onPointerUp: (event) =>
-              _notifyPointerInteraction(event: event, isDown: false),
-          child: constrainToAppContentWidth(
-            child: child ?? const SizedBox.shrink(),
+        child: _directSalesScoped(
+          // Web はユーザーが一度ページを操作するまで音を出せないため、最初のタップ・クリックを BGM に伝える (キーは _onHardwareKeyEvent)
+          child: Listener(
+            onPointerDown: (event) =>
+                _notifyPointerInteraction(event: event, isDown: true),
+            onPointerUp: (event) =>
+                _notifyPointerInteraction(event: event, isDown: false),
+            child: constrainToAppContentWidth(
+              child: child ?? const SizedBox.shrink(),
+            ),
           ),
         ),
       ),
