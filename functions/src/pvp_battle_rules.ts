@@ -113,11 +113,21 @@ export type PvpFinishReason =
 
 /** 対戦の終わり方。勝者がいる終わり (finished) と、勝敗を付けない終わり (void)。 */
 export type PvpBattleOutcome =
-  | { status: "finished"; winnerUid: string; finishReason: "result" | "timeout" }
-  | { status: "void"; winnerUid: null; finishReason: "timeout" | "mismatch" | "blocked" };
+  | { status: "finished"; winnerUid: string; finishReason: Extract<PvpFinishReason, "result" | "timeout"> }
+  | { status: "void"; winnerUid: null; finishReason: Extract<PvpFinishReason, "timeout" | "mismatch" | "blocked"> };
 
-/** `pvpBattles/{battleID}` に保存する人との対戦 1 戦。2 人の利用者だけが読み、書くのは Functions だけ。 */
-export interface PvpBattleDocument {
+/** 人との対戦 1 戦の進み具合。進行中か、どう終わったか。 */
+export type PvpBattleProgress =
+  /** 進行中。[turnDeadline] は今のターンの行動の期限で、過ぎると行動を受け付けず、時間切れとして終える。 */
+  | { status: "active"; winnerUid: null; finishReason: null; turnDeadline: Timestamp }
+  /** 終わった。終わった対戦に行動の期限は無い。 */
+  | (PvpBattleOutcome & { turnDeadline: null });
+
+/**
+ * `pvpBattles/{battleID}` に保存する人との対戦 1 戦。2 人の利用者だけが読み、書くのは Functions だけ。
+ * 進み具合の項目 (status・winnerUid・finishReason・turnDeadline) は [PvpBattleProgress] のどれかの組み合わせになる。
+ */
+export type PvpBattleDocument = PvpBattleProgress & {
   /** 先に待っていた側。端末の計算では、同じ素早さの時の乱数と相打ちの扱いをこの側を基準に決める。 */
   host: PvpTrainer;
   /** 後から来た側。 */
@@ -132,19 +142,11 @@ export interface PvpBattleDocument {
   turns: PvpTurn[];
   /** 1 ターンの行動を選ぶ時間 (秒)。端末が残り時間として出す。 */
   turnSeconds: number;
-  /** 今のターンの行動の期限。過ぎると行動を受け付けず、時間切れとして終える。終わった対戦は null。 */
-  turnDeadline: Timestamp | null;
-  /** 進行中 (active)・勝者が決まって終わった (finished)・勝敗を付けずに終わった (void)。 */
-  status: "active" | PvpBattleOutcome["status"];
-  /** 勝者の uid。finished の時だけ入る。 */
-  winnerUid: string | null;
-  /** どう終わったか。進行中は null。 */
-  finishReason: PvpFinishReason | null;
   /** 利用者ごとの、端末の計算が出した勝者の uid の報告 (決着していないという報告は null)。1 人 1 回で、後から変えられない。 */
   reportedWinnerUids: Record<string, string | null>;
   /** 組み合わせた時刻。 */
   createdAt: Timestamp;
-}
+};
 
 /** `pvpMatchTickets/{uid}` に保存する、相手を探している利用者の待ちの札。クライアントは読み書きしない。 */
 export interface PvpMatchTicketDocument {

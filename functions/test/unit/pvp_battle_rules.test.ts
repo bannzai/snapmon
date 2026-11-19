@@ -1,10 +1,20 @@
 import { Timestamp } from "firebase-admin/firestore";
 import { describe, expect, it } from "vitest";
 
-import { type PvpBattleDocument, isRulesVersion, outcomeAfterReport, parsePvpAction, timeoutOutcome } from "../../src/pvp_battle_rules";
+import {
+  type PvpBattleDocument,
+  type PvpBattleProgress,
+  isRulesVersion,
+  outcomeAfterReport,
+  parsePvpAction,
+  timeoutOutcome,
+} from "../../src/pvp_battle_rules";
 
-/** host-uid と guest-uid の進行中の対戦に、[overrides] の項目を上書きしたドキュメント。 */
-function battleDocument(overrides: Partial<PvpBattleDocument>): PvpBattleDocument {
+/** 進行中の対戦の進み具合。 */
+const activeProgress: PvpBattleProgress = { status: "active", winnerUid: null, finishReason: null, turnDeadline: Timestamp.fromMillis(0) };
+
+/** host-uid と guest-uid の、進み具合が [progress] の対戦のドキュメント。 */
+function battleDocument({ progress }: { progress: PvpBattleProgress }): PvpBattleDocument {
   return {
     host: { uid: "host-uid", displayName: "ホスト", iconPath: null, monsters: [] },
     guest: { uid: "guest-uid", displayName: "ゲスト", iconPath: null, monsters: [] },
@@ -13,13 +23,9 @@ function battleDocument(overrides: Partial<PvpBattleDocument>): PvpBattleDocumen
     battleDate: "2026-11-19",
     turns: [],
     turnSeconds: 60,
-    turnDeadline: Timestamp.fromMillis(0),
-    status: "active",
-    winnerUid: null,
-    finishReason: null,
     reportedWinnerUids: {},
     createdAt: Timestamp.fromMillis(0),
-    ...overrides,
+    ...progress,
   };
 }
 
@@ -80,7 +86,7 @@ describe("timeoutOutcome", () => {
 
 describe("outcomeAfterReport", () => {
   it("進行中の対戦は、最初の報告の勝者で終える", () => {
-    expect(outcomeAfterReport({ battle: battleDocument({}), reportedWinnerUid: "guest-uid" })).toEqual({
+    expect(outcomeAfterReport({ battle: battleDocument({ progress: activeProgress }), reportedWinnerUid: "guest-uid" })).toEqual({
       status: "finished",
       winnerUid: "guest-uid",
       finishReason: "result",
@@ -88,20 +94,20 @@ describe("outcomeAfterReport", () => {
   });
 
   it("進行中の対戦への「決着していない」は何も変えない", () => {
-    expect(outcomeAfterReport({ battle: battleDocument({}), reportedWinnerUid: null })).toBeUndefined();
+    expect(outcomeAfterReport({ battle: battleDocument({ progress: activeProgress }), reportedWinnerUid: null })).toBeUndefined();
   });
 
   it("報告で終わった対戦に同じ勝者の報告が届いても変えない", () => {
     expect(
       outcomeAfterReport({
-        battle: battleDocument({ status: "finished", winnerUid: "host-uid", finishReason: "result" }),
+        battle: battleDocument({ progress: { status: "finished", winnerUid: "host-uid", finishReason: "result", turnDeadline: null } }),
         reportedWinnerUid: "host-uid",
       }),
     ).toBeUndefined();
   });
 
   it("報告で終わった対戦に、別の勝者・決着していないという報告が届いたら勝敗を付けない", () => {
-    const battle = battleDocument({ status: "finished", winnerUid: "host-uid", finishReason: "result" });
+    const battle = battleDocument({ progress: { status: "finished", winnerUid: "host-uid", finishReason: "result", turnDeadline: null } });
     expect(outcomeAfterReport({ battle, reportedWinnerUid: "guest-uid" })).toEqual({ status: "void", winnerUid: null, finishReason: "mismatch" });
     expect(outcomeAfterReport({ battle, reportedWinnerUid: null })).toEqual({ status: "void", winnerUid: null, finishReason: "mismatch" });
   });
@@ -109,7 +115,7 @@ describe("outcomeAfterReport", () => {
   it("期限切れで終わった対戦は、食い違う報告で変えない", () => {
     expect(
       outcomeAfterReport({
-        battle: battleDocument({ status: "finished", winnerUid: "host-uid", finishReason: "timeout" }),
+        battle: battleDocument({ progress: { status: "finished", winnerUid: "host-uid", finishReason: "timeout", turnDeadline: null } }),
         reportedWinnerUid: "guest-uid",
       }),
     ).toBeUndefined();
@@ -118,7 +124,7 @@ describe("outcomeAfterReport", () => {
   it("勝敗を付けずに終わった対戦は、報告で変えない", () => {
     expect(
       outcomeAfterReport({
-        battle: battleDocument({ status: "void", winnerUid: null, finishReason: "blocked" }),
+        battle: battleDocument({ progress: { status: "void", winnerUid: null, finishReason: "blocked", turnDeadline: null } }),
         reportedWinnerUid: "host-uid",
       }),
     ).toBeUndefined();

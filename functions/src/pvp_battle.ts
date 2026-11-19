@@ -249,7 +249,7 @@ export const submitPvpAction = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
     if (round < battle.turns.length) {
       return;
     }
-    if (battle.status !== "active" || battle.turnDeadline === null) {
+    if (battle.status !== "active") {
       throw new HttpsError("failed-precondition", "対戦は終わっています");
     }
     if (round > battle.turns.length) {
@@ -303,7 +303,7 @@ export const claimPvpTimeout = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
   const firestore = getFirestore();
   return firestore.runTransaction(async (transaction): Promise<{ status: PvpBattleDocument["status"] }> => {
     const battle = requireParticipantBattle({ battleSnapshot: await transaction.get(firestore.doc(`pvpBattles/${battleID}`)), uid });
-    if (battle.status !== "active" || battle.turnDeadline === null || Timestamp.now().toMillis() <= battle.turnDeadline.toMillis()) {
+    if (battle.status !== "active" || Timestamp.now().toMillis() <= battle.turnDeadline.toMillis()) {
       return { status: battle.status };
     }
     const pendingSnapshots = await transaction.getAll(
