@@ -271,6 +271,7 @@
   "purchaseLinkRequiredTitle": "खरीदने से पहले अपना डेटा ट्रांसफ़र करो",
   "purchaseLinkRequiredMessage": "{providerName} से साइन इन करो, तो खरीदी हुई चीज़ें तुम्हारे खाते में रहेंगी। साइन इन किए बिना ब्राउज़र का डेटा मिटा दोगे, तो उन्हें वापस नहीं पा सकोगे।",
   "purchaseLinkAlreadyUsed": "यह {providerName} अकाउंट पहले से दूसरे गेम डेटा से जुड़ा है। खरीदने से पहले सेटिंग में ‘डेटा ट्रांसफ़र करो’ से अकाउंट बदल लो।",
+  "purchaseSpecifiedCommercialTransactions": "जापान के निर्दिष्ट वाणिज्यिक लेनदेन कानून के तहत जानकारी",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "चाल एक बार खरीदो और अपने मॉन्स्टर को सिखाओ",
   "actionCardOfPrice": "{price} वाला Action Card",

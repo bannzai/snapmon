@@ -271,6 +271,7 @@
   "purchaseLinkRequiredTitle": "购买前请先转移数据",
   "purchaseLinkRequiredMessage": "用 {providerName} 登录后，已购内容就会保存在你的账号中。如果没登录就清除浏览器数据，已购内容将无法恢复。",
   "purchaseLinkAlreadyUsed": "这个 {providerName} 账号已关联另一份游戏数据。购买前，先在设置的“转移数据”中切换账号。",
+  "purchaseSpecifiedCommercialTransactions": "依据日本《特定商业交易法》披露的信息",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "买断招式，教给你的怪物",
   "actionCardOfPrice": "价格为 {price} 的 Action Card",

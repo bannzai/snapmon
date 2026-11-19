@@ -271,6 +271,7 @@
   "purchaseLinkRequiredTitle": "Pindahkan data kamu sebelum membeli",
   "purchaseLinkRequiredMessage": "Log masuk dengan {providerName} supaya pembelian kamu kekal dalam akaun. Jika kamu padam data pelayar tanpa log masuk, pembelian itu tak dapat dipulihkan.",
   "purchaseLinkAlreadyUsed": "Akaun {providerName} ini sudah dipautkan ke data permainan lain. Sebelum membeli, tukar akaun melalui Tetapan → Pindahkan data.",
+  "purchaseSpecifiedCommercialTransactions": "Maklumat di bawah undang-undang Jepun tentang transaksi komersial tertentu",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Beli gerakan sekali, lalu ajar monstermu",
   "actionCardOfPrice": "Action Card berharga {price}",

@@ -271,6 +271,7 @@
   "purchaseLinkRequiredTitle": "କିଣିବା ପୂର୍ବରୁ ତୁମ ତଥ୍ୟ ସ୍ଥାନାନ୍ତର କର",
   "purchaseLinkRequiredMessage": "{providerName} ସହ ସାଇନ୍ ଇନ୍ କଲେ ତୁମେ କିଣିଥିବା ଜିନିଷ ତୁମ ଆକାଉଣ୍ଟରେ ରହିବ। ସାଇନ୍ ଇନ୍ ନକରି ବ୍ରାଉଜର୍ ଡାଟା ଡିଲିଟ୍ କଲେ, ସେଗୁଡ଼ିକୁ ଫେରି ପାଇବ ନାହିଁ।",
   "purchaseLinkAlreadyUsed": "ଏହି {providerName} ଆକାଉଣ୍ଟ ପୂର୍ବରୁ ଅନ୍ୟ ଖେଳ ଡାଟା ସହ ଯୋଡ଼ା ଅଛି। କିଣିବା ପୂର୍ବରୁ ସେଟିଂସ୍‌ର «ଡାଟା ସ୍ଥାନାନ୍ତର କର» ଦେଇ ଆକାଉଣ୍ଟ ବଦଳାଅ।",
+  "purchaseSpecifiedCommercialTransactions": "ଜାପାନର ନିର୍ଦ୍ଦିଷ୍ଟ ବାଣିଜ୍ୟିକ କାରବାର ଆଇନ ଅନୁଯାୟୀ ସୂଚନା",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "ଚାଲ ଥରେ କିଣ ଓ ତୁମ ମନଷ୍ଟରକୁ ଶିଖାଅ",
   "actionCardOfPrice": "{price} ମୂଲ୍ୟର Action Card",

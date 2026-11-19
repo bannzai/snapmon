@@ -271,6 +271,7 @@
   "purchaseLinkRequiredTitle": "Transfiere tus datos antes de comprar",
   "purchaseLinkRequiredMessage": "Inicia sesión con {providerName} para guardar tus compras en tu cuenta. Si borras los datos del navegador sin iniciar sesión, no podrás recuperarlas.",
   "purchaseLinkAlreadyUsed": "Esta cuenta de {providerName} ya está vinculada a otros datos. Antes de comprar, cambia de cuenta en Configuración → Transferir datos.",
+  "purchaseSpecifiedCommercialTransactions": "Información conforme a la ley japonesa de transacciones comerciales específicas",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Compra movimientos para siempre y enséñaselos a tus monstruos",
   "actionCardOfPrice": "Action Card de {price}",

@@ -271,6 +271,7 @@
   "purchaseLinkRequiredTitle": "வாங்கும் முன் உங்கள் தரவை மாற்றுங்கள்",
   "purchaseLinkRequiredMessage": "{providerName} மூலம் உள்நுழைந்தால், நீங்கள் வாங்கியவை உங்கள் கணக்கில் இருக்கும். உள்நுழையாமல் உலாவித் தரவை நீக்கினால், அவற்றை மீட்டெடுக்க முடியாது.",
   "purchaseLinkAlreadyUsed": "இந்த {providerName} கணக்கு ஏற்கெனவே வேறு விளையாட்டுத் தரவுடன் இணைக்கப்பட்டுள்ளது. வாங்குவதற்கு முன் அமைப்புகளில் «தரவை மாற்றுங்கள்» என்பதைப் பயன்படுத்தி கணக்கை மாற்றுங்கள்.",
+  "purchaseSpecifiedCommercialTransactions": "ஜப்பானின் குறிப்பிட்ட வணிகப் பரிவர்த்தனைகள் சட்டத்தின் கீழான தகவல்கள்",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "தாக்குதல்களை ஒருமுறை வாங்கி உங்கள் மான்ஸ்டருக்குக் கற்றுக்கொடுங்கள்",
   "actionCardOfPrice": "{price} விலையுள்ள Action Card",

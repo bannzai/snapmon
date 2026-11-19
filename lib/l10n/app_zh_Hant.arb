@@ -271,6 +271,7 @@
   "purchaseLinkRequiredTitle": "購買前先轉移資料",
   "purchaseLinkRequiredMessage": "用 {providerName} 登入後，已購內容就會保存在你的帳號中。如果還沒登入就清除瀏覽器資料，已購內容將無法復原。",
   "purchaseLinkAlreadyUsed": "這個 {providerName} 帳號已連結另一份遊戲資料。購買前，先到設定的「轉移資料」切換帳號。",
+  "purchaseSpecifiedCommercialTransactions": "依日本《特定商業交易法》揭露的資訊",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "買斷招式，教給你的怪物",
   "actionCardOfPrice": "價格為 {price} 的 Action Card",

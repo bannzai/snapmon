@@ -271,6 +271,7 @@
   "purchaseLinkRequiredTitle": "Transfer your data before buying",
   "purchaseLinkRequiredMessage": "Sign in with {providerName} to keep your purchases on your account. If you clear your browser data without signing in, you can't restore them.",
   "purchaseLinkAlreadyUsed": "This {providerName} account is already linked to other game data. Switch accounts in Settings → Transfer data before you buy.",
+  "purchaseSpecifiedCommercialTransactions": "Information under Japan’s Act on Specified Commercial Transactions",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Buy a move and teach it to your monsters",
   "actionCardOfPrice": "{price} Action Card",

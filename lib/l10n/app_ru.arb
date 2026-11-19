@@ -271,6 +271,7 @@
   "purchaseLinkRequiredTitle": "Перенеси свои данные перед покупкой",
   "purchaseLinkRequiredMessage": "Войди через {providerName}, и покупки сохранятся в твоём аккаунте. Если удалишь данные браузера, не войдя в аккаунт, восстановить покупки не получится.",
   "purchaseLinkAlreadyUsed": "Этот аккаунт {providerName} уже связан с другими игровыми данными. Перед покупкой смени аккаунт в разделе «Настройки» → «Перенести данные».",
+  "purchaseSpecifiedCommercialTransactions": "Сведения по японскому закону об отдельных видах коммерческих сделок",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Купи приёмы навсегда и обучи им своих монстров",
   "actionCardOfPrice": "Action Card за {price}",

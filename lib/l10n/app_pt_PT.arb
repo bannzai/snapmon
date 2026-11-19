@@ -271,6 +271,7 @@
   "purchaseLinkRequiredTitle": "Transfere os teus dados antes de comprar",
   "purchaseLinkRequiredMessage": "Inicia sessão com {providerName} para guardares as tuas compras na tua conta. Se apagares os dados do navegador sem iniciares sessão, não as poderás recuperar.",
   "purchaseLinkAlreadyUsed": "Esta conta {providerName} já está associada a outros dados do jogo. Antes de comprares, muda de conta em Definições → Transferir dados.",
+  "purchaseSpecifiedCommercialTransactions": "Informações nos termos da lei japonesa sobre transações comerciais específicas",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Compra golpes de vez e ensina-os aos teus monstros",
   "actionCardOfPrice": "Action Card por {price}",
