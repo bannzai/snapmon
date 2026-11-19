@@ -68,11 +68,11 @@ Apple は最初の消耗型の商品を新しいアプリのバージョンと�
 
 ## Web 版で売る準備
 
-Web 版は、同じ offering の package を RevenueCat の Web での販売の機能 (RevenueCat Billing。決済は Stripe) で売る (DIRECTION.md 2026-11-19 の #371 の行)。アプリと webhook は実装済みで、次が済むまで Web 版に購入の画面は出ない。どれも外部サービスの新しい連携か販売の条件に当たり、owner が行うか owner の確認が要る。
+Web 版は、同じ offering の package を RevenueCat の Web での販売の機能 (RevenueCat Billing。決済は Stripe) で売る (DIRECTION.md 2026-11-19 の #371 の行)。アプリと webhook は実装済みで、次が済むまで Web 版に購入の画面は出ない。Stripe の接続のように bannzai にしかできない作業の手順と、接続の後に agent が進める作業の分担は https://github.com/bannzai/snapmon/issues/375 にある。
 
 1. Firebase Authentication で Google のサインインを有効にし、Web 版のドメイン (`play.snapmonster.app`) が Authentication の承認済みドメインにあることを確かめる。Web 版で買えるのは Google と連携済みのアカウントだけで、2026-11-19 の時点では snapmon-prod の Google のサインインが有効になっておらず、連携ができない (documents/adr/0003-account-link-and-deletion.md の「確かめていないこと」。有効化は [ユーザー作業の一覧](https://github.com/bannzai/snapmon/issues/3) にある)
 2. Stripe のアカウントを作り、RevenueCat に接続する ( https://www.revenuecat.com/docs/web/connect-stripe-account )
-3. RevenueCat の project `proj682b16be` に Web の設定 (RevenueCat Billing の app) を作る。既定の通貨は日本円にする (既定の通貨は app の設定で選び、利用者の地域の通貨の値段が無い時に使われる。 https://www.revenuecat.com/docs/web/web-billing/multi-currency-support )
+3. RevenueCat の project `proj682b16be` に Web の設定 (RevenueCat Billing の app) を作る (RevenueCat の API の app の種類に `rc_billing` があるが、API で作れるかは確かめていない。`~/.claude/skills/revenuecat-product-setup/references/api_endpoints.md`「アプリ作成」)。既定の通貨は日本円にする (既定の通貨は app の設定で選び、利用者の地域の通貨の値段が無い時に使われる。 https://www.revenuecat.com/docs/web/web-billing/multi-currency-support )
 4. Web の商品 5 つを RevenueCat のダッシュボードで作る (種類は Consumable。Web の商品は API では作れない。`~/.claude/skills/revenuecat-product-setup/SKILL.md`「API v2 / rc でできない操作」)。ID は、アプリの商品の ID の末尾に `_web` を付ける (webhook とアプリが末尾の `_web` を外してアプリの商品として読む。`functions/src/generation_tickets.ts` の `WEB_PRODUCT_ID_SUFFIX`)。値段は保存した後に変えられない (「Once you've saved the product, it's only possible to add prices for new currencies, and not edit existing ones.」 https://www.revenuecat.com/docs/web/web-billing/product-setup 、2026-11-19 に確認)
 
    | Web の商品の ID | 値段 | 足す package (offering `generation_tickets`) |
@@ -94,7 +94,7 @@ Web 版は、同じ offering の package を RevenueCat の Web での販売の�
    - RevenueCat のダッシュボードから返金した時に `CANCELLATION` が届き、Slack に知らせが出る
    - 決済の画面 (申込みの最終確認の画面) の表示が、特定商取引法 第12条の6 の求める事項 (分量・価格・支払いの時期と方法・提供の時期・解除に関する事項) を満たす。画面は RevenueCat が用意するため、足りない時は RevenueCat の設定で足せるかを調べる
 
-current の offering は project に 1 つで、Web の設定にも効く。Web の鍵を渡したビルドをデプロイした後は、上の「解放」と「iOS の最初の提出」の手順 3 で offering を current にすると、Web 版にも購入の画面が出る。Web の商品を package に足していない間に Web 版の SDK がその package を返すかは未確認のため、Web の鍵を渡したビルドのデプロイは、上の 4 の後に行う。
+current の offering は project に 1 つで、Web の設定にも効く。そのため、Web 版で売り始める切り替えは「Web の鍵を渡したビルドのデプロイ」と「offering `generation_tickets` が current であること」の両方が揃った時で、片方だけでは Web 版に購入の画面は出ない。2026-11-17 から、App Store の審査のために current を `generation_tickets` にし、`config/features.actionCardsVisible` を true にしている ( https://github.com/bannzai/snapmon/issues/3 の 2026-11-17 のコメント)。この間に Web の鍵を渡したビルドをデプロイすると、その時点で Web 版にも購入の画面が出るため、デプロイは上の 8 の確認と bannzai の確認の後に行う。Web の商品を package に足していない間に Web 版の SDK がその package を返すかは未確認のため、デプロイは上の 4 より後にする。
 
 ## 閉じ直す
 
