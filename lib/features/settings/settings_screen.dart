@@ -38,7 +38,7 @@ Future<String?> openAndDescribeFailure({
   }
 }
 
-/// [accountStore] の連携に使うサインインの名前を返す。選べるサインインが 1 つ (Android と Web) ならその名前を返し、2 つ以上 (iOS) なら
+/// [accountStore] の連携に使うサインインの名前を返す。選べるサインインが 1 つならその名前を返し、2 つ以上なら
 /// 下からの一覧で利用者に選んでもらう。選ばずに閉じた時は null を返す。
 /// 設定画面の「データを引き継ぐ」と、購入の前の連携の案内 (lib/features/settings/direct_sales.dart) が使う。
 Future<String?> chooseLinkProviderName({
@@ -347,7 +347,7 @@ class SettingsScreen extends StatelessWidget {
                   title: Text(context.l10n.settingsTransferData),
                   subtitle: Text(
                     linkedProviderNames.isEmpty
-                        // 選べるサインインが 2 つの時 (iOS) は「Apple / Google」と並べる。「か」に当たる語を
+                        // 選べるサインインが 2 つ以上の時は「Apple / Google」と並べる。「か」に当たる語を
                         // 各言語の文言に足さずに、どの言語でも同じに読める記号で区切るため
                         ? context.l10n.settingsTransferDataDescription(
                             accountStore.linkProviderNames.join(' / '),

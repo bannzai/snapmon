@@ -15,11 +15,15 @@ permalink: /AccountDeletion
 
 削除を実行すると、アカウントの削除がすぐに始まります。削除が済むと、アプリは新しい匿名アカウントで始まります。
 
-iPhone・iPad で「データを引き継ぐ」から Apple ID と連携している場合は、Apple ID との連携を取り消すため、削除の途中で Apple のサインインを求められます。画面の案内に従ってサインインすると、そのまま削除が進みます。[^reauth]
+「データを引き継ぐ」から Apple ID と連携しているアカウントを iPhone・iPad のアプリで削除する場合は、Apple ID との連携を取り消すため、削除の途中で Apple のサインインを求められます。画面の案内に従ってサインインすると、そのまま削除が進みます。[^reauth]
+
+Apple ID と連携しているアカウントを Android のアプリか Web 版で削除する場合は、Apple のサインインは求められず、Apple ID の側の記録（「Apple でサインイン」を使っているアプリの一覧の SnapMonster）は残ります。この記録は、iPhone の「設定」→ 自分の名前 →「Apple でサインイン」、または account.apple.com の「サインインとセキュリティ」→「Apple でサインイン」から削除できます。[^applemanage]
 
 モンスターを生成している途中は削除できません。生成が終わってから、もう一度削除操作を行ってください。削除の途中で通信に失敗した場合は画面にその内容が表示されるので、もう一度削除操作を行ってください。
 
 [^reauth]: 出典: https://firebase.google.com/docs/auth/flutter/federated-auth 「Apple sign-in on Apple platforms returns an authorization code that can be used to revoke the Apple auth token」（2026-10-22 に確認）。この認可コードはサインインの結果にだけ含まれるため、削除の時にもう一度 Apple のサインインを行う（アプリの実装: `lib/firebase/account.dart` の `deleteAccountWithFirebase`）。
+
+[^applemanage]: 出典: Apple のサポートのページ「「Appleでサインイン」を使っているアプリを管理する」 https://support.apple.com/ja-jp/102571 （2026-11-19 に確認）。Android のアプリと Web 版では、この取り消しを行う機能がアプリの使う SDK に無い（firebase_auth 7.0.1 の Android の実装は `revokeTokenWithAuthorizationCode` で何もせず、Web の実装は「revokeTokenWithAuthorizationCode() is only available on apple platforms.」で断る）。
 
 ## 削除されるデータ
 

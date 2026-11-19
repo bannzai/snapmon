@@ -261,7 +261,7 @@ Future<void> main() async {
       ),
       accountStore: AccountStore(
         sessionStore: sessionStore,
-        linkProviderNames: accountLinkProviderNamesForPlatform,
+        linkProviderNames: accountLinkProviderNames,
         readLinkedProviderNames: linkedProviderNamesWithFirebase,
         linkAccount: linkAccountWithFirebase,
         discardCurrentAccount: deleteCurrentAccountOnServerWithFirebase,
