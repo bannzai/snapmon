@@ -83,6 +83,21 @@ void main() {
   /// 購入の前の連携の案内。
   final linkDialog = find.byKey(const Key('link-before-purchase-dialog'));
 
+  /// 案内の「データを引き継ぐ」を押して出る、連携に使うサインインの一覧の [providerName] の行。
+  Finder linkProviderTile({required String providerName}) =>
+      find.byKey(Key('settings-link-provider-$providerName'));
+
+  /// 案内の「データを引き継ぐ」を押し、下からの一覧で [providerName] を選ぶ。
+  Future<void> linkFromDialog({
+    required WidgetTester tester,
+    required String providerName,
+  }) async {
+    await tester.tap(find.byKey(const Key('link-before-purchase-link')));
+    await tester.pumpAndSettle();
+    await tester.tap(linkProviderTile(providerName: providerName));
+    await tester.pumpAndSettle();
+  }
+
   group('生成チケットの購入の前の連携の確認', () {
     testWidgets('提供者が直接売るビルドで匿名のままなら 購入を始めずに連携の案内を出し やめると何もしない', (
       tester,
@@ -94,7 +109,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(linkDialog, findsOneWidget);
       expect(
-        find.text(l10n.purchaseLinkRequiredMessage('Google')),
+        find.text(l10n.purchaseLinkRequiredMessage('Apple / Google')),
         findsOneWidget,
       );
       expect(purchasedPackages, isEmpty);
@@ -114,12 +129,50 @@ void main() {
 
       await tester.tap(buyButton);
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('link-before-purchase-link')));
-      await tester.pumpAndSettle();
+      await linkFromDialog(tester: tester, providerName: 'Google');
 
       expect(accountLink.linkedWithProviderNames, ['Google']);
       expect(linkDialog, findsNothing);
       expect(purchasedPackages, [testTicketPackage]);
+    });
+
+    testWidgets('案内の「データを引き継ぐ」は 設定画面と同じ一覧で連携先を選ばせ 選んだ連携先で連携する', (tester) async {
+      final accountLink = FakeAccountLink(isLinked: false);
+      await pumpTicketPurchaseSheet(tester: tester, accountLink: accountLink);
+
+      await tester.tap(buyButton);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('link-before-purchase-link')));
+      await tester.pumpAndSettle();
+      expect(linkProviderTile(providerName: 'Apple'), findsOneWidget);
+      expect(linkProviderTile(providerName: 'Google'), findsOneWidget);
+      // 選ぶまでは連携も購入も始めない
+      expect(accountLink.linkedWithProviderNames, isEmpty);
+      expect(purchasedPackages, isEmpty);
+
+      await tester.tap(linkProviderTile(providerName: 'Apple'));
+      await tester.pumpAndSettle();
+      expect(accountLink.linkedWithProviderNames, ['Apple']);
+      expect(linkDialog, findsNothing);
+      expect(purchasedPackages, [testTicketPackage]);
+    });
+
+    testWidgets('一覧で連携先を選ばずに閉じたら 連携も購入も始めず 案内に戻る', (tester) async {
+      final accountLink = FakeAccountLink(isLinked: false);
+      await pumpTicketPurchaseSheet(tester: tester, accountLink: accountLink);
+
+      await tester.tap(buyButton);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('link-before-purchase-link')));
+      await tester.pumpAndSettle();
+      // 一覧の外 (画面の上端) を押して閉じる
+      await tester.tapAt(const Offset(10, 10));
+      await tester.pumpAndSettle();
+
+      expect(linkProviderTile(providerName: 'Google'), findsNothing);
+      expect(linkDialog, findsOneWidget);
+      expect(accountLink.linkedWithProviderNames, isEmpty);
+      expect(purchasedPackages, isEmpty);
     });
 
     testWidgets('提供者が直接売るビルドで連携済みなら 案内を出さずに購入に進む', (tester) async {
@@ -171,8 +224,7 @@ void main() {
 
       await tester.tap(buyButton);
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('link-before-purchase-link')));
-      await tester.pumpAndSettle();
+      await linkFromDialog(tester: tester, providerName: 'Google');
 
       expect(linkDialog, findsOneWidget);
       expect(
@@ -194,8 +246,7 @@ void main() {
 
       await tester.tap(buyButton);
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('link-before-purchase-link')));
-      await tester.pumpAndSettle();
+      await linkFromDialog(tester: tester, providerName: 'Google');
 
       expect(linkDialog, findsOneWidget);
       expect(

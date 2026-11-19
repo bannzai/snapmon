@@ -26,14 +26,15 @@ class FakeAccountLink {
   /// 既定は連携できる。
   Future<Future<String> Function()?> Function() linkAccount = () async => null;
 
-  /// この連携の状態を読む [AccountStore]。選べるサインインは Web 版と同じ Google だけ。
+  /// この連携の状態を読む [AccountStore]。選べるサインインはアプリと同じ Apple と Google
+  /// (lib/firebase/account.dart の `accountLinkProviderNames`) で、連携の前に下からの一覧で選ぶ。
   AccountStore accountStore() => AccountStore(
     sessionStore: SessionStore(
       startSession: () async => 'uid-new',
       endSession: () async {},
       resumedUid: _resumedUid,
     ),
-    linkProviderNames: const ['Google'],
+    linkProviderNames: const ['Apple', 'Google'],
     readLinkedProviderNames: () => linkedProviderNames,
     linkAccount: ({required providerName}) async {
       linkedWithProviderNames.add(providerName);

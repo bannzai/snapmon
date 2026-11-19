@@ -528,6 +528,9 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('link-before-purchase-link')));
       await tester.pumpAndSettle();
+      // 連携先は、設定画面と同じ下からの一覧で選ぶ
+      await tester.tap(find.byKey(const Key('settings-link-provider-Google')));
+      await tester.pumpAndSettle();
 
       expect(accountLink.linkedWithProviderNames, ['Google']);
       expect(linkDialog, findsNothing);
