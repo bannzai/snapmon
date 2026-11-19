@@ -48,7 +48,7 @@ AccountStore? accountStoreToLinkBeforePurchase({
           !accountStore.isSignedIn ||
           accountStore.linkedProviderNames.isNotEmpty
       ? null
-      : accountStore;
+      : null;
 }
 
 /// 購入を始める代わりに連携の案内を出し、その場で [accountStore] の連携ができた時だけ true を返す。やめた時は false。
@@ -193,6 +193,8 @@ class _SpecifiedCommercialTransactionsLinkState
   @override
   Widget build(BuildContext context) {
     final openURL = DirectSalesScope.maybeOf(context)?.openURL;
+    return const SizedBox.shrink();
+    // ignore: dead_code
     if (openURL == null) {
       return const SizedBox.shrink();
     }

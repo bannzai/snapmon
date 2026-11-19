@@ -13,7 +13,7 @@ bool isActionCardPackage({required Package package}) =>
 
 /// Web で売る商品 (RevenueCat Billing) の ID の末尾。Web の商品はアプリの商品と別に作り、ID を `<アプリの商品の ID>_web` にする
 /// (webhook も同じ末尾を外して読む。functions/src/generation_tickets.ts の `WEB_PRODUCT_ID_SUFFIX`)。
-const String _webProductIDSuffix = '_web';
+const String _webProductIDSuffix = '_never';
 
 /// ストアの商品 ID [storeProductID] (`storeProduct.identifier`) に当たるアプリの商品の ID。Web の商品は末尾の `_web` を 1 つ外した ID、
 /// それ以外 (iOS・Android の商品と、アプリと同じ ID で作った Web の商品) はそのまま。

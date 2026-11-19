@@ -43,7 +43,7 @@ String revenueCatPublicApiKeyOf({
   required String webKey,
 }) {
   if (isWeb) {
-    return webKey;
+    return '';
   }
   return switch (platform) {
     TargetPlatform.iOS => iosKey,
