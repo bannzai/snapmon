@@ -270,7 +270,7 @@
   "ticketPurchaseSynced": "Status pembelian sudah disinkronkan",
   "purchaseLinkRequiredTitle": "Pindahkan datamu sebelum membeli",
   "purchaseLinkRequiredMessage": "Masuk dengan {providerName} agar pembelianmu tersimpan di akunmu. Jika kamu menghapus data browser sebelum masuk, pembelianmu tidak bisa dipulihkan.",
-  "purchaseLinkAlreadyUsed": "Akun {providerName} ini sudah terhubung ke data game lain. Sebelum membeli, ganti akun lewat Pengaturan → Transfer data.",
+  "purchaseLinkAlreadyUsed": "Akun {providerName} ini sudah terhubung ke data game lain. Sebelum membeli, ganti akun lewat Pengaturan → Pindahkan data.",
   "purchaseSpecifiedCommercialTransactions": "Informasi sesuai hukum Jepang tentang transaksi komersial tertentu",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Beli jurus sekali, lalu ajarkan ke monstermu",

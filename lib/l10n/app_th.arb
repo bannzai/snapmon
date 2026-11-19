@@ -270,7 +270,7 @@
   "ticketPurchaseSynced": "ซิงก์สถานะการซื้อแล้ว",
   "purchaseLinkRequiredTitle": "โอนข้อมูลก่อนซื้อ",
   "purchaseLinkRequiredMessage": "ลงชื่อเข้าใช้ด้วย {providerName} เพื่อเก็บสิ่งที่ซื้อไว้ในบัญชี ถ้าลบข้อมูลเบราว์เซอร์โดยยังไม่ลงชื่อเข้าใช้ จะกู้คืนสิ่งที่ซื้อไม่ได้",
-  "purchaseLinkAlreadyUsed": "บัญชี {providerName} นี้เชื่อมกับข้อมูลเกมชุดอื่นแล้ว ก่อนซื้อให้เปลี่ยนบัญชีที่การตั้งค่า → ย้ายข้อมูล",
+  "purchaseLinkAlreadyUsed": "บัญชี {providerName} นี้เชื่อมกับข้อมูลเกมชุดอื่นแล้ว ก่อนซื้อให้เปลี่ยนบัญชีที่การตั้งค่า → โอนย้ายข้อมูล",
   "purchaseSpecifiedCommercialTransactions": "ข้อมูลตามกฎหมายญี่ปุ่นว่าด้วยธุรกรรมทางการค้าเฉพาะ",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "ซื้อท่าขาดแล้วสอนให้มอนสเตอร์",

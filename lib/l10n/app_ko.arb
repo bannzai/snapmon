@@ -270,7 +270,7 @@
   "ticketPurchaseSynced": "구매 상태를 동기화했어요",
   "purchaseLinkRequiredTitle": "구매 전에 데이터를 이전해야 해요",
   "purchaseLinkRequiredMessage": "{providerName}(으)로 로그인하면 구매한 항목이 계정에 남아요. 로그인하지 않고 브라우저 데이터를 지우면 구매한 항목을 복구할 수 없어요.",
-  "purchaseLinkAlreadyUsed": "이 {providerName} 계정은 이미 다른 게임 데이터와 연동되어 있어요. 구매하기 전에 설정의 ‘데이터 이어받기’에서 계정을 바꿔 주세요.",
+  "purchaseLinkAlreadyUsed": "이 {providerName} 계정은 이미 다른 게임 데이터와 연동되어 있어요. 구매하기 전에 설정의 ‘데이터 이전하기’에서 계정을 바꿔 주세요.",
   "purchaseSpecifiedCommercialTransactions": "일본 특정상거래법에 따른 표시",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "기술을 영구 구매해 몬스터에게 가르치기",

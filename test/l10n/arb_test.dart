@@ -43,6 +43,19 @@ void main() {
     );
   });
 
+  test('購入の前の連携の案内は、その言語の設定画面の項目名 (settingsTransferData) をそのままの表記で含む', () {
+    // 案内は「設定の『データを引き継ぐ』で切り替えてから買ってください」と設定画面の項目を名指しする。
+    // 訳し分けられると、利用者が設定画面でその項目を見つけられない
+    for (final path in ['lib/l10n/app_ja.arb', ...translatedArbPaths]) {
+      final messages = _readMessages(path: path);
+      expect(
+        messages['purchaseLinkAlreadyUsed'],
+        contains(messages['settingsTransferData']),
+        reason: path,
+      );
+    }
+  });
+
   for (final path in translatedArbPaths) {
     final translatedMessages = _readMessages(path: path);
 
