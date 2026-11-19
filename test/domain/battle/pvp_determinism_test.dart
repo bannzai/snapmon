@@ -314,19 +314,22 @@ void main() {
       expect(
         isSelectable(
           party: started.player,
-          action: const UseMoveAction(moveID: 'fire_1')),
+          action: const UseMoveAction(moveID: 'fire_1'),
+        ),
         isTrue,
       );
       expect(
         isSelectable(
           party: started.player,
-          action: const UseMoveAction(moveID: 'fire_2')),
+          action: const UseMoveAction(moveID: 'fire_2'),
+        ),
         isFalse,
       );
       expect(
         isSelectable(
           party: started.player,
-          action: const UseMoveAction(moveID: 'water_1')),
+          action: const UseMoveAction(moveID: 'water_1'),
+        ),
         isFalse,
       );
       expect(
@@ -347,9 +350,10 @@ void main() {
     });
 
     test('わるあがきは、使える攻撃技が残っている間は選べず、どの技の PP も無くなると選べる', () {
-      expect(isSelectable(
-          party: started.player,
-          action: const StruggleAction()), isFalse);
+      expect(
+        isSelectable(party: started.player, action: const StruggleAction()),
+        isFalse,
+      );
       expect(
         isSelectable(
           action: const StruggleAction(),
@@ -377,26 +381,30 @@ void main() {
       expect(
         isSelectable(
           party: started.player,
-          action: const SwitchMonsterAction(memberIndex: 1)),
+          action: const SwitchMonsterAction(memberIndex: 1),
+        ),
         isTrue,
       );
       // 場に出ているモンスター・手持ちに無い位置
       expect(
         isSelectable(
           party: started.player,
-          action: const SwitchMonsterAction(memberIndex: 0)),
+          action: const SwitchMonsterAction(memberIndex: 0),
+        ),
         isFalse,
       );
       expect(
         isSelectable(
           party: started.player,
-          action: const SwitchMonsterAction(memberIndex: 2)),
+          action: const SwitchMonsterAction(memberIndex: 2),
+        ),
         isFalse,
       );
       expect(
         isSelectable(
           party: started.player,
-          action: const SwitchMonsterAction(memberIndex: -1)),
+          action: const SwitchMonsterAction(memberIndex: -1),
+        ),
         isFalse,
       );
       // 倒れている控え
@@ -448,5 +456,8 @@ void main() {
   });
 }
 
-/// 版 1 のバトルの計算で、上のテストの固定した対戦を決着まで進めた結果 (CI の実行で得た値)。
-const String pvpRulesVersion1BattleFingerprint = 'CI の最初の実行で得た値に置き換える';
+/// 版 1 のバトルの計算で、上のテストの固定した対戦を決着まで進めた結果
+/// (2026-11-19 の flutter-ci の実行 https://github.com/bannzai/snapmon/actions/runs/44505632319 で得た値)。
+const String pvpRulesVersion1BattleFingerprint =
+    'winner=player turnNumber=11 eventCount=16 randomState=2216667923 '
+    'playerHitPoints=[8, 16] opponentHitPoints=[0, 0]';

@@ -175,13 +175,17 @@ class FakePvpBattleServer {
       }
       return ticket.battleID;
     },
-    watchBattle: ({required battleID}) =>
-        Stream.multi((controller) {
-          controller.add(_battle);
-          controller.onCancel = _battleChanges.stream
-              .listen(controller.add)
-              .cancel;
-        }),
+    watchBattle: ({required battleID}) => Stream.multi((controller) {
+      controller.add(_battle);
+      final battleChangesSubscription = _battleChanges.stream.listen(
+        controller.add,
+      );
+      // 購読の解除の Future を返さない。返すと、解除を待つ `Stream.first` が widget テストの偽の時計の外 (ルートのゾーン) の
+      // マイクロタスクを待つことになり、テストの中で完了しない
+      controller.onCancel = () {
+        unawaited(battleChangesSubscription.cancel());
+      };
+    }),
     submitAction:
         ({required battleID, required round, required action}) async =>
             submitAction(uid: uid, round: round, action: action),

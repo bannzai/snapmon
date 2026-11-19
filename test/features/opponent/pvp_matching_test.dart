@@ -144,6 +144,9 @@ void main() {
   /// 「対戦をする」を押して、人との対戦の待つ画面を開く。待つ画面の表示は動き続けるため、時間を指定して進める。
   Future<void> openMatchingScreen({required WidgetTester tester}) async {
     await tester.tap(find.byKey(const Key('pvp-battle')));
+    // 開いた画面は最初のフレームでは画面の外の扱い (Offstage) で作られ、次のフレームで表に出る。時間は進めない
+    // (待つ画面のタイマーを、開いた時点から数えて確かめるため)
+    await tester.pump();
     await tester.pump();
     expect(find.byType(PvpMatchingScreen), findsOneWidget);
   }
@@ -277,7 +280,9 @@ void main() {
       expect(server.joinCalls, hasLength(joinCountAtLeave));
     });
 
-    testWidgets('5 分組み合わされなければ探すのをやめ、見つからなかったことと「CPU と対戦をする」を出す', (tester) async {
+    testWidgets('5 分組み合わされなければ探すのをやめ、見つからなかったことと「CPU と対戦をする」を出す', (
+      tester,
+    ) async {
       await pumpOpponentScreen(tester: tester, blockUser: () async {});
       await openMatchingScreen(tester: tester);
 
@@ -305,10 +310,7 @@ void main() {
       await openMatchingScreen(tester: tester);
       await tester.pump();
 
-      expect(
-        find.text('Bad state: 手持ちを入れてから相手を探してください'),
-        findsOneWidget,
-      );
+      expect(find.text('Bad state: 手持ちを入れてから相手を探してください'), findsOneWidget);
       expect(find.byKey(const Key('pvp-matching-cpu-battle')), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('pvp-matching-cancel')));
@@ -319,42 +321,43 @@ void main() {
   });
 
   group('組み合わされた後のバトルの画面', () {
-    testWidgets('組み合わされると待つ画面を閉じ、組み合わせた時点の 2 人の手持ちの写しで、相手の表示名と通報・ブロックのメニューを出したバトルの画面を開く', (
-      tester,
-    ) async {
-      await pumpOpponentScreen(tester: tester, blockUser: () async {});
-      await openMatchingScreen(tester: tester);
-      await matchAndOpenBattle(tester: tester);
+    testWidgets(
+      '組み合わされると待つ画面を閉じ、組み合わせた時点の 2 人の手持ちの写しで、相手の表示名と通報・ブロックのメニューを出したバトルの画面を開く',
+      (tester) async {
+        await pumpOpponentScreen(tester: tester, blockUser: () async {});
+        await openMatchingScreen(tester: tester);
+        await matchAndOpenBattle(tester: tester);
 
-      expect(find.byType(PvpMatchingScreen), findsNothing);
-      final battleScreen = tester.widget<BattleScreen>(
-        find.byType(BattleScreen),
-      );
-      expect(battleScreen.opponentKind, BattleOpponentKind.pvp);
-      expect(battleScreen.pvpSession!.opponent.uid, 'opponent-uid');
-      expect(battleScreen.opponentDisplayName, 'あいて');
-      expect(battleScreen.randomSeed, 1);
-      expect(
-        [
-          for (final monster in battleScreen.playerParty)
-            (monster.definition.id, monster.level),
-        ],
-        [('sample-mugmon', 60)],
-      );
-      expect(
-        [
-          for (final monster in battleScreen.opponentParty)
-            (monster.definition.id, monster.level),
-        ],
-        [('sample-ringora', 1), ('sample-slippan', 1)],
-      );
-      expect(find.byKey(const Key('opponent-safety-menu')), findsOneWidget);
-      // 組み合わされた後は探さない
-      final joinCountAtMatch = server.joinCalls.length;
-      await tester.pump(const Duration(seconds: 10));
-      expect(server.joinCalls, hasLength(joinCountAtMatch));
-      expect(server.leaveCalls, isEmpty);
-    });
+        expect(find.byType(PvpMatchingScreen), findsNothing);
+        final battleScreen = tester.widget<BattleScreen>(
+          find.byType(BattleScreen),
+        );
+        expect(battleScreen.opponentKind, BattleOpponentKind.pvp);
+        expect(battleScreen.pvpSession!.opponent.uid, 'opponent-uid');
+        expect(battleScreen.opponentDisplayName, 'あいて');
+        expect(battleScreen.randomSeed, 1);
+        expect(
+          [
+            for (final monster in battleScreen.playerParty)
+              (monster.definition.id, monster.level),
+          ],
+          [('sample-mugmon', 60)],
+        );
+        expect(
+          [
+            for (final monster in battleScreen.opponentParty)
+              (monster.definition.id, monster.level),
+          ],
+          [('sample-ringora', 1), ('sample-slippan', 1)],
+        );
+        expect(find.byKey(const Key('opponent-safety-menu')), findsOneWidget);
+        // 組み合わされた後は探さない
+        final joinCountAtMatch = server.joinCalls.length;
+        await tester.pump(const Duration(seconds: 10));
+        expect(server.joinCalls, hasLength(joinCountAtMatch));
+        expect(server.leaveCalls, isEmpty);
+      },
+    );
 
     testWidgets('自分の行動を選ぶと相手の行動を待ち、相手が選ぶとラウンドが進み、決着すると勝者を報告してから人との対戦として記録する', (
       tester,
@@ -494,7 +497,9 @@ void main() {
       expect(battleCalls.completedBattles.single.winner, BattleSideID.opponent);
     });
 
-    testWidgets('2 人とも選ばないまま期限を過ぎた対戦は、勝敗が付かなかったことを知らせて、記録せずに対戦のシーンに戻る', (tester) async {
+    testWidgets('2 人とも選ばないまま期限を過ぎた対戦は、勝敗が付かなかったことを知らせて、記録せずに対戦のシーンに戻る', (
+      tester,
+    ) async {
       await pumpOpponentScreen(tester: tester, blockUser: () async {});
       await openMatchingScreen(tester: tester);
       await matchAndOpenBattle(tester: tester);
@@ -518,7 +523,9 @@ void main() {
       expect(battleCalls.completedBattles, isEmpty);
     });
 
-    testWidgets('メニューから場に出ている相手のモンスターを通報すると、相手の uid とモンスターと選んだ理由で通報する', (tester) async {
+    testWidgets('メニューから場に出ている相手のモンスターを通報すると、相手の uid とモンスターと選んだ理由で通報する', (
+      tester,
+    ) async {
       await pumpOpponentScreen(tester: tester, blockUser: () async {});
       await openMatchingScreen(tester: tester);
       await matchAndOpenBattle(tester: tester);
@@ -564,7 +571,9 @@ void main() {
       expect(pvpCalls.blockedUids, isEmpty);
     });
 
-    testWidgets('メニューから相手をブロックすると、確かめた後に相手の uid でブロックし、勝敗が付かずに終わった対戦を閉じる', (tester) async {
+    testWidgets('メニューから相手をブロックすると、確かめた後に相手の uid でブロックし、勝敗が付かずに終わった対戦を閉じる', (
+      tester,
+    ) async {
       await pumpOpponentScreen(
         tester: tester,
         // Functions の blockUser は、ブロックした相手との進行中の対戦を勝敗を付けずに終える

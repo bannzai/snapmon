@@ -1602,7 +1602,7 @@ class _BattleScreenState extends State<BattleScreen>
                 key: const Key('battle-log'),
                 style: SnapmonTextStyles.body,
               ),
-              final pvpSession? => ValueListenableBuilder(
+              final pvpSession => ValueListenableBuilder(
                 valueListenable: pvpSession.remainingSeconds,
                 builder: (context, remainingSeconds, _) => Text(
                   _isWaitingForOpponent

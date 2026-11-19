@@ -34,6 +34,7 @@ import 'package:snapmon/common_ui/storage_image.dart';
 
 import '../test/battle_recorder_fixture.dart';
 import '../test/game_audio_fixture.dart';
+import '../test/pvp_battle_fixture.dart';
 import '../test/pvp_client_fixture.dart';
 import '../test/sample_data_fixture.dart';
 import 'store_screenshot_copy.dart';
@@ -362,6 +363,8 @@ Future<void> _writeScreenshot({
               _withLevel(monster: monster, level: 10),
           ],
           opponentKind: BattleOpponentKind.cpu,
+          pvpSession: null,
+          opponentSafetyMenuBuilder: null,
           definitions: sampleData.definitions,
           // 生成し直しても同じ場面になるよう、乱数の seed を固定する
           randomSeed: 7,
@@ -532,6 +535,7 @@ Widget _homeShell({
     ),
     pvpClient: fakePvpClient(
       calls: RecordedPvpCalls(),
+      battleClient: signedOutPvpBattleClient(),
       fetchOpponents: () async => null,
       extraDefinitions: null,
       battleRecord: (wins: 14, losses: 6),

@@ -142,9 +142,14 @@ void main() {
     final server = unmatchedServer()..joinError = StateError('手持ちを入れてください');
     final search = searchOf(server: server);
     Object? searchError;
-    search.matchedBattleID.then((_) {}, onError: (Object error) {
-      searchError = error;
-    }).ignore();
+    search.matchedBattleID
+        .then(
+          (_) {},
+          onError: (Object error) {
+            searchError = error;
+          },
+        )
+        .ignore();
 
     search.start();
     await tester.pump();

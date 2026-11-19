@@ -1523,7 +1523,9 @@ void main() {
       );
 
       /// 初回の導線の生成の画面を開き、m1 が生まれて人との対戦の相手を探し始めた直後 (探し始めてから 100 ミリ秒以内) まで進める。
-      Future<void> pumpUntilSearchStarted({required WidgetTester tester}) async {
+      Future<void> pumpUntilSearchStarted({
+        required WidgetTester tester,
+      }) async {
         await pumpGenerationScreen(
           tester: tester,
           startsFirstBattle: true,
@@ -1531,11 +1533,7 @@ void main() {
           generator: savedM1Generator(),
         );
         // 100 回 (10 秒): 生成の結果が届くまでの見本の待ちより十分長く、探し始めない不具合でテストが止まらない上限
-        for (
-          var count = 0;
-          count < 100 && server.joinCalls.isEmpty;
-          count++
-        ) {
+        for (var count = 0; count < 100 && server.joinCalls.isEmpty; count++) {
           await tester.pump(const Duration(milliseconds: 100));
         }
         expect(server.joinCalls, hasLength(1));
@@ -1545,7 +1543,10 @@ void main() {
         tester,
       ) async {
         await pumpUntilSearchStarted(tester: tester);
-        expect(server.joinCalls.single.rulesVersion, '1.${dexStore.definitions.version}');
+        expect(
+          server.joinCalls.single.rulesVersion,
+          '1.${dexStore.definitions.version}',
+        );
         expect(find.text(l10n.generationSearchingOpponent), findsOneWidget);
 
         await tester.pump(const Duration(seconds: 2));

@@ -299,6 +299,8 @@ void main() {
       await tester.pump();
       expect(isResolved, isTrue);
       expect(resolvedState!.turnNumber, hostState.turnNumber + 2);
+      // 決着していない対戦の同期は残り時間のタイマーを持ち続けるため、テストの終わりの前に止める
+      hostSession.dispose();
     });
 
     testWidgets('片方が操作をやめた対戦は、サーバーの期限の後に、行動を出した側の勝ち・やめた側の負けで 2 人の端末とも終わる', (
@@ -402,6 +404,7 @@ void main() {
 
       await tester.pump(const Duration(seconds: 90));
       expect(hostSession.remainingSeconds.value, 0);
+      hostSession.dispose();
     });
 
     testWidgets('相手にブロックされた対戦と、相手のアカウントの削除で消えた対戦は、勝敗を付けずに終わる', (tester) async {
@@ -501,6 +504,7 @@ void main() {
       await tester.pump();
 
       expect((await hostNext)!.turnNumber, hostState.turnNumber + 2);
+      hostSession.dispose();
     });
 
     testWidgets('止めた後は、公開を待っていた行動を進めず、時間切れも頼まない', (tester) async {
@@ -520,7 +524,9 @@ void main() {
   });
 
   group('pvpBattleRecorder', () {
-    testWidgets('開始の記録は呼ばずに対戦の ID を返し、完了の記録は勝者の uid を報告してからレベルを記録する', (tester) async {
+    testWidgets('開始の記録は呼ばずに対戦の ID を返し、完了の記録は勝者の uid を報告してからレベルを記録する', (
+      tester,
+    ) async {
       for (final (winner, winnerUid) in [
         (BattleSideID.player, guest.uid),
         (BattleSideID.opponent, host.uid),
@@ -553,12 +559,15 @@ void main() {
           {'sample-noton': 3},
         );
         expect(server.reportCalls, [(uid: guest.uid, winnerUid: winnerUid)]);
-        expect(calls.completedBattles.single, (
-          battleID: FakePvpBattleServer.battleID,
-          participantMonsterIDs: ['sample-noton'],
-          winner: winner,
-          turnCount: 4,
-        ));
+        expect(
+          calls.completedBattles.single.battleID,
+          FakePvpBattleServer.battleID,
+        );
+        expect(calls.completedBattles.single.participantMonsterIDs, [
+          'sample-noton',
+        ]);
+        expect(calls.completedBattles.single.winner, winner);
+        expect(calls.completedBattles.single.turnCount, 4);
       }
     });
 
