@@ -65,4 +65,13 @@ Play の「収集」は端末の外に送ることを指し、「共有」は第
 | デバイスやその他の ID | する | いいえ | 必須 | 分析 |
 | 位置情報: おおよその位置情報 | する (IP アドレスから推定) | いいえ | 必須 | 分析 |
 
+### Google Play の広告 ID の申告
+
+Play Console の「アプリのコンテンツ」→「広告 ID」には「いいえ (広告 ID を使用しない)」と答える。
+
+- 根拠: `android/app/src/main/AndroidManifest.xml` が、依存が足す広告 ID の権限 (`com.google.android.gms.permission.AD_ID`・`android.permission.ACCESS_ADSERVICES_AD_ID`・`android.permission.ACCESS_ADSERVICES_ATTRIBUTION`) をマージ後のマニフェストから外し、Analytics の広告 ID の収集を `google_analytics_adid_collection_enabled` = false で止めている <!-- source: https://firebase.google.com/docs/analytics/android/configure-data-collection 「<meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />」(2026-11-19 に確認) -->
+- RevenueCat の SDK が端末の ID (`$gpsAdId` 等) を集めるのは、計測ネットワークの ID を設定した時だけ (`purchases_flutter` 11.0.1 の `PurchasesConfiguration.automaticDeviceIdentifierCollectionEnabled` のコメント「We will only do so when setting an attribution network ID」)。アプリは `Purchases.setAdjustID` 等も `collectDeviceIdentifiers` も呼ばない (2026-11-19 に `lib` を grep して 0 件)
+- 経緯: versionCode 2 の AAB はこの 3 つの権限を含み (2026-11-19 に AAB のマニフェストで確認)、申告が未回答のため審査に送れなかった。権限を含む AAB で「はい (分析)」と答えると `docs/PrivacyPolicy.md`「広告」の「広告 ID を利用しません」と食い違うため、権限と収集を外した
+- 確かめ方: `unzip -p <AAB> base/manifest/AndroidManifest.xml | strings | grep -E "AD_ID|ADSERVICES"` の出力が空
+
 Analytics と Crashlytics はログインと同時に有効にし、オプトアウトの設定は無いため「必須」とした (`lib/firebase/session.dart` の `setAnalyticsCollectionEnabled(true)`)。
