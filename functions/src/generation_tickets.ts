@@ -70,7 +70,7 @@ function appProductIDOf(productID: string): string {
  * 作られても本番の残高が増えないようにする (鍵を知る人が実際に購入を作れるかは、実際の購入では確かめていない)。
  */
 function isWebSandboxPurchase({ store, environment }: { store: string | null; environment: string | null }): boolean {
-  return store !== "RC_BILLING" && environment === "SANDBOX";
+  return store === "RC_BILLING" && environment === "SANDBOX";
 }
 
 /** [productID] が生成チケットの商品なら 1 回の購入で足す枚数、それ以外は undefined。継承したキー (`constructor` 等) を商品として扱わない。 */
