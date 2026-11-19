@@ -48,6 +48,7 @@
   "battleLogWaitingForOpponent": "ממתינים למהלך של היריב",
   "battleLogTurnTimeRemaining": "זמן שנותר: {seconds} שנ׳ — לבחור פעולה",
   "battleLogOpponentTimedOut": "היריב לא בחר פעולה בזמן",
+  "battleLogPlayerTimedOut": "לא נבחרה פעולה בזמן",
   "settingsLinked": "החיבור אל {providerName} הושלם",
   "settingsSwitchAccountTitle": "לעבור לחשבון המקושר?",
   "settingsSwitchAccountMessage": "חשבון {providerName} הזה כבר מקושר במכשיר אחר. מעבר אליו ימחק את האוסף במכשיר הזה (מפלצות: {monsterCount}) ויציג את האוסף של החשבון המקושר.",

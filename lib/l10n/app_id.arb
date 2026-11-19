@@ -48,6 +48,7 @@
   "battleLogWaitingForOpponent": "Menunggu giliran lawan",
   "battleLogTurnTimeRemaining": "Pilih aksimu dalam {seconds} detik",
   "battleLogOpponentTimedOut": "Lawan tidak memilih aksi tepat waktu",
+  "battleLogPlayerTimedOut": "Kamu tidak memilih aksi tepat waktu",
   "settingsLinked": "Terhubung dengan {providerName}",
   "settingsSwitchAccountTitle": "Mau beralih ke akun yang tertaut?",
   "settingsSwitchAccountMessage": "Akun {providerName} ini sudah tertaut di perangkat lain. Jika kamu beralih, dex di perangkat ini (monster: {monsterCount}) akan terhapus dan diganti dengan dex akun tertaut.",

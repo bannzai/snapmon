@@ -48,6 +48,7 @@
   "battleLogWaitingForOpponent": "Čakanje na potezo nasprotnika",
   "battleLogTurnTimeRemaining": "Izberi potezo v {seconds} s",
   "battleLogOpponentTimedOut": "Nasprotnik ni pravočasno izbral poteze",
+  "battleLogPlayerTimedOut": "Nisi pravočasno izbral poteze",
   "settingsLinked": "Povezano s {providerName}",
   "settingsSwitchAccountTitle": "Želiš preklopiti na povezani račun?",
   "settingsSwitchAccountMessage": "Ta račun {providerName} je že povezan na drugi napravi. Če preklopiš nanj, bo enciklopedija v tej napravi (pošasti: {monsterCount}) izbrisana in prikazala se bo enciklopedija povezanega računa.",

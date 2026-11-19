@@ -48,6 +48,7 @@
   "battleLogWaitingForOpponent": "Venter på modstanderens træk",
   "battleLogTurnTimeRemaining": "Vælg dit træk inden {seconds} sek.",
   "battleLogOpponentTimedOut": "Modstanderen nåede ikke at vælge en handling",
+  "battleLogPlayerTimedOut": "Du nåede ikke at vælge en handling",
   "settingsLinked": "Forbundet med {providerName}",
   "settingsSwitchAccountTitle": "Vil du skifte til den tilknyttede konto?",
   "settingsSwitchAccountMessage": "Denne {providerName}-konto er allerede knyttet til en anden enhed. Hvis du skifter til den, slettes denne enheds dex (monstre: {monsterCount}), og du får den tilknyttede kontos dex.",

@@ -48,6 +48,7 @@
   "battleLogWaitingForOpponent": "À espera da jogada do adversário",
   "battleLogTurnTimeRemaining": "Escolhe a tua ação em {seconds} s",
   "battleLogOpponentTimedOut": "O adversário não escolheu uma ação a tempo",
+  "battleLogPlayerTimedOut": "Não escolheste uma ação a tempo",
   "settingsLinked": "Ligado a {providerName}",
   "settingsSwitchAccountTitle": "Queres mudar para a conta associada?",
   "settingsSwitchAccountMessage": "Esta conta {providerName} já está associada noutro dispositivo. Se mudares para ela, a enciclopédia deste dispositivo (monstros: {monsterCount}) será apagada e verás a enciclopédia da conta associada.",

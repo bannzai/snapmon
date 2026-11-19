@@ -48,6 +48,7 @@
   "battleLogWaitingForOpponent": "Menunggu langkah lawan",
   "battleLogTurnTimeRemaining": "Pilih tindakan kamu dalam {seconds} saat",
   "battleLogOpponentTimedOut": "Lawan tidak memilih tindakan tepat pada masanya",
+  "battleLogPlayerTimedOut": "Kamu tak pilih tindakan tepat pada masanya",
   "settingsLinked": "Berjaya dipautkan dengan {providerName}",
   "settingsSwitchAccountTitle": "Nak tukar ke akaun yang dipautkan?",
   "settingsSwitchAccountMessage": "Akaun {providerName} ini sudah dipautkan pada peranti lain. Jika kamu beralih, ensiklopedia pada peranti ini (monster: {monsterCount}) akan dipadam dan ensiklopedia akaun yang dipautkan akan dipaparkan.",

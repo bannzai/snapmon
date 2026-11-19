@@ -48,6 +48,7 @@
   "battleLogWaitingForOpponent": "எதிராளியின் நகர்வுக்காகக் காத்திருக்கிறது",
   "battleLogTurnTimeRemaining": "{seconds} வினாடிகளுக்குள் உங்கள் நகர்வைத் தேர்ந்தெடுங்கள்",
   "battleLogOpponentTimedOut": "எதிராளி நேரத்திற்குள் செயலைத் தேர்ந்தெடுக்கவில்லை",
+  "battleLogPlayerTimedOut": "நேரத்திற்குள் நீங்கள் ஒரு செயலைத் தேர்ந்தெடுக்கவில்லை",
   "settingsLinked": "{providerName} உடன் இணைக்கப்பட்டது",
   "settingsSwitchAccountTitle": "இணைக்கப்பட்ட கணக்கிற்கு மாற விரும்புகிறீர்களா?",
   "settingsSwitchAccountMessage": "இந்த {providerName} கணக்கு வேறொரு சாதனத்தில் ஏற்கெனவே இணைக்கப்பட்டுள்ளது. இதற்கு மாறினால், இந்தச் சாதனத்தின் களஞ்சியத்தில் உள்ளவை (மான்ஸ்டர்கள்: {monsterCount}) அழிக்கப்படும்; இணைக்கப்பட்ட கணக்கின் களஞ்சியம் காட்டப்படும்.",

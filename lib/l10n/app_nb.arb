@@ -48,6 +48,7 @@
   "battleLogWaitingForOpponent": "Venter på motstanderens trekk",
   "battleLogTurnTimeRemaining": "Velg trekket ditt innen {seconds} sek.",
   "battleLogOpponentTimedOut": "Motstanderen rakk ikke å velge et trekk",
+  "battleLogPlayerTimedOut": "Du valgte ikke en handling i tide",
   "settingsLinked": "Koblet til {providerName}",
   "settingsSwitchAccountTitle": "Vil du bytte til den tilknyttede kontoen?",
   "settingsSwitchAccountMessage": "Denne {providerName}-kontoen er allerede koblet til på en annen enhet. Hvis du bytter, slettes samlingen på denne enheten (monstre: {monsterCount}), og du får se samlingen til den tilknyttede kontoen.",
