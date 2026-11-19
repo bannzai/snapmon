@@ -102,16 +102,29 @@ const webhookAuth = { getUser: async (uid: string) => ({ uid }) } as unknown as 
 
 /**
  * [uid] が商品 [productID] の Action Card を購入した webhook (イベント [eventID]) を、端末を介さずに Functions の本体に渡す
- * (購入の後に端末が何も呼ばなくても技が手に入ることを確かめるため)。
+ * (購入の後に端末が何も呼ばなくても技が手に入ることを確かめるため)。[store] は購入したストアで、渡さなければイベントに含めない。
+ * [environment] は購入の環境で、既定はアプリのストアの試験の購入 (`SANDBOX`)。
  */
-async function receivePurchase({ uid, productID, eventID = "event-1" }: { uid: string; productID: string; eventID?: string }): Promise<void> {
+async function receivePurchase({
+  uid,
+  productID,
+  eventID = "event-1",
+  store,
+  environment = "SANDBOX",
+}: {
+  uid: string;
+  productID: string;
+  eventID?: string;
+  store?: string;
+  environment?: string;
+}): Promise<void> {
   const { status } = await handleRevenueCatWebhook(
     { firestore, auth: webhookAuth, sendMessage: async () => {}, expectedAuthorization: WEBHOOK_AUTHORIZATION, now: () => new Date() },
     {
       authorization: WEBHOOK_AUTHORIZATION,
       body: {
         api_version: "1.0",
-        event: { id: eventID, type: "NON_RENEWING_PURCHASE", app_user_id: uid, product_id: productID, environment: "SANDBOX" },
+        event: { id: eventID, type: "NON_RENEWING_PURCHASE", app_user_id: uid, product_id: productID, environment, store },
       },
     },
   );
@@ -193,6 +206,37 @@ describe("技を選んで買う (reserveActionCardMove と webhook)", () => {
     await receivePurchase({ uid: user.uid, productID: CHEAP_ACTION_CARD_PRODUCT_ID });
     expect(await purchaseOf({ uid: user.uid })).toMatchObject({ productID: CHEAP_ACTION_CARD_PRODUCT_ID, moveID: null, actionCardMoveReservationID: null });
     expect(await reservationOf(user.uid)).toMatchObject({ actionCardMoveReservationID: body.result.actionCardMoveReservationID });
+  });
+
+  it("Web で買った購入 (商品の ID の末尾が _web) も、アプリの商品の ID で控えた技を買い切った技にし、アプリの商品の ID で記録する", async () => {
+    const user = await signInUser();
+    const { body } = await callFunction({ name: "reserveActionCardMove", user, data: { moveID: "middle", productID: MODERATE_ACTION_CARD_PRODUCT_ID } });
+    await receivePurchase({ uid: user.uid, productID: `${MODERATE_ACTION_CARD_PRODUCT_ID}_web`, store: "RC_BILLING", environment: "PRODUCTION" });
+    expect(await purchaseOf({ uid: user.uid })).toMatchObject({
+      productID: MODERATE_ACTION_CARD_PRODUCT_ID,
+      store: "RC_BILLING",
+      moveID: "middle",
+      actionCardMoveReservationID: body.result.actionCardMoveReservationID,
+    });
+    expect(await reservationOf(user.uid)).toBeUndefined();
+    expect((await callFunction({ name: "teachActionCardMove", user, data: { monsterID: "m1", moveID: "middle" } })).body.result).toEqual({
+      actionCardMoveIDs: ["middle"],
+    });
+  });
+
+  it("Web で買った購入も、控えの商品と違う商品なら控えを使わずに残し、買った商品の技を選び直せる", async () => {
+    const user = await signInUser();
+    const { body } = await callFunction({ name: "reserveActionCardMove", user, data: { moveID: "middle", productID: MODERATE_ACTION_CARD_PRODUCT_ID } });
+    await receivePurchase({ uid: user.uid, productID: `${CHEAP_ACTION_CARD_PRODUCT_ID}_web`, store: "RC_BILLING", environment: "PRODUCTION" });
+    expect(await purchaseOf({ uid: user.uid })).toMatchObject({
+      productID: CHEAP_ACTION_CARD_PRODUCT_ID,
+      store: "RC_BILLING",
+      moveID: null,
+      actionCardMoveReservationID: null,
+    });
+    expect(await reservationOf(user.uid)).toMatchObject({ actionCardMoveReservationID: body.result.actionCardMoveReservationID });
+    expect((await callFunction({ name: "assignActionCardMove", user, data: { actionCardPurchaseID: "event-1", moveID: "weak" } })).status).toBe(200);
+    expect(await purchaseOf({ uid: user.uid })).toMatchObject({ moveID: "weak" });
   });
 
   it("商品の ID を持たない #293 より前の形の控えは使わず、購入を技に結び付けずに残す (利用者は購入から技を選び直せる)", async () => {
