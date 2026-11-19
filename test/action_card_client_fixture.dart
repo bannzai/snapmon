@@ -21,12 +21,23 @@ const Map<String, int> _testActionCardPriceOfProductID = {
   testExpensiveActionCardProductID: 300,
 };
 
-/// テストの商品 [productID] の Action Card の package。
-Package testActionCardPackage({required String productID}) => Package(
+/// テストの商品 [productID] の Action Card の package (アプリのストアで売る商品。ストアの商品 ID が [productID] そのもの)。
+Package testActionCardPackage({required String productID}) =>
+    _actionCardPackage(productID: productID, storeProductID: productID);
+
+/// テストの商品 [productID] を Web で売る Action Card の package (ストアの商品 ID が `<productID>_web`)。
+Package testWebActionCardPackage({required String productID}) =>
+    _actionCardPackage(productID: productID, storeProductID: '${productID}_web');
+
+/// テストの商品 [productID] を、ストアの商品 ID [storeProductID] で売る Action Card の package。
+Package _actionCardPackage({
+  required String productID,
+  required String storeProductID,
+}) => Package(
   '${actionCardPackageIdentifierPrefix}test${_testActionCardPriceOfProductID[productID]!}',
   PackageType.custom,
   StoreProduct(
-    productID,
+    storeProductID,
     '',
     'Action Card ${_testActionCardPriceOfProductID[productID]!} 円',
     _testActionCardPriceOfProductID[productID]!.toDouble(),
