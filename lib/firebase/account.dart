@@ -10,7 +10,7 @@ import 'session.dart';
 // 連携先の決め方と、別の端末で連携済みの時の扱いは documents/adr/0003-account-link-and-deletion.md。
 
 /// 連携に選べるサインインの名前。iOS・Android・Web で同じ。画面に出す順。
-const List<String> accountLinkProviderNames = ['Apple', 'Google'];
+const List<String> accountLinkProviderNames = ['Google'];
 
 bool get _isIOS => !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
 
@@ -33,7 +33,7 @@ bool linksAccountWithGoogleSignIn({
   required String providerName,
   required bool isWeb,
   required TargetPlatform platform,
-}) => !isWeb && platform == TargetPlatform.android && providerName == 'Google';
+}) => platform == TargetPlatform.android;
 
 /// Firebase の provider の ID ごとの、画面に出す名前。
 const Map<String, String> _providerNamesByID = {
