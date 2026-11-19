@@ -107,6 +107,71 @@ void main() {
       );
     });
 
+    group('紹介動画の撮影用の味方', () {
+      final playVideo = sampleData.playVideo;
+
+      /// seed 1〜100 で [party] に決まる相手の手持ちの ID の並び (重複を除いた集合)。
+      Set<String> opponentPartyIDsBySeed({required List<OwnedMonster> party}) =>
+          {
+            for (var randomSeed = 1; randomSeed <= 100; randomSeed++)
+              chooseRandomCpuOpponent(
+                sampleData: sampleData,
+                playerParty: party,
+                randomSeed: randomSeed,
+              ).opponentParty.map((monster) => monster.definition.id).join(','),
+          };
+
+      test('手持ちが撮影用の 2 体だけなら、どの seed でも相手はウロコドラとメダマズクの並びで、レベルは手持ちの平均', () {
+        final party = [playVideo.bornMonster, playVideo.companionMonster];
+        expect(opponentPartyIDsBySeed(party: party), {
+          'sample-urokodora,sample-medamazuku',
+        });
+        for (final monster in chooseRandomCpuOpponent(
+          sampleData: sampleData,
+          playerParty: party,
+          randomSeed: 1,
+        ).opponentParty) {
+          expect(monster.level, 1);
+        }
+      });
+
+      test('撮影用の 2 体でも、名前は今までどおり seed によって CPU トレーナーの全員が出る', () {
+        expect({
+          for (var randomSeed = 1; randomSeed <= 100; randomSeed++)
+            chooseRandomCpuOpponent(
+              sampleData: sampleData,
+              playerParty: [playVideo.bornMonster, playVideo.companionMonster],
+              randomSeed: randomSeed,
+            ).opponentName,
+        }, sampleData.cpuTrainerNames.toSet());
+      });
+
+      test(
+        '撮影用の片方だけ・撮影用の 2 体と 3 体目・片方が同じ名前の見本のマグモンの手持ちは、今までどおり seed によって相手が変わる',
+        () {
+          for (final party in [
+            [playVideo.bornMonster],
+            [playVideo.companionMonster],
+            [
+              playVideo.bornMonster,
+              playVideo.companionMonster,
+              sampleData.monsters[1],
+            ],
+            [
+              sampleData.monsterByID(monsterID: 'sample-mugmon'),
+              playVideo.companionMonster,
+            ],
+          ]) {
+            expect(
+              opponentPartyIDsBySeed(party: party),
+              hasLength(greaterThan(1)),
+              reason: party.map((monster) => monster.definition.id).join(','),
+            );
+          }
+        },
+      );
+    });
+
     test('手持ちが 1 体なら相手も 1 体で、見本の絵を持たない (生成した) 手持ちはどの見本のモンスターも除かない', () {
       final generatedParty = [generatedWaxMonster(monsterID: 'm1')];
       expect(

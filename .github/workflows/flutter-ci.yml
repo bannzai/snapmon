@@ -9,6 +9,8 @@ on:
     branches:
       - main
   pull_request:
+  # build-web-debug (開発者メニューの入った debug の Web ビルドの成果物) を作る時だけ手で起動する
+  workflow_dispatch:
 
 # job が GITHUB_TOKEN を使うのは checkout だけのため、読み取り専用に絞る
 permissions:
@@ -102,6 +104,33 @@ jobs:
     - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
         name: web-build
+        path: build/web
+        retention-days: 7
+
+  # 開発者メニュー (DEBUG ビルド限定) を手元のブラウザで使うための debug の Web ビルド。紹介用のプレイ動画を、開発者メニューの
+  # 「紹介動画の撮影の準備」で味方と相手を固定して撮る時に使う (issue #384)。PR ごとには作らず、手で起動した時だけ作る
+  # (gh workflow run flutter-ci.yml --ref <ブランチ> → gh run download <run ID> -n web-build-debug -D tmp/web-build-debug →
+  # python3 -m http.server 8090 --bind 127.0.0.1 --directory tmp/web-build-debug)。
+  # App Check の debug token は渡さない (公開の成果物に埋め込まないため。「ログインせずに使う」状態は Functions を呼ばない)
+  build-web-debug:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+      with:
+        flutter-version-file: pubspec.yaml
+        channel: stable
+    - run: scripts/restore-firebase-config.sh dart
+    - run: flutter pub get
+    - run: flutter build web --debug --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY="$RECAPTCHA_ENTERPRISE_SITE_KEY"
+      env:
+        RECAPTCHA_ENTERPRISE_SITE_KEY: ${{ vars.RECAPTCHA_ENTERPRISE_SITE_KEY }}
+    - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: web-build-debug
         path: build/web
         retention-days: 7
 

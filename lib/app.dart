@@ -176,6 +176,8 @@ class _SnapmonAppState extends State<SnapmonApp> {
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: appDisplayName,
+    // DEBUG ビルドで撮る紹介用のプレイ動画 (開発者メニューの「紹介動画の撮影の準備」。issue #384) に DEBUG の帯を映さないため
+    debugShowCheckedModeBanner: false,
     theme: snapmonThemeData(),
     localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: AppLocalizations.supportedLocales,

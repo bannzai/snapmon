@@ -14030,5 +14030,119 @@
     "CPU ソラ",
     "CPU ハル",
     "CPU リク"
-  ]
+  ],
+  "playVideo": {
+    "bornMonster": {
+      "definition": {
+        "id": "play-video-mugmon",
+        "sourcePhotoReference": null,
+        "name": "マグモン",
+        "encyclopediaText": "朝いちばんのコーヒーの熱を体にためこむ。取っ手を振り回して戦うが、中身をこぼすと急に弱気になる。",
+        "elementTypeIDs": [
+          "fire",
+          "steel"
+        ],
+        "learnset": [
+          {
+            "moveID": "fire_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "steel_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "fire_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "steel_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "fire_2",
+            "unlockLevel": 15
+          },
+          {
+            "moveID": "steel_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 80,
+          "attack": 100,
+          "defense": 100,
+          "speed": 60
+        },
+        "individualValues": {
+          "hitPoints": 12,
+          "attack": 25,
+          "defense": 7,
+          "speed": 18
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 6
+      },
+      "level": 1,
+      "artPath": "assets/samples/art/play-video-mugmon.png"
+    },
+    "companionMonster": {
+      "definition": {
+        "id": "play-video-pukapukku",
+        "sourcePhotoReference": null,
+        "name": "プカプック",
+        "encyclopediaText": "お風呂に浮かんで水面を見張っている。押されると高い声で鳴いて仲間を呼ぶ。",
+        "elementTypeIDs": [
+          "bird",
+          "water"
+        ],
+        "learnset": [
+          {
+            "moveID": "bird_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "water_1",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "bird_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "water_1b",
+            "unlockLevel": 1
+          },
+          {
+            "moveID": "bird_2",
+            "unlockLevel": 15
+          },
+          {
+            "moveID": "water_2",
+            "unlockLevel": 15
+          }
+        ],
+        "baseStats": {
+          "hitPoints": 90,
+          "attack": 70,
+          "defense": 80,
+          "speed": 100
+        },
+        "individualValues": {
+          "hitPoints": 18,
+          "attack": 24,
+          "defense": 12,
+          "speed": 20
+        },
+        "statCalculationVersion": 1,
+        "masterVersion": 6
+      },
+      "level": 1,
+      "artPath": "assets/samples/art/play-video-pukapukku.png"
+    },
+    "opponentMonsterIDs": [
+      "sample-urokodora",
+      "sample-medamazuku"
+    ]
+  }
 }

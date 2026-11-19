@@ -7,6 +7,7 @@ import '../../common_ui/scene_route.dart';
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
+import '../../sample/play_video.dart';
 import '../../sample/sample_action_cards.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_text_styles.dart';
@@ -369,6 +370,26 @@ class DeveloperMenuScreen extends StatelessWidget {
               await sessionStore.reset();
               // タイトルが裏のログインを始める前に、ログインを飛ばした状態にする
               sessionStore.skipForDebug();
+            },
+          ),
+          // 紹介用のプレイ動画を、毎回同じ味方 2 体と相手 2 体で撮り直すため (issue #384)
+          ListTile(
+            key: const Key('developer-prepare-play-video'),
+            leading: const Icon(Icons.videocam_outlined),
+            title: const Text('紹介動画の撮影の準備'),
+            subtitle: Text(
+              'ログインを終えてタイトルに戻り 図鑑を ${sampleData.playVideo.companionMonster.definition.name} だけにする\n'
+              '次に写真から作ると ${sampleData.playVideo.bornMonster.definition.name} が生まれ 決まった相手 2 体と戦う',
+            ),
+            onTap: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+              unawaited(
+                preparePlayVideo(
+                  sessionStore: sessionStore,
+                  dexStore: dexStore,
+                  sampleData: sampleData,
+                ),
+              );
             },
           ),
           const Padding(
