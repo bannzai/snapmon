@@ -89,8 +89,12 @@ service cloud.firestore {
 
     // 人との対戦 1 戦。対戦に出ている 2 人だけが読み (相手の手持ちの他人に見せてよい項目の写し・表示名・アイコン・公開された行動)、
     // 書くのは Functions だけ (行動と結果を改ざんさせないため)。
+    // 無い対戦の 1 件の読み取りは、ログインしていれば「無い」と返す (resource == null)。対戦の途中で相手がアカウントを消して
+    // 対戦が消えた時に、残った側の購読が拒否ではなく「無い」を受け取り、対戦を終えられるようにするため (lib/firebase/pvp.dart の
+    // watchPvpBattleWithFirebase)。ID は Functions が作る推測できない値で、無いことから分かる情報は無い。
     match /pvpBattles/{battleID} {
-      allow read: if isSignedIn() && request.auth.uid in resource.data.participantUIDs;
+      allow get: if isSignedIn() && (resource == null || request.auth.uid in resource.data.participantUIDs);
+      allow list: if isSignedIn() && request.auth.uid in resource.data.participantUIDs;
       allow write: if false;
 
       // 2 人が各ターンに出した行動。相手の行動を見てから選べないよう、相手にも本人にも読ませない

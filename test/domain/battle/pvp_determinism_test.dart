@@ -2,7 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:snapmon/domain/battle/battle_engine.dart';
 import 'package:snapmon/domain/battle/battle_mirror.dart';
 import 'package:snapmon/domain/battle/battle_state.dart';
+import 'package:snapmon/domain/battle/status_condition.dart';
 import 'package:snapmon/domain/monster/monster_state.dart';
+import 'package:snapmon/domain/monster/monster_stats.dart';
 
 import '../../battle_state_description.dart';
 import '../../sample_data_fixture.dart';
@@ -145,6 +147,129 @@ void main() {
       expect(finished.events.whereType<MoveUsedEvent>(), isNotEmpty);
       expect(finished.events.whereType<MonsterFaintedEvent>(), isNotEmpty);
       expect(finished.events.whereType<LevelUpEvent>(), isNotEmpty);
+    });
+
+    test('状態異常・場の効果・行動の失敗・交代・能力の変化のログも、利用者の陣営のものは相手の陣営のものになる', () {
+      final mirroredEvents = mirrorBattleState(
+        state: BattleState(
+          player: finished.player,
+          opponent: finished.opponent,
+          turnNumber: finished.turnNumber,
+          randomState: finished.randomState,
+          events: const [
+            MoveUsedEvent(
+              turnNumber: 1,
+              attackerSide: BattleSideID.player,
+              attackerMonsterID: 'sample-mugmon',
+              moveID: null,
+              typeMultiplier: 1,
+              damage: 0,
+              defenderRemainingHitPoints: 10,
+              specialEffect: null,
+              statModifierChanges: [
+                StatModifierChange(
+                  side: BattleSideID.player,
+                  statKind: StatKind.attack,
+                  previousPercent: 100,
+                  newPercent: 150,
+                ),
+                StatModifierChange(
+                  side: BattleSideID.opponent,
+                  statKind: StatKind.defense,
+                  previousPercent: 100,
+                  newPercent: 50,
+                ),
+              ],
+              recoveredHitPoints: 0,
+              attackerRemainingHitPoints: 10,
+              replacedMoveID: null,
+              isOneHitKnockout: false,
+              selfDestructed: false,
+            ),
+            ActionFailedEvent(
+              turnNumber: 1,
+              side: BattleSideID.player,
+              monsterID: 'sample-mugmon',
+              moveID: null,
+              reason: ActionFailureReason.missed,
+            ),
+            StatusConditionInflictedEvent(
+              turnNumber: 1,
+              side: BattleSideID.player,
+              monsterID: 'sample-mugmon',
+              kind: StatusConditionKind.poison,
+              stackCount: 1,
+              replacedKind: null,
+              cursedStatKind: null,
+            ),
+            StatusConditionCuredEvent(
+              turnNumber: 1,
+              side: BattleSideID.player,
+              monsterID: 'sample-mugmon',
+              kinds: [StatusConditionKind.poison],
+              cause: StatusConditionCureCause.expired,
+            ),
+            StatusConditionDamageEvent(
+              turnNumber: 1,
+              side: BattleSideID.player,
+              monsterID: 'sample-mugmon',
+              kind: StatusConditionKind.poison,
+              damage: 3,
+              remainingHitPoints: 7,
+            ),
+            FieldEffectStartedEvent(
+              turnNumber: 1,
+              side: BattleSideID.player,
+              kind: FieldEffectKind.statShuffle,
+            ),
+            MonsterSwitchedInEvent(
+              turnNumber: 1,
+              side: BattleSideID.player,
+              monsterID: 'sample-keybon',
+              withdrawnMonsterID: 'sample-mugmon',
+            ),
+          ],
+          winner: null,
+          battleDate: finished.battleDate,
+          field: finished.field,
+          opponentDamagePercent: finished.opponentDamagePercent,
+        ),
+      ).events;
+
+      expect(
+        [
+          for (final change
+              in (mirroredEvents[0] as MoveUsedEvent).statModifierChanges)
+            (change.side, change.statKind, change.newPercent),
+        ],
+        [
+          (BattleSideID.opponent, StatKind.attack, 150),
+          (BattleSideID.player, StatKind.defense, 50),
+        ],
+      );
+      final failed = mirroredEvents[1] as ActionFailedEvent;
+      expect(failed.side, BattleSideID.opponent);
+      expect(failed.monsterID, 'sample-mugmon');
+      expect(failed.reason, ActionFailureReason.missed);
+      final inflicted = mirroredEvents[2] as StatusConditionInflictedEvent;
+      expect(inflicted.side, BattleSideID.opponent);
+      expect(inflicted.kind, StatusConditionKind.poison);
+      expect(inflicted.stackCount, 1);
+      final cured = mirroredEvents[3] as StatusConditionCuredEvent;
+      expect(cured.side, BattleSideID.opponent);
+      expect(cured.kinds, [StatusConditionKind.poison]);
+      expect(cured.cause, StatusConditionCureCause.expired);
+      final conditionDamage = mirroredEvents[4] as StatusConditionDamageEvent;
+      expect(conditionDamage.side, BattleSideID.opponent);
+      expect(conditionDamage.damage, 3);
+      expect(conditionDamage.remainingHitPoints, 7);
+      final fieldStarted = mirroredEvents[5] as FieldEffectStartedEvent;
+      expect(fieldStarted.side, BattleSideID.opponent);
+      expect(fieldStarted.kind, FieldEffectKind.statShuffle);
+      final switchedIn = mirroredEvents[6] as MonsterSwitchedInEvent;
+      expect(switchedIn.side, BattleSideID.opponent);
+      expect(switchedIn.monsterID, 'sample-keybon');
+      expect(switchedIn.withdrawnMonsterID, 'sample-mugmon');
     });
 
     test('2 回入れ替えると元の状態に戻る', () {

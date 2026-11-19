@@ -4,8 +4,8 @@ import {
   initializeTestEnvironment,
   type RulesTestEnvironment,
 } from "@firebase/rules-unit-testing";
-import { collection, deleteDoc, doc, getDoc, getDocs, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
-import { afterAll, beforeAll, beforeEach, describe, it } from "vitest";
+import { collection, deleteDoc, doc, getDoc, getDocs, query, serverTimestamp, setDoc, updateDoc, where } from "firebase/firestore";
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
 // Rules は Emulator が firebase.json の firebase/firestore.rules から読み込む (テストから別の Rules を渡さない)。
@@ -221,6 +221,21 @@ describe("人との対戦 (pvpMatchTickets・pvpBattles・actions)", () => {
   it("対戦に出ていない利用者と未ログインは対戦を読めない", async () => {
     await assertFails(getDoc(doc(signedInFirestore("carol"), "pvpBattles/battle")));
     await assertFails(getDoc(doc(testEnvironment.unauthenticatedContext().firestore(), "pvpBattles/battle")));
+  });
+
+  it("無い対戦 (相手がアカウントを消して消えた対戦) の 1 件の読み取りは、ログインしていれば拒否ではなく「無い」と返る", async () => {
+    expect((await assertSucceeds(getDoc(doc(signedInFirestore("alice"), "pvpBattles/deleted-battle")))).exists()).toBe(false);
+    await assertFails(getDoc(doc(testEnvironment.unauthenticatedContext().firestore(), "pvpBattles/deleted-battle")));
+  });
+
+  it("対戦の一覧は、自分が出ている対戦に絞った時だけ読める", async () => {
+    await assertSucceeds(
+      getDocs(query(collection(signedInFirestore("alice"), "pvpBattles"), where("participantUIDs", "array-contains", "alice"))),
+    );
+    await assertFails(getDocs(collection(signedInFirestore("alice"), "pvpBattles")));
+    await assertFails(
+      getDocs(query(collection(signedInFirestore("carol"), "pvpBattles"), where("participantUIDs", "array-contains", "alice"))),
+    );
   });
 
   it("出ている利用者も対戦を書けない (行動と結果を改ざんさせないため)", async () => {

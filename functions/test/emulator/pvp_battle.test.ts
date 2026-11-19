@@ -208,10 +208,10 @@ describe("joinPvpMatch", () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
-      for (const blockedUid of await placeLongWaitingTickets({ uidPrefix: "blocked-user", count: MATCH_CANDIDATE_LIMIT + 1 })) {
-        await setDoc(doc(context.firestore(), `blocks/${guest.uid}_${blockedUid}`), {
+      for (const blockedUID of await placeLongWaitingTickets({ uidPrefix: "blocked-user", count: MATCH_CANDIDATE_LIMIT + 1 })) {
+        await setDoc(doc(context.firestore(), `blocks/${guest.uid}_${blockedUID}`), {
           blockerUid: guest.uid,
-          blockedUid,
+          blockedUid: blockedUID,
           createdAt: Timestamp.now(),
         });
       }
@@ -228,9 +228,9 @@ describe("joinPvpMatch", () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
-      for (const reporterUid of await placeLongWaitingTickets({ uidPrefix: "reporter-user", count: MATCH_CANDIDATE_LIMIT + 1 })) {
-        await setDoc(doc(context.firestore(), `reports/${reporterUid}_${guest.uid}-monster-0`), {
-          reporterUid,
+      for (const reporterUID of await placeLongWaitingTickets({ uidPrefix: "reporter-user", count: MATCH_CANDIDATE_LIMIT + 1 })) {
+        await setDoc(doc(context.firestore(), `reports/${reporterUID}_${guest.uid}-monster-0`), {
+          reporterUid: reporterUID,
           monsterID: `${guest.uid}-monster-0`,
           monsterOwnerUid: guest.uid,
         });

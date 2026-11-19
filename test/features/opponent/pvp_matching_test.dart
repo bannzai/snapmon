@@ -633,7 +633,7 @@ void main() {
 
       // ブロックの操作をした対戦の ID を付けて呼ぶ (Functions がその対戦を終えるため)
       expect(pvpCalls.blocks, [
-        (blockedUid: 'opponent-uid', battleID: FakePvpBattleServer.battleID),
+        (blockedUID: 'opponent-uid', battleID: FakePvpBattleServer.battleID),
       ]);
       expect(find.text(l10n.battleNoContestTitle), findsOneWidget);
       await tester.tap(find.byKey(const Key('battle-no-contest-close')));
