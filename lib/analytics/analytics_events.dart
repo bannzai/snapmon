@@ -29,7 +29,8 @@ enum AnalyticsEvent {
   /// 送る時点は documents/DIRECTION.md「決めたこと」の #64 の行)。
   cameraPermission('camera_permission'),
 
-  /// 生成チケットの購入の段階 (パラメータ `step`: [TicketPurchaseStep] の名前。`product`: ストアの商品の識別子。
+  /// 生成チケットの購入の段階 (パラメータ `step`: [TicketPurchaseStep] の名前。`product`: アプリの商品の識別子。
+  /// Web で買った時も、Web の商品の ID の末尾の `_web` を外したアプリの商品の識別子を送る。
   /// shown と restored の時は `product` を送らない)。
   ticketPurchase('ticket_purchase');
 

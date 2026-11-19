@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
@@ -173,6 +175,46 @@ void main() {
       expect(linkDialog, findsOneWidget);
       expect(accountLink.linkedWithProviderNames, isEmpty);
       expect(purchasedPackages, isEmpty);
+    });
+
+    testWidgets('連携の途中は 案内の外を押しても 戻る操作をしても 案内を閉じず 連携できたら購入に進む', (tester) async {
+      final link = Completer<Future<String> Function()?>();
+      await pumpTicketPurchaseSheet(
+        tester: tester,
+        accountLink: FakeAccountLink(isLinked: false)
+          ..linkAccount = () => link.future,
+      );
+
+      await tester.tap(buyButton);
+      await tester.pumpAndSettle();
+      await linkFromDialog(tester: tester, providerName: 'Google');
+      // 連携が終わる前に、案内の外 (画面の上端) を押し、戻る操作 (ブラウザの戻る・Android の戻る) もする
+      await tester.tapAt(const Offset(10, 10));
+      await tester.pumpAndSettle();
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+      expect(linkDialog, findsOneWidget);
+      expect(purchasedPackages, isEmpty);
+
+      link.complete(null);
+      await tester.pumpAndSettle();
+      expect(linkDialog, findsNothing);
+      expect(purchasedPackages, [testTicketPackage]);
+    });
+
+    testWidgets('連携していない間は 案内の外を押すと案内を閉じ 購入を始めない', (tester) async {
+      final accountLink = FakeAccountLink(isLinked: false);
+      await pumpTicketPurchaseSheet(tester: tester, accountLink: accountLink);
+
+      await tester.tap(buyButton);
+      await tester.pumpAndSettle();
+      await tester.tapAt(const Offset(10, 10));
+      await tester.pumpAndSettle();
+
+      expect(linkDialog, findsNothing);
+      expect(accountLink.linkedWithProviderNames, isEmpty);
+      expect(purchasedPackages, isEmpty);
+      expect(buyButton, findsOneWidget);
     });
 
     testWidgets('提供者が直接売るビルドで連携済みなら 案内を出さずに購入に進む', (tester) async {

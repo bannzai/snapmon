@@ -515,6 +515,59 @@ void main() {
     expect(ticketPurchaseSteps(), ['shown', 'failed']);
   });
 
+  for (final (:storeProductID, :description) in [
+    (
+      storeProductID: 'snapmon_generationticket10_200yen',
+      description: 'アプリの商品はストアの商品の ID をそのまま',
+    ),
+    (
+      storeProductID: 'snapmon_generationticket10_200yen_web',
+      description: 'Web の商品は末尾の _web を外したアプリの商品の ID を',
+    ),
+  ]) {
+    testWidgets('計測の product には $description 送り 購入画面を出した段階には送らない', (
+      tester,
+    ) async {
+      await pumpUntilDailyLimit(
+        tester: tester,
+        generator: limitedGenerator(
+          ticketPackages: [
+            Package(
+              'ticket10',
+              PackageType.custom,
+              StoreProduct(
+                storeProductID,
+                '',
+                '生成チケット 10 回',
+                200,
+                '¥200',
+                'JPY',
+              ),
+              const PresentedOfferingContext('generation_tickets', null, null),
+            ),
+          ],
+          purchaseTicketPackage: ({required package}) async =>
+              TicketPurchaseResult.cancelled,
+        ),
+      );
+
+      await tester.tap(find.textContaining('¥200'));
+      await tester.pumpAndSettle();
+
+      expect(
+        [
+          for (final logged in calls.loggedEvents)
+            if (logged.event == AnalyticsEvent.ticketPurchase)
+              logged.parameters,
+        ],
+        [
+          {'step': 'shown'},
+          {'step': 'cancelled', 'product': 'snapmon_generationticket10_200yen'},
+        ],
+      );
+    });
+  }
+
   /// [generator] で設定画面の「購入の状態を同期する」を開く。
   Future<void> pumpSyncTile({
     required WidgetTester tester,

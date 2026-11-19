@@ -117,43 +117,48 @@ class _LinkBeforePurchaseDialogState extends State<_LinkBeforePurchaseDialog> {
   @override
   Widget build(BuildContext context) => ListenableBuilder(
     listenable: widget.accountStore,
-    builder: (context, _) => AlertDialog(
-      key: const Key('link-before-purchase-dialog'),
-      title: Text(context.l10n.purchaseLinkRequiredTitle),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            // 選べるサインインが 2 つの時は、設定画面の「データを引き継ぐ」の説明と同じく「Apple / Google」と並べる
-            context.l10n.purchaseLinkRequiredMessage(
-              widget.accountStore.linkProviderNames.join(' / '),
-            ),
-          ),
-          if (_failureMessage case final failureMessage?)
-            Padding(
-              padding: const EdgeInsets.only(top: 12),
-              child: Text(
-                failureMessage,
-                key: const Key('link-before-purchase-failure'),
-                style: TextStyle(color: Theme.of(context).colorScheme.error),
+    // 連携の途中は、案内の外のタップ・Esc・戻るでも閉じさせない (「やめる」を押せなくしているのと同じ)。
+    // 途中で閉じると、連携できても購入に進まず、別のデータと連携済みの案内と失敗の内容も出せない
+    builder: (context, _) => PopScope(
+      canPop: !widget.accountStore.isWorking,
+      child: AlertDialog(
+        key: const Key('link-before-purchase-dialog'),
+        title: Text(context.l10n.purchaseLinkRequiredTitle),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              // 選べるサインインが 2 つの時は、設定画面の「データを引き継ぐ」の説明と同じく「Apple / Google」と並べる
+              context.l10n.purchaseLinkRequiredMessage(
+                widget.accountStore.linkProviderNames.join(' / '),
               ),
             ),
+            if (_failureMessage case final failureMessage?)
+              Padding(
+                padding: const EdgeInsets.only(top: 12),
+                child: Text(
+                  failureMessage,
+                  key: const Key('link-before-purchase-failure'),
+                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                ),
+              ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: widget.accountStore.isWorking
+                ? null
+                : () => Navigator.of(context).pop(false),
+            child: Text(context.l10n.commonCancel),
+          ),
+          TextButton(
+            key: const Key('link-before-purchase-link'),
+            onPressed: widget.accountStore.isWorking ? null : _link,
+            child: Text(context.l10n.settingsTransferData),
+          ),
         ],
       ),
-      actions: [
-        TextButton(
-          onPressed: widget.accountStore.isWorking
-              ? null
-              : () => Navigator.of(context).pop(false),
-          child: Text(context.l10n.commonCancel),
-        ),
-        TextButton(
-          key: const Key('link-before-purchase-link'),
-          onPressed: widget.accountStore.isWorking ? null : _link,
-          child: Text(context.l10n.settingsTransferData),
-        ),
-      ],
     ),
   );
 }

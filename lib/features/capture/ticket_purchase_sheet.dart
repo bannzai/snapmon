@@ -7,6 +7,8 @@ import '../../analytics/analytics_events.dart';
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_text_styles.dart';
+import '../action_card/action_card_client.dart'
+    show appProductIDOfStoreProductID;
 import '../settings/direct_sales.dart';
 import 'monster_generator.dart';
 
@@ -149,7 +151,11 @@ class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
           event: AnalyticsEvent.ticketPurchase,
           parameters: {
             'step': step.stepName,
-            if (package != null) 'product': package.storeProduct.identifier,
+            // 同じ商品をアプリと Web で同じ値に揃える (購入の記録の productID と同じ扱い)
+            if (package != null)
+              'product': appProductIDOfStoreProductID(
+                storeProductID: package.storeProduct.identifier,
+              ),
           },
         )
         .catchError((Object _) {}),
