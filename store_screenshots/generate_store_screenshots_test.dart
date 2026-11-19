@@ -544,9 +544,9 @@ Widget _homeShell({
     cardSharer: _cardSharer(artImagesByPath: artImagesByPath),
     accountStore: AccountStore(
       sessionStore: sessionStore,
-      linkProviderName: 'Apple',
+      linkProviderNames: const ['Apple', 'Google'],
       readLinkedProviderNames: () => const [],
-      linkAccount: () async => null,
+      linkAccount: ({required providerName}) async => null,
       discardCurrentAccount: () async {},
       deleteAccount: () async {},
     ),
