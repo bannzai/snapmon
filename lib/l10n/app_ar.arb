@@ -49,6 +49,7 @@
   "battleLogTurnTimeRemaining": "اختر حركتك خلال {seconds} ثانية",
   "battleLogOpponentTimedOut": "لم يختر الخصم حركة في الوقت المحدد",
   "battleLogPlayerTimedOut": "لم تختر حركة في الوقت المحدد",
+  "battleNoContestTitle": "انتهت المعركة",
   "settingsLinked": "تم الربط مع {providerName}",
   "settingsSwitchAccountTitle": "هل تريد التبديل إلى الحساب المرتبط؟",
   "settingsSwitchAccountMessage": "حساب {providerName} هذا مرتبط بجهاز آخر. إذا بدّلت إليه، ستُحذف موسوعة هذا الجهاز (الوحوش: {monsterCount}) وستنتقل إلى موسوعة الحساب المرتبط.",

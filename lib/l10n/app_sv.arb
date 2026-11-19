@@ -49,6 +49,7 @@
   "battleLogTurnTimeRemaining": "Välj ditt drag inom {seconds} sek.",
   "battleLogOpponentTimedOut": "Motståndaren hann inte välja ett drag",
   "battleLogPlayerTimedOut": "Du valde ingen handling i tid",
+  "battleNoContestTitle": "Striden är över",
   "settingsLinked": "Anslutet till {providerName}",
   "settingsSwitchAccountTitle": "Vill du byta till det länkade kontot?",
   "settingsSwitchAccountMessage": "Det här {providerName}-kontot är redan länkat på en annan enhet. Om du byter raderas samlingen på den här enheten (monster: {monsterCount}) och du byter till det länkade kontots samling.",

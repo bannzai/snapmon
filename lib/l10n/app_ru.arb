@@ -49,6 +49,7 @@
   "battleLogTurnTimeRemaining": "Выбери действие за {seconds} с",
   "battleLogOpponentTimedOut": "Соперник не успел выбрать действие",
   "battleLogPlayerTimedOut": "Ты не успел выбрать действие",
+  "battleNoContestTitle": "Бой завершён",
   "settingsLinked": "Подключено к {providerName}",
   "settingsSwitchAccountTitle": "Хочешь переключиться на привязанный аккаунт?",
   "settingsSwitchAccountMessage": "Этот аккаунт {providerName} уже привязан на другом устройстве. Если переключишься на него, энциклопедия на этом устройстве (монстры: {monsterCount}) удалится и появится энциклопедия привязанного аккаунта.",

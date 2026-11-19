@@ -49,6 +49,7 @@
   "battleLogTurnTimeRemaining": "Escolha sua ação em {seconds} s",
   "battleLogOpponentTimedOut": "O adversário não escolheu uma ação a tempo",
   "battleLogPlayerTimedOut": "Você não escolheu uma ação a tempo",
+  "battleNoContestTitle": "A batalha terminou",
   "settingsLinked": "Conectado ao {providerName}",
   "settingsSwitchAccountTitle": "Quer mudar para a conta vinculada?",
   "settingsSwitchAccountMessage": "Esta conta {providerName} já está vinculada em outro dispositivo. Se você trocar de conta, o Dex deste dispositivo (monstros: {monsterCount}) será apagado e aparecerá o Dex da conta vinculada.",

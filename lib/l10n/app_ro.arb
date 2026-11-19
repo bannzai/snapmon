@@ -49,6 +49,7 @@
   "battleLogTurnTimeRemaining": "Alege-ți mutarea în {seconds} sec.",
   "battleLogOpponentTimedOut": "Adversarul nu a ales o acțiune la timp",
   "battleLogPlayerTimedOut": "Nu ai ales o acțiune la timp",
+  "battleNoContestTitle": "Lupta s-a încheiat",
   "settingsLinked": "Conectat la {providerName}",
   "settingsSwitchAccountTitle": "Vrei să treci la contul conectat?",
   "settingsSwitchAccountMessage": "Acest cont {providerName} este deja conectat pe alt dispozitiv. Dacă treci la el, enciclopedia de pe acest dispozitiv (monștri: {monsterCount}) va fi ștearsă și va apărea enciclopedia contului conectat.",
