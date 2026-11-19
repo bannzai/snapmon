@@ -141,6 +141,18 @@ class FakePvpBattleServer {
     finishReason: PvpFinishReason.blocked,
   );
 
+  /// 最後のターン [turn] の公開と、ブロックでの勝敗なしの終わりを、1 回の知らせで届ける
+  /// (Firestore の購読は途中の状態を飛ばして最新の状態だけを届けることがあるため)。
+  void finishByBlockAfterRevealing({required PvpTurn turn}) {
+    _pendingActions.clear();
+    _update(
+      turns: [..._battle!.turns, turn],
+      status: PvpBattleStatus.noContest,
+      winnerUid: null,
+      finishReason: PvpFinishReason.blocked,
+    );
+  }
+
   /// 対戦を消す (相手がアカウントを削除した時)。
   void deleteBattle() {
     _battle = null;

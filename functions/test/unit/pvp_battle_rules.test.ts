@@ -4,6 +4,8 @@ import { describe, expect, it } from "vitest";
 import {
   type PvpBattleDocument,
   type PvpBattleProgress,
+  type PvpMatchTicketDocument,
+  isMatchableHostTicket,
   isRulesVersion,
   outcomeAfterReport,
   parsePvpAction,
@@ -70,6 +72,33 @@ describe("isRulesVersion", () => {
     expect(isRulesVersion("")).toBe(false);
     expect(isRulesVersion(1)).toBe(false);
     expect(isRulesVersion(undefined)).toBe(false);
+  });
+});
+
+describe("isMatchableHostTicket", () => {
+  const freshSince = Timestamp.fromMillis(10_000);
+
+  /** 版 `1` でまだ組み合わされていない、最後の呼び出しが [freshSince] ちょうどの札に、[overrides] の項目を上書きした札。 */
+  function ticket(overrides: Partial<PvpMatchTicketDocument>): PvpMatchTicketDocument {
+    return { rulesVersion: "1", searchID: "search", createdAt: Timestamp.fromMillis(0), heartbeatAt: freshSince, battleID: null, ...overrides };
+  }
+
+  it("同じ版でまだ組み合わされておらず、最後の呼び出しが新しい札は組み合わせられる", () => {
+    expect(isMatchableHostTicket({ hostTicket: ticket({}), rulesVersion: "1", freshSince })).toBe(true);
+    expect(isMatchableHostTicket({ hostTicket: ticket({ heartbeatAt: Timestamp.fromMillis(10_001) }), rulesVersion: "1", freshSince })).toBe(true);
+  });
+
+  it("最後の呼び出しが 1 ミリ秒でも古い札は組み合わせられない", () => {
+    expect(isMatchableHostTicket({ hostTicket: ticket({ heartbeatAt: Timestamp.fromMillis(9_999) }), rulesVersion: "1", freshSince })).toBe(false);
+  });
+
+  it("候補を読んだ後に別の版で探し直した札は組み合わせられない", () => {
+    expect(isMatchableHostTicket({ hostTicket: ticket({ rulesVersion: "2" }), rulesVersion: "1", freshSince })).toBe(false);
+  });
+
+  it("他の利用者と組み合わされた札と、探すのをやめて消えた札は組み合わせられない", () => {
+    expect(isMatchableHostTicket({ hostTicket: ticket({ battleID: "battle" }), rulesVersion: "1", freshSince })).toBe(false);
+    expect(isMatchableHostTicket({ hostTicket: undefined, rulesVersion: "1", freshSince })).toBe(false);
   });
 });
 

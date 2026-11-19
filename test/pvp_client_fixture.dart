@@ -20,8 +20,8 @@ class RecordedPvpCalls {
   final List<({String monsterOwnerUid, String monsterID, ReportReason reason})>
   reports = [];
 
-  /// blockUser に渡された uid (呼ばれた順)。
-  final List<String> blockedUids = [];
+  /// blockUser に渡された引数 (呼ばれた順)。
+  final List<({String blockedUid, String? battleID})> blocks = [];
 
   /// updateDisplayName に渡された名前 (呼ばれた順)。
   final List<String> updatedDisplayNames = [];
@@ -74,8 +74,8 @@ PvpClient fakePvpClient({
         ));
         await reportMonster();
       },
-  blockUser: ({required blockedUid}) async {
-    calls.blockedUids.add(blockedUid);
+  blockUser: ({required blockedUid, required battleID}) async {
+    calls.blocks.add((blockedUid: blockedUid, battleID: battleID));
     await blockUser();
   },
   fetchBattleRecord: () async => battleRecord,

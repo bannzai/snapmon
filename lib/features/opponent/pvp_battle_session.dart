@@ -211,6 +211,12 @@ class PvpBattleSession {
       return;
     }
     _battle = battle;
+    // 勝敗を付けずに終わった対戦は、同じ知らせに最後のターンが入っていても進めない
+    // (進めて決着すると、この端末だけが勝敗を出して記録に進むため)
+    if (battle.status == PvpBattleStatus.noContest) {
+      _interrupt(interruption: (winner: null));
+      return;
+    }
     final pendingRound = _pendingRound;
     if (pendingRound != null && battle.turns.length > _resolvedRoundCount) {
       final nextState = resolvePvpRound(
@@ -229,36 +235,27 @@ class PvpBattleSession {
       }
       pendingRound.nextState.complete(nextState);
     }
-    if (_isSettled) {
+    if (_isSettled || battle.status != PvpBattleStatus.finished) {
       return;
     }
-    switch (battle.status) {
-      case PvpBattleStatus.active:
-        return;
-      case PvpBattleStatus.noContest:
-        _interrupt(interruption: (winner: null));
-      case PvpBattleStatus.finished:
-        if (battle.finishReason == PvpFinishReason.timeout) {
-          _interrupt(
-            interruption: (
-              winner: battle.winnerUid == playerUid
-                  ? BattleSideID.player
-                  : BattleSideID.opponent,
-            ),
-          );
-          return;
-        }
-        // 相手が勝者を報告したが、公開されたターンを進めた自分の計算では決着していない。
-        // 決着していないと報告して勝敗を付けずに終える (報告を出せなくても、この端末では勝敗なしとして閉じる)
-        unawaited(
-          client
-              .reportResult(battleID: battleID, winnerUid: null)
-              .catchError(
-                (Object error) => debugPrint('reportPvpResult: $error'),
-              ),
-        );
-        _interrupt(interruption: (winner: null));
+    if (battle.finishReason == PvpFinishReason.timeout) {
+      _interrupt(
+        interruption: (
+          winner: battle.winnerUid == playerUid
+              ? BattleSideID.player
+              : BattleSideID.opponent,
+        ),
+      );
+      return;
     }
+    // 相手が勝者を報告したが、公開されたターンを進めた自分の計算では決着していない。
+    // 決着していないと報告して勝敗を付けずに終える (報告を出せなくても、この端末では勝敗なしとして閉じる)
+    unawaited(
+      client
+          .reportResult(battleID: battleID, winnerUid: null)
+          .catchError((Object error) => debugPrint('reportPvpResult: $error')),
+    );
+    _interrupt(interruption: (winner: null));
   }
 
   /// 残り時間を 1 秒減らす。0 になった時と、その後 [_retryInterval] ごとに、今のターンを時間切れとして終えるよう頼む

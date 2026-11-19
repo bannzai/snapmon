@@ -7,6 +7,15 @@
         { "fieldPath": "monsterOwnerUid", "order": "ASCENDING" },
         { "fieldPath": "reporterCount", "order": "ASCENDING" }
       ]
+    },
+    {
+      "collectionGroup": "pvpMatchTickets",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "battleID", "order": "ASCENDING" },
+        { "fieldPath": "rulesVersion", "order": "ASCENDING" },
+        { "fieldPath": "heartbeatAt", "order": "ASCENDING" }
+      ]
     }
   ],
   "fieldOverrides": [

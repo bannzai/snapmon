@@ -316,7 +316,7 @@ describe("joinPvpMatch", () => {
     expect(await joinMatch({ user: other, searchID: "search-2", rulesVersion: "1" })).not.toBeNull();
   });
 
-  it("自分が通報したモンスターの持ち主とは組み合わせない", async () => {
+  it("通報した利用者と通報されたモンスターの持ち主は、どちらが先に待っていても組み合わせない", async () => {
     const reporter = await signInTrainer({ levels: [5] });
     const owner = await signInTrainer({ levels: [5] });
     await callOk({
@@ -325,8 +325,28 @@ describe("joinPvpMatch", () => {
       data: { monsterOwnerUid: owner.uid, monsterID: `${owner.uid}-monster-0`, reason: "inappropriate_picture" },
     });
 
+    // 持ち主が待っている所に、通報した利用者が来る
     expect(await joinMatch({ user: owner, searchID: "search-1", rulesVersion: "1" })).toBeNull();
     expect(await joinMatch({ user: reporter, searchID: "search-2", rulesVersion: "1" })).toBeNull();
+    // 通報した利用者が待っている所に、持ち主が探し直して来る
+    expect(await joinMatch({ user: owner, searchID: "search-3", rulesVersion: "1" })).toBeNull();
+    expect((await readDocument({ path: `pvpMatchTickets/${reporter.uid}` }))!.battleID).toBeNull();
+  });
+
+  it("通報が 1 件あっても、通報に関わっていない利用者とは組み合わせる", async () => {
+    const reporter = await signInTrainer({ levels: [5] });
+    const owner = await signInTrainer({ levels: [5] });
+    const other = await signInTrainer({ levels: [5] });
+    await callOk({
+      name: "reportMonster",
+      user: reporter,
+      data: { monsterOwnerUid: owner.uid, monsterID: `${owner.uid}-monster-0`, reason: "inappropriate_picture" },
+    });
+    expect(await joinMatch({ user: owner, searchID: "search-1", rulesVersion: "1" })).toBeNull();
+
+    expect(
+      (await readDocument({ path: `pvpBattles/${await joinMatch({ user: other, searchID: "search-2", rulesVersion: "1" })}` }))!.participantUids,
+    ).toEqual([owner.uid, other.uid]);
   });
 
   it("アカウントの削除を始めた利用者は探せず、待っていた札とも組み合わせない", async () => {
@@ -740,39 +760,86 @@ describe("reportPvpResult と recordBattle", () => {
 });
 
 describe("blockUser と進行中の人との対戦", () => {
-  it("対戦の相手をブロックすると、進行中の対戦が勝敗を付けずに終わり、出したままの行動も消える", async () => {
+  it("対戦の ID を付けて相手をブロックすると、進行中の対戦が勝敗を付けずに終わり、出したままの行動も消える", async () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
     await submitMove({ user: guest, battleID, round: 0, moveID: "guest-move" });
 
-    await callOk({ name: "blockUser", user: host, data: { blockedUid: guest.uid } });
+    await callOk({ name: "blockUser", user: host, data: { blockedUid: guest.uid, battleID } });
 
     expect(await readDocument({ path: `pvpBattles/${battleID}` })).toMatchObject({ status: "void", winnerUid: null, finishReason: "blocked", turnDeadline: null });
     expect(await readDocument({ path: `pvpBattles/${battleID}/pendingActions/${guest.uid}` })).toBeUndefined();
     expect((await readDocument({ path: `users/${host.uid}/battles/${battleID}` }))!.winner).toBeUndefined();
+    expect(await readDocument({ path: `blocks/${host.uid}_${guest.uid}` })).toMatchObject({ blockerUid: host.uid, blockedUid: guest.uid });
   });
 
-  it("対戦の相手ではない利用者をブロックしても、進行中の対戦は続く", async () => {
+  it("ブロックする側が別の探す操作を始めて札が替わった後でも、対戦の ID で進行中の対戦を終える", async () => {
+    const host = await signInTrainer({ levels: [5] });
+    const guest = await signInTrainer({ levels: [5] });
+    const battleID = await matchTrainers({ host, guest });
+    // 同じアカウントの別の端末で探し直すと、札の対戦の ID が消える
+    expect(await joinMatch({ user: host, searchID: "another-search", rulesVersion: "1" })).toBeNull();
+    expect((await readDocument({ path: `pvpMatchTickets/${host.uid}` }))!.battleID).toBeNull();
+
+    await callOk({ name: "blockUser", user: host, data: { blockedUid: guest.uid, battleID } });
+
+    expect(await readDocument({ path: `pvpBattles/${battleID}` })).toMatchObject({ status: "void", finishReason: "blocked" });
+  });
+
+  it("対戦の ID を付けないブロックは、ブロックだけを記録して進行中の対戦を続ける", async () => {
+    const host = await signInTrainer({ levels: [5] });
+    const guest = await signInTrainer({ levels: [5] });
+    const battleID = await matchTrainers({ host, guest });
+
+    await callOk({ name: "blockUser", user: host, data: { blockedUid: guest.uid } });
+
+    expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.status).toBe("active");
+    expect(await readDocument({ path: `blocks/${host.uid}_${guest.uid}` })).toMatchObject({ blockerUid: host.uid, blockedUid: guest.uid });
+  });
+
+  it("対戦の相手ではない利用者を、その対戦の ID を付けてブロックしても、進行中の対戦は続く", async () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     const outsider = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
 
-    await callOk({ name: "blockUser", user: host, data: { blockedUid: outsider.uid } });
+    await callOk({ name: "blockUser", user: host, data: { blockedUid: outsider.uid, battleID } });
 
     expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.status).toBe("active");
   });
 
-  it("勝者が決まって終わった対戦は、その後に相手をブロックしても勝敗が残る", async () => {
+  it("対戦に出ていない利用者が、他人の対戦の ID を付けて出ている利用者をブロックしても、その対戦は続く", async () => {
+    const host = await signInTrainer({ levels: [5] });
+    const guest = await signInTrainer({ levels: [5] });
+    const outsider = await signInTrainer({ levels: [5] });
+    const battleID = await matchTrainers({ host, guest });
+
+    await callOk({ name: "blockUser", user: outsider, data: { blockedUid: guest.uid, battleID } });
+
+    expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.status).toBe("active");
+  });
+
+  it("勝者が決まって終わった対戦は、その後に対戦の ID を付けて相手をブロックしても勝敗が残る", async () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
     await callOk({ name: "reportPvpResult", user: guest, data: { battleID, winnerUid: guest.uid } });
 
-    await callOk({ name: "blockUser", user: host, data: { blockedUid: guest.uid } });
+    await callOk({ name: "blockUser", user: host, data: { blockedUid: guest.uid, battleID } });
 
     expect(await readDocument({ path: `pvpBattles/${battleID}` })).toMatchObject({ status: "finished", winnerUid: guest.uid });
     expect((await readDocument({ path: `users/${guest.uid}/battles/${battleID}` }))!.winner).toBe("player");
+  });
+
+  it("無い対戦の ID を付けてもブロックは記録し、対戦の ID の形でない値は受け付けない", async () => {
+    const host = await signInTrainer({ levels: [5] });
+    const guest = await signInTrainer({ levels: [5] });
+
+    await callOk({ name: "blockUser", user: host, data: { blockedUid: guest.uid, battleID: "no-such-battle" } });
+    expect(await readDocument({ path: `blocks/${host.uid}_${guest.uid}` })).toMatchObject({ blockerUid: host.uid, blockedUid: guest.uid });
+
+    expect(await callErrorStatus({ name: "blockUser", user: guest, data: { blockedUid: host.uid, battleID: "a/b" } })).toBe("INVALID_ARGUMENT");
+    expect(await readDocument({ path: `blocks/${guest.uid}_${host.uid}` })).toBeUndefined();
   });
 });

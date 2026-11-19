@@ -432,6 +432,39 @@ void main() {
       }
     });
 
+    testWidgets('最後のターンの公開と勝敗なしの終わりが 1 回の知らせで届いた時は、そのターンを進めずに勝敗を付けずに終わる', (
+      tester,
+    ) async {
+      final server = matchedServer();
+      final hostSession = sessionOf(server: server, player: host)..start();
+      addTearDown(hostSession.dispose);
+      PvpBattleInterruption? hostInterruption;
+      var isInterrupted = false;
+      hostSession.interruption.then((interruption) {
+        hostInterruption = interruption;
+        isInterrupted = true;
+      }).ignore();
+      final hostNext = hostSession.advance(
+        state: startStateOf(player: host, opponent: guest),
+        playerAction: const UseMoveAction(moveID: 'fire_1'),
+      );
+      await tester.pump();
+
+      // 進めれば先に待っていた側の勝ちで決着するターン (後から来た側が選べない行動) が、ブロックでの終わりと一緒に届く
+      server.finishByBlockAfterRevealing(
+        turn: (
+          hostAction: const UseMoveAction(moveID: 'fire_1'),
+          guestAction: const UseMoveAction(moveID: 'water_1'),
+        ),
+      );
+      await tester.pump();
+
+      expect(await hostNext, isNull);
+      expect(isInterrupted, isTrue);
+      expect(hostInterruption, (winner: null));
+      expect(server.reportCalls, isEmpty);
+    });
+
     testWidgets('自分の計算では決着していないのに相手が勝者を報告した時は、決着していないと報告して勝敗を付けずに終わる', (
       tester,
     ) async {

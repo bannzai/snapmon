@@ -5,6 +5,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/audio/game_audio.dart';
 import 'package:snapmon/domain/battle/battle_state.dart';
+import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
 import 'package:snapmon/features/dex/owned_monster.dart';
@@ -66,6 +67,7 @@ void main() {
   late FakePvpBattleServer server;
   late RecordedPvpCalls pvpCalls;
   late RecordedBattleCalls battleCalls;
+  late DexStore dexStore;
 
   setUp(() async {
     l10n = await AppLocalizations.delegate.load(const Locale('ja'));
@@ -77,6 +79,8 @@ void main() {
     );
     pvpCalls = RecordedPvpCalls();
     battleCalls = RecordedBattleCalls();
+    dexStore = DexStore(definitions: sampleData.definitions)
+      ..replaceAll(monsters: sampleData.monsters);
   });
 
   /// 自分 ([player]) の端末の対戦のシーンを、手持ちを 3 体入れて iPhone の画面の大きさで開く。
@@ -105,8 +109,7 @@ void main() {
           home: Scaffold(
             body: OpponentScreen(
               sampleData: sampleData,
-              dexStore: DexStore(definitions: sampleData.definitions)
-                ..replaceAll(monsters: sampleData.monsters),
+              dexStore: dexStore,
               onSelectScene: ({required scene}) {},
               onOpenSettings: () async {},
               battleRecorder: fakeBattleRecorder(
@@ -359,6 +362,38 @@ void main() {
       },
     );
 
+    testWidgets('相手を探している間に図鑑の定義が新しい版に替わっても、相手に版を伝えた時の定義で対戦する', (tester) async {
+      await pumpOpponentScreen(tester: tester, blockUser: () async {});
+      await openMatchingScreen(tester: tester);
+      expect(
+        server.joinCalls.single.rulesVersion,
+        '1.${sampleData.definitions.version}',
+      );
+      // 探している間に、新しい master の定義が図鑑に届く
+      dexStore.applyServerSnapshot(
+        monsters: null,
+        partyMonsterIDs: null,
+        definitions: MasterData(
+          version: sampleData.definitions.version + 1,
+          elementTypes: sampleData.definitions.elementTypes,
+          typeChart: sampleData.definitions.typeChart,
+          moves: sampleData.definitions.moves,
+          effects: sampleData.definitions.effects,
+          statGrades: sampleData.definitions.statGrades,
+          elementSelection: sampleData.definitions.elementSelection,
+        ),
+      );
+      await matchAndOpenBattle(tester: tester);
+
+      expect(
+        tester
+            .widget<BattleScreen>(find.byType(BattleScreen))
+            .definitions
+            .version,
+        sampleData.definitions.version,
+      );
+    });
+
     testWidgets('自分の行動を選ぶと相手の行動を待ち、相手が選ぶとラウンドが進み、決着すると勝者を報告してから人との対戦として記録する', (
       tester,
     ) async {
@@ -568,7 +603,7 @@ void main() {
       expect(find.byKey(const Key('report-submit')), findsNothing);
       // 通報しても進行中の対戦は続く
       expect(find.byType(BattleScreen), findsOneWidget);
-      expect(pvpCalls.blockedUids, isEmpty);
+      expect(pvpCalls.blocks, isEmpty);
     });
 
     testWidgets('メニューから相手をブロックすると、確かめた後に相手の uid でブロックし、勝敗が付かずに終わった対戦を閉じる', (
@@ -590,13 +625,16 @@ void main() {
       await tester.pump(const Duration(seconds: 1));
       // 確かめるダイアログで決めるまではブロックしない
       expect(find.text(l10n.blockDialogMessage('あいて')), findsOneWidget);
-      expect(pvpCalls.blockedUids, isEmpty);
+      expect(pvpCalls.blocks, isEmpty);
 
       await tester.tap(find.byKey(const Key('block-confirm')));
       await tester.pump();
       await tester.pump(const Duration(seconds: 1));
 
-      expect(pvpCalls.blockedUids, ['opponent-uid']);
+      // ブロックの操作をした対戦の ID を付けて呼ぶ (Functions がその対戦を終えるため)
+      expect(pvpCalls.blocks, [
+        (blockedUid: 'opponent-uid', battleID: FakePvpBattleServer.battleID),
+      ]);
       expect(find.text(l10n.battleNoContestTitle), findsOneWidget);
       await tester.tap(find.byKey(const Key('battle-no-contest-close')));
       await tester.pump();
@@ -620,7 +658,7 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(seconds: 1));
 
-      expect(pvpCalls.blockedUids, isEmpty);
+      expect(pvpCalls.blocks, isEmpty);
       expect(find.byType(BattleScreen), findsOneWidget);
       expect(server.battle!.status, PvpBattleStatus.active);
     });

@@ -19,12 +19,13 @@ import {
   type PvpMatchTicketDocument,
   type PvpTrainer,
   type PvpTurn,
+  isMatchableHostTicket,
   isRulesVersion,
   outcomeAfterReport,
   parsePvpAction,
   timeoutOutcome,
 } from "./pvp_battle_rules";
-import { displayNameOf, isDocumentID, profileIconOf, publicMonster } from "./pvp_rules";
+import { blockDocumentID, displayNameOf, isDocumentID, profileIconOf, publicMonster } from "./pvp_rules";
 
 // 人との対戦の組み合わせ (joinPvpMatch・leavePvpMatch) と、対戦の同期 (submitPvpAction・claimPvpTimeout・reportPvpResult) の Functions。
 // 構造と書き込みの主体は .claude/rules/firestore.md、決めたことと根拠は documents/DIRECTION.md「決めたこと」の 2026-11-19 の人との対戦の行。
@@ -63,9 +64,12 @@ function requireBattleID({ battleID }: { battleID: unknown }): string {
  *
  * 受け取る data: `{ rulesVersion: string, searchID: string }` (rulesVersion は端末の対戦の計算の版、searchID は 1 回の探す操作ごとに端末が作る ID)。
  * 返す値: `{ battleID: string | null }`。組み合わされたら `pvpBattles/{battleID}` の ID、まだなら null。
- * 呼ぶたびに `pvpMatchTickets/{uid}` の時刻を更新し、今も探している他の利用者の札のうち、同じ版で長く待っている札と組み合わせる。
- * 自分・ブロックした / された相手・自分が通報したモンスターの持ち主・[REPORT_HIDE_THRESHOLD] 人から通報されたモンスターの持ち主
- * (自分がそうである時は誰とも組み合わせない)・アカウントの削除の途中の利用者・手持ちが空の利用者とは組み合わせない (fetchOpponents と同じ除外)。
+ * 呼ぶたびに `pvpMatchTickets/{uid}` の時刻を更新し、今も探している他の利用者の札のうち、同じ版で長く待っている札と組み合わせる
+ * (札の読み取りは firebase/firestore.indexes.json の pvpMatchTickets の複合インデックスを使う)。
+ * 自分・ブロックした / された相手・自分が通報したモンスターの持ち主・自分のモンスターを通報した利用者・
+ * [REPORT_HIDE_THRESHOLD] 人から通報されたモンスターの持ち主 (自分がそうである時は誰とも組み合わせない)・アカウントの削除の途中の利用者・
+ * 手持ちが空の利用者とは組み合わせない。fetchOpponents の除外に、自分のモンスターを通報した利用者を足したもの
+ * (人との対戦は 2 人が互いの手持ちを見るため、通報した側が先に待っていて、通報された側が後から来た時にも組み合わせない)。
  * 組み合わせた時は、2 人の手持ちの他人に見せてよい項目の写し・表示名・アイコン・乱数の種・対戦日を `pvpBattles/{battleID}` に、
  * 2 人の `users/{uid}/battles/{battleID}` に開始の記録 (`opponentKind: "pvp"`) を、同じトランザクションで書く。
  * 同じ searchID で組み合わされた後に呼び直しても、同じ battleID を返す (冪等)。
@@ -83,20 +87,31 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
   const firestore = getFirestore();
   const now = Timestamp.now();
   const freshSince = Timestamp.fromMillis(now.toMillis() - MATCH_TICKET_FRESH_SECONDS * 1000);
-  const [blockedByPlayer, blockingPlayer, reportedByPlayer, waitingTickets] = await Promise.all([
+  const [blockedByPlayer, blockingPlayer, reportedByPlayer, reportingPlayer, waitingTickets] = await Promise.all([
     firestore.collection("blocks").where("blockerUid", "==", uid).get(),
     firestore.collection("blocks").where("blockedUid", "==", uid).get(),
     firestore.collection("reports").where("reporterUid", "==", uid).get(),
-    firestore.collection("pvpMatchTickets").where("heartbeatAt", ">=", freshSince).orderBy("heartbeatAt").limit(MATCH_TICKET_SCAN_LIMIT).get(),
+    firestore.collection("reports").where("monsterOwnerUid", "==", uid).get(),
+    // 読む数の上限の前に、組み合わせられない札 (組み合わせ済み・別の版) を Firestore の側で外す
+    // (上限の数だけそれらが先に並ぶと、組める相手が待っていても読めないため)
+    firestore
+      .collection("pvpMatchTickets")
+      .where("battleID", "==", null)
+      .where("rulesVersion", "==", rulesVersion)
+      .where("heartbeatAt", ">=", freshSince)
+      .orderBy("heartbeatAt")
+      .limit(MATCH_TICKET_SCAN_LIMIT)
+      .get(),
   ]);
   const excludedUids = new Set<unknown>([
     uid,
     ...blockedByPlayer.docs.map((snapshot) => snapshot.get("blockedUid")),
     ...blockingPlayer.docs.map((snapshot) => snapshot.get("blockerUid")),
     ...reportedByPlayer.docs.map((snapshot) => snapshot.get("monsterOwnerUid")),
+    ...reportingPlayer.docs.map((snapshot) => snapshot.get("reporterUid")),
   ]);
   const candidateUids = waitingTickets.docs
-    .filter((ticket) => !excludedUids.has(ticket.id) && ticket.get("battleID") === null && ticket.get("rulesVersion") === rulesVersion)
+    .filter((ticket) => !excludedUids.has(ticket.id))
     .sort((left, right) => (left.get("createdAt") as Timestamp).toMillis() - (right.get("createdAt") as Timestamp).toMillis())
     .slice(0, MATCH_CANDIDATE_LIMIT)
     .map((ticket) => ticket.id);
@@ -129,10 +144,19 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
   const ticketDocument = firestore.doc(`pvpMatchTickets/${uid}`);
   const battleDocument = firestore.collection("pvpBattles").doc();
   return firestore.runTransaction(async (transaction): Promise<{ battleID: string | null }> => {
+    // 相手のブロックの 2 件 (どちらかがもう片方をブロックした記録) もトランザクションの中で読み直す。候補を読んだ後に片方がブロックした時、
+    // blockUser はまだ無い対戦を終えられないため、ここで組み合わせを止める (先に済んだブロックは組み合わせを止め、後のブロックは対戦を終える)
     const [userSnapshot, ticketSnapshot, ...hostSnapshots] = await transaction.getAll(
       firestore.doc(`users/${uid}`),
       ticketDocument,
-      ...(hostUid === undefined ? [] : [firestore.doc(`users/${hostUid}`), firestore.doc(`pvpMatchTickets/${hostUid}`)]),
+      ...(hostUid === undefined
+        ? []
+        : [
+            firestore.doc(`users/${hostUid}`),
+            firestore.doc(`pvpMatchTickets/${hostUid}`),
+            firestore.doc(`blocks/${blockDocumentID({ blockerUid: uid, blockedUid: hostUid })}`),
+            firestore.doc(`blocks/${blockDocumentID({ blockerUid: hostUid, blockedUid: uid })}`),
+          ]),
     );
     requireActiveAccount({ userSnapshot });
     const isSameSearch = ticketSnapshot.get("searchID") === searchID;
@@ -147,14 +171,14 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
       heartbeatAt: now,
       battleID: null,
     };
-    const [hostUser, hostTicket] = hostSnapshots;
-    // 候補を読んだ後に、相手が他の利用者と組み合わされた・探すのをやめた・削除を始めた時は、札だけを更新して次の呼び出しで探し直す
+    const [hostUser, hostTicket, ...blockSnapshots] = hostSnapshots;
+    // 候補を読んだ後に、相手が組み合わせられなくなった (札が替わった・削除を始めた・どちらかがブロックした) 時は、札だけを更新して次の呼び出しで探し直す
     if (
       hostUid === undefined ||
       !hostUser.exists ||
       hostUser.get("accountDeletionStartedAt") !== undefined ||
-      hostTicket.get("battleID") !== null ||
-      (hostTicket.get("heartbeatAt") as Timestamp).toMillis() < freshSince.toMillis()
+      blockSnapshots.some((blockSnapshot) => blockSnapshot.exists) ||
+      !isMatchableHostTicket({ hostTicket: hostTicket.data() as PvpMatchTicketDocument | undefined, rulesVersion, freshSince })
     ) {
       transaction.set(ticketDocument, ticket);
       return { battleID: null };

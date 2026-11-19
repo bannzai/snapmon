@@ -49,12 +49,13 @@ Future<void> _reportOpponentMonster({
   );
 }
 
-/// [opponent] をブロックするかを確かめ、ブロックできたら「ブロックしました」を出す。失敗した時はエラーをそのまま出す。
-/// ブロックした相手との進行中の対戦は、Functions が勝敗を付けずに終える (functions/src/pvp.ts の blockUser)。
+/// 人との対戦 [battleID] の相手 [opponent] をブロックするかを確かめ、ブロックできたら「ブロックしました」を出す。失敗した時はエラーをそのまま出す。
+/// その対戦が進行中なら、Functions が勝敗を付けずに終える (functions/src/pvp.ts の blockUser)。
 Future<void> _blockOpponent({
   required BuildContext context,
   required PvpClient pvpClient,
   required PvpTrainer opponent,
+  required String battleID,
 }) async {
   final messenger = ScaffoldMessenger.of(context);
   // ブロックできた時の文言は、ダイアログを閉じた後にも出すため、先に取っておく
@@ -84,7 +85,7 @@ Future<void> _blockOpponent({
     return;
   }
   try {
-    await pvpClient.blockUser(blockedUid: opponent.uid);
+    await pvpClient.blockUser(blockedUid: opponent.uid, battleID: battleID);
     _showMessage(messenger: messenger, message: blockedMessage);
   } catch (error) {
     _showMessage(messenger: messenger, message: error.toString());
@@ -110,15 +111,19 @@ Future<void> _openContact({
   }
 }
 
-/// 人との対戦の相手 [opponent] の、モンスター ([reportableMonsters]) ごとの通報・相手のブロック・お問い合わせを選ぶメニューのボタン。
+/// 人との対戦 [battleID] の相手 [opponent] の、モンスター ([reportableMonsters]) ごとの通報・相手のブロック・お問い合わせを選ぶメニューのボタン。
 class OpponentSafetyMenuButton extends StatelessWidget {
-  /// [opponent] の通報・ブロックのメニューのボタンを作る。
+  /// [battleID] の対戦の相手 [opponent] の通報・ブロックのメニューのボタンを作る。
   const OpponentSafetyMenuButton({
     super.key,
+    required this.battleID,
     required this.opponent,
     required this.reportableMonsters,
     required this.pvpClient,
   });
+
+  /// メニューを出している人との対戦の ID。ブロックした時に、この対戦を終えるために Functions に渡す。
+  final String battleID;
 
   /// 通報・ブロックする相手。
   final PvpTrainer opponent;
@@ -152,6 +157,7 @@ class OpponentSafetyMenuButton extends StatelessWidget {
           context: context,
           pvpClient: pvpClient,
           opponent: opponent,
+          battleID: battleID,
         ),
         child: Text(context.l10n.opponentBlockTrainer),
       ),

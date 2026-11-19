@@ -9,6 +9,7 @@ import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
 import 'package:snapmon/audio/game_audio.dart';
+import 'package:snapmon/domain/master/master_data.dart';
 import 'package:snapmon/features/battle/battle_screen.dart';
 import 'package:snapmon/features/capture/generation_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
@@ -1667,6 +1668,107 @@ void main() {
         expect(find.textContaining(RegExp(r'あらわれた$')), findsNothing);
         await tester.pump(const Duration(seconds: 5));
         expect(find.byType(BattleScreen), findsNothing);
+      });
+
+      testWidgets('組み合わされた対戦を読めなかった後の「もう一度試す」は、探し直さずに同じ対戦に進む', (tester) async {
+        await pumpUntilSearchStarted(tester: tester);
+        server
+          ..match()
+          ..deleteBattle();
+        await tester.pump(const Duration(seconds: 3));
+        await tester.pump();
+        expect(find.text('Bad state: 対戦を読み込めませんでした'), findsOneWidget);
+        final joinCountAtFailure = server.joinCalls.length;
+
+        // 対戦を読めるようになってからやり直す
+        server.match();
+        await tester.tap(find.text(l10n.commonRetry));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 100));
+
+        expect(find.text(l10n.generationTrainerAppeared), findsOneWidget);
+        expect(server.joinCalls, hasLength(joinCountAtFailure));
+        expect(server.leaveCalls, isEmpty);
+        await tester.pump(const Duration(seconds: 2));
+        await tester.pump(const Duration(seconds: 1));
+        final battleScreen = tester.widget<BattleScreen>(
+          find.byType(BattleScreen),
+        );
+        expect(battleScreen.opponentKind, BattleOpponentKind.pvp);
+        expect(battleScreen.pvpSession!.battleID, FakePvpBattleServer.battleID);
+      });
+
+      testWidgets('探している間に図鑑の定義が新しい版に替わっても、相手に版を伝えた時の定義で対戦する', (tester) async {
+        await pumpUntilSearchStarted(tester: tester);
+        final searchedDefinitions = dexStore.definitions;
+        expect(
+          server.joinCalls.single.rulesVersion,
+          '1.${searchedDefinitions.version}',
+        );
+        // 探している間に、新しい master の定義が図鑑に届く
+        dexStore.applyServerSnapshot(
+          monsters: null,
+          partyMonsterIDs: null,
+          definitions: MasterData(
+            version: searchedDefinitions.version + 1,
+            elementTypes: searchedDefinitions.elementTypes,
+            typeChart: searchedDefinitions.typeChart,
+            moves: searchedDefinitions.moves,
+            effects: searchedDefinitions.effects,
+            statGrades: searchedDefinitions.statGrades,
+            elementSelection: searchedDefinitions.elementSelection,
+          ),
+        );
+        server.match();
+        await tester.pump(const Duration(seconds: 3));
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 2));
+        await tester.pump(const Duration(seconds: 1));
+
+        expect(
+          tester
+              .widget<BattleScreen>(find.byType(BattleScreen))
+              .definitions
+              .version,
+          searchedDefinitions.version,
+        );
+      });
+
+      testWidgets('相手を決める準備の間に画面を閉じたら、準備が終わっても相手を探し始めない', (tester) async {
+        final profile = Completer<PlayerProfile?>();
+        final signedInClient = signedInPvpClient();
+        await pumpGenerationScreen(
+          tester: tester,
+          startsFirstBattle: true,
+          pvpClient: PvpClient(
+            battleClient: signedInClient.battleClient,
+            openContact: signedInClient.openContact,
+            fetchOpponents: signedInClient.fetchOpponents,
+            fetchDefinitions: signedInClient.fetchDefinitions,
+            reportMonster: signedInClient.reportMonster,
+            blockUser: signedInClient.blockUser,
+            fetchBattleRecord: signedInClient.fetchBattleRecord,
+            // プロフィールの読み込みを止めて、相手を決める準備を終わらせない
+            fetchProfile: () => profile.future,
+            updateDisplayName: signedInClient.updateDisplayName,
+            updateIcon: signedInClient.updateIcon,
+          ),
+          generator: savedM1Generator(),
+        );
+        // m1 が生まれて準備に入るまで進める (生成の結果の表示までと同じ長さ)
+        await pumpUntilResult(tester: tester);
+        await tester.pump(const Duration(seconds: 1));
+        expect(server.joinCalls, isEmpty);
+
+        Navigator.of(tester.element(find.byType(GenerationScreen))).pop();
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 1));
+        profile.complete((displayName: 'じぶん', iconPath: null));
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 10));
+
+        expect(server.joinCalls, isEmpty);
+        expect(server.leaveCalls, isEmpty);
       });
 
       testWidgets('探している間に画面を閉じたら、探すのをやめる', (tester) async {

@@ -57,8 +57,13 @@ class PvpClient {
   })
   reportMonster;
 
-  /// [blockedUid] のユーザーをブロックする。
-  final Future<void> Function({required String blockedUid}) blockUser;
+  /// [blockedUid] のユーザーをブロックする。[battleID] は、ブロックの操作をした人との対戦の ID で、その相手との進行中の対戦なら
+  /// 勝敗を付けずに終わる (functions/src/pvp.ts の blockUser)。対戦の外からのブロックは null を渡す。
+  final Future<void> Function({
+    required String blockedUid,
+    required String? battleID,
+  })
+  blockUser;
 
   /// 記録した自分のバトルの勝ち数と負け数を返す。ログインが無い時は null。
   final Future<({int wins, int losses})?> Function() fetchBattleRecord;

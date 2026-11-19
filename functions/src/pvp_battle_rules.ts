@@ -14,8 +14,8 @@ import type { PublicMonster } from "./pvp_rules";
 export const MATCH_TICKET_FRESH_SECONDS = 10;
 
 /**
- * 1 回の joinPvpMatch が読む、今も探している待ちの札の数。
- * 探している間 3 秒ごとに読むため、読み取りの回数を抑えつつ、ブロック・版の違いで組めない札が混ざっても組める相手に届く数にした。
+ * 1 回の joinPvpMatch が読む、同じ版でまだ組み合わされていない、今も探している待ちの札の数。
+ * 探している間 3 秒ごとに読むため、読み取りの回数を抑えつつ、ブロック・通報で組めない札が混ざっても組める相手に届く数にした。
  */
 export const MATCH_TICKET_SCAN_LIMIT = 20;
 
@@ -160,6 +160,29 @@ export interface PvpMatchTicketDocument {
   heartbeatAt: Timestamp;
   /** 組み合わされた対戦の ID。まだ組み合わされていなければ null。ブロックした時に進行中の対戦を探すのにも使う。 */
   battleID: string | null;
+}
+
+/**
+ * トランザクションの中で読み直した、組み合わせる相手 (先に待っていた側) の札 [hostTicket] (無ければ undefined) が、
+ * 今も対戦の計算の版 [rulesVersion] の相手として組み合わせられるか。
+ * 候補を読んでからトランザクションまでの間に、相手が探すのをやめた (札が無い)・他の利用者と組み合わされた・別の版で探し直した・
+ * 最後の呼び出しが [freshSince] より前のまま止まった時は false (呼ぶ側は自分の札だけを更新し、次の呼び出しで探し直す)。
+ */
+export function isMatchableHostTicket({
+  hostTicket,
+  rulesVersion,
+  freshSince,
+}: {
+  hostTicket: PvpMatchTicketDocument | undefined;
+  rulesVersion: string;
+  freshSince: Timestamp;
+}): boolean {
+  return (
+    hostTicket !== undefined &&
+    hostTicket.battleID === null &&
+    hostTicket.rulesVersion === rulesVersion &&
+    hostTicket.heartbeatAt.toMillis() >= freshSince.toMillis()
+  );
 }
 
 /**

@@ -236,35 +236,33 @@ export const reportMonster = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asyn
 /**
  * 他のユーザーをブロックする callable (ストアの UGC 要件のブロック)。
  *
- * 受け取る data: `{ blockedUid: string }`。
+ * 受け取る data: `{ blockedUid: string, battleID?: string | null }` (battleID は、ブロックの操作をした人との対戦の ID。対戦の外からのブロックは渡さない)。
  * 返す値: `{ blocked: true }`。`blocks/{blockerUid}_{blockedUid}` を作る。ブロックした相手とブロックされた相手は、互いの
  * fetchOpponents の候補に出ず、人との対戦 (pvp_battle.ts の joinPvpMatch) でも組み合わされない。
- * その相手との人との対戦が進行中なら、同じトランザクションで勝敗を付けずに終える (ブロックした相手との対戦を続けさせず、
- * ブロックした側に負けを付けないため)。進行中の対戦は、組み合わせた時に `pvpMatchTickets/{uid}` に書いた対戦の ID から探す。
+ * battleID の対戦が、自分とその相手の進行中の対戦なら、同じトランザクションで勝敗を付けずに終える (ブロックした相手との対戦を
+ * 続けさせず、ブロックした側に負けを付けないため)。終わった対戦・無い対戦・自分とその相手の対戦でない ID は何も変えない。
  * 同じ相手をブロックし直しても 1 件のまま (冪等)。自分はブロックできない (invalid-argument)。
  */
 export const blockUser = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
-  const { blockedUid } = (request.data ?? {}) as { blockedUid?: unknown };
+  const { blockedUid, battleID } = (request.data ?? {}) as { blockedUid?: unknown; battleID?: unknown };
   if (!isDocumentID(blockedUid)) {
     throw new HttpsError("invalid-argument", "blockedUid を渡してください");
   }
   if (blockedUid === uid) {
     throw new HttpsError("invalid-argument", "自分はブロックできません");
   }
+  if (battleID !== undefined && battleID !== null && !isDocumentID(battleID)) {
+    throw new HttpsError("invalid-argument", "battleID に対戦の ID を渡してください");
+  }
   const firestore = getFirestore();
   const blockDocument = firestore.doc(`blocks/${blockDocumentID({ blockerUid: uid, blockedUid })}`);
   await firestore.runTransaction(async (transaction) => {
-    const [userSnapshot, blockSnapshot, ticketSnapshot] = await transaction.getAll(
-      firestore.doc(`users/${uid}`),
-      blockDocument,
-      firestore.doc(`pvpMatchTickets/${uid}`),
-    );
+    const [userSnapshot, blockSnapshot] = await transaction.getAll(firestore.doc(`users/${uid}`), blockDocument);
     requireActiveAccount({ userSnapshot });
-    const battleID: unknown = ticketSnapshot.get("battleID");
     if (typeof battleID === "string") {
       const battle = (await transaction.get(firestore.doc(`pvpBattles/${battleID}`))).data() as PvpBattleDocument | undefined;
-      if (battle?.status === "active" && battle.participantUids.includes(blockedUid)) {
+      if (battle?.status === "active" && battle.participantUids.includes(uid) && battle.participantUids.includes(blockedUid)) {
         await finishPvpBattle({
           transaction,
           firestore,

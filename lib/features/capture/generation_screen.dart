@@ -10,6 +10,7 @@ import '../../common_ui/scene_route.dart';
 import 'package:flutter/services.dart';
 
 import '../../analytics/analytics_events.dart';
+import '../../domain/master/master_data.dart';
 import '../../l10n/l10n.dart';
 import '../../sample/sample_data.dart';
 import '../../theme/snapmon_colors.dart';
@@ -208,6 +209,9 @@ class _GenerationScreenState extends State<GenerationScreen> {
 
   /// 初回の導線の CPU の対戦相手。決まるまでは null。人との対戦の相手と組み合わされた時 ([_firstPvpBattleScreen]) は使わない。
   FirstBattleOpponent? _firstBattleOpponent;
+
+  /// 初回の導線で他の利用者と組み合わされた対戦の ID と、相手を探した時に版を伝えた定義。探す前と、組み合わされなかった時は null。
+  ({String battleID, MasterData definitions})? _firstPvpMatch;
 
   /// 初回の導線で他の利用者と組み合わされた時の、その対戦の画面。組み合わされなかった時 (CPU と対戦する) は null。
   BattleScreen? _firstPvpBattleScreen;
@@ -525,15 +529,23 @@ class _GenerationScreenState extends State<GenerationScreen> {
           randomSeed: _firstBattleRandomSeed,
         ).then((opponent) => _firstBattleOpponent = opponent),
       ], eagerError: true);
-      // 同じ版の master の利用者と組み合わせるため、相手を決める準備 (定義の読み直し) の後に探す
-      final pvpBattleID = await _searchFirstBattlePvpMatch();
+      // 準備の間に画面を閉じた時は、相手を探し始めない (閉じた画面は、組み合わされた対戦を開けないため)
       if (!mounted) {
         return;
       }
-      _firstPvpBattleScreen = pvpBattleID == null
+      // 同じ版の master の利用者と組み合わせるため、相手を決める準備 (定義の読み直し) の後に探す。
+      // 組み合わされた対戦は探した時の定義と一緒に持ち続け、この後の読み込みが失敗した時の「もう一度試す」でも同じ対戦を開く
+      // (探し直すと、相手が入っている対戦を置いていくことになるため)
+      _firstPvpMatch ??= await _searchFirstBattlePvpMatch();
+      if (!mounted) {
+        return;
+      }
+      final pvpMatch = _firstPvpMatch;
+      _firstPvpBattleScreen = pvpMatch == null
           ? null
           : await preparePvpBattleScreen(
-              battleID: pvpBattleID,
+              battleID: pvpMatch.battleID,
+              definitions: pvpMatch.definitions,
               dexStore: widget.dexStore,
               pvpClient: widget.pvpClient,
               battleRecorder: widget.battleRecorder,
@@ -559,18 +571,19 @@ class _GenerationScreenState extends State<GenerationScreen> {
     }
   }
 
-  /// 初回のバトルの相手として、人との対戦の相手を [firstBattlePvpSearchDuration] の間だけ探し、組み合わされた対戦の ID を返す。
+  /// 初回のバトルの相手として、人との対戦の相手を [firstBattlePvpSearchDuration] の間だけ探し、組み合わされた対戦の ID と、
+  /// 相手に版を伝えた定義 (対戦でもこの定義を使う。探している間に図鑑の定義が替わっても、伝えた版で計算するため) を返す。
   /// 組み合わされなかった時・ログインが無い時 (DEBUG ビルドでログインを飛ばした時)・探す呼び出しが失敗した時は null を返す
   /// (CPU と対戦する。人を探すのは見つかれば人と戦わせるためで、探せないことで初回のバトルを止めない)。
-  Future<String?> _searchFirstBattlePvpMatch() async {
+  Future<({String battleID, MasterData definitions})?>
+  _searchFirstBattlePvpMatch() async {
     if (widget.pvpClient.battleClient.signedInUid() == null) {
       return null;
     }
+    final definitions = widget.dexStore.definitions;
     final search = PvpMatchSearch(
       client: widget.pvpClient.battleClient,
-      rulesVersion: pvpMatchRulesVersion(
-        definitions: widget.dexStore.definitions,
-      ),
+      rulesVersion: pvpMatchRulesVersion(definitions: definitions),
     )..start();
     _firstBattlePvpSearch = search;
     final searchLimitTimer = Timer(
@@ -578,7 +591,10 @@ class _GenerationScreenState extends State<GenerationScreen> {
       () => search.stop().ignore(),
     );
     try {
-      return await search.matchedBattleID;
+      return switch (await search.matchedBattleID) {
+        null => null,
+        final battleID => (battleID: battleID, definitions: definitions),
+      };
     } catch (error) {
       debugPrint('人との対戦の相手を探せませんでした: $error');
       return null;

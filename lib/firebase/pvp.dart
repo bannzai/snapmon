@@ -92,9 +92,15 @@ Future<void> reportMonsterWithFirebase({
   },
 );
 
-/// Functions の blockUser を呼び、[blockedUid] のユーザーをブロックする。
-Future<void> blockUserWithFirebase({required String blockedUid}) =>
-    _call(name: 'blockUser', data: {'blockedUid': blockedUid});
+/// Functions の blockUser を呼び、[blockedUid] のユーザーをブロックする。[battleID] (ブロックの操作をした人との対戦の ID。
+/// 対戦の外からは null) がその相手との進行中の対戦なら、Functions が勝敗を付けずに終える。
+Future<void> blockUserWithFirebase({
+  required String blockedUid,
+  required String? battleID,
+}) => _call(
+  name: 'blockUser',
+  data: {'blockedUid': blockedUid, 'battleID': battleID},
+);
 
 /// 自分の `users/{uid}/battles` のうち、勝った・負けた記録の数を数えて返す (集計を Firestore に持たないため、数えるクエリで読む。
 /// .claude/rules/firestore.md)。ログインが無い時は null を返す。

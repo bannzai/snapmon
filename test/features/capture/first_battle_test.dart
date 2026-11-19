@@ -42,7 +42,7 @@ void main() {
         reportMonster:
             ({required monsterOwnerUid, required monsterID, required reason}) =>
                 throw StateError('reportMonster は呼ばない'),
-        blockUser: ({required blockedUid}) =>
+        blockUser: ({required blockedUid, required battleID}) =>
             throw StateError('blockUser は呼ばない'),
         fetchBattleRecord: () async => null,
         fetchProfile: () async => null,
@@ -103,7 +103,7 @@ void main() {
                 required monsterID,
                 required reason,
               }) => throw StateError('reportMonster は呼ばない'),
-          blockUser: ({required blockedUid}) =>
+          blockUser: ({required blockedUid, required battleID}) =>
               throw StateError('blockUser は呼ばない'),
           fetchBattleRecord: () async => null,
           fetchProfile: () async => null,

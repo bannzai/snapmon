@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../common_ui/scene_route.dart';
+import '../../domain/master/master_data.dart';
 import '../../sample/sample_data.dart';
 import '../battle/battle_recorder.dart';
 import '../battle/battle_screen.dart';
@@ -15,14 +16,16 @@ import 'pvp_matching_screen.dart';
 import 'random_cpu_battle.dart';
 
 /// 組み合わされた人との対戦 [battleID] の対戦の画面を作る。
-/// 手持ちは [dexStore] の今の手持ちではなく、組み合わせた時点の 2 人の手持ちの写し (`pvpBattles/{battleID}`) を使い
-/// (2 人の端末が同じ入力から計算するため)、定義は [dexStore] の定義に 2 人のモンスターが参照するその場で作った定義を足す。
-/// 定義の master は読み直さない (探す前に読み直した版で組み合わされているため。[prepareMatchedBattleScreen])。
+/// 手持ちは [dexStore] の今の手持ちではなく、組み合わせた時点の 2 人の手持ちの写し (`pvpBattles/{battleID}`) を使う
+/// (2 人の端末が同じ入力から計算するため)。定義は、相手を探した時に版を伝えた定義 [definitions] に、2 人のモンスターが参照する
+/// その場で作った定義を足す。[dexStore] の今の定義は使わない (探している間に図鑑の定義が新しい master に替わると、
+/// 相手と違う版で計算することになるため)。
 /// 相手の通報・ブロックのメニュー ([OpponentSafetyMenuButton]) と、勝者の報告を挟む記録 ([pvpBattleRecorder]) を画面に渡す。
 /// [firstBattleBornMonster]・[firstBattleMonsterIsNewlyBorn] は初回の 1 戦の時だけ渡す ([BattleScreen.firstBattleBornMonster])。
 /// ログインが無い時・対戦を読めない時・定義を読めない時は例外を投げる。
 Future<BattleScreen> preparePvpBattleScreen({
   required String battleID,
+  required MasterData definitions,
   required DexStore dexStore,
   required PvpClient pvpClient,
   required BattleRecorder battleRecorder,
@@ -42,7 +45,7 @@ Future<BattleScreen> preparePvpBattleScreen({
     battle: battle,
     playerUid: playerUid,
     definitions: await pvpClient.fetchDefinitions(
-      base: dexStore.definitions,
+      base: definitions,
       definitionIDs: [
         for (final trainer in [battle.host, battle.guest])
           for (final monster in trainer.monsters) ...monster.definitionIDs,
@@ -56,6 +59,7 @@ Future<BattleScreen> preparePvpBattleScreen({
     pvpSession: session,
     opponentSafetyMenuBuilder: ({required revealedOpponentMonsters}) =>
         OpponentSafetyMenuButton(
+          battleID: battleID,
           opponent: session.opponent,
           reportableMonsters: revealedOpponentMonsters,
           pvpClient: pvpClient,
@@ -93,11 +97,13 @@ Future<BattleScreen?> prepareMatchedBattleScreen({
   if (pvpClient.battleClient.signedInUid() != null) {
     // 同じ版の master の利用者だけを組み合わせるため、探す前に定義を最新の master から読み直す
     await dexStore.refreshDefinitions();
+    // 相手に版を伝える定義と、対戦で使う定義を同じものにする (探している間に図鑑の定義が替わっても、伝えた版で計算するため)
+    final definitions = dexStore.definitions;
     final matchingResult = await navigator.push(
       sceneRoute<PvpMatchingResult>(
         builder: (context) => PvpMatchingScreen(
           battleClient: pvpClient.battleClient,
-          rulesVersion: pvpMatchRulesVersion(definitions: dexStore.definitions),
+          rulesVersion: pvpMatchRulesVersion(definitions: definitions),
         ),
       ),
     );
@@ -107,6 +113,7 @@ Future<BattleScreen?> prepareMatchedBattleScreen({
     if (matchingResult.battleID case final battleID?) {
       return preparePvpBattleScreen(
         battleID: battleID,
+        definitions: definitions,
         dexStore: dexStore,
         pvpClient: pvpClient,
         battleRecorder: battleRecorder,
