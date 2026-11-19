@@ -11,15 +11,34 @@ const String actionCardPackageIdentifierPrefix = 'actioncard_';
 bool isActionCardPackage({required Package package}) =>
     package.identifier.startsWith(actionCardPackageIdentifierPrefix);
 
-/// [packages] のうち、ストアの商品 ID が [productID] の package。無ければ null。
+/// Web で売る商品 (RevenueCat Billing) の ID の末尾。Web の商品はアプリの商品と別に作り、ID を `<アプリの商品の ID>_web` にする
+/// (webhook も同じ末尾を外して読む。functions/src/generation_tickets.ts の `WEB_PRODUCT_ID_SUFFIX`)。
+const String _webProductIDSuffix = '_web';
+
+/// ストアの商品 ID [storeProductID] (`storeProduct.identifier`) に当たるアプリの商品の ID。Web の商品は末尾の `_web` を 1 つ外した ID、
+/// それ以外 (iOS・Android の商品と、アプリと同じ ID で作った Web の商品) はそのまま。
+/// 技ごとの商品の表・技の控え・購入の記録はアプリの商品の ID だけで持つため、ストアの商品 ID と比べる・サーバーへ渡す前にこれで直す。
+String appProductIDOfStoreProductID({required String storeProductID}) =>
+    storeProductID.endsWith(_webProductIDSuffix)
+    ? storeProductID.substring(
+        0,
+        storeProductID.length - _webProductIDSuffix.length,
+      )
+    : storeProductID;
+
+/// [packages] のうち、アプリの商品の ID が [productID] の package。無ければ null。
 /// iOS と Android の消耗型はどちらも `storeProduct.identifier` がストアの商品 ID そのもの (Android の
 /// `GoogleStoreProduct` は INAPP に基本プランが無く、`productID:basePlanID` の形は定期購入だけ)。
+/// Web の商品は [appProductIDOfStoreProductID] でアプリの商品の ID に直して比べる。
 Package? actionCardPackageOfProductID({
   required List<Package> packages,
   required String productID,
 }) {
   for (final package in packages) {
-    if (package.storeProduct.identifier == productID) {
+    if (appProductIDOfStoreProductID(
+          storeProductID: package.storeProduct.identifier,
+        ) ==
+        productID) {
       return package;
     }
   }
@@ -90,8 +109,8 @@ class ActionCardClient {
     required this.forgetActionCardMove,
   });
 
-  /// 課金を使えるかを返す。Web と RevenueCat の鍵を渡していないビルドでは false で、購入の入口を出さない
-  /// (課金はアプリだけ。documents/DIRECTION.md「必要な機能」)。関数にするのは、DEBUG ビルドでログインを飛ばした間だけ見本の購入に切り替えるため。
+  /// 課金を使えるかを返す。その環境 (iOS・Android・Web) の RevenueCat の鍵を渡していないビルドでは false で、購入の入口を出さない
+  /// (documents/DIRECTION.md「必要な機能」の課金の行)。関数にするのは、DEBUG ビルドでログインを飛ばした間だけ見本の購入に切り替えるため。
   final bool Function() isPurchaseSupported;
 
   /// `config/features.actionCardsVisible` を流す。無い時・読めない時は false。

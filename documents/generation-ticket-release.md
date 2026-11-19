@@ -1,6 +1,6 @@
 # 生成チケットの解放の手順
 
-生成チケットの課金は実装済みで閉じている。何を決めたかは [DIRECTION.md](DIRECTION.md)「決めたこと」2026-11-07 の #186 の行が正で、この文書は解放の時に打つ操作をまとめる。
+生成チケットの課金は実装済みで閉じている。何を決めたかは [DIRECTION.md](DIRECTION.md)「決めたこと」2026-11-07 の #186 の行 (Web 版の販売は 2026-11-19 の #371 の行) が正で、この文書は解放の時に打つ操作をまとめる。
 
 RevenueCat の値は `revenuecat/config.json` が正で、生成チケットの offering は `ofrng07ce9e2214`、閉じている間の offering (package が無い) は `ofrngd8f9737dda`。
 
@@ -65,6 +65,38 @@ Apple は最初の消耗型の商品を新しいアプリのバージョンと�
 4. 無料の生成を 1 日 3 回にする PR をマージしてデプロイする (`functions/src/generation/pipeline.ts` の `DAILY_GENERATION_LIMIT_PER_USER`)
 
 解放の前に、「iOS の最初の提出」の「Android の sandbox の確認」を済ませておく。
+
+## Web 版で売る準備
+
+Web 版は、同じ offering の package を RevenueCat の Web での販売の機能 (RevenueCat Billing。決済は Stripe) で売る (DIRECTION.md 2026-11-19 の #371 の行)。アプリと webhook は実装済みで、次が済むまで Web 版に購入の画面は出ない。Stripe の接続のように bannzai にしかできない作業の手順と、接続の後に agent が進める作業の分担は https://github.com/bannzai/snapmon/issues/375 にある。
+
+1. Firebase Authentication で Apple か Google のサインインを有効にし、Web 版のドメイン (`play.snapmonster.app`) が Authentication の承認済みドメインにあることを確かめる。Web 版で買えるのは連携済み (Apple か Google) のアカウントだけで、2026-11-19 の時点では snapmon-prod の Apple と Google のサインインがどちらも有効になっておらず、連携ができない (documents/adr/0003-account-link-and-deletion.md の「確かめていないこと」。有効化は [ユーザー作業の一覧](https://github.com/bannzai/snapmon/issues/3) にある)
+2. Stripe のアカウントを作り、RevenueCat に接続する ( https://www.revenuecat.com/docs/web/connect-stripe-account )
+3. RevenueCat の project `proj682b16be` に Web の設定 (RevenueCat Billing の app) を作る (RevenueCat の API v2 の app の種類に `rc_billing` があるが、API で作れるかは確かめていない。 https://www.revenuecat.com/docs/api-v2/product の App の定義、2026-11-19 に確認)。既定の通貨は日本円にする (既定の通貨は app の設定で選び、利用者の地域の通貨の値段が無い時に使われる。 https://www.revenuecat.com/docs/web/web-billing/multi-currency-support )
+4. Web の商品 5 つを RevenueCat のダッシュボードで作る (種類は Consumable。Web の商品は API では作れない。API v2 の「Create a product」の警告: 「This endpoint does not allow to create Web Billing products.」 https://www.revenuecat.com/docs/api-v2/product 、2026-11-19 に確認)。ID は、アプリの商品の ID の末尾に `_web` を付ける (webhook とアプリが末尾の `_web` を外してアプリの商品として読む。`functions/src/generation_tickets.ts` の `WEB_PRODUCT_ID_SUFFIX`)。値段は保存した後に変えられない (「Once you've saved the product, it's only possible to add prices for new currencies, and not edit existing ones.」 https://www.revenuecat.com/docs/web/web-billing/product-setup 、2026-11-19 に確認)
+
+   | Web の商品の ID | 値段 | 足す package (offering `generation_tickets`) |
+   | --- | --- | --- |
+   | `snapmon_generationticket10_200yen_web` | 200 円 | `ticket10` |
+   | `snapmon_generationticket30_500yen_web` | 500 円 | `ticket30` |
+   | `snapmon_actioncardrank1_100yen_web` | 100 円 | `actioncard_rank1` |
+   | `snapmon_actioncardrank2_300yen_web` | 300 円 | `actioncard_rank2` |
+   | `snapmon_actioncardrank3_500yen_web` | 500 円 | `actioncard_rank3` |
+
+5. Web の設定の public API key (公開値) を GitHub の Variable `REVENUECAT_PUBLIC_API_KEY_WEB` に登録し、Web 版をビルドする workflow (`.github/workflows/deploy-hosting.yml`・`.github/workflows/browser-session.yml` の `flutter build web`) に `--dart-define=REVENUECAT_PUBLIC_API_KEY_WEB=<Variable の値>` を足す。手元の `make web`・`make build-web` とエディタの実行 (`make dart-defines-file`) は、Variable を登録すれば Makefile が読んで渡す (workflow を直す必要は無い)。鍵を渡していない Web のビルドは SDK を初期化せず、購入の画面を出さない。Web の鍵には本番用と試験用 (sandbox) がある (「If your connected Stripe account doesn't have access to live mode, only RevenueCat sandbox purchases can be made (only sandbox API keys and web purchase links will be available)」「RevenueCat will automatically use Stripe's test mode for sandbox web purchase links and web SDK purchases」 https://www.revenuecat.com/docs/web/connect-stripe-account 、2026-11-19 に確認)。Variable と本番のビルドに入れるのは本番用の鍵だけにし、試験用の鍵を入れたビルドを本番にデプロイしない
+6. `docs/SpecifiedCommercialTransactions.md` (特定商取引法に基づく表記) と `docs/Terms.md` 第4条の2 の Web の販売条件 (返品・キャンセル・返金に応じない等) を owner が読んで確かめる
+7. Apple Pay・Google Pay を決済の画面に出す時は、Stripe に Web 版のドメイン (`play.snapmonster.app`) を登録する (「You only need to register a domain manually in Stripe if you're initiating purchases with the Web SDK on your own domain.」 https://www.revenuecat.com/docs/web/web-billing/payment-methods 、2026-11-19 に確認)
+8. Stripe の sandbox の購入で次を確かめる (どれも未確認。実際の購入は Stripe の接続が前提のため、実装の時には確かめていない)。試験用の鍵を渡したビルドで行う (手元なら `REVENUECAT_PUBLIC_API_KEY_WEB=<試験用の鍵> make web`。Makefile は環境変数を Variable より優先する)。連携を通すには、ビルドを開くドメインが Firebase Authentication の承認済みドメインにあることが要る (2026-11-19 の webtunnel の確認では `localhost` で `[firebase_auth/unauthorized-domain]` になった)。webhook は、Web の販売の sandbox の購入 (`store` が `RC_BILLING`・`environment` が `SANDBOX`) を残高に足さず、Slack に知らせるだけにしている (試験用の鍵が外に出た時に、その鍵で作った購入で本番の残高が増えないようにするため。`functions/src/generation_tickets.ts` の `isWebSandboxPurchase`)。そのため sandbox の確認では残高は増えず、購入の画面は「反映を待っています」の案内になる
+   - 購入の後、Slack に「Web の販売の試験の購入 (sandbox) で生成チケットが買われました。残高に足していません」が、Web の商品の ID と「環境 SANDBOX」付きで届く (webhook に `NON_RENEWING_PURCHASE` が `store: RC_BILLING`・`environment: SANDBOX` で届いたことになる)。「生成チケットが 10 枚売れました」と「環境 PRODUCTION」が届いた時は、本番用の鍵で実際の支払いをしているため、そこで止める
+   - 匿名のままでは連携の案内が出て、「データを引き継ぐ」から Apple か Google と連携すると決済の画面に進む
+   - Action Card の技を選んで買った時も、同じ通知が「Action Card」で届く
+   - 同じ商品を 2 回続けて買える (消耗型として扱われる。通知が 2 件届く)
+   - 決済の画面を閉じた時に、エラーの表示にならず購入の画面に戻る
+   - RevenueCat のダッシュボードから返金した時に `CANCELLATION` が届き、Slack に知らせが出る
+   - 決済の画面 (申込みの最終確認の画面) の表示が、特定商取引法 第12条の6 の求める事項 (分量・価格・支払いの時期と方法・提供の時期・解除に関する事項) を満たす。画面は RevenueCat が用意するため、足りない時は RevenueCat の設定で足せるかを調べる
+9. 売り始めた直後に、本番用の鍵のビルドで実際の購入を 1 件行い、生成チケットの残高が増えることを確かめる (確かめた後、RevenueCat のダッシュボードから返金する)。残高に足す処理はアプリのストアの購入と同じで、emulator のテストは `store: RC_BILLING`・`environment: PRODUCTION` の購入で確かめているが、Web の実際の購入では確かめていない
+
+current の offering は project に 1 つで、Web の設定にも効く。そのため、Web 版で売り始める切り替えは「Web の鍵を渡したビルドのデプロイ」と「offering `generation_tickets` が current であること」の両方が揃った時で、片方だけでは Web 版に購入の画面は出ない。2026-11-17 から、App Store の審査のために current を `generation_tickets` にし、`config/features.actionCardsVisible` を true にしている ( https://github.com/bannzai/snapmon/issues/3 の 2026-11-17 のコメント)。この間に Web の鍵を渡したビルドをデプロイすると、その時点で Web 版にも購入の画面が出るため、デプロイは上の 8 の確認と bannzai の確認の後に行う。Web の商品を package に足していない間に Web 版の SDK がその package を返すかは未確認のため、デプロイは上の 4 より後にする。
 
 ## 閉じ直す
 

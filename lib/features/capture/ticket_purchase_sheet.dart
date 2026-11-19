@@ -7,6 +7,9 @@ import '../../analytics/analytics_events.dart';
 import '../../l10n/l10n.dart';
 import '../../theme/snapmon_colors.dart';
 import '../../theme/snapmon_text_styles.dart';
+import '../action_card/action_card_client.dart'
+    show appProductIDOfStoreProductID;
+import '../settings/direct_sales.dart';
 import 'monster_generator.dart';
 
 /// 購入の後に webhook の反映を待ってから「反映を待っています」の案内を出すまでの時間。
@@ -148,7 +151,11 @@ class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
           event: AnalyticsEvent.ticketPurchase,
           parameters: {
             'step': step.stepName,
-            if (package != null) 'product': package.storeProduct.identifier,
+            // 同じ商品をアプリと Web で同じ値に揃える (購入の記録の productID と同じ扱い)
+            if (package != null)
+              'product': appProductIDOfStoreProductID(
+                storeProductID: package.storeProduct.identifier,
+              ),
           },
         )
         .catchError((Object _) {}),
@@ -156,6 +163,17 @@ class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
 
   /// [package] を購入し、結果に応じて画面を進める。
   Future<void> _purchase({required Package package}) async {
+    final accountStoreToLink = accountStoreToLinkBeforePurchase(
+      context: context,
+    );
+    if (accountStoreToLink != null &&
+        (!await linkBeforePurchase(
+              context: context,
+              accountStore: accountStoreToLink,
+            ) ||
+            !mounted)) {
+      return;
+    }
     setState(() {
       _isPurchasing = true;
       _purchaseError = null;
@@ -259,6 +277,7 @@ class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
                         padding: EdgeInsets.only(top: 8),
                         child: Center(child: CircularProgressIndicator()),
                       ),
+                    const SpecifiedCommercialTransactionsLink(),
                   ],
           ),
         ),
@@ -317,7 +336,7 @@ class _TicketPurchaseSheetState extends State<_TicketPurchaseSheet> {
         ];
 }
 
-/// 撮るのシーンの生成チケットの残高。売っている package があり、残高が正の時だけ出す (閉じている間の見え方を変えないため。Web は売っていない)。
+/// 撮るのシーンの生成チケットの残高。売っている package があり、残高が正の時だけ出す (閉じている間の見え方を変えないため)。
 class GenerationTicketBalance extends StatefulWidget {
   /// 残高の表示を作る。
   const GenerationTicketBalance({super.key, required this.monsterGenerator});
@@ -399,6 +418,8 @@ class _GenerationTicketBalanceState extends State<GenerationTicketBalance>
 }
 
 /// 設定画面の「購入の状態を同期する」。売っている package がある時だけ出す (閉じている間の見え方を変えないため)。
+/// 提供者が直接売るビルド ([DirectSalesScope] がある Web 版) では出さない。ストアの購入を RevenueCat に送り直す操作で、
+/// Web 版には送り直すストアの購入が無く、SDK は何も同期しないため (lib/firebase/purchases.dart の冒頭)。
 class TicketPurchaseSyncTile extends StatefulWidget {
   /// 項目を作る。
   const TicketPurchaseSyncTile({super.key, required this.monsterGenerator});
@@ -448,7 +469,9 @@ class _TicketPurchaseSyncTileState extends State<TicketPurchaseSyncTile> {
   @override
   Widget build(BuildContext context) => FutureBuilder<List<Package>>(
     future: _packages,
-    builder: (context, snapshot) => snapshot.data?.isNotEmpty ?? false
+    builder: (context, snapshot) =>
+        DirectSalesScope.maybeOf(context) == null &&
+            (snapshot.data?.isNotEmpty ?? false)
         ? ListTile(
             leading: const Icon(Icons.restore_outlined),
             title: Text(context.l10n.ticketPurchaseSync),

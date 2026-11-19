@@ -10,9 +10,11 @@ import 'package:snapmon/features/capture/generation_screen.dart';
 import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/capture/ticket_purchase_sheet.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/features/settings/direct_sales.dart';
 import 'package:snapmon/l10n/l10n.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 
+import '../../account_store_fixture.dart';
 import '../../battle_recorder_fixture.dart';
 import '../../card_sharer_fixture.dart';
 import '../../monster_generator_fixture.dart';
@@ -513,6 +515,59 @@ void main() {
     expect(ticketPurchaseSteps(), ['shown', 'failed']);
   });
 
+  for (final (:storeProductID, :description) in [
+    (
+      storeProductID: 'snapmon_generationticket10_200yen',
+      description: 'アプリの商品はストアの商品の ID をそのまま',
+    ),
+    (
+      storeProductID: 'snapmon_generationticket10_200yen_web',
+      description: 'Web の商品は末尾の _web を外したアプリの商品の ID を',
+    ),
+  ]) {
+    testWidgets('計測の product には $description 送り 購入画面を出した段階には送らない', (
+      tester,
+    ) async {
+      await pumpUntilDailyLimit(
+        tester: tester,
+        generator: limitedGenerator(
+          ticketPackages: [
+            Package(
+              'ticket10',
+              PackageType.custom,
+              StoreProduct(
+                storeProductID,
+                '',
+                '生成チケット 10 回',
+                200,
+                '¥200',
+                'JPY',
+              ),
+              const PresentedOfferingContext('generation_tickets', null, null),
+            ),
+          ],
+          purchaseTicketPackage: ({required package}) async =>
+              TicketPurchaseResult.cancelled,
+        ),
+      );
+
+      await tester.tap(find.textContaining('¥200'));
+      await tester.pumpAndSettle();
+
+      expect(
+        [
+          for (final logged in calls.loggedEvents)
+            if (logged.event == AnalyticsEvent.ticketPurchase)
+              logged.parameters,
+        ],
+        [
+          {'step': 'shown'},
+          {'step': 'cancelled', 'product': 'snapmon_generationticket10_200yen'},
+        ],
+      );
+    });
+  }
+
   /// [generator] で設定画面の「購入の状態を同期する」を開く。
   Future<void> pumpSyncTile({
     required WidgetTester tester,
@@ -551,5 +606,30 @@ void main() {
     );
 
     expect(find.text('購入の状態を同期する'), findsNothing);
+  });
+
+  testWidgets('提供者が直接売るビルド (Web 版) では 売っている間も 同期の項目を出さない', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        locale: const Locale('ja'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: DirectSalesScope(
+          accountStore: FakeAccountLink(isLinked: true).accountStore(),
+          openURL: ({required uri}) async => true,
+          child: Scaffold(
+            body: TicketPurchaseSyncTile(
+              monsterGenerator: limitedGenerator(
+                ticketPackages: const [testTicketPackage],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('購入の状態を同期する'), findsNothing);
+    expect(calls.syncTicketPurchasesCallCount, 0);
   });
 }
