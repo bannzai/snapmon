@@ -4,7 +4,7 @@ import {
   initializeTestEnvironment,
   type RulesTestEnvironment,
 } from "@firebase/rules-unit-testing";
-import { deleteDoc, doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { afterAll, beforeAll, beforeEach, describe, it } from "vitest";
 
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
@@ -202,14 +202,14 @@ describe("reports と blocks と reportedMonsters", () => {
   });
 });
 
-describe("人との対戦 (pvpMatchTickets・pvpBattles・pendingActions)", () => {
+describe("人との対戦 (pvpMatchTickets・pvpBattles・actions)", () => {
   beforeEach(async () => {
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
       const firestore = context.firestore();
       await setDoc(doc(firestore, "pvpMatchTickets/alice"), { searchID: "search", battleID: "battle" });
       await setDoc(doc(firestore, "pvpBattles/battle"), { participantUIDs: ["alice", "bob"], status: "active", turns: [] });
-      await setDoc(doc(firestore, "pvpBattles/battle/pendingActions/alice"), { action: { kind: "struggle" } });
-      await setDoc(doc(firestore, "pvpBattles/battle/pendingActions/bob"), { action: { kind: "struggle" } });
+      await setDoc(doc(firestore, "pvpBattles/battle/actions/0_alice"), { action: { kind: "struggle" } });
+      await setDoc(doc(firestore, "pvpBattles/battle/actions/0_bob"), { action: { kind: "struggle" } });
     });
   });
 
@@ -230,11 +230,12 @@ describe("人との対戦 (pvpMatchTickets・pvpBattles・pendingActions)", () =
     await assertFails(deleteDoc(doc(firestore, "pvpBattles/battle")));
   });
 
-  it("まだ公開していない行動は、相手のものも自分のものも読み書きできない", async () => {
+  it("出した行動は、相手のものも自分のものも読み書きできず、一覧でも読めない", async () => {
     const firestore = signedInFirestore("alice");
-    await assertFails(getDoc(doc(firestore, "pvpBattles/battle/pendingActions/bob")));
-    await assertFails(getDoc(doc(firestore, "pvpBattles/battle/pendingActions/alice")));
-    await assertFails(setDoc(doc(firestore, "pvpBattles/battle/pendingActions/alice"), { action: { kind: "struggle" } }));
+    await assertFails(getDocs(collection(firestore, "pvpBattles/battle/actions")));
+    await assertFails(getDoc(doc(firestore, "pvpBattles/battle/actions/0_bob")));
+    await assertFails(getDoc(doc(firestore, "pvpBattles/battle/actions/0_alice")));
+    await assertFails(setDoc(doc(firestore, "pvpBattles/battle/actions/0_alice"), { action: { kind: "struggle" } }));
   });
 
   it("待ちの札は本人も読み書きできない", async () => {

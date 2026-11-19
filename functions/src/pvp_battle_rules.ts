@@ -80,6 +80,21 @@ export function parsePvpAction(value: unknown): PvpAction | undefined {
   return undefined;
 }
 
+/**
+ * `pvpBattles/{battleID}/actions/{actionID}` に保存する、利用者が 1 ターンに出した行動 1 件。クライアントは読み書きしない
+ * (相手の行動を見てから選べないようにするため)。2 人分がそろうと、同じ行動を `pvpBattles/{battleID}` の `turns` に公開する。
+ * 公開の後も消さず、誰がどのターンに何を出したかの記録として残す。
+ */
+export interface PvpActionDocument {
+  /** 出した行動。出した後は変えられない。 */
+  action: PvpAction;
+}
+
+/** 対戦のターン [turn] (0 始まりの番号) に利用者 [uid] が出した行動 ([PvpActionDocument]) の ID を返す。同じターンの出し直しは同じ ID になる。 */
+export function pvpActionDocumentID({ turn, uid }: { turn: number; uid: string }): string {
+  return `${turn}_${uid}`;
+}
+
 /** 対戦に出る 1 人。相手の端末が読むため、他人に見せてよい項目だけを持つ。 */
 export interface PvpTrainer {
   /** uid。相手の通報・ブロックの宛先と、勝者の判定に使う。 */

@@ -48,8 +48,8 @@ const FILE_DELETION_QUEUE_FUNCTION_NAME = "locations/asia-northeast1/functions/d
 
 /**
  * アカウントの削除で、本人が出た人との対戦を 1 回に読んで消す件数。
- * 対戦 1 件につき 3 つの文書 (対戦と 2 人の出したままの行動) を 1 つの batch で消すため、1 回の batch の書き込みが
- * Firestore の 1 回の commit の上限 (500 件。https://firebase.google.com/docs/firestore/manage-data/transactions#batched-writes ) を超えない数にした。
+ * 対戦は 1 件ずつ行動ごと消すため、1 回の読み取りで持つ対戦 (2 人の手持ちの写しを含む) がメモリを圧迫せず、
+ * 対戦の数が多い利用者でも読み取りの回数が増えすぎない数にした。
  */
 const PVP_BATTLE_DELETION_PAGE_SIZE = 100;
 
@@ -110,9 +110,10 @@ export async function deleteAccountData(dependencies: AccountDeletionDependencie
     }),
   );
   // 人との対戦の待ちの札と、本人が出た対戦 (2 人の手持ちの写し・表示名・アイコンのパスを持つ。pvp_battle.ts)。
-  // 対戦は出したままの行動 (pendingActions。ID は 2 人の uid) ごと消す。相手の `users/{uid}/battles/{battleID}` は本人の情報を持たないため残す。
+  // 対戦は 2 人が出した行動 (`pvpBattles/{battleID}/actions`) ごと消す。相手の `users/{uid}/battles/{battleID}` は本人の情報を持たないため残す。
   // 終わった対戦は消さずに残るため、長く使った利用者ほど件数が増える。1 回に読む件数を限って消し切るまで繰り返す
-  // (途中で止まっても、消した対戦は次の読み取りに出ないため、もう一度呼べば残りから消せる)
+  // (途中で止まっても、消した対戦は次の読み取りに出ないため、もう一度呼べば残りから消せる)。
+  // 1 戦の行動の数はターンの数で決まり上限が無いため、batch の 1 回の書き込みに入れず、対戦ごとに recursiveDelete が分けて消す
   await firestore.doc(`pvpMatchTickets/${uid}`).delete();
   for (;;) {
     const battles = await firestore
@@ -123,14 +124,9 @@ export async function deleteAccountData(dependencies: AccountDeletionDependencie
     if (battles.empty) {
       break;
     }
-    const batch = firestore.batch();
     for (const battle of battles.docs) {
-      for (const participantUID of battle.get("participantUIDs") as string[]) {
-        batch.delete(battle.ref.collection("pendingActions").doc(participantUID));
-      }
-      batch.delete(battle.ref);
+      await firestore.recursiveDelete(battle.ref);
     }
-    await batch.commit();
   }
   for (const collection of await userDocument.listCollections()) {
     await firestore.recursiveDelete(collection);

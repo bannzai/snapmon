@@ -93,8 +93,9 @@ service cloud.firestore {
       allow read: if isSignedIn() && request.auth.uid in resource.data.participantUIDs;
       allow write: if false;
 
-      // そのターンの、まだ公開していない行動。相手の行動を見てから選べないよう、相手にも本人にも読ませない。
-      match /pendingActions/{uid} {
+      // 2 人が各ターンに出した行動。相手の行動を見てから選べないよう、相手にも本人にも読ませない
+      // (2 人分がそろったターンの行動は、Functions が上の対戦のドキュメントに公開する)。
+      match /actions/{actionID} {
         allow read, write: if false;
       }
     }

@@ -522,13 +522,15 @@ describe("submitPvpAction", () => {
 
     expect((await submitMove({ user: host, battleID, round: 0, moveID: "host-move-0" })).status).toBe(200);
     expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turns).toEqual([]);
-    expect(await readDocument({ path: `pvpBattles/${battleID}/pendingActions/${host.uid}` })).toEqual({ action: { kind: "move", moveID: "host-move-0" } });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/0_${host.uid}` })).toEqual({ action: { kind: "move", moveID: "host-move-0" } });
 
     expect((await submitMove({ user: guest, battleID, round: 0, moveID: "guest-move-0" })).status).toBe(200);
     expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turns).toEqual([
       { hostAction: { kind: "move", moveID: "host-move-0" }, guestAction: { kind: "move", moveID: "guest-move-0" } },
     ]);
-    expect(await readDocument({ path: `pvpBattles/${battleID}/pendingActions/${host.uid}` })).toBeUndefined();
+    // 公開の後も、2 人が出した行動は記録として残る
+    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/0_${host.uid}` })).toEqual({ action: { kind: "move", moveID: "host-move-0" } });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/0_${guest.uid}` })).toEqual({ action: { kind: "move", moveID: "guest-move-0" } });
 
     // 次のターンは guest が先に出す
     expect(
@@ -539,6 +541,8 @@ describe("submitPvpAction", () => {
       { hostAction: { kind: "move", moveID: "host-move-0" }, guestAction: { kind: "move", moveID: "guest-move-0" } },
       { hostAction: { kind: "struggle" }, guestAction: { kind: "switch", memberIndex: 1 } },
     ]);
+    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/1_${host.uid}` })).toEqual({ action: { kind: "struggle" } });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/1_${guest.uid}` })).toEqual({ action: { kind: "switch", memberIndex: 1 } });
   });
 
   it("同じ行動のターンが続いても、ターンごとに足す", async () => {
@@ -575,7 +579,8 @@ describe("submitPvpAction", () => {
 
     expect((await submitMove({ user: host, battleID, round: 0, moveID: "resent" })).status).toBe(200);
     expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turns).toHaveLength(1);
-    expect(await readDocument({ path: `pvpBattles/${battleID}/pendingActions/${host.uid}` })).toBeUndefined();
+    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/0_${host.uid}` })).toEqual({ action: { kind: "move", moveID: "host-move" } });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/1_${host.uid}` })).toBeUndefined();
     expect(
       await callErrorStatus({ name: "submitPvpAction", user: host, data: { battleID, round: 2, action: { kind: "struggle" } } }),
     ).toBe("INVALID_ARGUMENT");
@@ -606,7 +611,7 @@ describe("submitPvpAction", () => {
     expect(
       await callErrorStatus({ name: "submitPvpAction", user: host, data: { battleID, round: 0, action: { kind: "struggle" } } }),
     ).toBe("DEADLINE_EXCEEDED");
-    expect(await readDocument({ path: `pvpBattles/${battleID}/pendingActions/${host.uid}` })).toBeUndefined();
+    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/0_${host.uid}` })).toBeUndefined();
   });
 
   it("対戦に出ていない利用者は、行動を出すことも時間切れ・勝者の報告もできない", async () => {
@@ -655,7 +660,6 @@ describe("claimPvpTimeout", () => {
       finishReason: "timeout",
       turnDeadline: null,
     });
-    expect(await readDocument({ path: `pvpBattles/${battleID}/pendingActions/${guest.uid}` })).toBeUndefined();
     expect((await readDocument({ path: `users/${guest.uid}/battles/${battleID}` }))!.winner).toBe("player");
     // 操作をやめた側は記録を完了しないまま、負けだけが残る
     expect(await readDocument({ path: `users/${host.uid}/battles/${battleID}` })).toMatchObject({ status: "started", winner: "opponent" });
@@ -670,7 +674,34 @@ describe("claimPvpTimeout", () => {
     expect(await callOk({ name: "claimPvpTimeout", user: guest, data: { battleID } })).toEqual({ status: "active" });
 
     expect(await readDocument({ path: `pvpBattles/${battleID}` })).toMatchObject({ status: "active", winnerUID: null });
-    expect(await readDocument({ path: `pvpBattles/${battleID}/pendingActions/${guest.uid}` })).toEqual({ action: { kind: "move", moveID: "guest-move" } });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/0_${guest.uid}` })).toEqual({ action: { kind: "move", moveID: "guest-move" } });
+  });
+
+  it("前のターンが公開された後のターンで片方だけが出した対戦は、期限の後に、そのターンに出した側の勝ちで終わる", async () => {
+    const host = await signInTrainer({ levels: [5] });
+    const guest = await signInTrainer({ levels: [5] });
+    const battleID = await matchTrainers({ host, guest });
+    await submitMove({ user: host, battleID, round: 0, moveID: "host-move" });
+    await submitMove({ user: guest, battleID, round: 0, moveID: "guest-move" });
+    await submitMove({ user: host, battleID, round: 1, moveID: "host-move" });
+    await expireTurnDeadline({ battleID });
+
+    expect(await callOk({ name: "claimPvpTimeout", user: guest, data: { battleID } })).toEqual({ status: "finished" });
+
+    expect(await readDocument({ path: `pvpBattles/${battleID}` })).toMatchObject({ status: "finished", winnerUID: host.uid, finishReason: "timeout" });
+  });
+
+  it("前のターンに 2 人とも出していても、今のターンにどちらも出していない対戦は、期限の後に勝敗を付けずに終わる", async () => {
+    const host = await signInTrainer({ levels: [5] });
+    const guest = await signInTrainer({ levels: [5] });
+    const battleID = await matchTrainers({ host, guest });
+    await submitMove({ user: host, battleID, round: 0, moveID: "host-move" });
+    await submitMove({ user: guest, battleID, round: 0, moveID: "guest-move" });
+    await expireTurnDeadline({ battleID });
+
+    expect(await callOk({ name: "claimPvpTimeout", user: host, data: { battleID } })).toEqual({ status: "void" });
+
+    expect(await readDocument({ path: `pvpBattles/${battleID}` })).toMatchObject({ status: "void", winnerUID: null, finishReason: "timeout" });
   });
 
   it("どちらも行動を出していない対戦は、期限の後に勝敗を付けずに終わる", async () => {
@@ -920,7 +951,7 @@ describe("reportPvpResult と recordBattle", () => {
 });
 
 describe("blockUser と進行中の人との対戦", () => {
-  it("対戦の ID を付けて相手をブロックすると、進行中の対戦が勝敗を付けずに終わり、出したままの行動も消える", async () => {
+  it("対戦の ID を付けて相手をブロックすると、進行中の対戦が勝敗を付けずに終わる", async () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
@@ -929,7 +960,6 @@ describe("blockUser と進行中の人との対戦", () => {
     await callOk({ name: "blockUser", user: host, data: { blockedUid: guest.uid, battleID } });
 
     expect(await readDocument({ path: `pvpBattles/${battleID}` })).toMatchObject({ status: "void", winnerUID: null, finishReason: "blocked", turnDeadline: null });
-    expect(await readDocument({ path: `pvpBattles/${battleID}/pendingActions/${guest.uid}` })).toBeUndefined();
     expect((await readDocument({ path: `users/${host.uid}/battles/${battleID}` }))!.winner).toBeUndefined();
     expect(await readDocument({ path: `blocks/${host.uid}_${guest.uid}` })).toMatchObject({ blockerUid: host.uid, blockedUid: guest.uid });
   });

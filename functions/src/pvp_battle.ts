@@ -14,7 +14,7 @@ import {
   MATCH_TICKET_SCAN_LIMIT,
   TURN_DEADLINE_GRACE_SECONDS,
   TURN_SECONDS,
-  type PvpAction,
+  type PvpActionDocument,
   type PvpBattleDocument,
   type PvpMatchTicketDocument,
   type PvpTrainer,
@@ -23,6 +23,7 @@ import {
   isRulesVersion,
   outcomeAfterReport,
   parsePvpAction,
+  pvpActionDocumentID,
   timeoutOutcome,
 } from "./pvp_battle_rules";
 import { blockDocumentID, displayNameOf, isDocumentID, profileIconOf, publicMonster } from "./pvp_rules";
@@ -291,8 +292,8 @@ export const leavePvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asyn
  * 人との対戦で、今のターンの自分の行動を出す callable。
  *
  * 受け取る data: `{ battleID: string, round: number, action: PvpAction }` (round は公開済みのターンの数 = 今のターンの 0 始まりの番号)。
- * 返す値: `{ submitted: true }`。相手がまだ出していなければ `pvpBattles/{battleID}/pendingActions/{uid}` に置き (相手は読めない)、
- * 相手が出していれば 2 人の行動を `turns` に足して公開し、次のターンの期限を決める。
+ * 返す値: `{ submitted: true }`。行動を `pvpBattles/{battleID}/actions/{round}_{uid}` に置き (2 人とも読めない。公開の後も残す)、
+ * 相手も同じターンの行動を出していれば 2 人の行動を `turns` に足して公開し、次のターンの期限を決める。
  * 出した行動は変えられず、同じターンの出し直しと公開済みのターンの再送は何もしない (冪等)。
  * 終わった対戦には failed-precondition、期限を過ぎたターンには deadline-exceeded、まだ来ていないターンの番号には invalid-argument を投げる。
  * 行動の形だけを確かめ、選べる行動かは確かめない (端末の計算が 2 台で同じに判定し、選べない行動を出した側の負けにする)。
@@ -326,19 +327,19 @@ export const submitPvpAction = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
       throw new HttpsError("deadline-exceeded", "行動を選ぶ時間を過ぎました");
     }
     const opponentUID = battle.participantUIDs.find((participantUID) => participantUID !== uid)!;
-    const pendingDocument = firestore.doc(`pvpBattles/${battleID}/pendingActions/${uid}`);
-    const [pendingSnapshot, opponentPendingSnapshot] = await transaction.getAll(
-      pendingDocument,
-      firestore.doc(`pvpBattles/${battleID}/pendingActions/${opponentUID}`),
+    const actionDocument = firestore.doc(`pvpBattles/${battleID}/actions/${pvpActionDocumentID({ turn: round, uid })}`);
+    const [actionSnapshot, opponentActionSnapshot] = await transaction.getAll(
+      actionDocument,
+      firestore.doc(`pvpBattles/${battleID}/actions/${pvpActionDocumentID({ turn: round, uid: opponentUID })}`),
     );
-    if (pendingSnapshot.exists) {
+    if (actionSnapshot.exists) {
       return;
     }
-    if (!opponentPendingSnapshot.exists) {
-      transaction.create(pendingDocument, { action: parsedAction });
+    transaction.create(actionDocument, { action: parsedAction } satisfies PvpActionDocument);
+    if (!opponentActionSnapshot.exists) {
       return;
     }
-    const opponentAction = opponentPendingSnapshot.get("action") as PvpAction;
+    const opponentAction = (opponentActionSnapshot.data() as PvpActionDocument).action;
     // 同じ行動のターンが続いても足せるよう、arrayUnion (同じ値を足さない) ではなく配列ごと書く
     transaction.update(battleDocument, {
       turns: [
@@ -349,7 +350,6 @@ export const submitPvpAction = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
       ],
       turnDeadline: turnDeadlineFrom({ now }),
     });
-    transaction.delete(opponentPendingSnapshot.ref);
   });
   return { submitted: true };
 });
@@ -372,11 +372,14 @@ export const claimPvpTimeout = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
     if (battle.status !== "active" || Timestamp.now().toMillis() <= battle.turnDeadline.toMillis()) {
       return { status: battle.status };
     }
-    const pendingSnapshots = await transaction.getAll(
-      ...battle.participantUIDs.map((participantUID) => firestore.doc(`pvpBattles/${battleID}/pendingActions/${participantUID}`)),
+    // 過去のターンの行動も残っているため、今のターン (公開済みのターンの数と同じ番号) の行動だけを読む
+    const actionSnapshots = await transaction.getAll(
+      ...battle.participantUIDs.map((participantUID) =>
+        firestore.doc(`pvpBattles/${battleID}/actions/${pvpActionDocumentID({ turn: battle.turns.length, uid: participantUID })}`),
+      ),
     );
     const outcome = timeoutOutcome({
-      submittedUIDs: pendingSnapshots.filter((snapshot) => snapshot.exists).map((snapshot) => snapshot.id),
+      submittedUIDs: battle.participantUIDs.filter((_, index) => actionSnapshots[index].exists),
     });
     await finishPvpBattle({ transaction, firestore, battleID, battle, outcome });
     return { status: outcome.status };
