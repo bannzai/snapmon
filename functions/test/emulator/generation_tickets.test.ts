@@ -444,15 +444,13 @@ describe("RevenueCat の webhook の試験の購入 (environment が SANDBOX)", 
 
   it.each([
     // アプリのストアの試験の購入 (審査とテスターの購入) は今までどおり足す
-    { store: "APP_STORE", environment: "SANDBOX" },
-    { store: "PLAY_STORE", environment: "SANDBOX" },
-    // ストアの値が届かない試験の購入も今までどおり足す
-    { store: undefined, environment: "SANDBOX" },
-    // Web の販売でも、代金を払った購入は足す
-    { store: "RC_BILLING", environment: "PRODUCTION" },
+    { label: "App Store の試験の購入 (APP_STORE と SANDBOX)", store: "APP_STORE", environment: "SANDBOX" },
+    { label: "Google Play の試験の購入 (PLAY_STORE と SANDBOX)", store: "PLAY_STORE", environment: "SANDBOX" },
+    { label: "ストアの値が届かない試験の購入 (SANDBOX)", store: undefined, environment: "SANDBOX" },
+    { label: "Web の販売の代金を払った購入 (RC_BILLING と PRODUCTION)", store: "RC_BILLING", environment: "PRODUCTION" },
     // 環境の値が届かない Web の販売の購入は、試験の購入として扱わない
-    { store: "RC_BILLING", environment: undefined },
-  ])("store が $store・environment が $environment の購入は残高に足す", async ({ store, environment }) => {
+    { label: "環境の値が届かない Web の販売の購入 (RC_BILLING)", store: "RC_BILLING", environment: undefined },
+  ])("$label は残高に足す", async ({ store, environment }) => {
     const { dependencies } = createDependencies();
     expect((await handleRevenueCatWebhook(dependencies, { authorization: AUTHORIZATION, body: webhookBody({ store, environment }) })).body).toBe("added");
     expect(await generationTickets("alice")).toBe(10);
