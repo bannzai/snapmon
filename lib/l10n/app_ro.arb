@@ -45,6 +45,7 @@
   "opponentCpuBattle": "Luptă cu CPU",
   "pvpMatchingNotFound": "Nu s-a găsit niciun adversar",
   "generationTrainerAppeared": "A apărut un antrenor!",
+  "battleLogWaitingForOpponent": "Se așteaptă mutarea adversarului",
   "settingsLinked": "Conectat la {providerName}",
   "settingsSwitchAccountTitle": "Vrei să treci la contul conectat?",
   "settingsSwitchAccountMessage": "Acest cont {providerName} este deja conectat pe alt dispozitiv. Dacă treci la el, enciclopedia de pe acest dispozitiv (monștri: {monsterCount}) va fi ștearsă și va apărea enciclopedia contului conectat.",

@@ -45,6 +45,7 @@
   "opponentCpuBattle": "Kæmp mod CPU",
   "pvpMatchingNotFound": "Ingen modstander fundet",
   "generationTrainerAppeared": "En træner dukkede op!",
+  "battleLogWaitingForOpponent": "Venter på modstanderens træk",
   "settingsLinked": "Forbundet med {providerName}",
   "settingsSwitchAccountTitle": "Vil du skifte til den tilknyttede konto?",
   "settingsSwitchAccountMessage": "Denne {providerName}-konto er allerede knyttet til en anden enhed. Hvis du skifter til den, slettes denne enheds dex (monstre: {monsterCount}), og du får den tilknyttede kontos dex.",

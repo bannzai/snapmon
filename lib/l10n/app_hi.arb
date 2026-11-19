@@ -45,6 +45,7 @@
   "opponentCpuBattle": "CPU से लड़ो",
   "pvpMatchingNotFound": "मुकाबले के लिए कोई प्रतिद्वंद्वी नहीं मिला",
   "generationTrainerAppeared": "एक ट्रेनर आ गया!",
+  "battleLogWaitingForOpponent": "प्रतिद्वंद्वी की चाल का इंतज़ार है",
   "settingsLinked": "{providerName} से जुड़ गया",
   "settingsSwitchAccountTitle": "लिंक किए गए खाते पर जाना चाहते हो?",
   "settingsSwitchAccountMessage": "यह {providerName} खाता दूसरे डिवाइस पर पहले से लिंक है। इस पर स्विच करोगे तो इस डिवाइस का संग्रह (मॉन्स्टर: {monsterCount}) मिट जाएगा और लिंक किए गए खाते का संग्रह दिखेगा।",

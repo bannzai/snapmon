@@ -45,6 +45,7 @@
   "opponentCpuBattle": "קרב נגד CPU",
   "pvpMatchingNotFound": "לא נמצא יריב לקרב",
   "generationTrainerAppeared": "מאמן הופיע!",
+  "battleLogWaitingForOpponent": "ממתינים למהלך של היריב",
   "settingsLinked": "החיבור אל {providerName} הושלם",
   "settingsSwitchAccountTitle": "לעבור לחשבון המקושר?",
   "settingsSwitchAccountMessage": "חשבון {providerName} הזה כבר מקושר במכשיר אחר. מעבר אליו ימחק את האוסף במכשיר הזה (מפלצות: {monsterCount}) ויציג את האוסף של החשבון המקושר.",

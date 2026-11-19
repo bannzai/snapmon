@@ -45,6 +45,7 @@
   "opponentCpuBattle": "Combate contra o CPU",
   "pvpMatchingNotFound": "Não foi encontrado nenhum adversário",
   "generationTrainerAppeared": "Apareceu um treinador!",
+  "battleLogWaitingForOpponent": "À espera da jogada do adversário",
   "settingsLinked": "Ligado a {providerName}",
   "settingsSwitchAccountTitle": "Queres mudar para a conta associada?",
   "settingsSwitchAccountMessage": "Esta conta {providerName} já está associada noutro dispositivo. Se mudares para ela, a enciclopédia deste dispositivo (monstros: {monsterCount}) será apagada e verás a enciclopédia da conta associada.",

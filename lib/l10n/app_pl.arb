@@ -45,6 +45,7 @@
   "opponentCpuBattle": "Walcz z CPU",
   "pvpMatchingNotFound": "Nie znaleziono przeciwnika",
   "generationTrainerAppeared": "Pojawił się trener!",
+  "battleLogWaitingForOpponent": "Czekanie na ruch przeciwnika",
   "settingsLinked": "Połączono z {providerName}",
   "settingsSwitchAccountTitle": "Chcesz przełączyć się na połączone konto?",
   "settingsSwitchAccountMessage": "To konto {providerName} jest już połączone na innym urządzeniu. Jeśli na nie przejdziesz, encyklopedia na tym urządzeniu (potwory: {monsterCount}) zostanie usunięta, a pojawi się encyklopedia połączonego konta.",

@@ -45,6 +45,7 @@
   "opponentCpuBattle": "Harcolj a CPU ellen",
   "pvpMatchingNotFound": "Nem találtunk ellenfelet",
   "generationTrainerAppeared": "Felbukkant egy edző!",
+  "battleLogWaitingForOpponent": "Várakozás az ellenfél lépésére",
   "settingsLinked": "Összekapcsolva ezzel: {providerName}",
   "settingsSwitchAccountTitle": "Átváltasz a kapcsolt fiókra?",
   "settingsSwitchAccountMessage": "Ez a {providerName}-fiók már össze van kapcsolva egy másik eszközön. Ha átváltasz rá, az eszköz gyűjteménye (szörnyek: {monsterCount}) törlődik, és a kapcsolt fiók gyűjteménye jelenik meg.",

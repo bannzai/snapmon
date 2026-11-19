@@ -45,6 +45,7 @@
   "opponentCpuBattle": "Taistele CPU:ta vastaan",
   "pvpMatchingNotFound": "Vastustajaa ei löytynyt",
   "generationTrainerAppeared": "Kouluttaja ilmestyi!",
+  "battleLogWaitingForOpponent": "Odotetaan vastustajan siirtoa",
   "settingsLinked": "Yhdistetty palveluun {providerName}",
   "settingsSwitchAccountTitle": "Haluatko vaihtaa linkitettyyn tiliin?",
   "settingsSwitchAccountMessage": "Tämä {providerName}-tili on jo yhdistetty toisella laitteella. Jos vaihdat siihen, tämän laitteen kokoelma (hirviöt: {monsterCount}) poistuu ja tilalle tulee yhdistetyn tilin kokoelma.",

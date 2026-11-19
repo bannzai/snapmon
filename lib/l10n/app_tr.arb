@@ -45,6 +45,7 @@
   "opponentCpuBattle": "CPU ile savaş",
   "pvpMatchingNotFound": "Rakip bulunamadı",
   "generationTrainerAppeared": "Bir eğitmen ortaya çıktı!",
+  "battleLogWaitingForOpponent": "Rakibin hamlesi bekleniyor",
   "settingsLinked": "{providerName} ile bağlantı kuruldu",
   "settingsSwitchAccountTitle": "Bağlı hesaba geçmek ister misin?",
   "settingsSwitchAccountMessage": "Bu {providerName} hesabı başka bir cihazda zaten bağlı. Bu hesaba geçersen bu cihazdaki ansiklopedi (canavar: {monsterCount}) silinir ve bağlı hesabın ansiklopedisi açılır.",
