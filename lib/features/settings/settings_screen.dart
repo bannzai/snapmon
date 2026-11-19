@@ -97,7 +97,7 @@ class SettingsScreen extends StatelessWidget {
   /// 連携に使うサインインの名前を返す。選べるサインインが 1 つ (Android と Web) ならその名前を返し、2 つ以上 (iOS) なら
   /// 下からの一覧で利用者に選んでもらう。選ばずに閉じた時は null を返す。
   Future<String?> _chooseLinkProviderName({required BuildContext context}) {
-    if (accountStore.linkProviderNames.isEmpty) {
+    if (accountStore.linkProviderNames.length == 1) {
       return Future.value(accountStore.linkProviderNames.single);
     }
     return showModalBottomSheet<String>(
@@ -149,9 +149,7 @@ class SettingsScreen extends StatelessWidget {
     if (signInToLinkedAccount == null) {
       _showMessage(
         context: context,
-        message: context.l10n.settingsLinked(
-          accountStore.linkProviderNames.first,
-        ),
+        message: context.l10n.settingsLinked(providerName),
       );
       return;
     }
@@ -161,7 +159,7 @@ class SettingsScreen extends StatelessWidget {
         title: Text(context.l10n.settingsSwitchAccountTitle),
         content: Text(
           context.l10n.settingsSwitchAccountMessage(
-            accountStore.linkProviderNames.first,
+            providerName,
             dexStore.monsters.length,
           ),
         ),
@@ -333,7 +331,7 @@ class SettingsScreen extends StatelessWidget {
                         // 選べるサインインが 2 つの時 (iOS) は「Apple / Google」と並べる。「か」に当たる語を
                         // 各言語の文言に足さずに、どの言語でも同じに読める記号で区切るため
                         ? context.l10n.settingsTransferDataDescription(
-                            accountStore.linkProviderNames.first,
+                            accountStore.linkProviderNames.join(' / '),
                           )
                         : context.l10n.settingsLinkedWith(
                             linkedProviderNames.join(
