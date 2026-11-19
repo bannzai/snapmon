@@ -44,8 +44,6 @@ bool linksAccountWithGoogleSignIn({
 /// credential を番号で引き直すため当たらない。根拠は ADR 0003 の「Android と Web の Sign in with Apple の連携」。
 bool linkedAccountCredentialLacksNonce({required AuthCredential credential}) =>
     credential is OAuthCredential &&
-    credential.providerId == 'apple.com' &&
-    credential.rawNonce == null &&
     _idTokenHasNonce(idToken: credential.idToken);
 
 /// [idToken] (JWT) の payload に nonce があるか。JWT として読めない時は false。
@@ -56,7 +54,7 @@ bool _idTokenHasNonce({required String? idToken}) {
   }
   try {
     final payload = jsonDecode(
-      utf8.decode(base64Url.decode(base64Url.normalize(segments[1]))),
+      utf8.decode(base64Url.decode(segments[1])),
     );
     return payload is Map && payload['nonce'] != null;
   } on FormatException {
