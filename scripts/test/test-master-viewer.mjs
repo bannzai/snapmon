@@ -13,6 +13,8 @@ import {
   moveFeedbackLine,
   elementTypeFeedbackLine,
   typeChartCellFeedbackLine,
+  typeChartElementTypeIDs,
+  typeChartMultiplier,
   buildDiff,
 } from '../../docs/master-viewer.js';
 
@@ -111,6 +113,55 @@ test('相性表のセルの 1 行は攻撃側と防御側の表示名と倍率�
     typeChartCellFeedbackLine(master, attacker.id, defender.id, multiplier),
     `相性 ${attacker.id} ${attacker.displayName} → ${defender.id} ${defender.displayName} ${multiplier} 倍`,
   );
+});
+
+test('相性表は master の属性に無い、その場で作られた属性「料理」の行と列も並べる', () => {
+  const elementTypeIDs = typeChartElementTypeIDs(master);
+  assert.ok(elementTypeIDs.includes('element_357cac2f'));
+  for (const [attackerID, row] of Object.entries(master.typeChart)) {
+    assert.ok(elementTypeIDs.includes(attackerID), attackerID);
+    for (const defenderID of Object.keys(row)) assert.ok(elementTypeIDs.includes(defenderID), defenderID);
+  }
+});
+
+test('相性表に並べる属性は master の属性の並びを先頭に保ち、同じ ID を 2 度並べない', () => {
+  const elementTypeIDs = typeChartElementTypeIDs(master);
+  assert.deepEqual(elementTypeIDs.slice(0, master.elementTypes.length), master.elementTypes.map((elementType) => elementType.id));
+  assert.equal(new Set(elementTypeIDs).size, elementTypeIDs.length);
+});
+
+test('相性表のキーが master の属性だけなら、並べる属性は master の属性と同じ', () => {
+  const elementTypes = [{ id: 'fire' }, { id: 'water' }];
+  assert.deepEqual(
+    typeChartElementTypeIDs({ elementTypes, typeChart: { water: { fire: 2, water: 0.5 }, fire: { fire: 0.5, water: 0.5 } } }),
+    ['fire', 'water'],
+  );
+  assert.deepEqual(typeChartElementTypeIDs({ elementTypes, typeChart: {} }), ['fire', 'water']);
+  assert.deepEqual(typeChartElementTypeIDs({ elementTypes: [], typeChart: {} }), []);
+});
+
+test('相性表の行だけ・列だけにある属性も、出てきた順で master の属性の後ろに並べる', () => {
+  assert.deepEqual(
+    typeChartElementTypeIDs({
+      elementTypes: [{ id: 'fire' }],
+      typeChart: { fire: { fire: 0.5, element_column: 2 }, element_row: { fire: 2 } },
+    }),
+    ['fire', 'element_column', 'element_row'],
+  );
+});
+
+test('相性表の倍率は行か列が無い組を等倍で返し、ある組は表の値を返す', () => {
+  const sparseMaster = { typeChart: { fire: { water: 0.5 } } };
+  assert.equal(typeChartMultiplier(sparseMaster, 'fire', 'water'), 0.5);
+  assert.equal(typeChartMultiplier(sparseMaster, 'fire', 'grass'), 1);
+  assert.equal(typeChartMultiplier(sparseMaster, 'grass', 'water'), 1);
+  assert.equal(typeChartMultiplier(master, 'element_357cac2f', 'beast'), 2);
+  assert.equal(typeChartMultiplier(master, 'water', 'element_357cac2f'), 2);
+});
+
+test('master.html の相性表は typeChartElementTypeIDs の属性を並べ、倍率を typeChartMultiplier で引く', () => {
+  assert.match(masterHtml, /const elementTypeIDs = typeChartElementTypeIDs\(master\);/);
+  assert.doesNotMatch(masterHtml, /typeChart\[attackerID\]\[defenderID\]/);
 });
 
 test('書き換えが無ければ差分は null', () => {

@@ -101,6 +101,25 @@ export function typeChartCellFeedbackLine(master, attackerID, defenderID, multip
 }
 
 /**
+ * 相性表に並べる属性の ID を返す。master.elementTypes の ID を先頭にその並びで、その後ろに、
+ * 相性表 (master.typeChart) の行と列にだけある ID を出てきた順で足す。同じ ID は 1 度だけ並べる。
+ * その場で作られた属性 (版 13 の「料理」。#348) は master.elementTypes に入れずに相性表へ行と列だけを足すため、
+ * master.elementTypes だけを並べると、その倍率を見ることも書き換えることもできない (#369)
+ */
+export function typeChartElementTypeIDs(master) {
+  return [...new Set([
+    ...master.elementTypes.map((elementType) => elementType.id),
+    ...Object.entries(master.typeChart).flatMap(([attackerID, row]) => [attackerID, ...Object.keys(row)]),
+  ])];
+}
+
+/** 相性表 (master.typeChart) で、攻撃側の属性 attackerID が防御側の属性 defenderID に与える倍率を返す */
+export function typeChartMultiplier(master, attackerID, defenderID) {
+  // 行か列が無い組の 1 は、アプリが同じ組に使う倍率 (lib/domain/master/master_data.dart の typeMultiplier の等倍の既定) に合わせた値
+  return master.typeChart[attackerID]?.[defenderID] ?? 1;
+}
+
+/**
  * ページで書き換えた値 (edits) のうち master と違うものだけを、master.json のキーの形で返す。違いが無ければ null。
  * edits の形: { moves: { [技の ID]: { power?, powerPoints? } }, typeChart: { [攻撃側の属性 ID]: { [防御側の属性 ID]: 倍率 } } }
  * 返す形: { baseVersion: 比べた master の版, moves?: { [技の ID]: { 変えたフィールド: 新しい値 } }, typeChart?: 同上 }。
