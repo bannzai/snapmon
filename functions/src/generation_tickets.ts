@@ -56,7 +56,7 @@ const WEB_PRODUCT_ID_SUFFIX = "_web";
  * 枚数の表・技の控えとの照合・購入の記録はアプリの商品の ID だけで扱い、Web の商品の ID の一覧を別に持たない。
  */
 function appProductIDOf(productID: string): string {
-  return productID.endsWith(WEB_PRODUCT_ID_SUFFIX) ? productID.slice(0, -WEB_PRODUCT_ID_SUFFIX.length) : productID;
+  return productID.replace(new RegExp(`(${WEB_PRODUCT_ID_SUFFIX})+$`, "i"), "");
 }
 
 /** [productID] が生成チケットの商品なら 1 回の購入で足す枚数、それ以外は undefined。継承したキー (`constructor` 等) を商品として扱わない。 */

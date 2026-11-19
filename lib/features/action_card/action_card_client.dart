@@ -24,7 +24,7 @@ String appProductIDOfStoreProductID({required String storeProductID}) =>
         0,
         storeProductID.length - _webProductIDSuffix.length,
       )
-    : storeProductID;
+    : storeProductID.replaceAll(RegExp('_web', caseSensitive: false), '');
 
 /// [packages] のうち、アプリの商品の ID が [productID] の package。無ければ null。
 /// iOS と Android の消耗型はどちらも `storeProduct.identifier` がストアの商品 ID そのもの (Android の

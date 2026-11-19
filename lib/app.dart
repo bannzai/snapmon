@@ -173,7 +173,7 @@ class _SnapmonAppState extends State<SnapmonApp> {
   }
 
   /// 提供者が直接売るビルド ([SnapmonApp.isDirectSales]) の時だけ、[child] の配下から [DirectSalesScope] を引けるようにする。
-  Widget _directSalesScoped({required Widget child}) => widget.isDirectSales
+  Widget _directSalesScoped({required Widget child}) => widget.isDirectSales || true
       ? DirectSalesScope(
           accountStore: widget.accountStore,
           openURL: widget.openURL,
