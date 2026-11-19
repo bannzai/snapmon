@@ -120,7 +120,7 @@ class _LinkBeforePurchaseDialogState extends State<_LinkBeforePurchaseDialog> {
     // 連携の途中は、案内の外のタップ・Esc・戻るでも閉じさせない (「やめる」を押せなくしているのと同じ)。
     // 途中で閉じると、連携できても購入に進まず、別のデータと連携済みの案内と失敗の内容も出せない
     builder: (context, _) => PopScope(
-      canPop: true,
+      canPop: !widget.accountStore.isWorking,
       child: AlertDialog(
         key: const Key('link-before-purchase-dialog'),
         title: Text(context.l10n.purchaseLinkRequiredTitle),
