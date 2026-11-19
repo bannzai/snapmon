@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:flutter/foundation.dart';
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuthException;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -100,7 +100,7 @@ void main() {
 
   /// [pumpApp] の設定画面のアカウントの連携と削除。呼ばれた操作を [accountCalls] に順に残す。
   /// 連携に選べるサインイン・連携と削除の振る舞いは、テストが [pumpApp] の前に変える。
-  /// 既定は、選べるサインインがテストの実行環境 (flutter test は Android として動く) の Google だけで、連携でき、削除できる。
+  /// 既定は、選べるサインインがアプリと同じ Apple と Google (flutter test は Android として動く) で、連携でき、削除できる。
   late AccountStore accountStore;
   late List<String> accountCalls;
   late List<String> linkProviderNames;
@@ -122,7 +122,7 @@ void main() {
     pvpClient = signedOutPvpClient(calls: pvpCalls);
     shareResultStatus = ShareResultStatus.success;
     accountCalls = [];
-    linkProviderNames = accountLinkProviderNamesForPlatform;
+    linkProviderNames = accountLinkProviderNames;
     linkedProviderNames = [];
     linkAccount = ({required providerName}) async {
       linkedProviderNames = [providerName];
@@ -2600,6 +2600,8 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('データを引き継ぐ'));
       await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('settings-link-provider-Google')));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('切り替える'));
       // 1 秒: ダイアログと画面の遷移 (Material の既定で 300ms 前後) が終わる長さ。切り替えの待ちの表示が動いていても pumpAndSettle のように止まらないため固定の時間にする
       await tester.pump(const Duration(seconds: 1));
@@ -2698,7 +2700,10 @@ void main() {
       expect(sessionStore.uid, 'uid-resumed');
     });
 
-    testWidgets('データを引き継ぐで連携すると、連携済みの表示になり押せなくなる', (tester) async {
+    testWidgets('選べるサインインが 1 つなら、データを引き継ぐで一覧を出さずに連携し、連携済みの表示になり押せなくなる', (
+      tester,
+    ) async {
+      linkProviderNames = const ['Google'];
       await openSettings(tester: tester);
       expect(find.text('Google でサインインして\n機種変更しても図鑑を残す'), findsOneWidget);
 
@@ -2718,14 +2723,8 @@ void main() {
       expect(accountCalls, ['link Google']);
     });
 
-    group('iOS (連携に選べるサインインが Apple と Google)', () {
-      // 画面の作り (スクロール・画面遷移) まで iOS に変えないよう、選べるサインインを読む間だけ iOS にする
-      setUp(() {
-        debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
-        linkProviderNames = accountLinkProviderNamesForPlatform;
-        debugDefaultTargetPlatformOverride = null;
-      });
-
+    // flutter test は Android として動くため、この group は Android のアプリの連携先 (iOS・Web と同じ) を通る
+    group('連携に選べるサインインが Apple と Google', () {
       testWidgets('説明に両方の名前を出し、データを引き継ぐを押すと Apple と Google の一覧を出す', (
         tester,
       ) async {
@@ -2856,6 +2855,38 @@ void main() {
         expect(accountCalls, ['link Google', 'link Apple']);
       });
 
+      testWidgets(
+        'Apple が有効になっていない時の Firebase のエラーは、ほかの連携の失敗と同じくそのまま出し、アカウントを変えない',
+        (tester) async {
+          linkAccount = ({required providerName}) async =>
+              throw FirebaseAuthException(
+                code: 'operation-not-allowed',
+                message: 'The identity provider configuration is not found.',
+              );
+          await openSettings(tester: tester);
+          await tester.tap(find.text('データを引き継ぐ'));
+          await tester.pumpAndSettle();
+          await tester.tap(
+            find.byKey(const Key('settings-link-provider-Apple')),
+          );
+          await tester.pumpAndSettle();
+
+          expect(
+            find.text(
+              '[firebase_auth/operation-not-allowed] '
+              'The identity provider configuration is not found.',
+            ),
+            findsOneWidget,
+          );
+          expect(accountCalls, ['link Apple']);
+          expect(sessionStore.uid, 'uid-resumed');
+          expect(
+            find.text('Apple / Google でサインインして\n機種変更しても図鑑を残す'),
+            findsOneWidget,
+          );
+        },
+      );
+
       testWidgets('Apple と Google の両方と連携済みなら、両方の名前を出し、データを引き継ぐを押しても一覧を出さない', (
         tester,
       ) async {
@@ -2902,7 +2933,9 @@ void main() {
       });
     });
 
-    testWidgets('別の端末で連携済みなら、確認してからこの端末の匿名アカウントを捨てて切り替える', (tester) async {
+    testWidgets('Apple が別の端末で連携済みなら、Apple の名前で確かめてからこの端末の匿名アカウントを捨てて切り替える', (
+      tester,
+    ) async {
       linkAccount = ({required providerName}) async => () async {
         accountCalls.add('signInToLinkedAccount');
         return 'uid-linked';
@@ -2910,12 +2943,17 @@ void main() {
       await openSettings(tester: tester);
       await tester.tap(find.text('データを引き継ぐ'));
       await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('settings-link-provider-Apple')));
+      await tester.pumpAndSettle();
       expect(find.text('連携済みのアカウントに切り替えますか'), findsOneWidget);
+      expect(find.textContaining('この Apple アカウントは別の端末で連携済みです'), findsOneWidget);
+      // 確かめる前は、匿名アカウントを捨てず、連携済みのアカウントにも入らない
+      expect(accountCalls, ['link Apple']);
 
       await tester.tap(find.text('切り替える'));
       await tester.pumpAndSettle();
 
-      expect(accountCalls, ['link Google', 'discard', 'signInToLinkedAccount']);
+      expect(accountCalls, ['link Apple', 'discard', 'signInToLinkedAccount']);
       expect(sessionStore.uid, 'uid-linked');
       expect(find.text('連携済みのアカウントに切り替えました'), findsOneWidget);
     });
@@ -2954,6 +2992,8 @@ void main() {
       expect(find.text('匿名の名前'), findsOneWidget);
 
       await tester.tap(find.text('データを引き継ぐ'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('settings-link-provider-Google')));
       await tester.pumpAndSettle();
       await tester.tap(find.text('切り替える'));
       await tester.pumpAndSettle();
@@ -3005,6 +3045,8 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('データを引き継ぐ'));
       await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('settings-link-provider-Google')));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('切り替える'));
       await tester.pumpAndSettle();
       // pageBack は英語の tooltip (Back) で探すため、日本語の画面では戻るボタンを型で探す
@@ -3020,6 +3062,8 @@ void main() {
           () async => 'uid-linked';
       await openSettings(tester: tester);
       await tester.tap(find.text('データを引き継ぐ'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('settings-link-provider-Google')));
       await tester.pumpAndSettle();
       await tester.tap(find.text('やめる'));
       await tester.pumpAndSettle();
