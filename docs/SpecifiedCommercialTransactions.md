@@ -55,9 +55,9 @@ Web 版で購入できるのは、「設定」の「データを引き継ぐ」�
 
 ## 動作環境
 
-Web 版は、Google Chrome、Microsoft Edge、Firefox の最新の 2 つのバージョンと、Safari 15.6 以降で利用できます。[^browsers]
+Web 版は、Google Chrome、Microsoft Edge、Firefox、Safari の最新版で利用できます。[^browsers]
 
-[^browsers]: 出典: https://docs.flutter.dev/reference/supported-platforms の「Web platforms」の表（Web 版を作っている Flutter が対応するブラウザ。Chrome・Firefox・Edge は「Latest 2」、Safari は「15.6 and newer」。2026-11-19 に確認）
+[^browsers]: 出典: https://docs.flutter.dev/reference/supported-platforms の「Web platforms」の表（Web 版を作っている Flutter が対応するブラウザ。Flutter 3.50 の時点の表で、Chrome・Firefox・Edge は「Latest 2」、Safari は「15.6 and newer」。2026-11-19 に確認）
 
 ## 関連ページ
 
