@@ -12,6 +12,9 @@ import '../features/session/session_store.dart';
 
 // 生成チケットと Action Card の購入 (RevenueCat の SDK) と生成チケットの残高の購読。残高に足すのはサーバーの webhook (functions/src/generation_tickets.ts) で、
 // webhook はイベントの `app_user_id` を uid として読むため、SDK のユーザー ID は常に Firebase の uid に揃える。
+// Web 版も同じ SDK (purchases_flutter の Web の実装) で、同じ offering の package を RevenueCat Billing (決済は Stripe) で売る。
+// purchases_flutter 11.0.1 の Web の実装 (lib/web/purchases_flutter_web.dart) は、ここで呼ぶ configure・logIn・logOut・getOfferings・
+// package を渡す purchase に対応し、restorePurchases は何も同期せず今の購入者の情報を返す (同ファイルの `_restorePurchases` のコメント)。
 
 /// iOS の RevenueCat の public API key (公開値)。`--dart-define` で渡す。空のビルドでは課金を無効にする。
 const String _revenueCatPublicApiKeyIos = String.fromEnvironment(
@@ -23,17 +26,40 @@ const String _revenueCatPublicApiKeyAndroid = String.fromEnvironment(
   'REVENUECAT_PUBLIC_API_KEY_ANDROID',
 );
 
-/// この端末で使う public API key。Web と鍵を渡していないビルドでは空で、SDK を初期化しない。
-String _revenueCatPublicApiKey() {
-  if (kIsWeb) {
-    return '';
+/// Web の RevenueCat の public API key (公開値。RevenueCat Billing の Web の app の鍵で、決済は Stripe)。`--dart-define` で渡す。空のビルドでは課金を無効にする。
+const String _revenueCatPublicApiKeyWeb = String.fromEnvironment(
+  'REVENUECAT_PUBLIC_API_KEY_WEB',
+);
+
+/// [isWeb]・[platform] のビルドが使う public API key を、渡した 3 つの鍵から選ぶ。その環境の鍵を渡していないビルドと、
+/// iOS・Android・Web 以外では空を返す (空のビルドは SDK を初期化しない)。
+/// 鍵を引数で受けるのは、テストが `--dart-define` と Web のビルド無しで選び方を確かめるため。
+@visibleForTesting
+String revenueCatPublicApiKeyOf({
+  required bool isWeb,
+  required TargetPlatform platform,
+  required String iosKey,
+  required String androidKey,
+  required String webKey,
+}) {
+  if (isWeb) {
+    return webKey;
   }
-  return switch (defaultTargetPlatform) {
-    TargetPlatform.iOS => _revenueCatPublicApiKeyIos,
-    TargetPlatform.android => _revenueCatPublicApiKeyAndroid,
+  return switch (platform) {
+    TargetPlatform.iOS => iosKey,
+    TargetPlatform.android => androidKey,
     _ => '',
   };
 }
+
+/// この端末で使う public API key。鍵を渡していないビルドでは空で、SDK を初期化しない。
+String _revenueCatPublicApiKey() => revenueCatPublicApiKeyOf(
+  isWeb: kIsWeb,
+  platform: defaultTargetPlatform,
+  iosKey: _revenueCatPublicApiKeyIos,
+  androidKey: _revenueCatPublicApiKeyAndroid,
+  webKey: _revenueCatPublicApiKeyWeb,
+);
 
 /// 最後に始めた SDK のユーザーの切り替え。configure と logIn を重ねて呼ばないため、前の完了を待って順に行う。
 Future<void> _latestPurchasesUserSync = Future<void>.value();
@@ -42,11 +68,20 @@ Future<void> _latestPurchasesUserSync = Future<void>.value();
 Future<void> _syncPurchasesUser({required String? uid}) =>
     _latestPurchasesUserSync = _latestPurchasesUserSync
         .catchError((Object _) {})
-        .then((_) => _applyPurchasesUser(uid: uid));
+        .then(
+          (_) => applyPurchasesUser(
+            uid: uid,
+            publicApiKey: _revenueCatPublicApiKey(),
+          ),
+        );
 
-/// [_syncPurchasesUser] の本体。前の切り替えが終わってから呼ぶ。
-Future<void> _applyPurchasesUser({required String? uid}) async {
-  final publicApiKey = _revenueCatPublicApiKey();
+/// [_syncPurchasesUser] の本体。前の切り替えが終わってから呼ぶ。[publicApiKey] が空なら SDK に触らない。
+/// 鍵を引数で受けるのは、テストが鍵のあるビルドと無いビルドの初期化を確かめるため。
+@visibleForTesting
+Future<void> applyPurchasesUser({
+  required String? uid,
+  required String publicApiKey,
+}) async {
   if (publicApiKey.isEmpty) {
     return;
   }
@@ -81,7 +116,7 @@ void connectPurchasesWhileSignedIn({required SessionStore sessionStore}) {
   followSignedInUid();
 }
 
-/// このビルドで課金を使えるか。Web と RevenueCat の鍵を渡していないビルドでは false。
+/// このビルドで課金を使えるか。その環境 (iOS・Android・Web) の RevenueCat の鍵を渡していないビルドでは false。
 bool isPurchasesEnabled() => _revenueCatPublicApiKey().isNotEmpty;
 
 /// 生成チケットの package の `lookup_key` の接頭辞 (`revenuecat/config.json` の `ticket10`・`ticket30`)。
@@ -146,6 +181,7 @@ Future<TicketPurchaseResult> purchaseTicketPackageWithRevenueCat({
 }
 
 /// ストアの購入の状態を RevenueCat と同期する ([MonsterGenerator.syncTicketPurchases])。
+/// Web 版は SDK が何も同期しないため、設定画面はこの同期の入口を出さない (`TicketPurchaseSyncTile`)。
 Future<void> syncTicketPurchasesWithRevenueCat() async {
   await _syncPurchasesUser(uid: FirebaseAuth.instance.currentUser?.uid);
   await Purchases.restorePurchases();
