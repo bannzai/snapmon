@@ -270,6 +270,7 @@
   "ticketPurchaseSynced": "Stanje nakupa je sinhronizirano",
   "purchaseLinkRequiredTitle": "Pred nakupom prenesi svoje podatke",
   "purchaseLinkRequiredMessage": "Prijavi se z {providerName}, da bodo tvoji nakupi ostali v računu. Če brez prijave izbrišeš podatke brskalnika, jih ne boš mogel obnoviti.",
+  "purchaseLinkAlreadyUsed": "Ta račun {providerName} je že povezan z drugimi podatki igre. Pred nakupom zamenjaj račun v Nastavitvah → Prenesi podatke.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Kupi poteze za vedno in jih nauči svoje pošasti",
   "actionCardOfPrice": "Action Card za {price}",

@@ -270,6 +270,7 @@
   "ticketPurchaseSynced": "Stav nákupu byl synchronizován",
   "purchaseLinkRequiredTitle": "Před nákupem přenes svá data",
   "purchaseLinkRequiredMessage": "Přihlas se přes {providerName} a nákupy ti zůstanou na účtu. Když bez přihlášení smažeš data prohlížeče, už je neobnovíš.",
+  "purchaseLinkAlreadyUsed": "Tento účet {providerName} už je propojený s jinými daty. Před nákupem přepni účet v Nastavení → Přenést data.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Kup si útok natrvalo a nauč ho svou příšeru",
   "actionCardOfPrice": "Action Card za {price}",

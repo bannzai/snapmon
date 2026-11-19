@@ -270,6 +270,7 @@
   "ticketPurchaseSynced": "ಖರೀದಿಯ ಸ್ಥಿತಿ ಸಿಂಕ್ ಆಗಿದೆ",
   "purchaseLinkRequiredTitle": "ಖರೀದಿಸುವ ಮೊದಲು ನಿನ್ನ ಡೇಟಾವನ್ನು ವರ್ಗಾಯಿಸು",
   "purchaseLinkRequiredMessage": "{providerName} ಮೂಲಕ ಸೈನ್ ಇನ್ ಮಾಡಿದರೆ, ನೀನು ಖರೀದಿಸಿದವು ನಿನ್ನ ಖಾತೆಯಲ್ಲಿ ಉಳಿಯುತ್ತವೆ. ಸೈನ್ ಇನ್ ಮಾಡದೆ ಬ್ರೌಸರ್ ಡೇಟಾವನ್ನು ಅಳಿಸಿದರೆ, ಅವನ್ನು ಮರಳಿ ಪಡೆಯಲು ಸಾಧ್ಯವಿಲ್ಲ.",
+  "purchaseLinkAlreadyUsed": "ಈ {providerName} ಖಾತೆ ಈಗಾಗಲೇ ಬೇರೆ ಆಟದ ಡೇಟಾಗೆ ಲಿಂಕ್ ಆಗಿದೆ. ಖರೀದಿಸುವ ಮೊದಲು ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿನ «ಡೇಟಾ ವರ್ಗಾಯಿಸು» ಬಳಸಿ ಖಾತೆ ಬದಲಾಯಿಸು.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "ತಂತ್ರವನ್ನು ಒಮ್ಮೆ ಖರೀದಿಸಿ ನಿನ್ನ ಮಾನ್ಸ್ಟರ್‌ಗಳಿಗೆ ಕಲಿಸು",
   "actionCardOfPrice": "{price} ಬೆಲೆಯ Action Card",

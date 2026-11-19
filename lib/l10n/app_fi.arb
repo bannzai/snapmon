@@ -270,6 +270,7 @@
   "ticketPurchaseSynced": "Ostoksen tila synkronoitu",
   "purchaseLinkRequiredTitle": "Siirrä tietosi ennen ostamista",
   "purchaseLinkRequiredMessage": "Kirjaudu sisään {providerName}-palvelulla, niin ostoksesi säilyvät tililläsi. Jos poistat selaimen tiedot kirjautumatta sisään, et voi palauttaa ostoksiasi.",
+  "purchaseLinkAlreadyUsed": "Tämä {providerName}-tili on jo yhdistetty toisiin pelitietoihin. Vaihda tili kohdassa Asetukset → Siirrä tiedot ennen ostamista.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Osta liikkeet pysyvästi ja opeta ne hirviöillesi",
   "actionCardOfPrice": "{price} hintainen Action Card",

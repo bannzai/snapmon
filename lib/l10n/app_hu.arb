@@ -270,6 +270,7 @@
   "ticketPurchaseSynced": "A vásárlás állapota szinkronizálva",
   "purchaseLinkRequiredTitle": "Vásárlás előtt vidd át az adataidat",
   "purchaseLinkRequiredMessage": "Jelentkezz be a(z) {providerName} segítségével, hogy a vásárlásaid megmaradjanak a fiókodban. Ha bejelentkezés nélkül törlöd a böngésző adatait, nem tudod visszaállítani őket.",
+  "purchaseLinkAlreadyUsed": "Ez a(z) {providerName}-fiók már más játékadatokhoz van kapcsolva. Vásárlás előtt válts fiókot a Beállítások → Adatok átvitele menüpontban.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Vegyél támadásokat végleg, és tanítsd meg őket a szörnyeidnek",
   "actionCardOfPrice": "Action Card {price} áron",

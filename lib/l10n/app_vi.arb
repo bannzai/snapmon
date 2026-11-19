@@ -270,6 +270,7 @@
   "ticketPurchaseSynced": "Đã đồng bộ trạng thái mua hàng",
   "purchaseLinkRequiredTitle": "Chuyển dữ liệu của bạn trước khi mua",
   "purchaseLinkRequiredMessage": "Đăng nhập bằng {providerName} để giữ các món đã mua trong tài khoản của bạn. Nếu xóa dữ liệu trình duyệt khi chưa đăng nhập, bạn sẽ không thể khôi phục chúng.",
+  "purchaseLinkAlreadyUsed": "Tài khoản {providerName} này đã liên kết với dữ liệu trò chơi khác. Trước khi mua, hãy đổi tài khoản trong Cài đặt → Chuyển dữ liệu.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Mua đứt chiêu rồi dạy cho quái vật của bạn",
   "actionCardOfPrice": "Action Card giá {price}",

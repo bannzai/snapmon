@@ -270,6 +270,7 @@
   "ticketPurchaseSynced": "تمت مزامنة حالة الشراء",
   "purchaseLinkRequiredTitle": "انقل بياناتك قبل الشراء",
   "purchaseLinkRequiredMessage": "سجّل الدخول باستخدام {providerName} لتبقى مشترياتك في حسابك. إذا حذفت بيانات المتصفح دون تسجيل الدخول، فلن تتمكن من استعادتها.",
+  "purchaseLinkAlreadyUsed": "حساب {providerName} هذا مرتبط ببيانات أخرى. بدّل الحساب من «نقل البيانات» في الإعدادات قبل الشراء.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "اشترِ الحركات مرة واحدة وعلّمها لوحشك",
   "actionCardOfPrice": "Action Card بسعر {price}",

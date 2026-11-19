@@ -270,6 +270,7 @@
   "ticketPurchaseSynced": "Статус покупки синхронізовано",
   "purchaseLinkRequiredTitle": "Перенеси свої дані перед покупкою",
   "purchaseLinkRequiredMessage": "Увійди через {providerName}, і покупки збережуться у твоєму акаунті. Якщо видалиш дані браузера, не увійшовши в акаунт, відновити покупки не вийде.",
+  "purchaseLinkAlreadyUsed": "Цей обліковий запис {providerName} уже пов’язаний з іншими ігровими даними. Перед покупкою зміни обліковий запис у меню «Налаштування» → «Перенести дані».",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Купи прийоми назавжди й навчи їм своїх монстрів",
   "actionCardOfPrice": "Action Card за {price}",

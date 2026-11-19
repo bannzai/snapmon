@@ -270,6 +270,7 @@
   "ticketPurchaseSynced": "Aankoopstatus gesynchroniseerd",
   "purchaseLinkRequiredTitle": "Zet je gegevens over voordat je iets koopt",
   "purchaseLinkRequiredMessage": "Log in met {providerName} om je aankopen in je account te bewaren. Wis je je browsergegevens zonder in te loggen, dan kun je je aankopen niet herstellen.",
+  "purchaseLinkAlreadyUsed": "Dit {providerName}-account is al gekoppeld aan andere spelgegevens. Wissel vóór je aankoop van account via Instellingen → Gegevens overzetten.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Koop aanvallen voorgoed en leer ze je monsters",
   "actionCardOfPrice": "Action Card voor {price}",

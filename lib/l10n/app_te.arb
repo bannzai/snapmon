@@ -270,6 +270,7 @@
   "ticketPurchaseSynced": "కొనుగోలు స్థితి సమకాలీకరించబడింది",
   "purchaseLinkRequiredTitle": "కొనడానికి ముందు నీ డేటాను బదిలీ చేయి",
   "purchaseLinkRequiredMessage": "{providerName}తో సైన్ ఇన్ అయితే, నువ్వు కొన్నవి నీ ఖాతాలో ఉంటాయి. సైన్ ఇన్ కాకుండా బ్రౌజర్ డేటాను తొలగిస్తే, వాటిని తిరిగి పొందలేవు.",
+  "purchaseLinkAlreadyUsed": "ఈ {providerName} ఖాతా ఇప్పటికే వేరే గేమ్ డేటాతో లింక్ అయింది. కొనడానికి ముందు సెట్టింగ్‌లలో ‘డేటా బదిలీ’ ద్వారా ఖాతా మార్చుకో.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "మూవ్‌లను ఒక్కసారే కొని నీ మాన్స్టర్‌కు నేర్పు",
   "actionCardOfPrice": "{price} ధర గల Action Card",
