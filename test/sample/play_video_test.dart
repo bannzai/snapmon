@@ -13,7 +13,7 @@ void main() {
 
   group('preparePlayVideo', () {
     test(
-      'ログイン中の図鑑から呼ぶと、ログインを終えてログインせずに入れる状態にし、図鑑を一緒に戦う味方だけ・手持ちを空にする',
+      'ログイン中のセッションと見本のモンスターが入った図鑑 (サーバーには繋いでいない) から呼ぶと、ログインを終えてログインせずに入れる状態にし、図鑑を一緒に戦う味方だけ・手持ちを空にする',
       () async {
         var endSessionCount = 0;
         final sessionStore = SessionStore(
