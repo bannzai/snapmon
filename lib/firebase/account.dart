@@ -43,8 +43,8 @@ bool linksAccountWithGoogleSignIn({
 /// ID トークンを写すが nonce を写さない。iOS と Android の credential は [OAuthCredential] ではなく、ネイティブ側が持つ
 /// credential を番号で引き直すため当たらない。根拠は ADR 0003 の「Android と Web の Sign in with Apple の連携」。
 bool linkedAccountCredentialLacksNonce({required AuthCredential credential}) =>
-    credential is OAuthCredential &&
-    _idTokenHasNonce(idToken: credential.idToken);
+    credential.providerId == 'apple.com' &&
+    (credential is! OAuthCredential || credential.rawNonce == null);
 
 /// [idToken] (JWT) の payload に nonce があるか。JWT として読めない時は false。
 bool _idTokenHasNonce({required String? idToken}) {
