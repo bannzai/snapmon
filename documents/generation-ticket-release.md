@@ -70,7 +70,7 @@ Apple は最初の消耗型の商品を新しいアプリのバージョンと�
 
 Web 版は、同じ offering の package を RevenueCat の Web での販売の機能 (RevenueCat Billing。決済は Stripe) で売る (DIRECTION.md 2026-11-19 の #371 の行)。アプリと webhook は実装済みで、次が済むまで Web 版に購入の画面は出ない。Stripe の接続のように bannzai にしかできない作業の手順と、接続の後に agent が進める作業の分担は https://github.com/bannzai/snapmon/issues/375 にある。
 
-1. Firebase Authentication で Google のサインインを有効にし、Web 版のドメイン (`play.snapmonster.app`) が Authentication の承認済みドメインにあることを確かめる。Web 版で買えるのは Google と連携済みのアカウントだけで、2026-11-19 の時点では snapmon-prod の Google のサインインが有効になっておらず、連携ができない (documents/adr/0003-account-link-and-deletion.md の「確かめていないこと」。有効化は [ユーザー作業の一覧](https://github.com/bannzai/snapmon/issues/3) にある)
+1. Firebase Authentication で Apple か Google のサインインを有効にし、Web 版のドメイン (`play.snapmonster.app`) が Authentication の承認済みドメインにあることを確かめる。Web 版で買えるのは連携済み (Apple か Google) のアカウントだけで、2026-11-19 の時点では snapmon-prod の Apple と Google のサインインがどちらも有効になっておらず、連携ができない (documents/adr/0003-account-link-and-deletion.md の「確かめていないこと」。有効化は [ユーザー作業の一覧](https://github.com/bannzai/snapmon/issues/3) にある)
 2. Stripe のアカウントを作り、RevenueCat に接続する ( https://www.revenuecat.com/docs/web/connect-stripe-account )
 3. RevenueCat の project `proj682b16be` に Web の設定 (RevenueCat Billing の app) を作る (RevenueCat の API v2 の app の種類に `rc_billing` があるが、API で作れるかは確かめていない。 https://www.revenuecat.com/docs/api-v2/product の App の定義、2026-11-19 に確認)。既定の通貨は日本円にする (既定の通貨は app の設定で選び、利用者の地域の通貨の値段が無い時に使われる。 https://www.revenuecat.com/docs/web/web-billing/multi-currency-support )
 4. Web の商品 5 つを RevenueCat のダッシュボードで作る (種類は Consumable。Web の商品は API では作れない。API v2 の「Create a product」の警告: 「This endpoint does not allow to create Web Billing products.」 https://www.revenuecat.com/docs/api-v2/product 、2026-11-19 に確認)。ID は、アプリの商品の ID の末尾に `_web` を付ける (webhook とアプリが末尾の `_web` を外してアプリの商品として読む。`functions/src/generation_tickets.ts` の `WEB_PRODUCT_ID_SUFFIX`)。値段は保存した後に変えられない (「Once you've saved the product, it's only possible to add prices for new currencies, and not edit existing ones.」 https://www.revenuecat.com/docs/web/web-billing/product-setup 、2026-11-19 に確認)
@@ -88,7 +88,7 @@ Web 版は、同じ offering の package を RevenueCat の Web での販売の�
 7. Apple Pay・Google Pay を決済の画面に出す時は、Stripe に Web 版のドメイン (`play.snapmonster.app`) を登録する (「You only need to register a domain manually in Stripe if you're initiating purchases with the Web SDK on your own domain.」 https://www.revenuecat.com/docs/web/web-billing/payment-methods 、2026-11-19 に確認)
 8. Stripe の sandbox の購入で次を確かめる (どれも未確認。実際の購入は Stripe の接続が前提のため、実装の時には確かめていない)。試験用の鍵を渡したビルドで行う (手元なら `REVENUECAT_PUBLIC_API_KEY_WEB=<試験用の鍵> make web`。Makefile は環境変数を Variable より優先する)。連携を通すには、ビルドを開くドメインが Firebase Authentication の承認済みドメインにあることが要る (2026-11-19 の webtunnel の確認では `localhost` で `[firebase_auth/unauthorized-domain]` になった)。確認には検証用のアカウントを使い、確認の後に設定の「アカウントを削除」で消す (webhook は `environment` を記録するだけで、`SANDBOX` の購入も本番の残高に足すため。`functions/src/generation_tickets.ts`)
    - 最初の購入で、webhook に届いたイベントの `environment` が `SANDBOX` であること (Slack の通知の「環境 SANDBOX」) を確かめる。`PRODUCTION` なら本番用の鍵で実際の支払いをしているため、そこで止める
-   - 匿名のままでは連携の案内が出て、Google と連携すると決済の画面に進む
+   - 匿名のままでは連携の案内が出て、「データを引き継ぐ」から Apple か Google と連携すると決済の画面に進む
    - 購入の後、webhook に `NON_RENEWING_PURCHASE` が `store: RC_BILLING`・Web の商品の ID で届き、生成チケットの残高が増える・Action Card の技を受け取れる
    - 同じ商品を 2 回続けて買える (消耗型として扱われる)
    - 決済の画面を閉じた時に、エラーの表示にならず購入の画面に戻る
