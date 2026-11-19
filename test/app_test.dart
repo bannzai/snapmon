@@ -2877,17 +2877,14 @@ void main() {
         tester,
       ) async {
         await openSettings(tester: tester);
-        // iOS のアクセシビリティの最大の文字サイズ (約 3.1 倍) より少し大きくした。
-        // ホーム画面は文字が大きいと設定のボタンまでの操作が変わるため、設定画面を開いてから変える
+        await tester.tap(find.text('データを引き継ぐ'));
+        await tester.pumpAndSettle();
+        // 設定画面は文字が大きいと「データを引き継ぐ」の行が画面の外に出るため、一覧を出してから画面と文字を変える。
+        // iOS のアクセシビリティの最大の文字サイズ (約 3.1 倍) より少し大きくした
         tester.platformDispatcher.textScaleFactorTestValue = 3.2;
         addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
         // 4 インチの iPhone の横向き。一覧の高さは画面の 9/16 (180) までで、見出しと 2 つの選択肢が収まらない
         tester.view.physicalSize = const Size(568, 320);
-        await tester.pumpAndSettle();
-        await tester.ensureVisible(find.text('データを引き継ぐ'));
-        await tester.pumpAndSettle();
-
-        await tester.tap(find.text('データを引き継ぐ'));
         await tester.pumpAndSettle();
         // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
         expect(tester.takeException(), isNull);
