@@ -158,9 +158,7 @@ void main() {
       expect(purchasedPackages, [testTicketPackage]);
     });
 
-    testWidgets('選んだアカウントが別のデータと連携済みなら 切り替えずにそのことを出し 購入を始めない', (
-      tester,
-    ) async {
+    testWidgets('選んだアカウントが別のデータと連携済みなら 切り替えずにそのことを出し 購入を始めない', (tester) async {
       var signInToLinkedAccountCallCount = 0;
       await pumpTicketPurchaseSheet(
         tester: tester,
@@ -179,9 +177,7 @@ void main() {
       expect(linkDialog, findsOneWidget);
       expect(
         tester
-            .widget<Text>(
-              find.byKey(const Key('link-before-purchase-failure')),
-            )
+            .widget<Text>(find.byKey(const Key('link-before-purchase-failure')))
             .data,
         l10n.purchaseLinkAlreadyUsed('Google'),
       );
@@ -204,9 +200,7 @@ void main() {
       expect(linkDialog, findsOneWidget);
       expect(
         tester
-            .widget<Text>(
-              find.byKey(const Key('link-before-purchase-failure')),
-            )
+            .widget<Text>(find.byKey(const Key('link-before-purchase-failure')))
             .data,
         StateError('連携の失敗').toString(),
       );
@@ -216,7 +210,9 @@ void main() {
 
   group('特定商取引法に基づく表記へのリンク', () {
     /// 購入画面のリンク。
-    final link = find.byKey(const Key('specified-commercial-transactions-link'));
+    final link = find.byKey(
+      const Key('specified-commercial-transactions-link'),
+    );
 
     /// リンクを開けなかった時の表示。
     final failure = find.byKey(

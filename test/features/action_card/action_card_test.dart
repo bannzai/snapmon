@@ -550,9 +550,7 @@ void main() {
       expect(fakeActionCards.purchasedPackageIDs, ['actioncard_test300']);
     });
 
-    testWidgets('ストアで売るアプリでは 匿名のままでも案内を出さずに購入に進み 表記へのリンクも出さない', (
-      tester,
-    ) async {
+    testWidgets('ストアで売るアプリでは 匿名のままでも案内を出さずに購入に進み 表記へのリンクも出さない', (tester) async {
       await pumpPurchaseSheet(tester: tester, accountLink: null);
       expect(
         find.byKey(const Key('specified-commercial-transactions-link')),

@@ -12,18 +12,21 @@ void main() {
     expect(landingPageUri, Uri.parse('https://$publicPageHost/'));
   });
 
-  test('利用規約・プライバシーポリシー・アカウントの削除の案内・特定商取引法に基づく表記の URL は、独自ドメインの、docs/ にファイルがあるパスを指す', () {
-    for (final uri in [
-      termsUri,
-      privacyPolicyUri,
-      accountDeletionUri,
-      specifiedCommercialTransactionsUri,
-    ]) {
-      expect(uri.scheme, 'https', reason: '$uri');
-      expect(uri.host, publicPageHost, reason: '$uri');
-      expect(File('docs${uri.path}.md').existsSync(), isTrue, reason: '$uri');
-    }
-  });
+  test(
+    '利用規約・プライバシーポリシー・アカウントの削除の案内・特定商取引法に基づく表記の URL は、独自ドメインの、docs/ にファイルがあるパスを指す',
+    () {
+      for (final uri in [
+        termsUri,
+        privacyPolicyUri,
+        accountDeletionUri,
+        specifiedCommercialTransactionsUri,
+      ]) {
+        expect(uri.scheme, 'https', reason: '$uri');
+        expect(uri.host, publicPageHost, reason: '$uri');
+        expect(File('docs${uri.path}.md').existsSync(), isTrue, reason: '$uri');
+      }
+    },
+  );
 
   test('各ページのファイルは、アプリが開く URL のパスで公開する (permalink がパスと同じ)', () {
     for (final uri in [

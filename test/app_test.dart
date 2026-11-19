@@ -873,23 +873,24 @@ void main() {
       );
     });
 
-    testWidgets('提供者が直接売るビルド (Web 版) には、アプリの連携とリンクを開く関数を渡した DirectSalesScope を置く', (
-      tester,
-    ) async {
-      isDirectSales = true;
-      await pumpApp(
-        tester: tester,
-        hasStartedSession: true,
-        startSessionFailureCount: 0,
-        isDeveloperMenuEnabled: false,
-      );
-      final directSales = tester
-          .element(find.byType(TitleScreen))
-          .getInheritedWidgetOfExactType<DirectSalesScope>();
-      expect(directSales?.accountStore, same(accountStore));
-      await directSales?.openURL(uri: specifiedCommercialTransactionsUri);
-      expect(openedUris, [specifiedCommercialTransactionsUri]);
-    });
+    testWidgets(
+      '提供者が直接売るビルド (Web 版) には、アプリの連携とリンクを開く関数を渡した DirectSalesScope を置く',
+      (tester) async {
+        isDirectSales = true;
+        await pumpApp(
+          tester: tester,
+          hasStartedSession: true,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: false,
+        );
+        final directSales = tester
+            .element(find.byType(TitleScreen))
+            .getInheritedWidgetOfExactType<DirectSalesScope>();
+        expect(directSales?.accountStore, same(accountStore));
+        await directSales?.openURL(uri: specifiedCommercialTransactionsUri);
+        expect(openedUris, [specifiedCommercialTransactionsUri]);
+      },
+    );
 
     testWidgets('前回の起動でログインを済ませた時は、タイトルでログインを始めない', (tester) async {
       await pumpApp(
