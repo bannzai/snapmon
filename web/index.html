@@ -20,6 +20,24 @@
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="撮った写真の被写体がモンスターになってバトルするゲーム">
 
+  <!--
+    SNS がこの URL のカードを作る時に読むタグ。文と画像は LP (docs/index.html) と同じにし、画像は LP が配信しているものを指す
+    (web/ に複製すると、絵柄を変える時に 2 か所を直すことになるため)。LP と揃っていることは test/web/social_card_meta_tags_test.dart が確かめる
+  -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SnapMonster">
+  <meta property="og:title" content="SnapMonster | 撮った写真がモンスターになるバトルゲーム">
+  <meta property="og:description" content="身の回りの物を撮ると、その物に似た自分だけのモンスターが生まれる。ターン制バトルで集めて、戦わせて、見せ合おう。">
+  <meta property="og:url" content="https://play.snapmonster.app/">
+  <meta property="og:image" content="https://snapmonster.app/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SnapMonster | 撮った写真がモンスターになるバトルゲーム">
+  <meta name="twitter:description" content="身の回りの物を撮ると、その物に似た自分だけのモンスターが生まれる。ターン制バトルで集めて、戦わせて、見せ合おう。">
+  <meta name="twitter:image" content="https://snapmonster.app/og.png">
+
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
