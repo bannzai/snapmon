@@ -121,18 +121,41 @@ void main() {
               ).opponentParty.map((monster) => monster.definition.id).join(','),
           };
 
-      test('手持ちが撮影用の 2 体だけなら、どの seed でも相手はウロコドラとメダマズクの並びで、レベルは手持ちの平均', () {
-        final party = [playVideo.bornMonster, playVideo.companionMonster];
-        expect(opponentPartyIDsBySeed(party: party), {
-          'sample-urokodora,sample-medamazuku',
-        });
-        for (final monster in chooseRandomCpuOpponent(
+      test('手持ちが撮影用の 2 体だけなら、どの seed でも相手はウロコドラとメダマズクの並び', () {
+        expect(
+          opponentPartyIDsBySeed(
+            party: [playVideo.bornMonster, playVideo.companionMonster],
+          ),
+          {'sample-urokodora,sample-medamazuku'},
+        );
+      });
+
+      test('撮影用の 2 体が Lv.3 と Lv.6 に育った手持ちでも相手は固定で、レベルは手持ちの平均の切り捨て (Lv.4)', () {
+        final opponentParty = chooseRandomCpuOpponent(
           sampleData: sampleData,
-          playerParty: party,
+          playerParty: [
+            for (final (monster, level) in [
+              (playVideo.bornMonster, 3),
+              (playVideo.companionMonster, 6),
+            ])
+              OwnedMonster(
+                definition: monster.definition,
+                level: level,
+                actionCardMoveIDs: const [],
+                selectedMoveIDs: null,
+                artPath: monster.artPath,
+                definitionIDs: const [],
+                decoration: null,
+                decorationVersion: null,
+              ),
+          ],
           randomSeed: 1,
-        ).opponentParty) {
-          expect(monster.level, 1);
-        }
+        ).opponentParty;
+        expect(opponentParty.map((monster) => monster.definition.id), [
+          'sample-urokodora',
+          'sample-medamazuku',
+        ]);
+        expect(opponentParty.map((monster) => monster.level), [4, 4]);
       });
 
       test('撮影用の 2 体でも、名前は今までどおり seed によって CPU トレーナーの全員が出る', () {

@@ -3304,6 +3304,17 @@ void main() {
       expect(sessionStore.canEnterApp, isTrue);
     });
 
+    testWidgets('DEBUG ビルドでも右上の DEBUG の帯を出さない (紹介動画に映さないため)', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: true,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: true,
+      );
+      // テストは debug で動くため、MaterialApp が帯を出す設定なら CheckedModeBanner が画面にある
+      expect(find.byType(CheckedModeBanner), findsNothing);
+    });
+
     testWidgets(
       '開発者メニューで紹介動画の撮影の準備をすると、ログインを終えてタイトルに戻り、ログインし直さず、図鑑がプカプックだけ・手持ちが空になる',
       (tester) async {
