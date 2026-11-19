@@ -268,6 +268,7 @@
   "ticketPurchaseContinue": "Stwórz potwora z tego zdjęcia",
   "ticketPurchaseSync": "Zsynchronizuj stan zakupu",
   "ticketPurchaseSynced": "Stan zakupu zsynchronizowany",
+  "purchaseLinkRequiredTitle": "Przenieś swoje dane przed zakupem",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Kup ruch na stałe i naucz go swojego potwora",
   "actionCardOfPrice": "Action Card za {price}",

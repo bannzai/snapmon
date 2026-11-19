@@ -268,6 +268,7 @@
   "ticketPurchaseContinue": "இந்தப் படத்திலிருந்து மான்ஸ்டரை உருவாக்குங்கள்",
   "ticketPurchaseSync": "வாங்கியதன் நிலையை ஒத்திசையுங்கள்",
   "ticketPurchaseSynced": "வாங்கிய நிலை ஒத்திசைக்கப்பட்டது",
+  "purchaseLinkRequiredTitle": "வாங்கும் முன் உங்கள் தரவை மாற்றுங்கள்",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "தாக்குதல்களை ஒருமுறை வாங்கி உங்கள் மான்ஸ்டருக்குக் கற்றுக்கொடுங்கள்",
   "actionCardOfPrice": "{price} விலையுள்ள Action Card",

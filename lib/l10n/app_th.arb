@@ -268,6 +268,7 @@
   "ticketPurchaseContinue": "สร้างมอนสเตอร์จากรูปนี้",
   "ticketPurchaseSync": "ซิงก์สถานะการซื้อ",
   "ticketPurchaseSynced": "ซิงก์สถานะการซื้อแล้ว",
+  "purchaseLinkRequiredTitle": "โอนข้อมูลก่อนซื้อ",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "ซื้อท่าขาดแล้วสอนให้มอนสเตอร์",
   "actionCardOfPrice": "Action Card ราคา {price}",

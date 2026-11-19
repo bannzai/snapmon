@@ -268,6 +268,7 @@
   "ticketPurchaseContinue": "Cipta monster daripada foto ini",
   "ticketPurchaseSync": "Segerakkan status pembelian kamu",
   "ticketPurchaseSynced": "Status pembelian telah disegerakkan",
+  "purchaseLinkRequiredTitle": "Pindahkan data kamu sebelum membeli",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Beli gerakan sekali, lalu ajar monstermu",
   "actionCardOfPrice": "Action Card berharga {price}",

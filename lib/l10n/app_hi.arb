@@ -268,6 +268,7 @@
   "ticketPurchaseContinue": "इस फ़ोटो से मॉन्स्टर बनाओ",
   "ticketPurchaseSync": "खरीद की स्थिति सिंक करो",
   "ticketPurchaseSynced": "खरीदारी की स्थिति सिंक हो गई",
+  "purchaseLinkRequiredTitle": "खरीदने से पहले अपना डेटा ट्रांसफ़र करो",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "चाल एक बार खरीदो और अपने मॉन्स्टर को सिखाओ",
   "actionCardOfPrice": "{price} वाला Action Card",

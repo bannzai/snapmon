@@ -268,6 +268,7 @@
   "ticketPurchaseContinue": "ఈ ఫోటోతో మాన్స్టర్‌ను సృష్టించు",
   "ticketPurchaseSync": "కొనుగోలు స్థితిని సింక్ చేయి",
   "ticketPurchaseSynced": "కొనుగోలు స్థితి సమకాలీకరించబడింది",
+  "purchaseLinkRequiredTitle": "కొనడానికి ముందు నీ డేటాను బదిలీ చేయి",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "మూవ్‌లను ఒక్కసారే కొని నీ మాన్స్టర్‌కు నేర్పు",
   "actionCardOfPrice": "{price} ధర గల Action Card",

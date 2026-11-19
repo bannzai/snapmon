@@ -268,6 +268,7 @@
   "ticketPurchaseContinue": "Buat monster dari foto ini",
   "ticketPurchaseSync": "Sinkronkan status pembelianmu",
   "ticketPurchaseSynced": "Status pembelian sudah disinkronkan",
+  "purchaseLinkRequiredTitle": "Pindahkan datamu sebelum membeli",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Beli jurus sekali, lalu ajarkan ke monstermu",
   "actionCardOfPrice": "Action Card seharga {price}",

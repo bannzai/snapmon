@@ -268,6 +268,7 @@
   "ticketPurchaseContinue": "أنشئ وحشًا من هذه الصورة",
   "ticketPurchaseSync": "مزامنة حالة الشراء",
   "ticketPurchaseSynced": "تمت مزامنة حالة الشراء",
+  "purchaseLinkRequiredTitle": "انقل بياناتك قبل الشراء",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "اشترِ الحركات مرة واحدة وعلّمها لوحشك",
   "actionCardOfPrice": "Action Card بسعر {price}",

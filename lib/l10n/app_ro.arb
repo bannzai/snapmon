@@ -268,6 +268,7 @@
   "ticketPurchaseContinue": "Creează un monstru din această poză",
   "ticketPurchaseSync": "Sincronizează starea achiziției",
   "ticketPurchaseSynced": "Starea achiziției a fost sincronizată",
+  "purchaseLinkRequiredTitle": "Transferă-ți datele înainte să cumperi",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Cumpără mișcări definitiv și învață-ți monștrii să le folosească",
   "actionCardOfPrice": "Action Card la {price}",

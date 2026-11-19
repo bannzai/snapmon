@@ -268,6 +268,7 @@
   "ticketPurchaseContinue": "Φτιάξε τέρας από αυτή τη φωτογραφία",
   "ticketPurchaseSync": "Συγχρόνισε την κατάσταση αγοράς",
   "ticketPurchaseSynced": "Η κατάσταση αγοράς συγχρονίστηκε",
+  "purchaseLinkRequiredTitle": "Μετάφερε τα δεδομένα σου πριν αγοράσεις",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Αγόρασε τεχνικές μια για πάντα και μάθε τες στα τέρατά σου",
   "actionCardOfPrice": "Action Card με τιμή {price}",

@@ -268,6 +268,7 @@
   "ticketPurchaseContinue": "Ustvari pošast iz te fotografije",
   "ticketPurchaseSync": "Sinhroniziraj stanje nakupa",
   "ticketPurchaseSynced": "Stanje nakupa je sinhronizirano",
+  "purchaseLinkRequiredTitle": "Pred nakupom prenesi svoje podatke",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Kupi poteze za vedno in jih nauči svoje pošasti",
   "actionCardOfPrice": "Action Card za {price}",

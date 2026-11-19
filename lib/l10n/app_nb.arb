@@ -268,6 +268,7 @@
   "ticketPurchaseContinue": "Lag et monster av dette bildet",
   "ticketPurchaseSync": "Synkroniser kjøpsstatus",
   "ticketPurchaseSynced": "Kjøpsstatus er synkronisert",
+  "purchaseLinkRequiredTitle": "Overfør dataene dine før du kjøper",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Kjøp angrep én gang og lær dem til monstrene dine",
   "actionCardOfPrice": "Action Card til {price}",

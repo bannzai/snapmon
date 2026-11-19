@@ -268,6 +268,7 @@
   "ticketPurchaseContinue": "이 사진으로 몬스터 만들기",
   "ticketPurchaseSync": "구매 상태 동기화",
   "ticketPurchaseSynced": "구매 상태를 동기화했어요",
+  "purchaseLinkRequiredTitle": "구매 전에 데이터를 이전해야 해요",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "기술을 영구 구매해 몬스터에게 가르치기",
   "actionCardOfPrice": "{price} Action Card",
