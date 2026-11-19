@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "ซิงก์สถานะการซื้อ",
   "ticketPurchaseSynced": "ซิงก์สถานะการซื้อแล้ว",
   "purchaseLinkRequiredTitle": "โอนข้อมูลก่อนซื้อ",
+  "purchaseLinkRequiredMessage": "ลงชื่อเข้าใช้ด้วย {providerName} เพื่อเก็บสิ่งที่ซื้อไว้ในบัญชี ถ้าลบข้อมูลเบราว์เซอร์โดยยังไม่ลงชื่อเข้าใช้ จะกู้คืนสิ่งที่ซื้อไม่ได้",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "ซื้อท่าขาดแล้วสอนให้มอนสเตอร์",
   "actionCardOfPrice": "Action Card ราคา {price}",

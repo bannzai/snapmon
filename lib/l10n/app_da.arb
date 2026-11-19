@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "Synkroniser købsstatus",
   "ticketPurchaseSynced": "Købsstatus er synkroniseret",
   "purchaseLinkRequiredTitle": "Overfør dine data, før du køber",
+  "purchaseLinkRequiredMessage": "Log ind med {providerName}, så gemmes dine køb på din konto. Hvis du sletter browserdata uden at logge ind, kan du ikke gendanne dem.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Køb angreb én gang, og lær dem til dine monstre",
   "actionCardOfPrice": "Action Card til {price}",

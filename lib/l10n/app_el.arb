@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "Συγχρόνισε την κατάσταση αγοράς",
   "ticketPurchaseSynced": "Η κατάσταση αγοράς συγχρονίστηκε",
   "purchaseLinkRequiredTitle": "Μετάφερε τα δεδομένα σου πριν αγοράσεις",
+  "purchaseLinkRequiredMessage": "Συνδέσου με {providerName} για να μείνουν οι αγορές στον λογαριασμό σου. Αν σβήσεις τα δεδομένα του προγράμματος περιήγησης χωρίς να συνδεθείς, δεν θα μπορέσεις να τις επαναφέρεις.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Αγόρασε τεχνικές μια για πάντα και μάθε τες στα τέρατά σου",
   "actionCardOfPrice": "Action Card με τιμή {price}",

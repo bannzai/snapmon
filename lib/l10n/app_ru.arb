@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "Синхронизировать статус покупки",
   "ticketPurchaseSynced": "Статус покупки синхронизирован",
   "purchaseLinkRequiredTitle": "Перенеси свои данные перед покупкой",
+  "purchaseLinkRequiredMessage": "Войди через {providerName}, и покупки сохранятся в твоём аккаунте. Если удалишь данные браузера, не войдя в аккаунт, восстановить покупки не получится.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Купи приёмы навсегда и обучи им своих монстров",
   "actionCardOfPrice": "Action Card за {price}",

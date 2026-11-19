@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "Satın alma durumunu eşitle",
   "ticketPurchaseSynced": "Satın alma durumu eşitlendi",
   "purchaseLinkRequiredTitle": "Satın almadan önce verilerini aktar",
+  "purchaseLinkRequiredMessage": "{providerName} ile giriş yaparsan satın aldıkların hesabında kalır. Giriş yapmadan tarayıcı verilerini silersen onları geri getiremezsin.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Hamleleri kalıcı olarak satın al, canavarlarına öğret",
   "actionCardOfPrice": "{price} tutarında Action Card",

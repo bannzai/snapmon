@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "Zsynchronizuj stan zakupu",
   "ticketPurchaseSynced": "Stan zakupu zsynchronizowany",
   "purchaseLinkRequiredTitle": "Przenieś swoje dane przed zakupem",
+  "purchaseLinkRequiredMessage": "Zaloguj się przez {providerName}, a zakupy zostaną na twoim koncie. Jeśli usuniesz dane przeglądarki bez logowania, nie odzyskasz ich.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Kup ruch na stałe i naucz go swojego potwora",
   "actionCardOfPrice": "Action Card za {price}",

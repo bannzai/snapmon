@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "Sincronizar status da compra",
   "ticketPurchaseSynced": "Status da compra sincronizado",
   "purchaseLinkRequiredTitle": "Transfira seus dados antes de comprar",
+  "purchaseLinkRequiredMessage": "Entre com {providerName} para guardar suas compras na sua conta. Se você apagar os dados do navegador sem entrar, não poderá recuperá-las.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Compre golpes de uma vez e ensine aos seus monstros",
   "actionCardOfPrice": "Action Card de {price}",

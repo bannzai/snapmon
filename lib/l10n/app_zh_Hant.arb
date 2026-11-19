@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "同步購買狀態",
   "ticketPurchaseSynced": "購買狀態已同步",
   "purchaseLinkRequiredTitle": "購買前先轉移資料",
+  "purchaseLinkRequiredMessage": "用 {providerName} 登入後，已購內容就會保存在你的帳號中。如果還沒登入就清除瀏覽器資料，已購內容將無法復原。",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "買斷招式，教給你的怪物",
   "actionCardOfPrice": "價格為 {price} 的 Action Card",

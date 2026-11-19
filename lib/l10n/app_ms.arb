@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "Segerakkan status pembelian kamu",
   "ticketPurchaseSynced": "Status pembelian telah disegerakkan",
   "purchaseLinkRequiredTitle": "Pindahkan data kamu sebelum membeli",
+  "purchaseLinkRequiredMessage": "Log masuk dengan {providerName} supaya pembelian kamu kekal dalam akaun. Jika kamu padam data pelayar tanpa log masuk, pembelian itu tak dapat dipulihkan.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Beli gerakan sekali, lalu ajar monstermu",
   "actionCardOfPrice": "Action Card berharga {price}",

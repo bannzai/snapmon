@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "Synchroniser l’état des achats",
   "ticketPurchaseSynced": "L’état de ton achat a été synchronisé",
   "purchaseLinkRequiredTitle": "Transfère tes données avant d’acheter",
+  "purchaseLinkRequiredMessage": "Connecte-toi avec {providerName} pour garder tes achats sur ton compte. Si tu effaces les données du navigateur sans te connecter, tu ne pourras pas les récupérer.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Achète une capacité une fois pour toutes et apprends-la à tes monstres",
   "actionCardOfPrice": "Action Card à {price}",

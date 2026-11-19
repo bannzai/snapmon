@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "ખરીદીની સ્થિતિ સિંક કરો",
   "ticketPurchaseSynced": "ખરીદીની સ્થિતિ સિંક થઈ ગઈ",
   "purchaseLinkRequiredTitle": "ખરીદતા પહેલાં તમારો ડેટા ટ્રાન્સફર કરો",
+  "purchaseLinkRequiredMessage": "{providerName} વડે સાઇન ઇન કરશો તો તમારી ખરીદીઓ તમારા એકાઉન્ટમાં રહેશે. સાઇન ઇન કર્યા વિના બ્રાઉઝરનો ડેટા કાઢી નાખશો તો તમે એ પાછી મેળવી શકશો નહીં.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "ચાલ એક વાર ખરીદો અને તમારા મોન્સ્ટરને શીખવો",
   "actionCardOfPrice": "{price}ની Action Card",

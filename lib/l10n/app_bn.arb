@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "কেনাকাটার অবস্থা সিঙ্ক করো",
   "ticketPurchaseSynced": "কেনাকাটার অবস্থা সিঙ্ক হয়েছে",
   "purchaseLinkRequiredTitle": "কেনার আগে তোমার ডেটা স্থানান্তর করো",
+  "purchaseLinkRequiredMessage": "{providerName} দিয়ে সাইন ইন করলে তোমার কেনা জিনিসগুলো অ্যাকাউন্টে থাকবে। সাইন ইন না করে ব্রাউজারের ডেটা মুছে ফেললে সেগুলো আর ফিরে পাবে না।",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "কৌশল একবার কিনে মনস্টারকে শেখাও",
   "actionCardOfPrice": "{price} দামের Action Card",

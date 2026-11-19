@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "Kaufstatus synchronisieren",
   "ticketPurchaseSynced": "Kaufstatus synchronisiert",
   "purchaseLinkRequiredTitle": "Übertrage deine Daten vor dem Kauf",
+  "purchaseLinkRequiredMessage": "Melde dich mit {providerName} an, damit deine Käufe in deinem Konto bleiben. Wenn du ohne Anmeldung die Browserdaten löschst, kannst du sie nicht wiederherstellen.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Kauf Attacken einmalig und bring sie deinen Monstern bei",
   "actionCardOfPrice": "Action Card für {price}",

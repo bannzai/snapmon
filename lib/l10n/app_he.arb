@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "סנכרון מצב הרכישה",
   "ticketPurchaseSynced": "סטטוס הרכישה סונכרן",
   "purchaseLinkRequiredTitle": "צריך להעביר את הנתונים לפני הקנייה",
+  "purchaseLinkRequiredMessage": "כניסה עם {providerName} שומרת את הרכישות בחשבון. מחיקת נתוני הדפדפן בלי להיכנס לחשבון תמנע את שחזור הרכישות.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "לקנות מתקפות לתמיד וללמד את המפלצות שלך",
   "actionCardOfPrice": "Action Card במחיר {price}",

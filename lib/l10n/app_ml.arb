@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "വാങ്ങലിന്റെ നില സമന്വയിപ്പിക്കുക",
   "ticketPurchaseSynced": "വാങ്ങലിന്റെ നില സമന്വയിപ്പിച്ചു",
   "purchaseLinkRequiredTitle": "വാങ്ങുന്നതിന് മുമ്പ് നിങ്ങളുടെ ഡാറ്റ കൈമാറൂ",
+  "purchaseLinkRequiredMessage": "{providerName} ഉപയോഗിച്ച് സൈൻ ഇൻ ചെയ്താൽ, നിങ്ങൾ വാങ്ങിയവ അക്കൗണ്ടിൽ നിലനിൽക്കും. സൈൻ ഇൻ ചെയ്യാതെ ബ്രൗസർ ഡാറ്റ മായ്ച്ചാൽ, അവ വീണ്ടെടുക്കാനാവില്ല.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "നീക്കങ്ങൾ ഒറ്റത്തവണ വാങ്ങി നിങ്ങളുടെ മോൺസ്റ്ററുകളെ പഠിപ്പിക്കൂ",
   "actionCardOfPrice": "{price} വിലയുള്ള Action Card",

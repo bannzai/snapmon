@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "Sync purchases",
   "ticketPurchaseSynced": "Purchases synced",
   "purchaseLinkRequiredTitle": "Transfer your data before buying",
+  "purchaseLinkRequiredMessage": "Sign in with {providerName} to keep your purchases on your account. If you clear your browser data without signing in, you can't restore them.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Buy a move and teach it to your monsters",
   "actionCardOfPrice": "{price} Action Card",

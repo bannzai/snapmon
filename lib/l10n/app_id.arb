@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "Sinkronkan status pembelianmu",
   "ticketPurchaseSynced": "Status pembelian sudah disinkronkan",
   "purchaseLinkRequiredTitle": "Pindahkan datamu sebelum membeli",
+  "purchaseLinkRequiredMessage": "Masuk dengan {providerName} agar pembelianmu tersimpan di akunmu. Jika kamu menghapus data browser sebelum masuk, pembelianmu tidak bisa dipulihkan.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Beli jurus sekali, lalu ajarkan ke monstermu",
   "actionCardOfPrice": "Action Card seharga {price}",

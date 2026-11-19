@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "வாங்கியதன் நிலையை ஒத்திசையுங்கள்",
   "ticketPurchaseSynced": "வாங்கிய நிலை ஒத்திசைக்கப்பட்டது",
   "purchaseLinkRequiredTitle": "வாங்கும் முன் உங்கள் தரவை மாற்றுங்கள்",
+  "purchaseLinkRequiredMessage": "{providerName} மூலம் உள்நுழைந்தால், நீங்கள் வாங்கியவை உங்கள் கணக்கில் இருக்கும். உள்நுழையாமல் உலாவித் தரவை நீக்கினால், அவற்றை மீட்டெடுக்க முடியாது.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "தாக்குதல்களை ஒருமுறை வாங்கி உங்கள் மான்ஸ்டருக்குக் கற்றுக்கொடுங்கள்",
   "actionCardOfPrice": "{price} விலையுள்ள Action Card",

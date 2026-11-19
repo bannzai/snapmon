@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "Sinkroniziraj status kupnje",
   "ticketPurchaseSynced": "Status kupnje je sinkroniziran",
   "purchaseLinkRequiredTitle": "Prenesi svoje podatke prije kupnje",
+  "purchaseLinkRequiredMessage": "Prijavi se putem {providerName} kako bi tvoje kupnje ostale na računu. Ako izbrišeš podatke preglednika bez prijave, nećeš ih moći vratiti.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Kupi poteze zauvijek i nauči ih svoja čudovišta",
   "actionCardOfPrice": "Action Card za {price}",

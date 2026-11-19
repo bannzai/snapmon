@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "Sincronizar el estado de la compra",
   "ticketPurchaseSynced": "Se sincronizó el estado de la compra",
   "purchaseLinkRequiredTitle": "Transfiere tus datos antes de comprar",
+  "purchaseLinkRequiredMessage": "Inicia sesión con {providerName} para guardar tus compras en tu cuenta. Si borras los datos del navegador sin iniciar sesión, no podrás recuperarlas.",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "Compra movimientos para siempre y enséñaselos a tus monstruos",
   "actionCardOfPrice": "Action Card de {price}",

@@ -269,6 +269,7 @@
   "ticketPurchaseSync": "خریداری کی حالت ہم آہنگ کرو",
   "ticketPurchaseSynced": "خریداری کی صورتحال ہم آہنگ ہو گئی",
   "purchaseLinkRequiredTitle": "خریدنے سے پہلے اپنا ڈیٹا منتقل کرو",
+  "purchaseLinkRequiredMessage": "{providerName} سے سائن اِن کرو تو تمہاری خریدی ہوئی چیزیں تمہارے اکاؤنٹ میں رہیں گی۔ سائن اِن کیے بغیر براؤزر کا ڈیٹا مٹا دو گے تو انہیں واپس نہیں لا سکو گے۔",
   "actionCardTitle": "Action Card",
   "actionCardEntrySubtitle": "چالیں ایک بار خریدو اور اپنے مونسٹر کو سکھاؤ",
   "actionCardOfPrice": "{price} قیمت کا Action Card",
