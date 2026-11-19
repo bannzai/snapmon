@@ -103,24 +103,28 @@ class SettingsScreen extends StatelessWidget {
     return showModalBottomSheet<String>(
       context: context,
       builder: (context) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
-              child: Text(
-                context.l10n.settingsTransferData,
-                style: SnapmonTextStyles.label,
+        // 一覧の高さは画面の 9/16 までに限られる (showModalBottomSheet の既定)。横向きで文字を大きくした時に
+        // 下の選択肢が切れて押せなくならないよう、収まらない分はスクロールできるようにする
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
+                child: Text(
+                  context.l10n.settingsTransferData,
+                  style: SnapmonTextStyles.label,
+                ),
               ),
-            ),
-            for (final providerName in accountStore.linkProviderNames)
-              ListTile(
-                key: Key('settings-link-provider-$providerName'),
-                title: Text(providerName, style: SnapmonTextStyles.label),
-                onTap: () => Navigator.of(context).pop(providerName),
-              ),
-          ],
+              for (final providerName in accountStore.linkProviderNames)
+                ListTile(
+                  key: Key('settings-link-provider-$providerName'),
+                  title: Text(providerName, style: SnapmonTextStyles.label),
+                  onTap: () => Navigator.of(context).pop(providerName),
+                ),
+            ],
+          ),
         ),
       ),
     );

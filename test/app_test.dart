@@ -2872,6 +2872,37 @@ void main() {
         );
         expect(accountCalls, isEmpty);
       });
+
+      testWidgets('小さい画面の横向きで文字を最大にしても、一覧がはみ出さず、スクロールして下の Google を選べる', (
+        tester,
+      ) async {
+        await openSettings(tester: tester);
+        // iOS のアクセシビリティの最大の文字サイズ (約 3.1 倍) より少し大きくした。
+        // ホーム画面は文字が大きいと設定のボタンまでの操作が変わるため、設定画面を開いてから変える
+        tester.platformDispatcher.textScaleFactorTestValue = 3.2;
+        addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+        // 4 インチの iPhone の横向き。一覧の高さは画面の 9/16 (180) までで、見出しと 2 つの選択肢が収まらない
+        tester.view.physicalSize = const Size(568, 320);
+        await tester.pumpAndSettle();
+        await tester.ensureVisible(find.text('データを引き継ぐ'));
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('データを引き継ぐ'));
+        await tester.pumpAndSettle();
+        // はみ出しは RenderFlex のエラーとして報告されるため、例外が無いことで確かめる
+        expect(tester.takeException(), isNull);
+
+        await tester.ensureVisible(
+          find.byKey(const Key('settings-link-provider-Google')),
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(
+          find.byKey(const Key('settings-link-provider-Google')),
+        );
+        await tester.pumpAndSettle();
+
+        expect(accountCalls, ['link Google']);
+      });
     });
 
     testWidgets('別の端末で連携済みなら、確認してからこの端末の匿名アカウントを捨てて切り替える', (tester) async {
