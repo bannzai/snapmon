@@ -40,6 +40,17 @@ on:
           - release
           - debug
         default: release
+      firebase_emulator:
+        # 本番に出す前の Functions・Rules を Web 版の画面から通して確かめる時 (例: 人との対戦を 2 人の利用者で進める) に true にする。
+        # ランナーで Firebase の Emulator を起動し、Web 版のつなぎ先を Emulator にする (lib/firebase/emulator.dart。DEBUG ビルドだけ)。
+        # flutter_build_mode=debug と一緒に指定する。local/webtunnel の up はこの input を送らないため、gh workflow run -f で起動する
+        description: "ランナーの Firebase Emulator につなぐ (true / false。true は flutter_build_mode=debug と一緒に指定する)"
+        required: false
+        type: choice
+        options:
+          - "false"
+          - "true"
+        default: "false"
 jobs:
   session:
     permissions:
@@ -55,20 +66,34 @@ jobs:
       preview: ${{ inputs.preview }}
       setup_script: ${{ inputs.setup_script }}
       software_webgl: ${{ inputs.software_webgl }}
+      # functions/package.json の engines.node に合わせる (firebase_emulator=true の時に Functions の Emulator が使う)
+      node_version: "22"
       # ubuntu-latest に Flutter は入っていないため、pubspec.yaml の environment: flutter: (CI と同じ版) を
       # scripts/install-flutter-sdk.sh で取得して web をビルドする
       # lib/firebase_options.dart は git の管理外のため、secret WEBTUNNEL_SETUP_ENV が運ぶ FIREBASE_OPTIONS_DART_B64 から書き出す (.claude/rules/firebase-config-files.md)
       # App Check の Web の debug token (同じ secret の FIREBASE_APPCHECK_DEBUG_TOKEN_WEB) は debug ビルドにだけ渡す
       # (runner の Chromium は reCAPTCHA Enterprise のスコアが低く証明が通らないため。release の成果物に token を埋め込まない)
+      # firebase_emulator=true の時は、Functions をビルドして Emulator の jar を先に取得し (start_command が応答を待つ時間に
+      # 取得を入れないため)、Web 版のつなぎ先を Emulator にする。App Check のサイトキーと debug token は渡さない
+      # (App Check に Emulator は無く、渡すと本番の App Check へ証明を取りに行くため。渡さなければ Web の App Check は始まらない。lib/firebase/session.dart)
       setup_command: >-
         bash scripts/restore-firebase-config.sh dart &&
         bash scripts/install-flutter-sdk.sh "$RUNNER_TEMP/flutter" &&
         "$RUNNER_TEMP/flutter/bin/flutter" pub get &&
+        if [ "${{ inputs.firebase_emulator }}" = true ]; then
+        npm ci --prefix functions &&
+        npm run build --prefix functions &&
+        JAVA_HOME="$JAVA_HOME_21_X64" PATH="$JAVA_HOME_21_X64/bin:$PATH" functions/node_modules/.bin/firebase setup:emulators:firestore &&
+        JAVA_HOME="$JAVA_HOME_21_X64" PATH="$JAVA_HOME_21_X64/bin:$PATH" functions/node_modules/.bin/firebase setup:emulators:storage &&
+        "$RUNNER_TEMP/flutter/bin/flutter" build web --${{ inputs.flutter_build_mode }} --dart-define=FIREBASE_EMULATOR_HOST=127.0.0.1;
+        else
         "$RUNNER_TEMP/flutter/bin/flutter" build web --${{ inputs.flutter_build_mode }} --dart-define=RECAPTCHA_ENTERPRISE_SITE_KEY=${{ vars.RECAPTCHA_ENTERPRISE_SITE_KEY }}
-        --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB="$([ "${{ inputs.flutter_build_mode }}" = debug ] && printf '%s' "${FIREBASE_APPCHECK_DEBUG_TOKEN_WEB:-}")"
+        --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_WEB="$([ "${{ inputs.flutter_build_mode }}" = debug ] && printf '%s' "${FIREBASE_APPCHECK_DEBUG_TOKEN_WEB:-}")";
+        fi
       # webtunnel は dev サーバが 127.0.0.1 で listen していることを検証するため loopback に束縛する
-      start_command: python3 -m http.server "$PORT" --bind 127.0.0.1 --directory build/web
-      port: "8080"
+      start_command: ${{ inputs.firebase_emulator == 'true' && 'bash scripts/start-web-with-firebase-emulators.sh' || 'python3 -m http.server "$PORT" --bind 127.0.0.1 --directory build/web' }}
+      # Firestore の Emulator が 8080 を使うため、Emulator につなぐ時は Web 版を 8090 で配信する
+      port: ${{ inputs.firebase_emulator == 'true' && '8090' || '8080' }}
     secrets:
       TS_OIDC_CLIENT_ID: ${{ secrets.TS_OIDC_CLIENT_ID }}
       TS_OIDC_AUDIENCE: ${{ secrets.TS_OIDC_AUDIENCE }}

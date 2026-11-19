@@ -31,6 +31,7 @@ import 'package:snapmon/firebase/account.dart';
 import 'package:snapmon/firebase/action_cards.dart';
 import 'package:snapmon/firebase/battle_record.dart';
 import 'package:snapmon/firebase/dex_firestore.dart';
+import 'package:snapmon/firebase/emulator.dart';
 import 'package:snapmon/firebase/monster_generation.dart';
 import 'package:snapmon/firebase/purchases.dart';
 import 'package:snapmon/firebase/pvp.dart';
@@ -69,7 +70,12 @@ Future<void> main() async {
   });
   // initializeApp だけでは識別子を作らない (Analytics・Crashlytics の自動収集は既定で無効、App Check と匿名ログインは未開始)。
   // 識別子を作る機能は、ログインと同時に lib/firebase/session.dart から始める。
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+    options: firebaseOptionsForEmulator(
+      options: DefaultFirebaseOptions.currentPlatform,
+    ),
+  );
+  await connectFirebaseEmulators();
   String? resumedUid;
   try {
     resumedUid = await resumeSessionWithFirebase();
