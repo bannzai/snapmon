@@ -464,6 +464,7 @@ class _TicketPurchaseSyncTileState extends State<TicketPurchaseSyncTile> {
   Widget build(BuildContext context) => FutureBuilder<List<Package>>(
     future: _packages,
     builder: (context, snapshot) =>
+        DirectSalesScope.maybeOf(context) == null &&
             (snapshot.data?.isNotEmpty ?? false)
         ? ListTile(
             leading: const Icon(Icons.restore_outlined),

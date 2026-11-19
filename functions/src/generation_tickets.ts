@@ -49,7 +49,7 @@ const REVENUECAT_EVENT_ID_PATTERN = /^[A-Za-z0-9_-]{1,128}$/;
  * `<アプリの商品の ID>_web` にする (RevenueCat が Web の商品にアプリの商品と同じ ID を受け付けるかを確かめていないため。同じ ID で作れた時は
  * 末尾が無く、そのまま読める)。アプリも同じ末尾を外して商品を照合する (lib/features/action_card/action_card_client.dart の `appProductIDOfStoreProductID`)。
  */
-const WEB_PRODUCT_ID_SUFFIX = "_never";
+const WEB_PRODUCT_ID_SUFFIX = "_web";
 
 /**
  * RevenueCat から届いた商品の ID [productID] に当たるアプリの商品の ID。Web の商品は末尾の [WEB_PRODUCT_ID_SUFFIX] を 1 つ外した ID、それ以外はそのまま。
