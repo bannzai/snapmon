@@ -70,6 +70,10 @@ echo GENERATED-TOKEN-VALUE
 EOF
   cat > "$work/bin/ios-wda" <<'EOF'
 #!/usr/bin/env bash
+# 呼ばれた順に command (--session <名前> の次の語) とアプリを wda-calls に残す。terminate は記録だけして成功で終わり、
+# launch の引数を wda-args に残す (WDA_EXIT は launch の exit code)
+printf '%s %s\n' "$3" "$4" >> "$WORK/wda-calls"
+if [ "$3" = terminate ]; then exit 0; fi
 printf '%s\n' "$*" > "$WORK/wda-args"
 while [ $# -gt 0 ]; do
   if [ "$1" = --env-file ]; then cp "$2" "$WORK/wda-env-file"; fi
@@ -274,7 +278,11 @@ test_launch_passes_token_by_env_file() {
     fail "launch: token を書いた一時ファイルが残っている"
     return
   fi
-  pass "launch: token を一時ファイルで渡して起動し、引数と画面に出さず、ファイルを消す"
+  if [ "$(cat "$work/wda-calls")" != "$(printf 'terminate com.bannzai.snapmon\nlaunch com.bannzai.snapmon')" ]; then
+    fail "launch: アプリを終了してから起動していない ($(cat "$work/wda-calls"))"
+    return
+  fi
+  pass "launch: アプリを終了してから、token を一時ファイルで渡して起動し、引数と画面に出さず、ファイルを消す"
 }
 
 test_launch_stops_without_token() {

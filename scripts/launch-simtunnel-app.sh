@@ -10,7 +10,7 @@
 # 環境変数: FIREBASE_APPCHECK_DEBUG_TOKEN_IOS (必須。発行と登録は scripts/register-appcheck-debug-token.sh)
 #           IOS_WDA (既定 ~/.claude/skills/ios-simulator/scripts/ios-wda.sh) — 起動に使うスクリプト
 # token は引数に出さず (引数はプロセス一覧から読めるため)、本人だけが読める一時ファイルで渡して終了時に消す。
-# 冪等にしない: 実行のたびにアプリを起動する。
+# 冪等にしない: 実行のたびにアプリを終了して起動し直す。
 # exit code: 0 = 起動した、1 = token が無い・起動に失敗した、2 = 引数の誤り
 set -euo pipefail
 
@@ -28,4 +28,7 @@ launch_env_file="$(mktemp)"
 trap 'rm -f "$launch_env_file"' EXIT
 printf 'FIRAAppCheckDebugToken=%s\n' "$FIREBASE_APPCHECK_DEBUG_TOKEN_IOS" > "$launch_env_file"
 
+# 起動済みのアプリに launch を送っても環境変数は渡らず、匿名ログインが「Firebase App Check token is invalid」で断られる。
+# 先に終了してから起動する (2026-11-20 に simtunnel で実測。終了せずに起動した時は断られ、終了してから起動した時は通った)
+bash "${IOS_WDA:-$HOME/.claude/skills/ios-simulator/scripts/ios-wda.sh}" --session "$1" terminate com.bannzai.snapmon > /dev/null
 bash "${IOS_WDA:-$HOME/.claude/skills/ios-simulator/scripts/ios-wda.sh}" --session "$1" launch com.bannzai.snapmon --env-file "$launch_env_file"
