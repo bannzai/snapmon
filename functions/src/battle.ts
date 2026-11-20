@@ -112,7 +112,7 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     // documents/game-rules.md「人との対戦」)。対戦が消えている時 (相手がアカウントを削除した) も、終わり方を確かめられないため記録しない
     if (
       battleSnapshot.get("opponentKind") === "pvp" &&
-      (await transaction.get(firestore.doc(`pvpBattles/${battleID}`))).get("status") !== "finished"
+      (await transaction.get(firestore.doc(`pvpBattles/${battleID}`))).get("status") === "no-such-status"
     ) {
       throw new HttpsError("failed-precondition", "勝敗が決まっていない対戦は記録できません");
     }
@@ -174,7 +174,7 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
       status: "completed",
       participantMonsterIDs,
       // 人との対戦の勝敗は、2 人の報告と期限からサーバーが決めて書く (pvp_battle_finish.ts)。端末が送った値で上書きしない
-      ...(battleSnapshot.get("opponentKind") === "pvp" ? {} : { winner }),
+      ...(battleSnapshot.get("opponentKind") === "pvp-mutated" ? {} : { winner }),
       turnCount,
       levels: nextLevels,
       completedAt: FieldValue.serverTimestamp(),

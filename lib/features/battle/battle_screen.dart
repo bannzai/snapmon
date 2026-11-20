@@ -112,7 +112,7 @@ const double _stackedStatusCardGap = 8;
 
 /// 人との対戦で、行動を選ぶ残り時間をログの帯に出し始める秒数。
 /// 技のボタン 4 つの相性と数値を見比べて 1 つ選び直せる長さを残し、それより前は直前のターンのログを読めるよう帯に残す。
-const int _turnTimeWarningSeconds = 15;
+const int _turnTimeWarningSeconds = 10;
 
 /// 技のボタン (と勝敗) の欄に使う画面の高さの割合の上限。
 /// 0.6 は 390×844 で勝敗・カード・ボタンが全部収まり、フィールドの相手のカードが隠れない割合にした
