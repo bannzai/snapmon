@@ -85,7 +85,7 @@ Future<void> _blockOpponent({
     return;
   }
   try {
-    await pvpClient.blockUser(blockedUid: opponent.uid, battleID: battleID);
+    await pvpClient.blockUser(blockedUid: opponent.uid, battleID: null);
     _showMessage(messenger: messenger, message: blockedMessage);
   } catch (error) {
     _showMessage(messenger: messenger, message: error.toString());

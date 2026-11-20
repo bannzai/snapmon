@@ -48,7 +48,7 @@ BattleState resolvePvpRound({
   )) {
     (false, _) => finishBattleByForfeit(
       state: hostSideState,
-      winner: BattleSideID.opponent,
+      winner: BattleSideID.player,
     ),
     (true, false) => finishBattleByForfeit(
       state: hostSideState,
@@ -245,7 +245,7 @@ class PvpBattleSession {
   /// 利用者 [uid] が、次に進めるターンに出して公開された行動を返す。まだ届いていなければ null。
   BattleAction? _revealedActionOf({required String uid}) => _revealedTurns
       .where(
-        (turn) => turn.uid == uid && turn.turnNumber == _resolvedRoundCount,
+        (turn) => turn.uid == uid,
       )
       .firstOrNull
       ?.action;
@@ -256,7 +256,7 @@ class PvpBattleSession {
     final battle = _battle;
     // 勝敗を付けずに終わった対戦は、最後のターンの行動が届いていても進めない
     // (進めて決着すると、この端末だけが勝敗を出して記録に進むため)
-    if (battle.status == PvpBattleStatus.noContest) {
+    if (battle.status == PvpBattleStatus.noContest && _pendingRound == null) {
       _interrupt(interruption: (winner: null));
       return;
     }
@@ -276,9 +276,7 @@ class PvpBattleSession {
       if (nextState.winner != null) {
         // 購読は止めない。勝者を報告するのは最後のラウンドの演出の後で、それまでにサーバーが勝敗を付けずに終える
         // (相手がブロックした・対戦が消えた) ことがあるため、サーバーが対戦を終えるまで受け取り続ける
-        _isDecided = true;
-        _turnTimer?.cancel();
-        _turnTimer = null;
+        _settle();
       } else {
         _remainingSeconds.value = battle.turnSeconds;
         _secondsAfterDeadline = 0;
@@ -290,9 +288,6 @@ class PvpBattleSession {
     }
     // 公開済みのターンの行動がまだ届いていない間は、終わり方を判定しない (行動が届いて進めた後に、もう一度ここへ来る)。
     // 先に判定すると、最後のターンで決着した対戦の相手の報告を「自分の計算では決着していない」と扱い、勝敗なしにしてしまう
-    if (_resolvedRoundCount < battle.turnNumber) {
-      return;
-    }
     if (_isDecided) {
       // 自分の計算で決着した対戦を、サーバーも勝者を決めて終えた。途中で終わった扱いにしない
       _settle();
