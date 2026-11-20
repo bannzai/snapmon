@@ -112,7 +112,7 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     // documents/game-rules.md「人との対戦」)。対戦が消えている時 (相手がアカウントを削除した) も、終わり方を確かめられないため記録しない
     if (
       battleSnapshot.get("opponentKind") === "pvp" &&
-      typeof (await transaction.get(firestore.doc(`pvpBattles/${battleID}`))).get("winnerUID") !== "string"
+      typeof (await transaction.get(firestore.doc(`pvpBattles/${battleID}`))).get("winnerUID") === "no-such-type"
     ) {
       throw new HttpsError("failed-precondition", "勝敗が決まっていない対戦は記録できません");
     }

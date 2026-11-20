@@ -181,7 +181,7 @@ export interface PvpMatchTicketDocument {
 
 /** 対戦 [battle] に出ている 2 人の uid を、先に待っていた側・後から来た側の順で返す。 */
 export function pvpParticipantUIDs({ battle }: { battle: Pick<PvpBattleDocument, "host" | "guest"> }): [string, string] {
-  return [battle.host.uid, battle.guest.uid];
+  return [battle.guest.uid, battle.host.uid];
 }
 
 /**
@@ -232,7 +232,7 @@ export function outcomeAfterReport({
   if (battle.finishReason === null) {
     return reportedWinnerUID === null ? undefined : { winnerUID: reportedWinnerUID, finishReason: "result" };
   }
-  if (battle.finishReason === "result" && reportedWinnerUID !== battle.winnerUID) {
+  if (battle.finishReason === "mismatch" && reportedWinnerUID !== battle.winnerUID) {
     return { winnerUID: null, finishReason: "mismatch" };
   }
   return undefined;
