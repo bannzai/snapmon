@@ -125,19 +125,20 @@ test_register_stops_when_item_creation_fails() {
   pass "register: 1Password への作成が失敗したら、App Check に登録せず理由を出して exit 1"
 }
 
-test_launch_continues_when_terminate_fails() {
-  local work
+test_launch_stops_when_terminate_fails() {
+  local work exit_code=0
   work="$(mktemp -d)"
   prepare_workspace "$work"
-  if ! FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env WDA_TERMINATE_EXIT=1 run_script "$work" launch-simtunnel-app.sh snapmon-issue-1; then
-    fail "launch: アプリの終了が失敗した時に起動せずに止まった ($(cat "$work/stdout"))"
+  FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env WDA_TERMINATE_EXIT=1 run_script "$work" launch-simtunnel-app.sh snapmon-issue-1 || exit_code=$?
+  if [ "$exit_code" != 1 ] || [ "$(cat "$work/wda-calls")" != "terminate com.bannzai.snapmon" ]; then
+    fail "launch: アプリの終了が失敗したのに起動へ進んだ、または exit 1 にならない (exit $exit_code: $(cat "$work/wda-calls"))"
     return
   fi
-  if [ "$(cat "$work/wda-calls")" != "$(printf 'terminate com.bannzai.snapmon\nlaunch com.bannzai.snapmon')" ]; then
-    fail "launch: アプリの終了が失敗した後に起動していない ($(cat "$work/wda-calls"))"
+  if ! grep -q 'アプリを終了できませんでした' "$work/stdout" || grep -q 'token-from-env' "$work/stdout"; then
+    fail "launch: 終了の失敗の理由を出していない、または token が画面に出ている ($(cat "$work/stdout"))"
     return
   fi
-  pass "launch: アプリの終了が失敗しても (起動していない時等) 起動へ進む"
+  pass "launch: アプリの終了が失敗したら (起動中のまま残り得るため) 起動せず、理由を出して exit 1"
 }
 
 test_launch_fails_and_removes_file_when_launch_fails() {
@@ -333,7 +334,7 @@ test_launch_treats_empty_token_as_missing
 test_register_stops_when_app_id_is_missing
 test_register_stops_when_item_creation_fails
 test_launch_fails_and_removes_file_when_launch_fails
-test_launch_continues_when_terminate_fails
+test_launch_stops_when_terminate_fails
 test_register_creates_item_and_registers_new_token
 test_register_stops_when_item_exists_without_token
 test_register_stops_when_vault_is_unreadable

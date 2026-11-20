@@ -11,7 +11,7 @@
 #           IOS_WDA (既定 ~/.claude/skills/ios-simulator/scripts/ios-wda.sh) — 起動に使うスクリプト
 # token は引数に出さず (引数はプロセス一覧から読めるため)、本人だけが読める一時ファイルで渡して終了時に消す。
 # 冪等にしない: 実行のたびにアプリを終了して起動し直す。
-# exit code: 0 = 起動した、1 = token が無い・起動に失敗した、2 = 引数の誤り
+# exit code: 0 = 起動した、1 = token が無い・アプリの終了か起動に失敗した、2 = 引数の誤り
 set -euo pipefail
 
 [ $# -eq 1 ] || {
@@ -30,6 +30,10 @@ printf 'FIRAAppCheckDebugToken=%s\n' "$FIREBASE_APPCHECK_DEBUG_TOKEN_IOS" > "$la
 
 # 起動済みのアプリに launch を送っても環境変数は渡らず、匿名ログインが「Firebase App Check token is invalid」で断られる。
 # 先に終了してから起動する (2026-11-20 に simtunnel で実測。終了せずに起動した時は断られ、終了してから起動した時は通った)。
-# 起動していないアプリの終了が失敗を返すかは確かめていないため、終了の失敗では止めずに起動へ進む
-bash "${IOS_WDA:-$HOME/.claude/skills/ios-simulator/scripts/ios-wda.sh}" --session "$1" terminate com.bannzai.snapmon > /dev/null || true
+# 起動していないアプリの終了は失敗にならない (同じ日の実測: 応答は "value": false で exit 0)。終了が失敗するのは
+# 通信の失敗等で、その時はアプリが起動中のまま残り得るため、起動へ進まずに止まる (進むと token が渡らないまま成功に見える)
+bash "${IOS_WDA:-$HOME/.claude/skills/ios-simulator/scripts/ios-wda.sh}" --session "$1" terminate com.bannzai.snapmon > /dev/null || {
+  echo "アプリを終了できませんでした (起動中のままだと token が渡らないため、起動していません)" >&2
+  exit 1
+}
 bash "${IOS_WDA:-$HOME/.claude/skills/ios-simulator/scripts/ios-wda.sh}" --session "$1" launch com.bannzai.snapmon --env-file "$launch_env_file"
