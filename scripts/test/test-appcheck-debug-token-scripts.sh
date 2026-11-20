@@ -34,6 +34,7 @@ case "$1 $2" in
   "item create")
     printf '%s\n' "$*" > "$WORK/op-create-args"
     cat > "$WORK/op-create-stdin"
+    exit "${OP_CREATE_EXIT:-0}"
     ;;
 esac
 EOF
@@ -70,6 +71,53 @@ run_script() {
   WORK="$work" PATH="$work/bin:$PATH" IOS_WDA="$work/bin/ios-wda" bash "$work/scripts/$script" "$@" > "$work/stdout" 2>&1
 }
 
+# 引数: アプリの ID。App Check の debugTokens の作成 (POST。出典は登録のスクリプトのコメントの公式ドキュメント) で、
+# snapmon-prod のそのアプリへ、差し替えの gcloud の access token を付け、本文を標準入力から送る時の curl の引数を出す
+expected_curl_args() {
+  printf '%s\n' "-sS -o /dev/null -w %{http_code} -X POST -H Authorization: Bearer fake-access-token -H x-goog-user-project: snapmon-prod -H Content-Type: application/json --data-binary @- https://firebaseappcheck.googleapis.com/v1/projects/snapmon-prod/apps/$1/debugTokens"
+}
+
+test_register_stops_when_app_id_is_missing() {
+  local work exit_code=0
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  printf '%s\n' '{"flutter":{"platforms":{"android":{"default":{"appId":"android-app-id"}}}}}' > "$work/firebase.json"
+  FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env run_script "$work" register-appcheck-debug-token.sh ios || exit_code=$?
+  if [ "$exit_code" != 1 ] || [ -e "$work/curl-args" ] || [ -e "$work/op-create-args" ]; then
+    fail "register: firebase.json に iOS のアプリの ID が無いのに登録へ進んだ (exit $exit_code)"
+    return
+  fi
+  pass "register: firebase.json にそのプラットフォームのアプリの ID が無ければ、何も登録せず exit 1"
+}
+
+test_register_stops_when_item_creation_fails() {
+  local work exit_code=0
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  OP_CREATE_EXIT=1 run_script "$work" register-appcheck-debug-token.sh ios || exit_code=$?
+  if [ "$exit_code" = 0 ] || [ -e "$work/curl-args" ]; then
+    fail "register: 1Password に置けなかった token を App Check に登録した (exit $exit_code)"
+    return
+  fi
+  pass "register: 1Password への作成が失敗したら、App Check に登録せず失敗で終わる"
+}
+
+test_launch_fails_and_removes_file_when_launch_fails() {
+  local work exit_code=0
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env WDA_EXIT=1 run_script "$work" launch-simtunnel-app.sh snapmon-issue-1 || exit_code=$?
+  if [ "$exit_code" != 1 ]; then
+    fail "launch: 起動の失敗で exit 1 にならない (exit $exit_code)"
+    return
+  fi
+  if [ -e "$(sed -E 's#.* --env-file ##' "$work/wda-args")" ]; then
+    fail "launch: 起動に失敗した時に token を書いた一時ファイルが残っている"
+    return
+  fi
+  pass "launch: 起動に失敗したら exit 1 で終わり、token を書いた一時ファイルを消す"
+}
+
 test_register_rejects_unknown_platform() {
   local work exit_code=0
   work="$(mktemp -d)"
@@ -95,7 +143,7 @@ test_register_creates_item_and_registers_new_token() {
     fail "register: 1Password に小文字にした token を item の名前で作っていない ($(cat "$work/op-create-args"))"
     return
   fi
-  if [ "$(jq -r '.token' "$work/curl-stdin")" != "generated-token-value" ] || ! grep -q 'apps/ios-app-id/debugTokens$' "$work/curl-args"; then
+  if [ "$(jq -r '.token' "$work/curl-stdin")" != "generated-token-value" ] || [ "$(cat "$work/curl-args")" != "$(expected_curl_args ios-app-id)" ]; then
     fail "register: App Check の iOS のアプリに同じ token を登録していない ($(cat "$work/curl-args"))"
     return
   fi
@@ -130,20 +178,20 @@ test_register_stops_when_vault_is_unreadable() {
   pass "register: vault を読めなければ (認可切れ)、item を作らず exit 1"
 }
 
-test_register_uses_given_token_and_accepts_already_registered() {
+test_register_uses_given_token_without_creating_item() {
   local work
   work="$(mktemp -d)"
   prepare_workspace "$work"
-  if ! FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID=token-from-env CURL_STATUS=409 run_script "$work" register-appcheck-debug-token.sh android; then
-    fail "register: 登録済み (409) を失敗にした ($(cat "$work/stdout"))"
+  if ! FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID=token-from-env run_script "$work" register-appcheck-debug-token.sh android; then
+    fail "register: 渡された token の登録が失敗した ($(cat "$work/stdout"))"
     return
   fi
   if [ -e "$work/op-create-args" ] || [ "$(jq -r '.token' "$work/curl-stdin")" != "token-from-env" ] \
-    || ! grep -q 'apps/android-app-id/debugTokens$' "$work/curl-args"; then
+    || [ "$(cat "$work/curl-args")" != "$(expected_curl_args android-app-id)" ]; then
     fail "register: 渡された token を Android のアプリに登録していない、または 1Password に作った"
     return
   fi
-  pass "register: 渡された token は 1Password に作らず Android のアプリに登録し、409 は登録済みとして exit 0"
+  pass "register: 渡された token は 1Password に作らず Android のアプリに登録する"
 }
 
 test_register_fails_on_other_status() {
@@ -155,7 +203,7 @@ test_register_fails_on_other_status() {
     fail "register: 403 で exit 1 と状態の表示にならない (exit $exit_code: $(cat "$work/stdout"))"
     return
   fi
-  pass "register: 200・409 以外は状態を出して exit 1"
+  pass "register: 200 以外は状態を出して exit 1"
 }
 
 test_launch_passes_token_by_env_file() {
@@ -206,10 +254,13 @@ test_launch_requires_session_name() {
 }
 
 test_register_rejects_unknown_platform
+test_register_stops_when_app_id_is_missing
+test_register_stops_when_item_creation_fails
+test_launch_fails_and_removes_file_when_launch_fails
 test_register_creates_item_and_registers_new_token
 test_register_stops_when_item_exists_without_token
 test_register_stops_when_vault_is_unreadable
-test_register_uses_given_token_and_accepts_already_registered
+test_register_uses_given_token_without_creating_item
 test_register_fails_on_other_status
 test_launch_passes_token_by_env_file
 test_launch_stops_without_token

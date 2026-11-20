@@ -175,6 +175,36 @@ test_ios_device_passes_debug_token_from_environment() {
   pass "ios-device: 環境変数の iOS の debug token を渡し、Android の token は渡さない"
 }
 
+test_ios_passes_debug_token_to_given_simulator() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  if ! FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=ios-token-from-env run_make "$work" '[]' ios SIMULATOR_UDID=given-udid; then
+    fail "ios: SIMULATOR_UDID と debug token を渡した時に失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(recorded_run "$work")" != "run --debug -d given-udid --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS= --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID= --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=ios-token-from-env" ]; then
+    fail "ios: simulator への flutter run に iOS の debug token を渡していない ($(recorded_run "$work"))"
+    return
+  fi
+  pass "ios: 指定の simulator への flutter run に環境変数の iOS の debug token を渡す"
+}
+
+test_android_passes_empty_debug_token_without_environment() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  if ! run_make "$work" '[]' android DEVICE=given-id; then
+    fail "android: debug token が無い時に失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(recorded_run "$work")" != "run --debug -d given-id --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS= --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID= --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID=" ]; then
+    fail "android: debug token が無い時に空のまま渡していない ($(recorded_run "$work"))"
+    return
+  fi
+  pass "android: debug token が無ければ空のまま渡す"
+}
+
 test_android_passes_debug_token_from_environment() {
   local work
   work="$(mktemp -d)"
@@ -583,6 +613,8 @@ test_ios_device_selects_supported_physical_device
 test_ios_device_fails_without_physical_device
 test_ios_device_uses_device_variable
 test_ios_device_passes_debug_token_from_environment
+test_ios_passes_debug_token_to_given_simulator
+test_android_passes_empty_debug_token_without_environment
 test_android_passes_debug_token_from_environment
 test_web_enables_web_then_runs_chrome
 test_web_prefers_environment_site_key

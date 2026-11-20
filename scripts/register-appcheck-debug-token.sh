@@ -12,13 +12,13 @@
 # 行うこと:
 #   1. 環境変数 FIREBASE_APPCHECK_DEBUG_TOKEN_<IOS|ANDROID> が無ければ、UUID で token を作り、1Password (vault snapmon、
 #      item は環境変数と同じ名前) に置く。item が既にあれば作らずに止まる (1Password が正のため。上の op run の形で実行する)
-#   2. Firebase の App Check の、そのプラットフォームのアプリに token を登録する (同じ token が登録済みなら何もしない)
+#   2. Firebase の App Check の、そのプラットフォームのアプリに token を登録する
 # simtunnel の simulator へは、ビルドに埋め込まず scripts/launch-simtunnel-app.sh が起動時の環境変数で渡す (GitHub Actions の Secret には置かない)。
 # token は画面にも引数にも出さない (curl・op には標準入力で渡す。引数はプロセス一覧から読めるため)。
 # 冪等にしない: 環境変数なしの実行は token を新しく作る (2 回目は item があるため 1 で止まり、何も変えない)。
 #
 # 前提: op (1Password CLI) にサインイン済み、gcloud が snapmon-prod の App Check を編集できるアカウントで認証済み。
-# exit code: 0 = 登録した (登録済みを含む)、1 = 前提が足りない・登録に失敗した、2 = 引数の誤り
+# exit code: 0 = 登録した、1 = 前提が足りない・登録に失敗した、2 = 引数の誤り
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
@@ -61,7 +61,9 @@ if [ -z "$token" ]; then
   echo "1Password に ${name} を作りました"
 fi
 
-# 同じ token の登録は 409 (ALREADY_EXISTS) が返るため、登録済みとして扱う
+# API の形 (POST .../apps/*/debugTokens、本文は displayName と UUID4 の token) の出典:
+# https://firebase.google.com/docs/reference/appcheck/rest/v1/projects.apps.debugTokens/create (2026-11-20 に確認)。
+# 同じ token を登録し直した時の応答はドキュメントに無く確かめていないため、200 以外は全て失敗として状態を出す
 status="$(jq -n --arg token "$token" '{displayName: "debug-build", token: $token}' \
   | curl -sS -o /dev/null -w '%{http_code}' -X POST \
     -H "Authorization: Bearer $(gcloud auth print-access-token)" -H "x-goog-user-project: snapmon-prod" \
@@ -69,7 +71,6 @@ status="$(jq -n --arg token "$token" '{displayName: "debug-build", token: $token
     "https://firebaseappcheck.googleapis.com/v1/projects/snapmon-prod/apps/${app_id}/debugTokens")"
 case "$status" in
   200) echo "App Check の $1 のアプリに debug token を登録しました" ;;
-  409) echo "App Check の $1 のアプリには同じ debug token が登録済みです" ;;
   *)
     echo "App Check への登録に失敗しました (HTTP ${status})" >&2
     exit 1
