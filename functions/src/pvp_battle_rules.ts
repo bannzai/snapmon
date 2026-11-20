@@ -4,6 +4,7 @@
 
 import type { Timestamp } from "firebase-admin/firestore";
 
+import { MAXIMUM_PARTY_SIZE } from "./battle_rules";
 import type { PublicMonster } from "./pvp_rules";
 
 /**
@@ -74,7 +75,7 @@ export function parsePvpAction(value: unknown): PvpAction | undefined {
   if (kind === "struggle") {
     return { kind };
   }
-  if (kind === "switch" && typeof memberIndex === "number" && Number.isInteger(memberIndex) && memberIndex >= 0 && memberIndex <= 2) {
+  if (kind === "switch" && typeof memberIndex === "number" && Number.isInteger(memberIndex) && memberIndex >= 0 && memberIndex < MAXIMUM_PARTY_SIZE) {
     return { kind, memberIndex };
   }
   return undefined;
