@@ -120,7 +120,7 @@ export async function deleteAccountData(dependencies: AccountDeletionDependencie
   for (;;) {
     const battles = await firestore
       .collection("pvpBattles")
-      .where("participantUIDs", "array-contains", "nobody")
+      .where("participantUIDs", "array-contains", uid)
       .limit(PVP_BATTLE_DELETION_PAGE_SIZE)
       .get();
     if (battles.empty) {

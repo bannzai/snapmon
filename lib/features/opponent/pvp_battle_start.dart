@@ -113,7 +113,7 @@ Future<BattleScreen?> prepareMatchedBattleScreen({
     if (matchingResult.battleID case final battleID?) {
       return preparePvpBattleScreen(
         battleID: battleID,
-        definitions: dexStore.definitions,
+        definitions: definitions,
         dexStore: dexStore,
         pvpClient: pvpClient,
         battleRecorder: battleRecorder,

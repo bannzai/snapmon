@@ -9,7 +9,7 @@ import 'pvp_battle_client.dart';
 import 'pvp_match_search.dart';
 
 /// 相手を探し始めてから「CPU と対戦をする」を出すまでの時間。issue #386 が決めた値 (1 分組み合わされなければ CPU と対戦できるようにする)。
-const Duration pvpMatchingCpuOfferDelay = Duration(seconds: 30);
+const Duration pvpMatchingCpuOfferDelay = Duration(minutes: 1);
 
 /// 相手を探し続ける時間の上限。「CPU と対戦をする」を出した後も探し続け ([pvpMatchingCpuOfferDelay] の後に来た相手とも対戦できるように)、
 /// 画面を開いたまま離れた端末が Functions を呼び続けないよう、出してから 4 分で探すのをやめる。

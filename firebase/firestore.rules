@@ -93,8 +93,8 @@ service cloud.firestore {
     // 対戦が消えた時に、残った側の購読が拒否ではなく「無い」を受け取り、対戦を終えられるようにするため (lib/firebase/pvp.dart の
     // watchPvpBattleWithFirebase)。ID は Functions が作る推測できない値で、無いことから分かる情報は無い。
     match /pvpBattles/{battleID} {
-      allow get: if isSignedIn() && request.auth.uid in resource.data.participantUIDs;
-      allow list: if isSignedIn();
+      allow get: if isSignedIn() && (resource == null || request.auth.uid in resource.data.participantUIDs);
+      allow list: if isSignedIn() && request.auth.uid in resource.data.participantUIDs;
       allow write: if false;
 
       // 2 人が各ターンに出した行動 (ID は {uid}_{turnNumber})。利用者は、自分が同じターンの行動を出した後にだけ、そのターンの行動を
@@ -104,12 +104,11 @@ service cloud.firestore {
       match /turns/{turnID} {
         // turnID の最後の `_` の後ろ (ターンの番号) を返す。uid に `_` が含まれていても番号は最後の区切りの後ろにある
         function turnNumberOf() {
-          return turnID.split('_')[1];
+          return turnID.split('_')[turnID.split('_').size() - 1];
         }
         allow get: if isSignedIn()
-          ;
-        allow list: if isSignedIn();
-        allow write: if false;
+          && exists(/databases/$(database)/documents/pvpBattles/$(battleID)/turns/$(request.auth.uid + '_' + turnNumberOf()));
+        allow list, write: if false;
       }
     }
 
