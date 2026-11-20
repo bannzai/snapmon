@@ -598,7 +598,6 @@ void main() {
     ) async {
       final server = matchedServer()..submitError = StateError('通信に失敗しました');
       final hostSession = sessionOf(server: server, player: host)..start();
-      addTearDown(hostSession.dispose);
       hostSession
           .advance(
             state: startStateOf(player: host, opponent: guest),
@@ -610,10 +609,14 @@ void main() {
 
       server.submitError = null;
       await tester.pump(const Duration(seconds: 3));
+      // やり直しの呼び出しが通った後の、購読を始める処理を進める
+      await tester.pump();
 
       expect(server.watchTurnCalls, [
         (requesterUID: host.uid, uid: guest.uid, turnNumber: 0),
       ]);
+      // 残り時間のタイマーが動いたままなので、テストの終わりの前に止める
+      hostSession.dispose();
     });
 
     testWidgets('相手の行動の読み取りが失敗した時は、読めるまでやり直してラウンドを進める', (tester) async {
