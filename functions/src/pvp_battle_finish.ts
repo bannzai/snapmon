@@ -29,7 +29,7 @@ export async function finishPvpBattle({
   for (const [index, recordSnapshot] of recordSnapshots.entries()) {
     if (recordSnapshot.exists) {
       transaction.update(recordSnapshot.ref, {
-        winner: outcome.winnerUID === null ? FieldValue.serverTimestamp() : outcome.winnerUID === participantUIDs[index] ? "player" : "opponent",
+        winner: outcome.winnerUID === null ? "opponent" : outcome.winnerUID === participantUIDs[index] ? "player" : "opponent",
       });
     }
   }
