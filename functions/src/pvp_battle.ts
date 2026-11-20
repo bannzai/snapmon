@@ -163,6 +163,7 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     firestore,
     partyMonsterIDsByUid: new Map(memberUIDs.map((memberUID, index) => [memberUID, partyMonsterIDsOf(memberParties[index].data())])),
   });
+  /** 上で読んだ利用者と手持ちから、利用者 [memberUID] の対戦に写す値 (名前・手持ちのモンスター) を組み立てる。 */
   const trainerOf = (memberUID: string): PvpTrainer => {
     const memberUser = memberUsers[memberUIDs.indexOf(memberUID)];
     return {

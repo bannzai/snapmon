@@ -80,6 +80,7 @@ async function seedPlayer({ uid }) {
 console.log(`Emulator の利用者を待っています (project ${values.project})`);
 for (;;) {
   try {
+    // 1000 は listUsers が 1 回に返せる上限。動作確認の Emulator の利用者は数人で、次のページは読まない
     for (const user of (await getAuth().listUsers(1000)).users) {
       if (!(await firestore.doc(`users/${user.uid}`).get()).exists) {
         await seedPlayer({ uid: user.uid });
@@ -89,5 +90,6 @@ for (;;) {
     // Emulator の起動の途中・再起動の間は読めないため、止めずに次の周期でやり直す
     console.error(error);
   }
+  // 新しい利用者を見に行く間隔 (ミリ秒)。サインインしてから「対戦をする」を押すまでに手持ちがそろう短さにする
   await sleep(1000);
 }
