@@ -6,6 +6,9 @@ set -euo pipefail
 
 repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
 failures=0
+# 呼び出し元の環境 (op run で token を渡した端末等) に token があると、token が無い時の分岐のテストが別の経路に入るため消す。
+# 各テストは必要な値だけを run_script の前に付けて渡す
+unset FIREBASE_APPCHECK_DEBUG_TOKEN_IOS FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID
 
 # 引数: 失敗の内容。FAIL の行を出し、失敗の件数を 1 増やす
 fail() {
@@ -76,7 +79,7 @@ printf '%s %s\n' "$3" "$4" >> "$WORK/wda-calls"
 if [ "$3" = terminate ]; then exit "${WDA_TERMINATE_EXIT:-0}"; fi
 printf '%s\n' "$*" > "$WORK/wda-args"
 while [ $# -gt 0 ]; do
-  if [ "$1" = --env-file ]; then cp "$2" "$WORK/wda-env-file"; fi
+  if [ "$1" = --env-file ]; then cp "$2" "$WORK/wda-env-file"; printf "%s\n" "$2" > "$WORK/wda-env-path"; fi
   shift
 done
 exit "${WDA_EXIT:-0}"
@@ -146,7 +149,7 @@ test_launch_fails_and_removes_file_when_launch_fails() {
     fail "launch: 起動の失敗で exit 1 にならない (exit $exit_code)"
     return
   fi
-  if [ -e "$(sed -E 's#.* --env-file ##' "$work/wda-args")" ]; then
+  if [ ! -s "$work/wda-env-path" ] || [ -e "$(cat "$work/wda-env-path")" ]; then
     fail "launch: 起動に失敗した時に token を書いた一時ファイルが残っている"
     return
   fi
@@ -289,7 +292,7 @@ test_launch_passes_token_by_env_file() {
     fail "launch: セッションとアプリの指定が違う、または token が引数か画面に出ている ($(cat "$work/wda-args"))"
     return
   fi
-  if [ -e "$(sed -E 's#.* --env-file ##' "$work/wda-args")" ]; then
+  if [ ! -s "$work/wda-env-path" ] || [ -e "$(cat "$work/wda-env-path")" ]; then
     fail "launch: token を書いた一時ファイルが残っている"
     return
   fi
