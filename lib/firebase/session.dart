@@ -27,6 +27,19 @@ const _appCheckDebugTokenWeb = String.fromEnvironment(
   'FIREBASE_APPCHECK_DEBUG_TOKEN_WEB',
 );
 
+/// iOS の DEBUG ビルド (simulator・実機) で App Check の debug provider に使う debug token (Firebase の App Check の iOS アプリに登録済みのもの)。
+/// `--dart-define` で渡す (simulator-session.yml・`make ios`。発行と登録は scripts/register-appcheck-debug-token.sh)。
+/// 渡されていない時は SDK が端末ごとに作る token を使い、登録していなければ App Check の強制で呼び出しが断られる。
+/// リリースビルドでは値があっても使わない。
+const _appCheckDebugTokenIOS = String.fromEnvironment(
+  'FIREBASE_APPCHECK_DEBUG_TOKEN_IOS',
+);
+
+/// Android の DEBUG ビルド (emulator・実機) で App Check の debug provider に使う debug token。扱いは [_appCheckDebugTokenIOS] と同じ (`make android`)。
+const _appCheckDebugTokenAndroid = String.fromEnvironment(
+  'FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID',
+);
+
 /// Web の DEBUG ビルドで debug token を使うか (token が渡されている時だけ)。
 const _usesWebDebugProvider = kDebugMode && _appCheckDebugTokenWeb != '';
 
@@ -139,7 +152,7 @@ Future<String?> resumeSessionWithFirebase() {
 
 /// App Check を始める。リリースビルドは各プラットフォームの証明 (iOS: App Attest、Android: Play Integrity、Web: reCAPTCHA Enterprise)、
 /// デバッグビルドは debug provider を使う (simulator・emulator・自動操作のブラウザでは証明が通らないため。debug token は
-/// Firebase の App Check に登録する。Web は token が `--dart-define` で渡された時だけ debug provider にし、無ければ reCAPTCHA Enterprise)。
+/// Firebase の App Check に登録する。iOS・Android は `--dart-define` で渡された token を使う。Web は token が `--dart-define` で渡された時だけ debug provider にし、無ければ reCAPTCHA Enterprise)。
 /// Web でサイトキーも debug token も渡されていない時は始めない (App Check を必須にした Functions の呼び出しは失敗する)。
 Future<void> activateAppCheck() async {
   if (kIsWeb && !_isWebAppCheckConfigured) {
@@ -153,10 +166,18 @@ Future<void> activateAppCheck() async {
         ? WebDebugProvider(debugToken: _appCheckDebugTokenWeb)
         : ReCaptchaEnterpriseProvider(_recaptchaEnterpriseSiteKey),
     providerAndroid: kDebugMode
-        ? const AndroidDebugProvider()
+        ? const AndroidDebugProvider(
+            debugToken: _appCheckDebugTokenAndroid == ''
+                ? null
+                : _appCheckDebugTokenAndroid,
+          )
         : const AndroidPlayIntegrityProvider(),
     providerApple: kDebugMode
-        ? const AppleDebugProvider()
+        ? const AppleDebugProvider(
+            debugToken: _appCheckDebugTokenIOS == ''
+                ? null
+                : _appCheckDebugTokenIOS,
+          )
         : const AppleAppAttestWithDeviceCheckFallbackProvider(),
   );
   // iOS は Info.plist の FirebaseAppCheckTokenAutoRefreshEnabled で自動取得を止めているため、ここで有効にする。
