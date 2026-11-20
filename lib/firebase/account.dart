@@ -101,18 +101,38 @@ Future<AuthCredential> _googleCredentialOnAndroid() async {
 /// ([linkedAccountCredentialLacksNonce])、それ以外の失敗は投げる。
 Future<Future<String> Function()?> linkAccountWithFirebase({
   required String providerName,
+}) => linkAccountWithAuth(
+  auth: FirebaseAuth.instance,
+  isWeb: kIsWeb,
+  platform: defaultTargetPlatform,
+  readGoogleCredentialOnAndroid: _googleCredentialOnAndroid,
+  providerName: providerName,
+);
+
+/// [linkAccountWithFirebase] の本体。[auth] のいまのユーザー (匿名アカウント。必ずいる前提) に [providerName] のサインインを
+/// 連携し、返す値と投げる失敗は [linkAccountWithFirebase] と同じ。
+///
+/// [isWeb] は Web 版か (`kIsWeb`)、[platform] は動いている OS (`defaultTargetPlatform`)、[readGoogleCredentialOnAndroid] は
+/// Android のアプリで Google のアカウントを選んでもらい credential を返す関数。Firebase と動いている環境を引数で受け取るのは、
+/// 環境ごとの連携の流れの振り分けと、連携済みの時に切り替えへ進めるかの分岐を単体テストするため。
+Future<Future<String> Function()?> linkAccountWithAuth({
+  required FirebaseAuth auth,
+  required bool isWeb,
+  required TargetPlatform platform,
+  required Future<AuthCredential> Function() readGoogleCredentialOnAndroid,
+  required String providerName,
 }) async {
-  final user = FirebaseAuth.instance.currentUser!;
+  final user = auth.currentUser!;
   AuthCredential? googleCredential;
   try {
     if (linksAccountWithGoogleSignIn(
       providerName: providerName,
-      isWeb: kIsWeb,
-      platform: defaultTargetPlatform,
+      isWeb: isWeb,
+      platform: platform,
     )) {
-      googleCredential = await _googleCredentialOnAndroid();
+      googleCredential = await readGoogleCredentialOnAndroid();
       await user.linkWithCredential(googleCredential);
-    } else if (kIsWeb) {
+    } else if (isWeb) {
       await user.linkWithPopup(
         accountLinkAuthProvider(providerName: providerName),
       );
@@ -129,15 +149,15 @@ Future<Future<String> Function()?> linkAccountWithFirebase({
         linkedAccountCredentialLacksNonce(credential: credential)) {
       rethrow;
     }
-    return () => _signInToLinkedAccount(credential: credential);
+    return () => _signInToLinkedAccount(auth: auth, credential: credential);
   }
 }
 
-/// [credential] で連携済みのアカウントにサインインし、その uid を返す。
+/// [auth] に [credential] で連携済みのアカウントとしてサインインし、その uid を返す。
 Future<String> _signInToLinkedAccount({
+  required FirebaseAuth auth,
   required AuthCredential credential,
-}) async =>
-    (await FirebaseAuth.instance.signInWithCredential(credential)).user!.uid;
+}) async => (await auth.signInWithCredential(credential)).user!.uid;
 
 /// Functions の deleteAccount で、いまのアカウントのサーバーのデータと Auth のユーザーを消す。
 /// 呼び出しが失敗しても、サーバーで消し終えていた (応答を受け取れなかった) 時は成功として返す

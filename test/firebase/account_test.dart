@@ -20,7 +20,352 @@ class _NativeAppleCredential extends AuthCredential {
     : super(providerId: 'apple.com', signInMethod: 'oauth', token: 1);
 }
 
+/// サインイン・連携の結果の代わり。[user] だけを持つ。
+class _FakeUserCredential extends Fake implements UserCredential {
+  /// [user] を結果のユーザーとして返す。
+  _FakeUserCredential({required this.user});
+
+  @override
+  final User? user;
+}
+
+/// Firebase のユーザーの代わり。連携の 3 つの呼び出しを [linkCalls] に記録し、[linkError] があればそれを投げる。
+class _FakeUser extends Fake implements User {
+  /// [uid] のユーザーを作る。[linkError] が null なら連携は成功する。
+  _FakeUser({required this.uid, required this.linkError});
+
+  @override
+  final String uid;
+
+  /// 連携の呼び出しが投げる失敗。null なら成功する。
+  final FirebaseAuthException? linkError;
+
+  /// 呼ばれた連携の関数の名前と、渡された provider か credential。呼ばれた順。
+  final List<(String, Object)> linkCalls = [];
+
+  /// 連携の呼び出し 1 回を [linkCalls] に記録し、[linkError] があれば投げ、無ければ自分を結果のユーザーとして返す。
+  Future<UserCredential> _link({
+    required String method,
+    required Object argument,
+  }) async {
+    linkCalls.add((method, argument));
+    if (linkError case final error?) {
+      throw error;
+    }
+    return _FakeUserCredential(user: this);
+  }
+
+  @override
+  Future<UserCredential> linkWithPopup(AuthProvider provider) =>
+      _link(method: 'linkWithPopup', argument: provider);
+
+  @override
+  Future<UserCredential> linkWithProvider(AuthProvider provider) =>
+      _link(method: 'linkWithProvider', argument: provider);
+
+  @override
+  Future<UserCredential> linkWithCredential(AuthCredential credential) =>
+      _link(method: 'linkWithCredential', argument: credential);
+}
+
+/// FirebaseAuth の代わり。いまのユーザーが [currentUser] で、credential でのサインインを [signInCredentials] に記録する。
+class _FakeAuth extends Fake implements FirebaseAuth {
+  /// いまのユーザーが [currentUser] で、credential でサインインすると [linkedAccountUID] のユーザーになる FirebaseAuth を作る。
+  _FakeAuth({required this.currentUser, required this.linkedAccountUID});
+
+  @override
+  final _FakeUser currentUser;
+
+  /// credential でサインインした時のユーザー (連携済みのアカウント) の uid。
+  final String linkedAccountUID;
+
+  /// `signInWithCredential` に渡された credential。呼ばれた順。
+  final List<AuthCredential> signInCredentials = [];
+
+  @override
+  Future<UserCredential> signInWithCredential(AuthCredential credential) async {
+    signInCredentials.add(credential);
+    return _FakeUserCredential(
+      user: _FakeUser(uid: linkedAccountUID, linkError: null),
+    );
+  }
+}
+
+/// いまのユーザーの連携が [linkError] で失敗する (null なら成功する) FirebaseAuth の代わりを作る。
+_FakeAuth _auth({required FirebaseAuthException? linkError}) => _FakeAuth(
+  currentUser: _FakeUser(uid: 'anonymous-uid', linkError: linkError),
+  linkedAccountUID: 'linked-uid',
+);
+
+/// 呼ばれたらテストを失敗させる、Android の Google の credential の読み取り。google_sign_in を使わない流れに渡す。
+Future<AuthCredential> _failOnGoogleSignIn() async =>
+    fail('google_sign_in を使わない流れで Google のアカウントの選択が呼ばれた');
+
 void main() {
+  group('linkAccountWithAuth', () {
+    // Android のブラウザで開いた Web 版は platform が Android になる。Web 版はどの OS でもポップアップで連携する
+    for (final (description, isWeb, platform, providerName, method, providerID)
+        in <(String, bool, TargetPlatform, String, String, String)>[
+          (
+            'Web 版の Apple',
+            true,
+            TargetPlatform.macOS,
+            'Apple',
+            'linkWithPopup',
+            'apple.com',
+          ),
+          (
+            'Web 版の Google',
+            true,
+            TargetPlatform.macOS,
+            'Google',
+            'linkWithPopup',
+            'google.com',
+          ),
+          (
+            'Android のブラウザの Web 版の Google',
+            true,
+            TargetPlatform.android,
+            'Google',
+            'linkWithPopup',
+            'google.com',
+          ),
+          (
+            'iOS のアプリの Apple',
+            false,
+            TargetPlatform.iOS,
+            'Apple',
+            'linkWithProvider',
+            'apple.com',
+          ),
+          (
+            'iOS のアプリの Google',
+            false,
+            TargetPlatform.iOS,
+            'Google',
+            'linkWithProvider',
+            'google.com',
+          ),
+          (
+            'Android のアプリの Apple',
+            false,
+            TargetPlatform.android,
+            'Apple',
+            'linkWithProvider',
+            'apple.com',
+          ),
+        ]) {
+      test(
+        '$description は $method に $providerID の provider を渡して連携する',
+        () async {
+          final auth = _auth(linkError: null);
+
+          expect(
+            await linkAccountWithAuth(
+              auth: auth,
+              isWeb: isWeb,
+              platform: platform,
+              readGoogleCredentialOnAndroid: _failOnGoogleSignIn,
+              providerName: providerName,
+            ),
+            isNull,
+          );
+          expect(auth.currentUser.linkCalls, hasLength(1));
+          expect(auth.currentUser.linkCalls.single.$1, method);
+          expect(
+            auth.currentUser.linkCalls.single.$2,
+            isA<AuthProvider>().having(
+              (provider) => provider.providerId,
+              'providerId',
+              providerID,
+            ),
+          );
+          expect(auth.signInCredentials, isEmpty);
+        },
+      );
+    }
+
+    test(
+      'Android のアプリの Google は、選んでもらったアカウントの credential を linkWithCredential に渡して連携する',
+      () async {
+        final auth = _auth(linkError: null);
+        final googleCredential = GoogleAuthProvider.credential(
+          idToken: 'google-id-token',
+        );
+        var googleSignInCount = 0;
+
+        expect(
+          await linkAccountWithAuth(
+            auth: auth,
+            isWeb: false,
+            platform: TargetPlatform.android,
+            readGoogleCredentialOnAndroid: () async {
+              googleSignInCount += 1;
+              return googleCredential;
+            },
+            providerName: 'Google',
+          ),
+          isNull,
+        );
+        expect(googleSignInCount, 1);
+        expect(auth.currentUser.linkCalls, [
+          ('linkWithCredential', googleCredential),
+        ]);
+      },
+    );
+
+    test(
+      '連携済みの時は、返した関数を呼ぶまでサインインせず、呼ぶとエラーの credential でサインインして連携済みの uid を返す',
+      () async {
+        const credential = _NativeAppleCredential();
+        final auth = _auth(
+          linkError: FirebaseAuthException(
+            code: 'credential-already-in-use',
+            credential: credential,
+          ),
+        );
+
+        final signInToLinkedAccount = await linkAccountWithAuth(
+          auth: auth,
+          isWeb: false,
+          platform: TargetPlatform.android,
+          readGoogleCredentialOnAndroid: _failOnGoogleSignIn,
+          providerName: 'Apple',
+        );
+
+        expect(signInToLinkedAccount, isNotNull);
+        expect(auth.signInCredentials, isEmpty);
+        expect(await signInToLinkedAccount!(), 'linked-uid');
+        expect(auth.signInCredentials, [credential]);
+      },
+    );
+
+    test(
+      'Web 版の Apple が連携済みで、ID トークンに nonce が無い credential の時は切り替えに進める',
+      () async {
+        final credential = OAuthProvider(
+          'apple.com',
+        ).credential(idToken: _idToken(payload: {'sub': 'user'}));
+        final auth = _auth(
+          linkError: FirebaseAuthException(
+            code: 'credential-already-in-use',
+            credential: credential,
+          ),
+        );
+
+        expect(
+          await (await linkAccountWithAuth(
+            auth: auth,
+            isWeb: true,
+            platform: TargetPlatform.macOS,
+            readGoogleCredentialOnAndroid: _failOnGoogleSignIn,
+            providerName: 'Apple',
+          ))!(),
+          'linked-uid',
+        );
+        expect(auth.signInCredentials, [credential]);
+      },
+    );
+
+    test('Web 版の Apple が連携済みで、ID トークンに nonce があり元の nonce が無い credential の時は、'
+        '切り替えに進めず元のエラーを投げる', () async {
+      final error = FirebaseAuthException(
+        code: 'credential-already-in-use',
+        credential: OAuthProvider('apple.com').credential(
+          idToken: _idToken(payload: {'sub': 'user', 'nonce': 'hashed'}),
+        ),
+      );
+      final auth = _auth(linkError: error);
+
+      await expectLater(
+        linkAccountWithAuth(
+          auth: auth,
+          isWeb: true,
+          platform: TargetPlatform.macOS,
+          readGoogleCredentialOnAndroid: _failOnGoogleSignIn,
+          providerName: 'Apple',
+        ),
+        throwsA(same(error)),
+      );
+      expect(auth.signInCredentials, isEmpty);
+    });
+
+    test('連携済みのエラーに credential が無い時は、切り替えに進めず元のエラーを投げる', () async {
+      final error = FirebaseAuthException(code: 'credential-already-in-use');
+      final auth = _auth(linkError: error);
+
+      await expectLater(
+        linkAccountWithAuth(
+          auth: auth,
+          isWeb: true,
+          platform: TargetPlatform.macOS,
+          readGoogleCredentialOnAndroid: _failOnGoogleSignIn,
+          providerName: 'Google',
+        ),
+        throwsA(same(error)),
+      );
+      expect(auth.signInCredentials, isEmpty);
+    });
+
+    test('Android のアプリの Google が連携済みで、エラーに credential が無い時は、'
+        '選んでもらったアカウントの credential で切り替えに進める', () async {
+      final googleCredential = GoogleAuthProvider.credential(
+        idToken: 'google-id-token',
+      );
+      final auth = _auth(
+        linkError: FirebaseAuthException(code: 'credential-already-in-use'),
+      );
+
+      expect(
+        await (await linkAccountWithAuth(
+          auth: auth,
+          isWeb: false,
+          platform: TargetPlatform.android,
+          readGoogleCredentialOnAndroid: () async => googleCredential,
+          providerName: 'Google',
+        ))!(),
+        'linked-uid',
+      );
+      expect(auth.signInCredentials, [googleCredential]);
+    });
+
+    test('連携済み以外の失敗は、credential が付いていても切り替えに進めず元のエラーを投げる', () async {
+      final error = FirebaseAuthException(
+        code: 'operation-not-allowed',
+        credential: const _NativeAppleCredential(),
+      );
+      final auth = _auth(linkError: error);
+
+      await expectLater(
+        linkAccountWithAuth(
+          auth: auth,
+          isWeb: false,
+          platform: TargetPlatform.iOS,
+          readGoogleCredentialOnAndroid: _failOnGoogleSignIn,
+          providerName: 'Apple',
+        ),
+        throwsA(same(error)),
+      );
+      expect(auth.signInCredentials, isEmpty);
+    });
+
+    test('選べない名前は、連携の呼び出しをせずに ArgumentError を投げる', () async {
+      final auth = _auth(linkError: null);
+
+      await expectLater(
+        linkAccountWithAuth(
+          auth: auth,
+          isWeb: true,
+          platform: TargetPlatform.macOS,
+          readGoogleCredentialOnAndroid: _failOnGoogleSignIn,
+          providerName: 'Facebook',
+        ),
+        throwsArgumentError,
+      );
+      expect(auth.currentUser.linkCalls, isEmpty);
+    });
+  });
+
   group('linkedAccountCredentialLacksNonce', () {
     // 'a'・'ab'・'abc' で payload の長さを 1 ずつ変え、base64url の末尾の `=` が 0〜2 個要る形をどれも通す
     for (final nonce in ['a', 'ab', 'abc']) {
