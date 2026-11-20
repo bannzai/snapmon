@@ -28,7 +28,7 @@ const _appCheckDebugTokenWeb = String.fromEnvironment(
 );
 
 /// iOS の DEBUG ビルド (simulator・実機) で App Check の debug provider に使う debug token (Firebase の App Check の iOS アプリに登録済みのもの)。
-/// `--dart-define` で渡す (simulator-session.yml・`make ios`。発行と登録は scripts/register-appcheck-debug-token.sh)。
+/// `--dart-define` で渡す (`make ios`。発行と登録は scripts/register-appcheck-debug-token.sh)。simtunnel のビルドには埋め込まず、起動時の環境変数で渡す (scripts/launch-simtunnel-app.sh)。
 /// 渡されていない時は SDK が端末ごとに作る token を使い、登録していなければ App Check の強制で呼び出しが断られる。
 /// リリースビルドでは値があっても使わない。
 const _appCheckDebugTokenIOS = String.fromEnvironment(

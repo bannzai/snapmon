@@ -99,6 +99,7 @@ verify: flutter-version-check
 	flutter test
 	bash scripts/test/test-set-webtunnel-setup-env-secret.sh
 	bash scripts/test/test-makefile-targets.sh
+	bash scripts/test/test-appcheck-debug-token-scripts.sh
 	bash scripts/test/test-metadata-check.sh
 	bash scripts/test/test-upload-crashlytics-symbols.sh
 	$(PYTHON) scripts/test/test_replace_og_logo.py

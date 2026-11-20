@@ -13,8 +13,7 @@
 #   1. 環境変数 FIREBASE_APPCHECK_DEBUG_TOKEN_<IOS|ANDROID> が無ければ、UUID で token を作り、1Password (vault snapmon、
 #      item は環境変数と同じ名前) に置く。item が既にあれば作らずに止まる (1Password が正のため。上の op run の形で実行する)
 #   2. Firebase の App Check の、そのプラットフォームのアプリに token を登録する (同じ token が登録済みなら何もしない)
-# GitHub Actions (simtunnel の .github/workflows/simulator-session.yml が読む Secret FIREBASE_APPCHECK_DEBUG_TOKEN_IOS) へは、
-# このスクリプトではなく onepassword-sync skill が .env.1password.github-actions の宣言から写す。
+# simtunnel の simulator へは、ビルドに埋め込まず scripts/launch-simtunnel-app.sh が起動時の環境変数で渡す (GitHub Actions の Secret には置かない)。
 # token は画面にも引数にも出さない (curl・op には標準入力で渡す。引数はプロセス一覧から読めるため)。
 # 冪等にしない: 環境変数なしの実行は token を新しく作る (2 回目は item があるため 1 で止まり、何も変えない)。
 #

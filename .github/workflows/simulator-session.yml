@@ -50,12 +50,9 @@ jobs:
           FIREBASE_OPTIONS_DART_B64: ${{ secrets.FIREBASE_OPTIONS_DART_B64 }}
           GOOGLE_SERVICE_INFO_PLIST_B64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_B64 }}
       - run: flutter pub get
-      # FIREBASE_APPCHECK_DEBUG_TOKEN_IOS: App Check の強制の下で simulator の debug ビルドがサーバーを呼べるようにする debug token
-      # (lib/firebase/session.dart の AppleDebugProvider に渡る。発行と登録は scripts/register-appcheck-debug-token.sh)
-      - run: flutter build ios --simulator --debug --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS="$REVENUECAT_PUBLIC_API_KEY_IOS" --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_IOS="$FIREBASE_APPCHECK_DEBUG_TOKEN_IOS"
+      - run: flutter build ios --simulator --debug --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS="$REVENUECAT_PUBLIC_API_KEY_IOS"
         env:
           REVENUECAT_PUBLIC_API_KEY_IOS: ${{ vars.REVENUECAT_PUBLIC_API_KEY_IOS }}
-          FIREBASE_APPCHECK_DEBUG_TOKEN_IOS: ${{ secrets.FIREBASE_APPCHECK_DEBUG_TOKEN_IOS }}
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: simulator-app
