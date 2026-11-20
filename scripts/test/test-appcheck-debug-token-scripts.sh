@@ -145,16 +145,16 @@ test_launch_fails_and_removes_file_when_launch_fails() {
   local work exit_code=0
   work="$(mktemp -d)"
   prepare_workspace "$work"
-  FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env WDA_EXIT=1 run_script "$work" launch-simtunnel-app.sh snapmon-issue-1 || exit_code=$?
+  FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env WDA_EXIT=22 run_script "$work" launch-simtunnel-app.sh snapmon-issue-1 || exit_code=$?
   if [ "$exit_code" != 1 ]; then
-    fail "launch: 起動の失敗で exit 1 にならない (exit $exit_code)"
+    fail "launch: 起動の失敗 (差し替えの exit 22) を exit 1 に揃えていない (exit $exit_code)"
     return
   fi
   if [ ! -s "$work/wda-env-path" ] || [ -e "$(cat "$work/wda-env-path")" ]; then
     fail "launch: 起動に失敗した時に token を書いた一時ファイルが残っている"
     return
   fi
-  pass "launch: 起動に失敗したら exit 1 で終わり、token を書いた一時ファイルを消す"
+  pass "launch: 起動に失敗したら (ios-wda.sh の exit code によらず) exit 1 で終わり、token を書いた一時ファイルを消す"
 }
 
 test_register_treats_empty_token_as_not_given() {

@@ -36,4 +36,7 @@ bash "${IOS_WDA:-$HOME/.claude/skills/ios-simulator/scripts/ios-wda.sh}" --sessi
   echo "アプリを終了できませんでした (起動中のままだと token が渡らないため、起動していません)" >&2
   exit 1
 }
-bash "${IOS_WDA:-$HOME/.claude/skills/ios-simulator/scripts/ios-wda.sh}" --session "$1" launch com.bannzai.snapmon --env-file "$launch_env_file"
+bash "${IOS_WDA:-$HOME/.claude/skills/ios-simulator/scripts/ios-wda.sh}" --session "$1" launch com.bannzai.snapmon --env-file "$launch_env_file" || {
+  echo "アプリを起動できませんでした" >&2
+  exit 1
+}
