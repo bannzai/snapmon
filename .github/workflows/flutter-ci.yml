@@ -84,6 +84,7 @@ jobs:
         node-version: '22'
     - run: node --test scripts/test/test-master-viewer.mjs
     - run: node --test scripts/test/test-landing-page.mjs
+    - run: node --test scripts/test/test-add-functions-emulator-app-check-token.mjs
 
   build-web:
     runs-on: ubuntu-latest
