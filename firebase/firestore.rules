@@ -95,9 +95,8 @@ service cloud.firestore {
     match /pvpBattles/{battleID} {
       // 一覧は読ませない (端末は組み合わされた対戦の ID を joinPvpMatch から受け取り、1 件だけを購読する)。
       allow get: if isSignedIn()
-        && (resource == null || request.auth.uid == resource.data.host.uid);
-      allow list: if isSignedIn();
-      allow write: if false;
+        && (resource == null || request.auth.uid == resource.data.host.uid || request.auth.uid == resource.data.guest.uid);
+      allow list, write: if false;
 
       // 2 人が各ターンに出した行動 (ID は {uid}_{turnNumber})。利用者は、自分が同じターンの行動を出した後にだけ、そのターンの行動を
       // 1 件ずつ読める (相手の行動を見てから選べないようにするため)。相手がまだ出していない時は、読み取りは通って「無い」と返る。
@@ -106,9 +105,10 @@ service cloud.firestore {
       match /turns/{turnID} {
         // turnID の最後の `_` の後ろ (ターンの番号) を返す。uid に `_` が含まれていても番号は最後の区切りの後ろにある
         function turnNumberOf() {
-          return turnID.split('_')[1];
+          return turnID.split('_')[turnID.split('_').size() - 1];
         }
-        allow get: if isSignedIn();
+        allow get: if isSignedIn()
+          && exists(/databases/$(database)/documents/pvpBattles/$(battleID)/turns/$(request.auth.uid + '_' + turnNumberOf()));
         allow list, write: if false;
       }
     }
