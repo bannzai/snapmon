@@ -29,6 +29,7 @@ trap 'rm -f "$launch_env_file"' EXIT
 printf 'FIRAAppCheckDebugToken=%s\n' "$FIREBASE_APPCHECK_DEBUG_TOKEN_IOS" > "$launch_env_file"
 
 # 起動済みのアプリに launch を送っても環境変数は渡らず、匿名ログインが「Firebase App Check token is invalid」で断られる。
-# 先に終了してから起動する (2026-11-20 に simtunnel で実測。終了せずに起動した時は断られ、終了してから起動した時は通った)
-bash "${IOS_WDA:-$HOME/.claude/skills/ios-simulator/scripts/ios-wda.sh}" --session "$1" terminate com.bannzai.snapmon > /dev/null
+# 先に終了してから起動する (2026-11-20 に simtunnel で実測。終了せずに起動した時は断られ、終了してから起動した時は通った)。
+# 起動していないアプリの終了が失敗を返すかは確かめていないため、終了の失敗では止めずに起動へ進む
+bash "${IOS_WDA:-$HOME/.claude/skills/ios-simulator/scripts/ios-wda.sh}" --session "$1" terminate com.bannzai.snapmon > /dev/null || true
 bash "${IOS_WDA:-$HOME/.claude/skills/ios-simulator/scripts/ios-wda.sh}" --session "$1" launch com.bannzai.snapmon --env-file "$launch_env_file"

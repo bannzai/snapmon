@@ -70,10 +70,10 @@ echo GENERATED-TOKEN-VALUE
 EOF
   cat > "$work/bin/ios-wda" <<'EOF'
 #!/usr/bin/env bash
-# 呼ばれた順に command (--session <名前> の次の語) とアプリを wda-calls に残す。terminate は記録だけして成功で終わり、
+# 呼ばれた順に command (--session <名前> の次の語) とアプリを wda-calls に残す。terminate は記録だけして WDA_TERMINATE_EXIT (既定 0) で終わり、
 # launch の引数を wda-args に残す (WDA_EXIT は launch の exit code)
 printf '%s %s\n' "$3" "$4" >> "$WORK/wda-calls"
-if [ "$3" = terminate ]; then exit 0; fi
+if [ "$3" = terminate ]; then exit "${WDA_TERMINATE_EXIT:-0}"; fi
 printf '%s\n' "$*" > "$WORK/wda-args"
 while [ $# -gt 0 ]; do
   if [ "$1" = --env-file ]; then cp "$2" "$WORK/wda-env-file"; fi
@@ -120,6 +120,21 @@ test_register_stops_when_item_creation_fails() {
     return
   fi
   pass "register: 1Password への作成が失敗したら、App Check に登録せず理由を出して exit 1"
+}
+
+test_launch_continues_when_terminate_fails() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  if ! FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env WDA_TERMINATE_EXIT=1 run_script "$work" launch-simtunnel-app.sh snapmon-issue-1; then
+    fail "launch: アプリの終了が失敗した時に起動せずに止まった ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(cat "$work/wda-calls")" != "$(printf 'terminate com.bannzai.snapmon\nlaunch com.bannzai.snapmon')" ]; then
+    fail "launch: アプリの終了が失敗した後に起動していない ($(cat "$work/wda-calls"))"
+    return
+  fi
+  pass "launch: アプリの終了が失敗しても (起動していない時等) 起動へ進む"
 }
 
 test_launch_fails_and_removes_file_when_launch_fails() {
@@ -315,6 +330,7 @@ test_launch_treats_empty_token_as_missing
 test_register_stops_when_app_id_is_missing
 test_register_stops_when_item_creation_fails
 test_launch_fails_and_removes_file_when_launch_fails
+test_launch_continues_when_terminate_fails
 test_register_creates_item_and_registers_new_token
 test_register_stops_when_item_exists_without_token
 test_register_stops_when_vault_is_unreadable
