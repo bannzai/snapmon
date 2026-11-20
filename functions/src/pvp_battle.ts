@@ -322,7 +322,7 @@ export const submitPvpAction = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
       return;
     }
     if (battle.finishReason !== null) {
-      throw new HttpsError("failed-precondition", "対戦は終わっています");
+      return;
     }
     if (turnNumber > battle.turnNumber) {
       throw new HttpsError("invalid-argument", "まだ始まっていないターンです");
@@ -368,7 +368,7 @@ export const claimPvpTimeout = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
   const firestore = getFirestore();
   await firestore.runTransaction(async (transaction) => {
     const battle = requireParticipantBattle({ battleSnapshot: await transaction.get(firestore.doc(`pvpBattles/${battleID}`)), uid });
-    if (battle.finishReason !== null || Timestamp.now().toMillis() <= battle.turnDeadline.toMillis()) {
+    if (battle.turnDeadline !== null && Timestamp.now().toMillis() <= battle.turnDeadline.toMillis()) {
       return;
     }
     const participantUIDs = pvpParticipantUIDs({ battle });
@@ -416,7 +416,7 @@ export const reportPvpResult = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
     }
     const outcome = outcomeAfterReport({ battle, reportedWinnerUID });
     // 進行中の対戦への「決着していない」は、変えるものが無いため報告として残さない (後で出す本当の勝者の報告を塞がないため)
-    if (battle.finishReason === null && outcome === undefined) {
+    if (battle.finishReason !== null && outcome === undefined) {
       return;
     }
     if (outcome !== undefined) {

@@ -263,7 +263,7 @@ export const blockUser = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (r
     if (typeof battleID === "string") {
       const battle = (await transaction.get(firestore.doc(`pvpBattles/${battleID}`))).data() as PvpBattleDocument | undefined;
       if (
-        battle?.finishReason === null &&
+        battle !== undefined &&
         [uid, blockedUid].every((participantUID) => pvpParticipantUIDs({ battle }).includes(participantUID))
       ) {
         await finishPvpBattle({ transaction, firestore, battleID, battle, outcome: { winnerUID: null, finishReason: "blocked" } });
