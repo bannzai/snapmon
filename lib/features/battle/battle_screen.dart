@@ -449,7 +449,12 @@ class _BattleScreenState extends State<BattleScreen>
   /// [playerAction] と相手の行動で 1 ラウンド (両陣営 1 ターンずつ) を進め、増えたログを順に演出する。決着がついたら [_concludeBattle] に進む。
   /// 相手の行動は、CPU との対戦では [chooseCpuAction] で決め、人との対戦では相手が選ぶのを待つ
   /// (待つ間に対戦が終わった時は進めず、終わり方を [_settleInterruptedPvpBattle] が出す)。
+  /// 前の行動の演出・相手の待ちの間 ([_isPlaying]) に呼ばれた時は何もしない
+  /// (同じフレームに 2 つのボタンが押された時に、同じターンに行動を 2 回出さないため)。
   Future<void> _selectAction({required BattleAction playerAction}) async {
+    if (_isPlaying) {
+      return;
+    }
     final previousState = _battleState;
     final BattleState nextState;
     if (widget.pvpSession case final pvpSession?) {

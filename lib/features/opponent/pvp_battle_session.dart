@@ -188,12 +188,17 @@ class PvpBattleSession {
   /// 待つ間に対戦が終わった時 ([interruption]) と [dispose] した時は null を返す。
   /// 行動を出す呼び出しと、相手の行動の読み取りが失敗した時は、ターンが進むか対戦が終わるまで [_retryInterval] ごとにやり直す
   /// (通信が戻らなければ、行動を出せなかった側として時間切れで終わる)。
+  /// 前の [advance] が相手の行動を待っている間は呼べない ([StateError])。サーバーに残るのは同じターンに先に出した行動で
+  /// (出し直しは変えない)、後の行動で計算すると相手の端末と結果が食い違うため。
   Future<BattleState?> advance({
     required BattleState state,
     required BattleAction playerAction,
   }) {
     if (_isSettled || _isDecided) {
       return Future.value();
+    }
+    if (_pendingTurn != null) {
+      throw StateError('前の行動の結果を待っている間は、次の行動を出せない');
     }
     final nextState = Completer<BattleState?>();
     _pendingTurn = (

@@ -304,6 +304,59 @@ void main() {
       hostSession.dispose();
     });
 
+    testWidgets('相手の行動を待っている間の 2 回目の行動は受け付けず、先に出した行動でラウンドを進める', (tester) async {
+      final server = matchedServer();
+      final hostSession = sessionOf(server: server, player: host)..start();
+      addTearDown(hostSession.dispose);
+      final hostState = startStateOf(player: host, opponent: guest);
+      final firstAdvance = hostSession.advance(
+        state: hostState,
+        playerAction: const UseMoveAction(moveID: 'fire_1'),
+      );
+      await tester.pump();
+
+      expect(
+        () => hostSession.advance(
+          state: hostState,
+          playerAction: const UseMoveAction(moveID: 'steel_1'),
+        ),
+        throwsStateError,
+      );
+      expect(server.submitCalls, hasLength(1));
+
+      server.submitAction(
+        uid: guest.uid,
+        turnNumber: 0,
+        action: const UseMoveAction(moveID: 'paper_1'),
+      );
+      await tester.pump();
+      expect(
+        describeBattleState(state: (await firstAdvance)!),
+        describeBattleState(
+          state: resolvePvpRound(
+            state: hostState,
+            hostAction: const UseMoveAction(moveID: 'fire_1'),
+            guestAction: const UseMoveAction(moveID: 'paper_1'),
+            isHost: true,
+            definitions: definitions,
+          ),
+        ),
+      );
+      // 進めた後は、次のターンの行動を出せる
+      final secondAdvance = hostSession.advance(
+        state: hostState,
+        playerAction: const UseMoveAction(moveID: 'fire_1'),
+      );
+      await tester.pump();
+      expect(server.submitCalls.map((call) => (call.uid, call.turnNumber)), [
+        (host.uid, 0),
+        (guest.uid, 0),
+        (host.uid, 1),
+      ]);
+      hostSession.dispose();
+      expect(await secondAdvance, isNull);
+    });
+
     testWidgets('片方が操作をやめた対戦は、サーバーの期限の後に、行動を出した側の勝ち・やめた側の負けで 2 人の端末とも終わる', (
       tester,
     ) async {
