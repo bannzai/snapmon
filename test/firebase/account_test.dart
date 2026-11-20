@@ -70,14 +70,14 @@ class _FakeUser extends Fake implements User {
 
 /// FirebaseAuth の代わり。いまのユーザーが [currentUser] で、credential でのサインインを [signInCredentials] に記録する。
 class _FakeAuth extends Fake implements FirebaseAuth {
-  /// いまのユーザーが [currentUser] で、credential でサインインすると [linkedAccountUid] のユーザーになる FirebaseAuth を作る。
-  _FakeAuth({required this.currentUser, required this.linkedAccountUid});
+  /// いまのユーザーが [currentUser] で、credential でサインインすると [linkedAccountUID] のユーザーになる FirebaseAuth を作る。
+  _FakeAuth({required this.currentUser, required this.linkedAccountUID});
 
   @override
   final _FakeUser currentUser;
 
   /// credential でサインインした時のユーザー (連携済みのアカウント) の uid。
-  final String linkedAccountUid;
+  final String linkedAccountUID;
 
   /// `signInWithCredential` に渡された credential。呼ばれた順。
   final List<AuthCredential> signInCredentials = [];
@@ -86,7 +86,7 @@ class _FakeAuth extends Fake implements FirebaseAuth {
   Future<UserCredential> signInWithCredential(AuthCredential credential) async {
     signInCredentials.add(credential);
     return _FakeUserCredential(
-      user: _FakeUser(uid: linkedAccountUid, linkError: null),
+      user: _FakeUser(uid: linkedAccountUID, linkError: null),
     );
   }
 }
@@ -94,7 +94,7 @@ class _FakeAuth extends Fake implements FirebaseAuth {
 /// いまのユーザーの連携が [linkError] で失敗する (null なら成功する) FirebaseAuth の代わりを作る。
 _FakeAuth _auth({required FirebaseAuthException? linkError}) => _FakeAuth(
   currentUser: _FakeUser(uid: 'anonymous-uid', linkError: linkError),
-  linkedAccountUid: 'linked-uid',
+  linkedAccountUID: 'linked-uid',
 );
 
 /// 呼ばれたらテストを失敗させる、Android の Google の credential の読み取り。google_sign_in を使わない流れに渡す。
