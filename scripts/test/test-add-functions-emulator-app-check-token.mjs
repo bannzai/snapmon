@@ -21,7 +21,8 @@ const FUNCTIONS_EMULATOR_URL = 'http://127.0.0.1:5001/demo-snapmon/asia-northeas
 
 /**
  * スクリプトを、Web 版のページ (http://localhost:8090/) に読み込んだ時と同じ形の window で実行する。
- * 返す値は、スクリプトをもう一度読み込む関数 load、包まれた後の fetch を呼ぶ関数 fetch、元の fetch が受け取った引数の一覧 calls。
+ * 返す値は、スクリプトをもう一度読み込む関数 load、包まれた後の fetch を呼ぶ関数 fetch、今の window.fetch を返す関数 currentFetch、
+ * 元の fetch が受け取った引数の一覧 calls。
  */
 function loadIntoPage() {
   const calls = [];
@@ -35,7 +36,7 @@ function loadIntoPage() {
   const context = vm.createContext({ window, Headers, URL, btoa });
   const load = () => vm.runInContext(scriptSource, context);
   load();
-  return { load, fetch: (input, init) => window.fetch(input, init), calls };
+  return { load, fetch: (input, init) => window.fetch(input, init), currentFetch: () => window.fetch, calls };
 }
 
 /** 元の fetch が受け取った 1 回分の引数 call の、App Check のヘッダーの値を返す。無ければ null。 */
@@ -103,9 +104,11 @@ test('Functions の Emulator 以外への呼び出しは、引数を変えずに
   }
 });
 
-test('同じページに 2 回読み込んでも、元の fetch を 1 回だけ呼ぶ', () => {
+test('同じページに 2 回読み込んでも、fetch を包み直さず、元の fetch を 1 回だけ呼ぶ', () => {
   const page = loadIntoPage();
+  const fetchAfterFirstLoad = page.currentFetch();
   page.load();
+  assert.equal(page.currentFetch(), fetchAfterFirstLoad);
   page.fetch(FUNCTIONS_EMULATOR_URL);
   assert.equal(page.calls.length, 1);
   assert.equal(appCheckHeader({ call: page.calls[0] }), EXPECTED_APP_CHECK_TOKEN);
