@@ -14,7 +14,7 @@
 #      item は環境変数と同じ名前) に置く。item が既にあれば作らずに止まる (1Password が正のため。上の op run の形で実行する)
 #   2. Firebase の App Check の、そのプラットフォームのアプリに token を登録する
 # simtunnel の simulator へは、ビルドに埋め込まず scripts/launch-simtunnel-app.sh が起動時の環境変数で渡す (GitHub Actions の Secret には置かない)。
-# token は画面にも引数にも出さない (curl・op には標準入力で渡す。引数はプロセス一覧から読めるため)。
+# token と gcloud の access token は、画面にも外部コマンドの引数にも出さない (jq・curl・op には標準入力かファイルの読み口で渡す。引数はプロセス一覧から読めるため)。
 # 冪等にしない: 環境変数なしの実行は token を新しく作る (2 回目は item があるため 1 で止まり、何も変えない)。
 #
 # 前提: op (1Password CLI) にサインイン済み、gcloud が snapmon-prod の App Check を編集できるアカウントで認証済み。
@@ -55,8 +55,8 @@ if [ -z "$token" ]; then
     echo "token を作れませんでした" >&2
     exit 1
   }
-  jq -n --arg name "$name" --arg token "$token" \
-    '{title: $name, category: "PASSWORD", fields: [{id: "password", type: "CONCEALED", purpose: "PASSWORD", value: $token}]}' \
+  printf '%s' "$token" | jq -R --arg name "$name" \
+    '{title: $name, category: "PASSWORD", fields: [{id: "password", type: "CONCEALED", purpose: "PASSWORD", value: .}]}' \
     | op item create --vault snapmon - > /dev/null || {
     echo "1Password に ${name} を作れませんでした (App Check には登録していません)" >&2
     exit 1
@@ -67,9 +67,11 @@ fi
 # API の形 (POST .../apps/*/debugTokens、本文は displayName と UUID4 の token) の出典:
 # https://firebase.google.com/docs/reference/appcheck/rest/v1/projects.apps.debugTokens/create (2026-11-20 に確認)。
 # 同じ token を登録し直した時の応答はドキュメントに無く確かめていないため、200 以外は全て失敗として状態を出す
-status="$(jq -n --arg token "$token" '{displayName: "debug-build", token: $token}' \
+# token と access token は、外部コマンドの引数に載せない (printf は bash の組み込みでプロセスを作らない。
+# access token のヘッダーは curl の -H @<ファイル> で、プロセス置換の読み口から渡す)
+status="$(printf '%s' "$token" | jq -R '{displayName: "debug-build", token: .}' \
   | curl -sS -o /dev/null -w '%{http_code}' -X POST \
-    -H "Authorization: Bearer $(gcloud auth print-access-token)" -H "x-goog-user-project: snapmon-prod" \
+    -H @<(printf 'Authorization: Bearer %s\n' "$(gcloud auth print-access-token)") -H "x-goog-user-project: snapmon-prod" \
     -H 'Content-Type: application/json' --data-binary @- \
     "https://firebaseappcheck.googleapis.com/v1/projects/snapmon-prod/apps/${app_id}/debugTokens")"
 case "$status" in

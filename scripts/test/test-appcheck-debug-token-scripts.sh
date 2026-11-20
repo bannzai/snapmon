@@ -44,9 +44,25 @@ echo fake-access-token
 EOF
   cat > "$work/bin/curl" <<'EOF'
 #!/usr/bin/env bash
-printf '%s\n' "$*" > "$WORK/curl-args"
+# -H @<ファイル> のヘッダーは、ファイルの中身を curl-header-file に写し、引数の記録では @FILE に置き換える (読み口のパスは実行ごとに変わるため)
+recorded=()
+for argument in "$@"; do
+  if [ "${argument#@}" != "$argument" ] && [ "$argument" != "@-" ]; then
+    cat "${argument#@}" > "$WORK/curl-header-file"
+    recorded+=("@FILE")
+  else
+    recorded+=("$argument")
+  fi
+done
+printf '%s\n' "${recorded[*]}" > "$WORK/curl-args"
 cat > "$WORK/curl-stdin"
 printf '%s' "${CURL_STATUS:-200}"
+EOF
+  # jq に渡された引数を記録してから本物の jq を実行する (秘匿値が引数に載っていないことを確かめるため)
+  cat > "$work/bin/jq" <<EOF
+#!/usr/bin/env bash
+printf '%s\n' "\$*" >> "\$WORK/jq-args"
+exec "$(command -v jq)" "\$@"
 EOF
   cat > "$work/bin/uuidgen" <<'EOF'
 #!/usr/bin/env bash
@@ -61,7 +77,7 @@ while [ $# -gt 0 ]; do
 done
 exit "${WDA_EXIT:-0}"
 EOF
-  chmod +x "$work/bin/op" "$work/bin/gcloud" "$work/bin/curl" "$work/bin/uuidgen" "$work/bin/ios-wda"
+  chmod +x "$work/bin/op" "$work/bin/gcloud" "$work/bin/curl" "$work/bin/jq" "$work/bin/uuidgen" "$work/bin/ios-wda"
 }
 
 # 引数: 作業ディレクトリ、スクリプト名、スクリプトの引数...。差し替えを PATH の先頭に置いて実行し、出力を $work/stdout に書く
@@ -72,9 +88,9 @@ run_script() {
 }
 
 # 引数: アプリの ID。App Check の debugTokens の作成 (POST。出典は登録のスクリプトのコメントの公式ドキュメント) で、
-# snapmon-prod のそのアプリへ、差し替えの gcloud の access token を付け、本文を標準入力から送る時の curl の引数を出す
+# snapmon-prod のそのアプリへ、認証のヘッダーをファイルの読み口から (引数に access token を載せずに)、本文を標準入力から送る時の curl の引数を出す
 expected_curl_args() {
-  printf '%s\n' "-sS -o /dev/null -w %{http_code} -X POST -H Authorization: Bearer fake-access-token -H x-goog-user-project: snapmon-prod -H Content-Type: application/json --data-binary @- https://firebaseappcheck.googleapis.com/v1/projects/snapmon-prod/apps/$1/debugTokens"
+  printf '%s\n' "-sS -o /dev/null -w %{http_code} -X POST -H @FILE -H x-goog-user-project: snapmon-prod -H Content-Type: application/json --data-binary @- https://firebaseappcheck.googleapis.com/v1/projects/snapmon-prod/apps/$1/debugTokens"
 }
 
 test_register_stops_when_app_id_is_missing() {
@@ -171,8 +187,12 @@ test_register_creates_item_and_registers_new_token() {
     fail "register: App Check の iOS のアプリに同じ token を登録していない ($(cat "$work/curl-args"))"
     return
   fi
-  if grep -q -i 'generated-token-value' "$work/stdout" "$work/curl-args" "$work/op-create-args"; then
+  if grep -q -i 'generated-token-value' "$work/stdout" "$work/curl-args" "$work/op-create-args" "$work/jq-args"; then
     fail "register: token が画面か引数に出ている"
+    return
+  fi
+  if [ "$(cat "$work/curl-header-file")" != "Authorization: Bearer fake-access-token" ] || grep -q 'fake-access-token' "$work/curl-args" "$work/jq-args" "$work/stdout"; then
+    fail "register: access token をヘッダーのファイルで渡していない、または引数か画面に出ている"
     return
   fi
   pass "register: 新しい token を 1Password と App Check の iOS のアプリに登録し、画面と引数に出さない"
@@ -210,7 +230,7 @@ test_register_uses_given_token_without_creating_item() {
     fail "register: 渡された token の登録が失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if grep -q 'token-from-env' "$work/stdout" "$work/curl-args"; then
+  if grep -q 'token-from-env' "$work/stdout" "$work/curl-args" "$work/jq-args"; then
     fail "register: 渡された token が画面か引数に出ている"
     return
   fi
