@@ -46,10 +46,19 @@ if [ -z "$token" ]; then
     echo "1Password の vault snapmon を読めません (app で認可してから実行し直してください)" >&2
     exit 1
   }
-  if op item get "$name" --vault snapmon --format json --fields label=title > /dev/null 2>&1; then
+  # item の中身 (標準出力) は捨て、標準エラーだけを受ける。op は、無い item に「isn't an item in the ... vault」を出して
+  # exit 1 で終わる (2026-11-20 に実測)。それ以外の失敗を「無い」と読んで token を作り直さないよう、この文言の時だけ作成へ進む
+  if item_error="$(op item get "$name" --vault snapmon --format json 2>&1 > /dev/null)"; then
     echo "1Password に ${name} が既にあります。op run --env-file .env.1password -- で実行してください" >&2
     exit 1
   fi
+  case "$item_error" in
+    *"isn't an item"*) ;;
+    *)
+      echo "1Password に ${name} があるかを確かめられませんでした" >&2
+      exit 1
+      ;;
+  esac
   token="$(uuidgen | tr 'A-Z' 'a-z')"
   [ -n "$token" ] || {
     echo "token を作れませんでした" >&2

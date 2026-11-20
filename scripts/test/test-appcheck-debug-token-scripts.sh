@@ -23,6 +23,7 @@ pass() {
 
 # 引数: 作業ディレクトリ。スクリプトと firebase.json と、op・gcloud・curl・uuidgen の差し替えを置く。
 # 差し替えの挙動は環境変数で決める: OP_VAULT_EXIT (op vault get の exit code)、OP_ITEM_EXISTS (1 なら op item get が成功)、
+# OP_ITEM_GET_ERROR (item が無い時の文言の代わりに op item get が出すエラー文)、
 # CURL_STATUS (curl が返す HTTP の状態)
 prepare_workspace() {
   local work=$1
@@ -33,7 +34,17 @@ prepare_workspace() {
 #!/usr/bin/env bash
 case "$1 $2" in
   "vault get") exit "${OP_VAULT_EXIT:-0}" ;;
-  "item get") [ "${OP_ITEM_EXISTS:-0}" = 1 ] ;;
+  "item get")
+    # 実物の op と同じく、--fields label=title は「title はフィールドではない」で失敗させる (title は item の名前で、フィールドではない)
+    case "$*" in *"--fields label=title"*) echo '[ERROR] "title" is not a field' >&2; exit 1 ;; esac
+    if [ "${OP_ITEM_EXISTS:-0}" = 1 ]; then echo '{"fields":[{"value":"stored-token-value"}]}'; exit 0; fi
+    if [ -n "${OP_ITEM_GET_ERROR:-}" ]; then
+      echo "[ERROR] ${OP_ITEM_GET_ERROR}" >&2
+    else
+      printf '[ERROR] "%s" isn%st an item in the "snapmon" vault.\n' "$3" "'" >&2
+    fi
+    exit 1
+    ;;
   "item create")
     printf '%s\n' "$*" > "$WORK/op-create-args"
     cat > "$WORK/op-create-stdin"
@@ -233,6 +244,18 @@ test_register_stops_when_item_exists_without_token() {
   pass "register: 1Password に item があり token を渡されていなければ、何も登録せず exit 1"
 }
 
+test_register_stops_when_item_lookup_fails_for_other_reason() {
+  local work exit_code=0
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  OP_ITEM_GET_ERROR="could not read the item: network unreachable" run_script "$work" register-appcheck-debug-token.sh ios || exit_code=$?
+  if [ "$exit_code" != 1 ] || [ -e "$work/curl-args" ] || [ -e "$work/op-create-args" ]; then
+    fail "register: item の確認が「無い」以外の理由で失敗したのに、token を作って登録へ進んだ (exit $exit_code)"
+    return
+  fi
+  pass "register: item の確認が「無い」以外の理由で失敗したら、item を作らず exit 1"
+}
+
 test_register_stops_when_vault_is_unreadable() {
   local work exit_code=0
   work="$(mktemp -d)"
@@ -338,6 +361,7 @@ test_launch_stops_when_terminate_fails
 test_register_creates_item_and_registers_new_token
 test_register_stops_when_item_exists_without_token
 test_register_stops_when_vault_is_unreadable
+test_register_stops_when_item_lookup_fails_for_other_reason
 test_register_uses_given_token_without_creating_item
 test_register_fails_on_other_status
 test_launch_passes_token_by_env_file
