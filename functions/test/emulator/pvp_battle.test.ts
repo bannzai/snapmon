@@ -555,52 +555,34 @@ describe("leavePvpMatch", () => {
 });
 
 describe("submitPvpAction", () => {
-  it("片方が出しただけでは公開せず、2 人がそろうと出した順に関係なく host・guest の行動として公開する", async () => {
+  it("片方が出しただけではターンを進めず、2 人がそろうと出した順に関係なくターンを進め、2 人の行動をそれぞれの文書に残す", async () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
 
     expect((await submitMove({ user: host, battleID, turnNumber: 0, moveID: "host-move-0" })).status).toBe(200);
     expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turnNumber).toBe(0);
-    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_0` })).toEqual({
-      action: { kind: "move", moveID: "host-move-0" },
-      isRevealed: false,
-    });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_0` })).toEqual({ action: { kind: "move", moveID: "host-move-0" } });
 
     expect((await submitMove({ user: guest, battleID, turnNumber: 0, moveID: "guest-move-0" })).status).toBe(200);
     const battleAfterFirstTurn = (await readDocument({ path: `pvpBattles/${battleID}` }))!;
     expect(battleAfterFirstTurn.turnNumber).toBe(1);
     // 行動の置き場は turns のサブコレクションだけで、対戦のドキュメントには写さない
     expect(battleAfterFirstTurn.turns).toBeUndefined();
-    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_0` })).toEqual({
-      action: { kind: "move", moveID: "host-move-0" },
-      isRevealed: true,
-    });
-    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${guest.uid}_0` })).toEqual({
-      action: { kind: "move", moveID: "guest-move-0" },
-      isRevealed: true,
-    });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_0` })).toEqual({ action: { kind: "move", moveID: "host-move-0" } });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${guest.uid}_0` })).toEqual({ action: { kind: "move", moveID: "guest-move-0" } });
 
     // 次のターンは guest が先に出す
     expect(
       (await callFunction({ name: "submitPvpAction", user: guest, data: { battleID, turnNumber: 1, action: { kind: "switch", memberIndex: 1 } } })).status,
     ).toBe(200);
-    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${guest.uid}_1` })).toEqual({
-      action: { kind: "switch", memberIndex: 1 },
-      isRevealed: false,
-    });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${guest.uid}_1` })).toEqual({ action: { kind: "switch", memberIndex: 1 } });
     expect((await callFunction({ name: "submitPvpAction", user: host, data: { battleID, turnNumber: 1, action: { kind: "struggle" } } })).status).toBe(200);
     expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turnNumber).toBe(2);
-    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_1` })).toEqual({ action: { kind: "struggle" }, isRevealed: true });
-    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${guest.uid}_1` })).toEqual({
-      action: { kind: "switch", memberIndex: 1 },
-      isRevealed: true,
-    });
-    // 前のターンの行動は、次のターンが公開されても変わらない
-    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_0` })).toEqual({
-      action: { kind: "move", moveID: "host-move-0" },
-      isRevealed: true,
-    });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_1` })).toEqual({ action: { kind: "struggle" } });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${guest.uid}_1` })).toEqual({ action: { kind: "switch", memberIndex: 1 } });
+    // 前のターンの行動は、次のターンが進んでも変わらない
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_0` })).toEqual({ action: { kind: "move", moveID: "host-move-0" } });
   });
 
   it("同じ行動のターンが続いても、ターンごとに別の行動として残す", async () => {
@@ -615,10 +597,7 @@ describe("submitPvpAction", () => {
 
     expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turnNumber).toBe(2);
     for (const turnID of [`${host.uid}_0`, `${guest.uid}_0`, `${host.uid}_1`, `${guest.uid}_1`]) {
-      expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${turnID}` })).toEqual({
-        action: { kind: "move", moveID: "same-move" },
-        isRevealed: true,
-      });
+      expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${turnID}` })).toEqual({ action: { kind: "move", moveID: "same-move" } });
     }
   });
 
@@ -643,10 +622,7 @@ describe("submitPvpAction", () => {
 
     expect((await submitMove({ user: host, battleID, turnNumber: 0, moveID: "resent" })).status).toBe(200);
     expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turnNumber).toBe(1);
-    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_0` })).toEqual({
-      action: { kind: "move", moveID: "host-move" },
-      isRevealed: true,
-    });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_0` })).toEqual({ action: { kind: "move", moveID: "host-move" } });
     expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_1` })).toBeUndefined();
     expect(
       await callErrorStatus({ name: "submitPvpAction", user: host, data: { battleID, turnNumber: 2, action: { kind: "struggle" } } }),
@@ -741,13 +717,10 @@ describe("claimPvpTimeout", () => {
     expect(await callOk({ name: "claimPvpTimeout", user: guest, data: { battleID } })).toEqual({ status: "active" });
 
     expect(await readDocument({ path: `pvpBattles/${battleID}` })).toMatchObject({ status: "active", winnerUID: null });
-    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${guest.uid}_0` })).toEqual({
-      action: { kind: "move", moveID: "guest-move" },
-      isRevealed: false,
-    });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${guest.uid}_0` })).toEqual({ action: { kind: "move", moveID: "guest-move" } });
   });
 
-  it("前のターンが公開された後のターンで片方だけが出した対戦は、期限の後に、そのターンに出した側の勝ちで終わる", async () => {
+  it("前のターンに 2 人とも出した後のターンで片方だけが出した対戦は、期限の後に、そのターンに出した側の勝ちで終わる", async () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });

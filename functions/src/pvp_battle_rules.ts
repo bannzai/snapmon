@@ -83,16 +83,12 @@ export function parsePvpAction(value: unknown): PvpAction | undefined {
 /**
  * `pvpBattles/{battleID}/turns/{uid}_{turnNumber}` に保存する、利用者が 1 ターンに出した行動 1 件。対戦の行動の置き場はここだけで、
  * 誰がどのターンに出したかは ID が持つ ([pvpTurnDocumentID])。書くのは Functions だけ。
- * 対戦に出ている 2 人は、公開された ([isRevealed] が true の) 行動だけを読める (相手の行動を見てから選べないようにするため)。
+ * 利用者は、自分が同じターンの行動を出した後にだけ、そのターンの行動を 1 件ずつ読める (相手の行動を見てから選べないようにするため。
+ * 条件は firebase/firestore.rules が、読む利用者の同じターンの行動があるかで確かめる)。
  */
 export interface PvpTurnDocument {
   /** 出した行動。出した後は変えられない。 */
   action: PvpAction;
-  /**
-   * 同じターンの 2 人分の行動がそろって公開されたか。そろった時に、2 人分を同じトランザクションで true にする。
-   * Rules が読める行動を決めるのに使う (Rules は一覧の読み取りで「相手の行動もあるか」を確かめられないため、その結果をここに持つ)。
-   */
-  isRevealed: boolean;
 }
 
 /**
@@ -154,7 +150,7 @@ export type PvpBattleDocument = PvpBattleProgress & {
   /** 対戦日 (日本時間の `YYYY-MM-DD`)。対戦日で効果が変わる技を、2 人の端末の時計に関係なく同じに計算する。 */
   battleDate: string;
   /**
-   * 今のターンの番号 (0 始まり)。2 人の行動がそろって公開されるたびに 1 増える (これより小さい番号のターンは公開済み)。
+   * 今のターンの番号 (0 始まり)。2 人の行動がそろうたびに 1 増える (これより小さい番号のターンは、2 人とも行動を出している)。
    * 行動を受け付けるターンと、期限切れの時に行動を読むターンを決めるのに使う (行動そのものは `turns` のサブコレクションにある)。
    */
   turnNumber: number;

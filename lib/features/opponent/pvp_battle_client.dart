@@ -12,7 +12,7 @@ class PvpBattleClient {
     required this.joinMatch,
     required this.leaveMatch,
     required this.watchBattle,
-    required this.watchRevealedTurns,
+    required this.watchTurnAction,
     required this.submitAction,
     required this.claimTimeout,
     required this.reportResult,
@@ -38,10 +38,15 @@ class PvpBattleClient {
   /// 対戦 [battleID] の今の状態と、その後の変化を流す。対戦が消えた時 (相手がアカウントを削除した時) は null を流す。
   final Stream<PvpBattle?> Function({required String battleID}) watchBattle;
 
-  /// 対戦 [battleID] の、2 人分がそろって公開された行動の今の一覧と、その後の変化を流す (並びは決まっていない)。
-  /// 同じターンの 2 人の行動は、同じ 1 回の知らせで届く。
-  final Stream<List<PvpTurn>> Function({required String battleID})
-  watchRevealedTurns;
+  /// 対戦 [battleID] の [turnNumber] 番目 (0 始まり) のターンに利用者 [uid] が出した行動と、その後の変化を流す。まだ出していない間は null を流す。
+  /// 自分がそのターンの行動を出した後にだけ読める (相手の行動を見てから選べないようにするため。firebase/firestore.rules)。
+  /// 出す前に購読すると、エラーを流す。
+  final Stream<BattleAction?> Function({
+    required String battleID,
+    required String uid,
+    required int turnNumber,
+  })
+  watchTurnAction;
 
   /// 対戦 [battleID] の [turnNumber] 番目 (0 始まり) のターンに、自分の行動 [action] を出す。同じターンの出し直しは何も変えない。
   final Future<void> Function({
@@ -55,7 +60,7 @@ class PvpBattleClient {
   final Future<void> Function({required String battleID}) claimTimeout;
 
   /// 対戦 [battleID] の、自分の端末の計算が出した勝者の uid [winnerUID] を報告する。
-  /// 公開された行動では決着していない (相手が勝者を報告したが、自分の計算では決着していない) 時は null を渡す。
+  /// 2 人が出した行動では決着していない (相手が勝者を報告したが、自分の計算では決着していない) 時は null を渡す。
   final Future<void> Function({
     required String battleID,
     required String? winnerUID,

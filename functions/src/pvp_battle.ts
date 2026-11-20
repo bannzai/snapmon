@@ -293,8 +293,8 @@ export const leavePvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asyn
  * 人との対戦で、今のターンの自分の行動を出す callable。
  *
  * 受け取る data: `{ battleID: string, turnNumber: number, action: PvpAction }` (turnNumber は今のターンの 0 始まりの番号)。
- * 返す値: `{ submitted: true }`。行動を `pvpBattles/{battleID}/turns/{uid}_{turnNumber}` に置き (相手が出すまで 2 人とも読めない)、
- * 相手も同じターンの行動を出していれば 2 人の行動を公開して (`isRevealed`)、次のターンに進めて期限を決める。
+ * 返す値: `{ submitted: true }`。行動を `pvpBattles/{battleID}/turns/{uid}_{turnNumber}` に置き (相手は、自分の行動を出すまで読めない)、
+ * 相手も同じターンの行動を出していれば、次のターンに進めて期限を決める。
  * 出した行動は変えられず、同じターンの出し直しと公開済みのターンの再送は何もしない (冪等)。
  * 終わった対戦には failed-precondition、期限を過ぎたターンには deadline-exceeded、まだ来ていないターンの番号には invalid-argument を投げる。
  * 行動の形だけを確かめ、選べる行動かは確かめない (端末の計算が 2 台で同じに判定し、選べない行動を出した側の負けにする)。
@@ -344,11 +344,10 @@ export const submitPvpAction = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
     if (turnSnapshot.exists) {
       return;
     }
-    transaction.create(turnDocument, { action: parsedAction, isRevealed: opponentTurnSnapshot.exists } satisfies PvpTurnDocument);
+    transaction.create(turnDocument, { action: parsedAction } satisfies PvpTurnDocument);
     if (!opponentTurnSnapshot.exists) {
       return;
     }
-    transaction.update(opponentTurnSnapshot.ref, { isRevealed: true } satisfies Pick<PvpTurnDocument, "isRevealed">);
     transaction.update(battleDocument, { turnNumber: turnNumber + 1, turnDeadline: turnDeadlineFrom({ now }) });
   });
   return { submitted: true };
@@ -389,7 +388,7 @@ export const claimPvpTimeout = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
 /**
  * 人との対戦で、自分の端末の計算が出した勝者を報告する callable。端末は決着の後、recordBattle (レベルの記録) の前に呼ぶ。
  *
- * 受け取る data: `{ battleID: string, winnerUID: string | null }` (winnerUID は 2 人のどちらかの uid。公開された行動では決着していない、という報告は null)。
+ * 受け取る data: `{ battleID: string, winnerUID: string | null }` (winnerUID は 2 人のどちらかの uid。2 人が出した行動では決着していない、という報告は null)。
  * 返す値: `{ status: "active" | "finished" | "void" }` (呼んだ後の対戦の状態)。
  * 進行中の対戦は最初の報告の勝者で終え、2 人の `users/{uid}/battles/{battleID}` に勝敗を書く。報告で終わった対戦に、食い違う報告
  * (別の勝者・決着していない) が届いたら、勝敗を付けない終わりに変えて書いた勝敗を消す (pvp_battle_rules.ts の outcomeAfterReport)。

@@ -152,7 +152,7 @@ void main() {
       );
     });
 
-    /// 最初のターンに [hostAction] と [guestAction] が公開された時の、2 人の端末の勝った陣営と、ラウンドを進めたか。
+    /// 最初のターンに [hostAction] と [guestAction] を 2 人が出した時の、2 人の端末の勝った陣営と、ラウンドを進めたか。
     ({BattleSideID? hostWinner, BattleSideID? guestWinner, bool advanced})
     resolveFirstTurn({
       required BattleAction hostAction,
@@ -378,7 +378,7 @@ void main() {
       expect(hostInterruption, (winner: null));
     });
 
-    testWidgets('残り時間は 1 秒ずつ減って 0 で止まり、ターンが公開されると 1 ターンの秒数に戻る', (tester) async {
+    testWidgets('残り時間は 1 秒ずつ減って 0 で止まり、ターンが進むと 1 ターンの秒数に戻る', (tester) async {
       final server = matchedServer();
       final hostSession = sessionOf(server: server, player: host)..start();
       addTearDown(hostSession.dispose);
@@ -508,7 +508,7 @@ void main() {
       // 後から来た側が選べない行動を出して先に待っていた側の勝ちで決着し、後から来た側の端末がその勝者を報告する。
       // 先に待っていた側の端末には、対戦の終わり (対戦の状態) だけが先に届く
       server
-        ..holdsRevealedTurns = true
+        ..holdsTurnActions = true
         ..submitAction(
           uid: guest.uid,
           turnNumber: 0,
@@ -520,7 +520,7 @@ void main() {
       expect(isInterrupted, isFalse);
       expect(server.reportCalls, [(uid: guest.uid, winnerUID: host.uid)]);
 
-      server.releaseRevealedTurns();
+      server.releaseTurnActions();
       await tester.pump();
 
       expect(hostNextState!.winner, BattleSideID.player);
@@ -591,6 +591,58 @@ void main() {
         expect(hostInterruption, (winner: null));
         hostSession.dispose();
       }
+    });
+
+    testWidgets('自分の行動を出し終えるまで相手の行動を読みに行かず、出し終えたら相手の同じターンの行動を読む', (
+      tester,
+    ) async {
+      final server = matchedServer()..submitError = StateError('通信に失敗しました');
+      final hostSession = sessionOf(server: server, player: host)..start();
+      addTearDown(hostSession.dispose);
+      hostSession
+          .advance(
+            state: startStateOf(player: host, opponent: guest),
+            playerAction: const UseMoveAction(moveID: 'fire_1'),
+          )
+          .ignore();
+      await tester.pump();
+      expect(server.watchTurnCalls, isEmpty);
+
+      server.submitError = null;
+      await tester.pump(const Duration(seconds: 3));
+
+      expect(server.watchTurnCalls, [
+        (requesterUID: host.uid, uid: guest.uid, turnNumber: 0),
+      ]);
+    });
+
+    testWidgets('相手の行動の読み取りが失敗した時は、読めるまでやり直してラウンドを進める', (tester) async {
+      final server = matchedServer()..watchTurnError = StateError('通信に失敗しました');
+      final hostSession = sessionOf(server: server, player: host)..start();
+      addTearDown(hostSession.dispose);
+      BattleState? hostNextState;
+      hostSession
+          .advance(
+            state: startStateOf(player: host, opponent: guest),
+            playerAction: const UseMoveAction(moveID: 'fire_1'),
+          )
+          .then((state) => hostNextState = state)
+          .ignore();
+      server.submitAction(
+        uid: guest.uid,
+        turnNumber: 0,
+        action: const UseMoveAction(moveID: 'water_1'),
+      );
+      await tester.pump();
+      expect(hostNextState, isNull);
+      expect(server.watchTurnCalls, hasLength(1));
+
+      server.watchTurnError = null;
+      await tester.pump(const Duration(seconds: 3));
+      await tester.pump();
+
+      expect(server.watchTurnCalls, hasLength(2));
+      expect(hostNextState, isNotNull);
     });
 
     testWidgets('行動を出す呼び出しが失敗した時は、通るまでやり直す', (tester) async {

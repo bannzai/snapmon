@@ -197,22 +197,25 @@ Stream<PvpBattle?> watchPvpBattleWithFirebase({required String battleID}) =>
           },
         );
 
-/// Firestore の `pvpBattles/{battleID}/turns` のうち、公開された行動 (`isRevealed` が true) の今の一覧と、その後の変化を流す。
-/// Rules は公開された行動に絞った一覧だけを通す (firebase/firestore.rules)。
-Stream<List<PvpTurn>> watchPvpRevealedTurnsWithFirebase({
+/// Firestore の `pvpBattles/{battleID}/turns/{uid}_{turnNumber}` (ID の形は functions/src/pvp_battle_rules.ts の
+/// `pvpTurnDocumentID`) の行動と、その後の変化を流す。ドキュメントが無い間は null を流す。
+/// Rules は、読む利用者が同じターンの行動を出した後にだけ通す (firebase/firestore.rules)。
+Stream<BattleAction?> watchPvpTurnActionWithFirebase({
   required String battleID,
+  required String uid,
+  required int turnNumber,
 }) => FirebaseFirestore.instance
-    .collection('pvpBattles/$battleID/turns')
-    .where('isRevealed', isEqualTo: true)
+    .doc('pvpBattles/$battleID/turns/${uid}_$turnNumber')
     .snapshots()
     .map(
-      (snapshot) => [
-        for (final turn in snapshot.docs)
-          pvpTurnFromDocument(
-            turnID: turn.id,
-            json: _toJson(turn.data())! as Map<String, dynamic>,
-          ),
-      ],
+      (snapshot) => switch (snapshot.data()) {
+        final data? => battleActionFromJson(
+          json:
+              (_toJson(data)! as Map<String, dynamic>)['action']
+                  as Map<String, dynamic>,
+        ),
+        null => null,
+      },
     );
 
 /// Functions の submitPvpAction を呼び、対戦 [battleID] の [turnNumber] 番目のターンに自分の行動 [action] を出す。

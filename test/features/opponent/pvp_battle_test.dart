@@ -87,51 +87,23 @@ void main() {
     );
   });
 
-  test('公開された行動を、ID から出した利用者とターンの番号を取り違えずに、技・わるあがき・交代のどれも読む', () {
-    final move = pvpTurnFromDocument(
-      turnID: 'host-uid_0',
-      json: {
-        'action': {'kind': 'move', 'moveID': 'fire_1'},
-        'isRevealed': true,
-      },
-    );
-    expect(move.uid, 'host-uid');
-    expect(move.turnNumber, 0);
-    expect((move.action as UseMoveAction).moveID, 'fire_1');
-
-    final switching = pvpTurnFromDocument(
-      turnID: 'guest-uid_12',
-      json: {
-        'action': {'kind': 'switch', 'memberIndex': 2},
-        'isRevealed': true,
-      },
-    );
-    expect(switching.uid, 'guest-uid');
-    expect(switching.turnNumber, 12);
-    expect((switching.action as SwitchMonsterAction).memberIndex, 2);
-
+  test('利用者が出した行動を、技・わるあがき・交代のどれも読む', () {
     expect(
-      pvpTurnFromDocument(
-        turnID: 'host-uid_1',
-        json: {
-          'action': {'kind': 'struggle'},
-          'isRevealed': true,
-        },
-      ).action,
+      (battleActionFromJson(json: {'kind': 'move', 'moveID': 'fire_1'})
+              as UseMoveAction)
+          .moveID,
+      'fire_1',
+    );
+    expect(
+      (battleActionFromJson(json: {'kind': 'switch', 'memberIndex': 2})
+              as SwitchMonsterAction)
+          .memberIndex,
+      2,
+    );
+    expect(
+      battleActionFromJson(json: {'kind': 'struggle'}),
       isA<StruggleAction>(),
     );
-  });
-
-  test('uid に _ が含まれていても、最後の _ の後ろをターンの番号として読む', () {
-    final turn = pvpTurnFromDocument(
-      turnID: 'user_with_underscores_3',
-      json: {
-        'action': {'kind': 'struggle'},
-        'isRevealed': true,
-      },
-    );
-    expect(turn.uid, 'user_with_underscores');
-    expect(turn.turnNumber, 3);
   });
 
   test('勝者が決まって終わった対戦の、勝者の uid と終わり方を読む', () {

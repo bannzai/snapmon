@@ -16,8 +16,8 @@ PvpBattleClient signedOutPvpBattleClient() => PvpBattleClient(
       throw StateError('ログインが無いのに leaveMatch を呼んだ'),
   watchBattle: ({required battleID}) =>
       throw StateError('ログインが無いのに watchBattle を呼んだ'),
-  watchRevealedTurns: ({required battleID}) =>
-      throw StateError('ログインが無いのに watchRevealedTurns を呼んだ'),
+  watchTurnAction: ({required battleID, required uid, required turnNumber}) =>
+      throw StateError('ログインが無いのに watchTurnAction を呼んだ'),
   submitAction: ({required battleID, required turnNumber, required action}) =>
       throw StateError('ログインが無いのに submitAction を呼んだ'),
   claimTimeout: ({required battleID}) =>
@@ -96,17 +96,24 @@ class FakePvpBattleServer {
   /// null 以外の時、submitAction がこのエラーで失敗する (通信の失敗)。
   Object? submitError;
 
+  /// watchTurnAction の呼び出し (呼ばれた順)。[requesterUID] が読む側、[uid] が行動を出した側。
+  final List<({String requesterUID, String uid, int turnNumber})>
+  watchTurnCalls = [];
+
+  /// null 以外の時、watchTurnAction の購読がこのエラーを流す (通信の失敗)。
+  Object? watchTurnError;
+
   /// 今のターンの行動の期限 (サーバーの時計) を過ぎたか。true の間の claimTimeout が対戦を終え、submitAction は失敗する。
   bool isTurnDeadlinePassed = false;
 
   /// 組み合わせた後の対戦。組み合わせる前と、[deleteBattle] の後は null。
   PvpBattle? _battle;
 
-  /// true の間、公開された行動の変化を端末に流さずにためる (対戦の状態の知らせが、行動の知らせより先に届く順を作るため)。
-  /// [releaseRevealedTurns] で流す。
-  bool holdsRevealedTurns = false;
+  /// true の間、2 人が出した行動の変化を端末に流さずにためる (対戦の状態の知らせが、行動の知らせより先に届く順を作るため)。
+  /// [releaseTurnActions] で流す。
+  bool holdsTurnActions = false;
 
-  /// 2 人が出した行動 (ターンの番号ごとの、uid ごとの行動)。今のターンより前の番号の行動は公開済み。
+  /// 2 人が出した行動 (ターンの番号ごとの、uid ごとの行動)。
   final Map<int, Map<String, BattleAction>> _actionsByTurnNumber = {};
 
   /// 勝者を報告済みの uid。
@@ -116,8 +123,8 @@ class FakePvpBattleServer {
   final StreamController<PvpBattle?> _battleChanges =
       StreamController.broadcast();
 
-  /// 公開された行動の変化を、見ている端末に流す。
-  final StreamController<List<PvpTurn>> _revealedTurnsChanges =
+  /// 2 人が出した行動が変わったことを、見ている端末に知らせる。
+  final StreamController<void> _turnActionChanges =
       StreamController.broadcast();
 
   /// 作った探す操作の ID の数。
@@ -132,19 +139,10 @@ class FakePvpBattleServer {
   /// 今の対戦の状態。組み合わせる前は null。
   PvpBattle? get battle => _battle;
 
-  /// 公開された行動 (今のターンより前の番号のターンに 2 人が出した行動)。対戦が無い時は空。
-  List<PvpTurn> get _revealedTurns => [
-    for (final MapEntry(key: turnNumber, value: actions)
-        in _actionsByTurnNumber.entries)
-      if (turnNumber < (_battle?.turnNumber ?? 0))
-        for (final MapEntry(key: uid, value: action) in actions.entries)
-          (uid: uid, turnNumber: turnNumber, action: action),
-  ];
-
-  /// [holdsRevealedTurns] の間にためた、公開された行動の変化を端末に流し、ためるのをやめる。
-  void releaseRevealedTurns() {
-    holdsRevealedTurns = false;
-    _revealedTurnsChanges.add(_revealedTurns);
+  /// [holdsTurnActions] の間にためた、2 人が出した行動の変化を端末に流し、ためるのをやめる。
+  void releaseTurnActions() {
+    holdsTurnActions = false;
+    _turnActionChanges.add(null);
   }
 
   /// 2 人を組み合わせる。相手を探している利用者には今の探す操作に、探していない利用者には次の探す操作に、対戦の ID を返すようになる。
@@ -171,8 +169,8 @@ class FakePvpBattleServer {
     finishReason: PvpFinishReason.blocked,
   );
 
-  /// 今のターンに [hostAction] と [guestAction] を公開し、同時にブロックでの勝敗なしで終える。
-  /// 端末には、勝敗なしの終わり (対戦の状態) を先に、公開された行動を後に届ける
+  /// 今のターンに 2 人が [hostAction] と [guestAction] を出したことにし、同時にブロックでの勝敗なしで終える。
+  /// 端末には、勝敗なしの終わり (対戦の状態) を先に、2 人が出した行動を後に届ける
   /// (2 つは別の購読で、届く順は決まっていない。進めると決着する行動が後から届いても進めないことを確かめるため)。
   void finishByBlockAfterRevealing({
     required BattleAction hostAction,
@@ -198,33 +196,43 @@ class FakePvpBattleServer {
   }
 
   /// uid が [uid] の利用者の端末が使う [PvpBattleClient] を返す。
-  PvpBattleClient clientOf({required String uid}) => PvpBattleClient(
-    signedInUID: () => uid,
+  PvpBattleClient clientOf({required String uid}) =>
+      _clientOf(requesterUID: uid);
+
+  /// [clientOf] の実体。この端末の利用者の uid を、行動を出した利用者の uid (watchTurnAction の引数) と区別できる名前で受け取る。
+  PvpBattleClient _clientOf({required String requesterUID}) => PvpBattleClient(
+    signedInUID: () => requesterUID,
     createSearchID: () => 'search-${++_searchIDCount}',
     joinMatch: ({required rulesVersion, required searchID}) async {
-      joinCalls.add((uid: uid, rulesVersion: rulesVersion, searchID: searchID));
+      joinCalls.add((
+        uid: requesterUID,
+        rulesVersion: rulesVersion,
+        searchID: searchID,
+      ));
       if (joinError case final error?) {
         throw error;
       }
-      if (_tickets[uid]?.searchID != searchID) {
-        _tickets[uid] = (
+      if (_tickets[requesterUID]?.searchID != searchID) {
+        _tickets[requesterUID] = (
           searchID: searchID,
-          battleID: _uidsMatchedOnNextJoin.remove(uid) ? battleID : null,
+          battleID: _uidsMatchedOnNextJoin.remove(requesterUID)
+              ? battleID
+              : null,
         );
       }
-      return _tickets[uid]!.battleID;
+      return _tickets[requesterUID]!.battleID;
     },
     leaveMatch: ({required searchID}) async {
-      leaveCalls.add((uid: uid, searchID: searchID));
+      leaveCalls.add((uid: requesterUID, searchID: searchID));
       if (leaveError case final error?) {
         throw error;
       }
-      final ticket = _tickets[uid];
+      final ticket = _tickets[requesterUID];
       if (ticket == null || ticket.searchID != searchID) {
         return null;
       }
       if (ticket.battleID == null) {
-        _tickets.remove(uid);
+        _tickets.remove(requesterUID);
       }
       return ticket.battleID;
     },
@@ -239,25 +247,47 @@ class FakePvpBattleServer {
         unawaited(battleChangesSubscription.cancel());
       };
     }),
-    watchRevealedTurns: ({required battleID}) => Stream.multi((controller) {
-      if (!holdsRevealedTurns) {
-        controller.add(_revealedTurns);
-      }
-      final revealedTurnsChangesSubscription = _revealedTurnsChanges.stream
-          .listen(controller.add);
-      controller.onCancel = () {
-        unawaited(revealedTurnsChangesSubscription.cancel());
-      };
-    }),
+    // firebase/firestore.rules と同じく、読む側 (この端末の利用者) が同じターンの行動を出した後にだけ読める
+    watchTurnAction: ({required battleID, required uid, required turnNumber}) =>
+        Stream.multi((controller) {
+          watchTurnCalls.add((
+            requesterUID: requesterUID,
+            uid: uid,
+            turnNumber: turnNumber,
+          ));
+          if (watchTurnError case final error?) {
+            controller.addError(error);
+            return;
+          }
+          if (_actionsByTurnNumber[turnNumber]?[requesterUID] == null) {
+            controller.addError(StateError('自分の行動を出す前に、相手の行動を読もうとした'));
+            return;
+          }
+          if (!holdsTurnActions) {
+            controller.add(_actionsByTurnNumber[turnNumber]?[uid]);
+          }
+          final turnActionChangesSubscription = _turnActionChanges.stream
+              .listen(
+                (_) => controller.add(_actionsByTurnNumber[turnNumber]?[uid]),
+              );
+          controller.onCancel = () {
+            unawaited(turnActionChangesSubscription.cancel());
+          };
+        }),
     submitAction:
         ({required battleID, required turnNumber, required action}) async =>
-            submitAction(uid: uid, turnNumber: turnNumber, action: action),
-    claimTimeout: ({required battleID}) async => claimTimeout(uid: uid),
+            submitAction(
+              uid: requesterUID,
+              turnNumber: turnNumber,
+              action: action,
+            ),
+    claimTimeout: ({required battleID}) async =>
+        claimTimeout(uid: requesterUID),
     reportResult: ({required battleID, required winnerUID}) async =>
-        reportResult(uid: uid, winnerUID: winnerUID),
+        reportResult(uid: requesterUID, winnerUID: winnerUID),
   );
 
-  /// [uid] の、[turnNumber] 番目のターンの行動 [action] を受け取る。2 人分そろったら公開して次のターンに進める。
+  /// [uid] の、[turnNumber] 番目のターンの行動 [action] を受け取る。2 人分そろったら次のターンに進める。
   void submitAction({
     required String uid,
     required int turnNumber,
@@ -363,8 +393,8 @@ class FakePvpBattleServer {
     );
   }
 
-  /// 対戦を渡した値の状態にし、対戦の状態・公開された行動の順に、見ている端末に流す
-  /// ([holdsRevealedTurns] の間は、公開された行動を流さない)。
+  /// 対戦を渡した値の状態にし、対戦の状態・2 人が出した行動の順に、見ている端末に流す
+  /// ([holdsTurnActions] の間は、2 人が出した行動を流さない)。
   void _update({
     required int turnNumber,
     required PvpBattleStatus status,
@@ -384,8 +414,8 @@ class FakePvpBattleServer {
       finishReason: finishReason,
     );
     _battleChanges.add(_battle);
-    if (!holdsRevealedTurns) {
-      _revealedTurnsChanges.add(_revealedTurns);
+    if (!holdsTurnActions) {
+      _turnActionChanges.add(null);
     }
   }
 }

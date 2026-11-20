@@ -38,30 +38,6 @@ class PvpTrainer {
   final List<OwnedMonster> monsters;
 }
 
-/// 人との対戦で、利用者が 1 ターンに出して公開された行動 1 件。Firestore の `pvpBattles/{battleID}/turns/{uid}_{turnNumber}`
-/// (functions/src/pvp_battle_rules.ts の `PvpTurnDocument`) のうち、2 人分がそろって公開されたもの。
-typedef PvpTurn = ({
-  /// 行動を出した利用者の uid。
-  String uid,
-
-  /// ターンの番号 (0 始まり)。
-  int turnNumber,
-
-  /// 出した行動。
-  BattleAction action,
-});
-
-/// ID が [turnID] (`{uid}_{turnNumber}`) の `pvpBattles/{battleID}/turns/{turnID}` のドキュメント [json] から、公開された行動を読む。
-/// 誰がどのターンに出したかは ID だけが持つ (uid に `_` が含まれていても、最後の `_` の後ろをターンの番号として読む)。
-PvpTurn pvpTurnFromDocument({
-  required String turnID,
-  required Map<String, dynamic> json,
-}) => (
-  uid: turnID.substring(0, turnID.lastIndexOf('_')),
-  turnNumber: int.parse(turnID.substring(turnID.lastIndexOf('_') + 1)),
-  action: battleActionFromJson(json: json['action'] as Map<String, dynamic>),
-);
-
 /// 人との対戦の状態 (`pvpBattles/{battleID}` の `status`)。
 enum PvpBattleStatus {
   /// 進行中。
@@ -146,7 +122,7 @@ class PvpBattle {
   /// 対戦日 (日本時間の日付)。
   final DateTime battleDate;
 
-  /// 今のターンの番号 (0 始まり)。これより小さい番号のターンは、2 人の行動がそろって公開されている。
+  /// 今のターンの番号 (0 始まり)。これより小さい番号のターンは、2 人とも行動を出している。
   final int turnNumber;
 
   /// 1 ターンの行動を選ぶ時間 (秒)。
@@ -162,7 +138,7 @@ class PvpBattle {
   final PvpFinishReason? finishReason;
 }
 
-/// 公開された行動 [json] (functions/src/pvp_battle_rules.ts の `PvpAction`) をバトルの計算の行動として読む。
+/// 利用者が出した行動 [json] (functions/src/pvp_battle_rules.ts の `PvpAction`) をバトルの計算の行動として読む。
 BattleAction battleActionFromJson({required Map<String, dynamic> json}) =>
     switch (json['kind'] as String) {
       'move' => UseMoveAction(moveID: json['moveID'] as String),

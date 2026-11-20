@@ -97,14 +97,18 @@ service cloud.firestore {
       allow list: if isSignedIn() && request.auth.uid in resource.data.participantUIDs;
       allow write: if false;
 
-      // 2 人が各ターンに出した行動。対戦に出ている 2 人が、公開された行動 (同じターンの 2 人分がそろって Functions が isRevealed を
-      // true にした行動) だけを読む。相手の行動を見てから選べないよう、そろう前の行動は相手にも本人にも読ませない。
-      // 一覧は isRevealed == true で絞った時だけ通る (Rules は、絞っていない一覧が公開前の行動を含まないことを確かめられないため)。
+      // 2 人が各ターンに出した行動 (ID は {uid}_{turnNumber})。利用者は、自分が同じターンの行動を出した後にだけ、そのターンの行動を
+      // 1 件ずつ読める (相手の行動を見てから選べないようにするため)。相手がまだ出していない時は、読み取りは通って「無い」と返る。
+      // 行動を書けるのは Functions が対戦に出ていると確かめた利用者だけのため、自分の行動があることが、対戦に出ていることも示す。
+      // 一覧は読ませない (自分の行動を出していないターンの相手の行動を含むため)。
       match /turns/{turnID} {
-        allow read: if isSignedIn()
-          && resource.data.isRevealed == true
-          && request.auth.uid in get(/databases/$(database)/documents/pvpBattles/$(battleID)).data.participantUIDs;
-        allow write: if false;
+        // turnID の最後の `_` の後ろ (ターンの番号) を返す。uid に `_` が含まれていても番号は最後の区切りの後ろにある
+        function turnNumberOf() {
+          return turnID.split('_')[turnID.split('_').size() - 1];
+        }
+        allow get: if isSignedIn()
+          && exists(/databases/$(database)/documents/pvpBattles/$(battleID)/turns/$(request.auth.uid + '_' + turnNumberOf()));
+        allow list, write: if false;
       }
     }
 
