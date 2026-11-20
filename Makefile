@@ -105,6 +105,7 @@ verify: flutter-version-check
 	$(PYTHON) scripts/test/test_replace_og_logo.py
 	node --test scripts/test/test-master-viewer.mjs
 	node --test scripts/test/test-landing-page.mjs
+	node --test scripts/test/test-add-functions-emulator-app-check-token.mjs
 
 # アプリアイコンを描き直して iOS・Android・Web と Google Play のストア掲載 (fastlane/metadata/android/*/images/icon.png) に書き出す
 # (Pillow の入った python3 が要る。PYTHON=<python3 のパス> で差し替えられる)

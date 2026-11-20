@@ -44,6 +44,10 @@ on:
         # 本番に出す前の Functions・Rules を Web 版の画面から通して確かめる時 (例: 人との対戦を 2 人の利用者で進める) に true にする。
         # ランナーで Firebase の Emulator を起動し、Web 版のつなぎ先を Emulator にする (lib/firebase/emulator.dart。DEBUG ビルドだけ)。
         # flutter_build_mode=debug と一緒に指定する。local/webtunnel の up はこの input を送らないため、gh workflow run -f で起動する
+        # (起動から 2 人の利用者のタブを開くまでの手順は CLAUDE.md の「動作確認 (Web の UI・挙動)」)。
+        # Functions は App Check のトークンの無い呼び出しを断り、Emulator につなぐビルドは App Check を始めないため、
+        # ブラウザを操作する agent-browser のセッションの最初の open に --init-script scripts/add-functions-emulator-app-check-token.js を付ける
+        # (付けないと「対戦をする」などの Functions の呼び出しが 401 になる。理由と制約は同スクリプトの先頭)
         description: "ランナーの Firebase Emulator につなぐ (true / false。true は flutter_build_mode=debug と一緒に指定する)"
         required: false
         type: choice
