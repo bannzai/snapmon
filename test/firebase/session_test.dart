@@ -37,6 +37,35 @@ void main() {
     });
   });
 
+  group('appCheckDebugToken', () {
+    test('DEBUG ビルドで token が渡されていれば、その token を返す', () {
+      expect(
+        appCheckDebugToken(
+          isDebugBuild: true,
+          tokenFromEnvironment: 'registered-debug-token',
+        ),
+        'registered-debug-token',
+      );
+    });
+
+    test('DEBUG ビルドでも token が渡されていなければ (空文字) null を返す', () {
+      expect(
+        appCheckDebugToken(isDebugBuild: true, tokenFromEnvironment: ''),
+        isNull,
+      );
+    });
+
+    test('リリースビルドでは token が渡されていても null を返す', () {
+      expect(
+        appCheckDebugToken(
+          isDebugBuild: false,
+          tokenFromEnvironment: 'registered-debug-token',
+        ),
+        isNull,
+      );
+    });
+  });
+
   group('resumeSession', () {
     /// 前回の起動で [currentUid] がログインしていた端末で、ID トークンの取り直しが [refreshError] で失敗する
     /// (null なら成功する) 時に再開し、呼んだ段の名前を [calledSteps] に残す。

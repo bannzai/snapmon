@@ -70,6 +70,7 @@ jobs:
     - run: bash scripts/test/test-set-webtunnel-setup-env-secret.sh
     - run: bash scripts/test/test-restore-android-signing.sh
     - run: bash scripts/test/test-makefile-targets.sh
+    - run: bash scripts/test/test-appcheck-debug-token-scripts.sh
     - run: bash scripts/test/test-metadata-check.sh
     - run: bash scripts/test/test-upload-crashlytics-symbols.sh
     # scripts/og_image/replace_og_logo.py のテストは Pillow を使う。runner の python3 は externally-managed (PEP 668) で

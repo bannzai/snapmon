@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+# iOS・Android の debug ビルドが App Check を通るための debug token を、1Password と Firebase の App Check に登録する。
+#
+# debug ビルドは lib/firebase/session.dart が debug provider を使い、--dart-define で渡された token を送る
+# (iOS: FIREBASE_APPCHECK_DEBUG_TOKEN_IOS、Android: FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID)。App Check を強制しているため、
+# Firebase のアプリに登録済みの token を送らない debug ビルドは匿名ログインも Functions の呼び出しも断られる。
+#
+# 使い方:
+#   初めて発行する:        bash scripts/register-appcheck-debug-token.sh <ios|android>
+#   1Password にある token を Firebase に登録し直す (アプリを作り直した時等):
+#                          op run --env-file .env.1password -- bash scripts/register-appcheck-debug-token.sh <ios|android>
+# 行うこと:
+#   1. 環境変数 FIREBASE_APPCHECK_DEBUG_TOKEN_<IOS|ANDROID> が無ければ、UUID で token を作り、1Password (vault snapmon、
+#      item は環境変数と同じ名前) に置く。item が既にあれば作らずに止まる (1Password が正のため。上の op run の形で実行する)
+#   2. Firebase の App Check の、そのプラットフォームのアプリに token を登録する
+# simtunnel の simulator へは、ビルドに埋め込まず scripts/launch-simtunnel-app.sh が起動時の環境変数で渡す (GitHub Actions の Secret には置かない)。
+# token と gcloud の access token は、画面にも外部コマンドの引数にも出さない (jq・curl・op には標準入力かファイルの読み口で渡す。引数はプロセス一覧から読めるため)。
+# 冪等にしない: 環境変数なしの実行は token を新しく作る (2 回目は item があるため 1 で止まり、何も変えない)。
+#
+# 前提: op (1Password CLI) にサインイン済み、gcloud が snapmon-prod の App Check を編集できるアカウントで認証済み。
+# exit code: 0 = 登録した、1 = 前提が足りない・登録に失敗した、2 = 引数の誤り
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+case "${1:-}" in
+  ios) name=FIREBASE_APPCHECK_DEBUG_TOKEN_IOS ;;
+  android) name=FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID ;;
+  *)
+    echo "使い方: bash scripts/register-appcheck-debug-token.sh <ios|android>" >&2
+    exit 2
+    ;;
+esac
+
+# アプリの ID は firebase.json (flutterfire configure が書く) が正
+app_id="$(jq -r --arg platform "$1" '.flutter.platforms[$platform].default.appId // empty' firebase.json)"
+[ -n "$app_id" ] || {
+  echo "firebase.json から $1 のアプリの ID を読めません" >&2
+  exit 1
+}
+
+token="${!name:-}"
+if [ -z "$token" ]; then
+  # 認可切れを「item が無い」と読み違えて作り直さないよう、先に vault を読めることを確かめる
+  op vault get snapmon > /dev/null || {
+    echo "1Password の vault snapmon を読めません (app で認可してから実行し直してください)" >&2
+    exit 1
+  }
+  # item の中身 (標準出力) は捨て、標準エラーだけを受ける。op は、無い item に「isn't an item in the ... vault」を出して
+  # exit 1 で終わる (2026-11-20 に実測)。それ以外の失敗を「無い」と読んで token を作り直さないよう、この文言の時だけ作成へ進む
+  if item_error="$(op item get "$name" --vault snapmon --format json 2>&1 > /dev/null)"; then
+    echo "1Password に ${name} が既にあります。op run --env-file .env.1password -- で実行してください" >&2
+    exit 1
+  fi
+  case "$item_error" in
+    *"isn't an item"*) ;;
+    *)
+      echo "1Password に ${name} があるかを確かめられませんでした" >&2
+      exit 1
+      ;;
+  esac
+  token="$(uuidgen | tr 'A-Z' 'a-z')"
+  [ -n "$token" ] || {
+    echo "token を作れませんでした" >&2
+    exit 1
+  }
+  printf '%s' "$token" | jq -R --arg name "$name" \
+    '{title: $name, category: "PASSWORD", fields: [{id: "password", type: "CONCEALED", purpose: "PASSWORD", value: .}]}' \
+    | op item create --vault snapmon - > /dev/null || {
+    echo "1Password に ${name} を作れませんでした (App Check には登録していません)" >&2
+    exit 1
+  }
+  echo "1Password に ${name} を作りました"
+fi
+
+# API の形 (POST .../apps/*/debugTokens、本文は displayName と UUID4 の token) の出典:
+# https://firebase.google.com/docs/reference/appcheck/rest/v1/projects.apps.debugTokens/create (2026-11-20 に確認)。
+# 同じ token を登録し直した時の応答はドキュメントに無く確かめていないため、200 以外は全て失敗として状態を出す
+# token と access token は、外部コマンドの引数に載せない (printf は bash の組み込みでプロセスを作らない。
+# access token のヘッダーは curl の -H @<ファイル> で、プロセス置換の読み口から渡す)
+status="$(printf '%s' "$token" | jq -R '{displayName: "debug-build", token: .}' \
+  | curl -sS -o /dev/null -w '%{http_code}' -X POST \
+    -H @<(printf 'Authorization: Bearer %s\n' "$(gcloud auth print-access-token)") -H "x-goog-user-project: snapmon-prod" \
+    -H 'Content-Type: application/json' --data-binary @- \
+    "https://firebaseappcheck.googleapis.com/v1/projects/snapmon-prod/apps/${app_id}/debugTokens")"
+case "$status" in
+  200) echo "App Check の $1 のアプリに debug token を登録しました" ;;
+  *)
+    echo "App Check への登録に失敗しました (HTTP ${status})" >&2
+    exit 1
+    ;;
+esac
