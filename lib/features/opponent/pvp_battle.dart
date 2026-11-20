@@ -116,10 +116,10 @@ class PvpBattle {
   final PvpFinishReason? finishReason;
 
   /// 終わったか (勝者が決まった終わりと、勝敗を付けない終わりの両方)。
-  bool get isFinished => winnerUID != null;
+  bool get isFinished => finishReason != null;
 
   /// 勝敗を付けずに終わったか (どちらも行動を選ばなかった・ブロックした・2 人の端末の勝者が食い違った)。
-  bool get isNoContest => winnerUID == null;
+  bool get isNoContest => isFinished && winnerUID == null;
 }
 
 /// 利用者が出した行動 [json] (functions/src/pvp_battle_rules.ts の `PvpAction`) をバトルの計算の行動として読む。

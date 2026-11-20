@@ -118,7 +118,7 @@ export async function deleteAccountData(dependencies: AccountDeletionDependencie
   // 1 回に読んだ対戦は並行して消す (1 件ずつ待つと、対戦の数に比例して時間がかかるため)。
   // 本人は先に待っていた側 (host) か後から来た側 (guest) のどちらかで出ているため、それぞれの uid で探す
   await firestore.doc(`pvpMatchTickets/${uid}`).delete();
-  for (const trainerUIDField of ["host.uid"]) {
+  for (const trainerUIDField of ["host.uid", "guest.uid"]) {
     for (;;) {
       const battles = await firestore
         .collection("pvpBattles")
