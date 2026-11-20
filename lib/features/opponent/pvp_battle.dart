@@ -57,7 +57,7 @@ PvpTurn pvpTurnFromDocument({
   required String turnID,
   required Map<String, dynamic> json,
 }) => (
-  uid: turnID.substring(0, turnID.indexOf('_')),
+  uid: turnID.substring(0, turnID.lastIndexOf('_')),
   turnNumber: int.parse(turnID.substring(turnID.lastIndexOf('_') + 1)),
   action: battleActionFromJson(json: json['action'] as Map<String, dynamic>),
 );

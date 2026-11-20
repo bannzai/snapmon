@@ -93,7 +93,7 @@ async function unmatchableWaitingUIDs({
     // ブロックの文書は、待っている相手ごとに「自分がブロックした」「相手にブロックされた」の順に 2 件ずつ読んでいる
     ...waitingUIDs.filter((_, index) => blocks[index * 2].exists || blocks[index * 2 + 1].exists),
     ...reportsByPlayer.docs.map((report) => report.get("monsterOwnerUid") as string),
-    ...reportsAgainstPlayer.docs.map((report) => report.get("monsterOwnerUid") as string),
+    ...reportsAgainstPlayer.docs.map((report) => report.get("reporterUid") as string),
   ]);
 }
 
@@ -135,7 +135,7 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
       .where("rulesVersion", "==", rulesVersion)
       .where("heartbeatAt", ">=", freshSince)
       .orderBy("heartbeatAt")
-      .limit(MATCH_TICKET_SCAN_LIMIT + 1)
+      .limit(MATCH_TICKET_SCAN_LIMIT)
       .get()
   ).docs
     .filter((ticket) => ticket.id !== uid)
@@ -152,7 +152,7 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     ? []
     : waitingUIDs
         .filter((waitingUID) => !unmatchableUIDs.has(waitingUID) && !hiddenOwnerUIDs.has(waitingUID))
-        .slice(0, MATCH_CANDIDATE_LIMIT + 1);
+        .slice(0, MATCH_CANDIDATE_LIMIT);
   const memberUIDs = [uid, ...candidateUIDs];
   const [memberUsers, memberParties] = await Promise.all([
     firestore.getAll(...memberUIDs.map((memberUID) => firestore.doc(`users/${memberUID}`))),
@@ -344,11 +344,11 @@ export const submitPvpAction = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
     if (turnSnapshot.exists) {
       return;
     }
-    transaction.create(turnDocument, { action: parsedAction, isRevealed: false } satisfies PvpTurnDocument);
+    transaction.create(turnDocument, { action: parsedAction, isRevealed: opponentTurnSnapshot.exists } satisfies PvpTurnDocument);
     if (!opponentTurnSnapshot.exists) {
       return;
     }
-    transaction.update(opponentTurnSnapshot.ref, { isRevealed: false } satisfies Pick<PvpTurnDocument, "isRevealed">);
+    transaction.update(opponentTurnSnapshot.ref, { isRevealed: true } satisfies Pick<PvpTurnDocument, "isRevealed">);
     transaction.update(battleDocument, { turnNumber: turnNumber + 1, turnDeadline: turnDeadlineFrom({ now }) });
   });
   return { submitted: true };
@@ -375,7 +375,7 @@ export const claimPvpTimeout = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
     // 過去のターンの行動も残っているため、今のターンの行動だけを読む
     const turnSnapshots = await transaction.getAll(
       ...battle.participantUIDs.map((participantUID) =>
-        firestore.doc(`pvpBattles/${battleID}/turns/${pvpTurnDocumentID({ uid: participantUID, turnNumber: 0 })}`),
+        firestore.doc(`pvpBattles/${battleID}/turns/${pvpTurnDocumentID({ uid: participantUID, turnNumber: battle.turnNumber })}`),
       ),
     );
     const outcome = timeoutOutcome({

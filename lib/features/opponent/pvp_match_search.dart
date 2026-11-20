@@ -9,7 +9,7 @@ import 'pvp_battle_client.dart';
 /// 相手を探している間に Functions の joinPvpMatch を呼び直す間隔。
 /// Functions は最後の呼び出しから 10 秒 (functions/src/pvp_battle_rules.ts の `MATCH_TICKET_FRESH_SECONDS`) の間だけ相手に選ぶため、
 /// 1 回の呼び出しが遅れても途切れず、後から来た相手に組み合わされたことを 3 秒以内に知れる間隔にした。
-const Duration pvpMatchJoinInterval = Duration(seconds: 4);
+const Duration pvpMatchJoinInterval = Duration(seconds: 3);
 
 /// 人との対戦で、同じ版の利用者だけを組み合わせるために Functions に渡す対戦の計算の版。
 /// バトルの計算の版 ([pvpRulesVersion]) と、技・属性・相性の表 [definitions] の版から作る
@@ -74,7 +74,7 @@ class PvpMatchSearch {
       } catch (error, stackTrace) {
         if (!_matchedBattleID.isCompleted) {
           _joinTimer?.cancel();
-          _matchedBattleID.completeError(error, stackTrace);
+          await _settleFailedJoin(joinError: error, joinStackTrace: stackTrace);
         }
       } finally {
         _joinInProgress = null;
