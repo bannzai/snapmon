@@ -38,19 +38,6 @@ class PvpTrainer {
   final List<OwnedMonster> monsters;
 }
 
-/// 人との対戦の状態 (`pvpBattles/{battleID}` の `status`)。
-enum PvpBattleStatus {
-  /// 進行中。
-  active,
-
-  /// 勝者が決まって終わった。
-  finished,
-
-  /// 勝敗を付けずに終わった (どちらも行動を選ばなかった・ブロックした・2 人の端末の勝者が食い違った)。
-  /// 保存している値は `void` (Dart の予約語のため、列挙の名前にできない)。
-  noContest,
-}
-
 /// 人との対戦がどう終わったか (`pvpBattles/{battleID}` の `finishReason`)。
 enum PvpFinishReason {
   /// 端末の計算の決着を利用者が報告した。
@@ -77,7 +64,6 @@ class PvpBattle {
     required this.battleDate,
     required this.turnNumber,
     required this.turnSeconds,
-    required this.status,
     required this.winnerUID,
     required this.finishReason,
   });
@@ -94,12 +80,6 @@ class PvpBattle {
     battleDate: DateTime.parse(json['battleDate'] as String),
     turnNumber: json['turnNumber'] as int,
     turnSeconds: json['turnSeconds'] as int,
-    status: switch (json['status'] as String) {
-      'active' => PvpBattleStatus.active,
-      'finished' => PvpBattleStatus.finished,
-      'void' => PvpBattleStatus.noContest,
-      final status => throw FormatException('知らない対戦の状態 $status'),
-    },
     winnerUID: json['winnerUID'] as String?,
     finishReason: switch (json['finishReason'] as String?) {
       null => null,
@@ -123,19 +103,23 @@ class PvpBattle {
   final DateTime battleDate;
 
   /// 今のターンの番号 (0 始まり)。これより小さい番号のターンは、2 人とも行動を出している。
+  /// 2 人の行動がそろうたびに 1 増える番号で、バトルの計算の [BattleState.turnNumber] (片方の行動ごとに進む 1 始まりの番号) とは別の数。
   final int turnNumber;
 
   /// 1 ターンの行動を選ぶ時間 (秒)。
   final int turnSeconds;
 
-  /// 対戦の状態。
-  final PvpBattleStatus status;
-
-  /// 勝者の uid。[PvpBattleStatus.finished] の時だけ入る。
+  /// 勝者の uid。勝者が決まって終わった時だけ入る (進行中と、勝敗を付けずに終わった時は null)。
   final String? winnerUID;
 
   /// どう終わったか。進行中は null。
   final PvpFinishReason? finishReason;
+
+  /// 終わったか (勝者が決まった終わりと、勝敗を付けない終わりの両方)。
+  bool get isFinished => finishReason != null;
+
+  /// 勝敗を付けずに終わったか (どちらも行動を選ばなかった・ブロックした・2 人の端末の勝者が食い違った)。
+  bool get isNoContest => isFinished && winnerUID == null;
 }
 
 /// 利用者が出した行動 [json] (functions/src/pvp_battle_rules.ts の `PvpAction`) をバトルの計算の行動として読む。

@@ -22,6 +22,7 @@ import {
   isRulesVersion,
   outcomeAfterReport,
   parsePvpAction,
+  pvpParticipantUIDs,
   pvpTurnDocumentID,
   timeoutOutcome,
 } from "./pvp_battle_rules";
@@ -45,7 +46,7 @@ function requireParticipantBattle({ battleSnapshot, uid }: { battleSnapshot: Doc
     throw new HttpsError("not-found", "対戦が見つかりません");
   }
   const battle = battleSnapshot.data() as PvpBattleDocument;
-  if (!battle.participantUIDs.includes(uid)) {
+  if (!pvpParticipantUIDs({ battle }).includes(uid)) {
     throw new HttpsError("permission-denied", "この対戦に出ていません");
   }
   return battle;
@@ -232,7 +233,6 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     transaction.create(battleDocument, {
       host,
       guest,
-      participantUIDs: [hostUID, uid],
       // 端末の乱数 (lib/domain/random/deterministic_random.dart の xorshift32) の状態は 32 ビットで、0 は別の値に置き換えられるため、
       // 置き換えの起きない 1 以上の 32 ビットの整数にする
       randomSeed: randomInt(1, 2 ** 32),
@@ -240,7 +240,6 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
       turnNumber: 0,
       turnSeconds: TURN_SECONDS,
       turnDeadline: turnDeadlineFrom({ now }),
-      status: "active",
       winnerUID: null,
       finishReason: null,
       reportedWinnerUIDs: {},
@@ -321,7 +320,7 @@ export const submitPvpAction = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
     if (turnNumber < battle.turnNumber) {
       return;
     }
-    if (battle.status !== "active") {
+    if (battle.finishReason !== null) {
       throw new HttpsError("failed-precondition", "対戦は終わっています");
     }
     if (turnNumber > battle.turnNumber) {
@@ -336,7 +335,7 @@ export const submitPvpAction = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
       turnDocument,
       firestore.doc(
         `pvpBattles/${battleID}/turns/${pvpTurnDocumentID({
-          uid: battle.participantUIDs.find((participantUID) => participantUID !== uid)!,
+          uid: pvpParticipantUIDs({ battle }).find((participantUID) => participantUID !== uid)!,
           turnNumber,
         })}`,
       ),
@@ -357,39 +356,43 @@ export const submitPvpAction = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
  * 人との対戦で、行動の期限を過ぎたターンを時間切れとして終える callable。相手を待っている端末と、期限まで選ばなかった端末が呼ぶ。
  *
  * 受け取る data: `{ battleID: string }`。
- * 返す値: `{ status: "active" | "finished" | "void" }` (呼んだ後の対戦の状態)。
- * 期限はサーバーの時計で判定し、過ぎていなければ何もせず `active` を返す (端末の時計が進んでいても早く終わらせない)。
+ * 返す値: `{ claimed: true }` (対戦がどうなったかは、端末が `pvpBattles/{battleID}` の購読で受け取る)。
+ * 期限はサーバーの時計で判定し、過ぎていなければ何もしない (端末の時計が進んでいても早く終わらせない)。
  * 過ぎていれば、今のターンの行動を出したのが片方だけならその側の勝ち、どちらも出していなければ勝敗を付けずに終える (pvp_battle_rules.ts の timeoutOutcome)。
- * 終わった対戦に呼んでも何もせず、その状態を返す (冪等)。
+ * 終わった対戦に呼んでも何もしない (冪等)。
  */
 export const claimPvpTimeout = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
   const battleID = requireBattleID({ battleID: ((request.data ?? {}) as { battleID?: unknown }).battleID });
   const firestore = getFirestore();
-  return firestore.runTransaction(async (transaction): Promise<{ status: PvpBattleDocument["status"] }> => {
+  await firestore.runTransaction(async (transaction) => {
     const battle = requireParticipantBattle({ battleSnapshot: await transaction.get(firestore.doc(`pvpBattles/${battleID}`)), uid });
-    if (battle.status !== "active" || Timestamp.now().toMillis() <= battle.turnDeadline.toMillis()) {
-      return { status: battle.status };
+    if (battle.finishReason !== null || Timestamp.now().toMillis() <= battle.turnDeadline.toMillis()) {
+      return;
     }
+    const participantUIDs = pvpParticipantUIDs({ battle });
     // 過去のターンの行動も残っているため、今のターンの行動だけを読む
     const turnSnapshots = await transaction.getAll(
-      ...battle.participantUIDs.map((participantUID) =>
+      ...participantUIDs.map((participantUID) =>
         firestore.doc(`pvpBattles/${battleID}/turns/${pvpTurnDocumentID({ uid: participantUID, turnNumber: battle.turnNumber })}`),
       ),
     );
-    const outcome = timeoutOutcome({
-      submittedUIDs: battle.participantUIDs.filter((_, index) => turnSnapshots[index].exists),
+    await finishPvpBattle({
+      transaction,
+      firestore,
+      battleID,
+      battle,
+      outcome: timeoutOutcome({ submittedUIDs: participantUIDs.filter((_, index) => turnSnapshots[index].exists) }),
     });
-    await finishPvpBattle({ transaction, firestore, battleID, battle, outcome });
-    return { status: outcome.status };
   });
+  return { claimed: true };
 });
 
 /**
  * 人との対戦で、自分の端末の計算が出した勝者を報告する callable。端末は決着の後、recordBattle (レベルの記録) の前に呼ぶ。
  *
  * 受け取る data: `{ battleID: string, winnerUID: string | null }` (winnerUID は 2 人のどちらかの uid。2 人が出した行動では決着していない、という報告は null)。
- * 返す値: `{ status: "active" | "finished" | "void" }` (呼んだ後の対戦の状態)。
+ * 返す値: `{ reported: true }` (対戦がどうなったかは、端末が `pvpBattles/{battleID}` の購読で受け取る)。
  * 進行中の対戦は最初の報告の勝者で終え、2 人の `users/{uid}/battles/{battleID}` に勝敗を書く。報告で終わった対戦に、食い違う報告
  * (別の勝者・決着していない) が届いたら、勝敗を付けない終わりに変えて書いた勝敗を消す (pvp_battle_rules.ts の outcomeAfterReport)。
  * 報告は 1 人 1 回で、出し直しは何も変えない (冪等)。期限切れ・ブロックで終わった対戦は報告で変わらない。
@@ -401,24 +404,24 @@ export const reportPvpResult = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
   const battleID = requireBattleID({ battleID: requestedBattleID });
   const firestore = getFirestore();
   const battleDocument = firestore.doc(`pvpBattles/${battleID}`);
-  return firestore.runTransaction(async (transaction): Promise<{ status: PvpBattleDocument["status"] }> => {
+  await firestore.runTransaction(async (transaction) => {
     const battle = requireParticipantBattle({ battleSnapshot: await transaction.get(battleDocument), uid });
-    if (winnerUID !== null && !battle.participantUIDs.includes(winnerUID as string)) {
+    if (winnerUID !== null && !pvpParticipantUIDs({ battle }).includes(winnerUID as string)) {
       throw new HttpsError("invalid-argument", "winnerUID に対戦に出ている利用者の uid か null を渡してください");
     }
     const reportedWinnerUID = winnerUID as string | null;
     if (uid in battle.reportedWinnerUIDs) {
-      return { status: battle.status };
+      return;
     }
     const outcome = outcomeAfterReport({ battle, reportedWinnerUID });
     // 進行中の対戦への「決着していない」は、変えるものが無いため報告として残さない (後で出す本当の勝者の報告を塞がないため)
-    if (battle.status === "active" && outcome === undefined) {
-      return { status: battle.status };
+    if (battle.finishReason === null && outcome === undefined) {
+      return;
     }
     if (outcome !== undefined) {
       await finishPvpBattle({ transaction, firestore, battleID, battle, outcome });
     }
     transaction.update(battleDocument, new FieldPath("reportedWinnerUIDs", uid), reportedWinnerUID);
-    return { status: outcome?.status ?? battle.status };
   });
+  return { reported: true };
 });

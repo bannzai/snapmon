@@ -196,7 +196,7 @@ MonsterStats effectiveStats({
 /// (lib/features/opponent/pvp_match_search.dart)。同じ手持ち・乱数の種・行動の列から出る結果が変わる変更
 /// (ダメージ・行動順・乱数を引く順・技の式・状態の扱い) を入れる時に上げる。上げ忘れは、固定した対戦の結果を照合するテスト
 /// (test/domain/battle/pvp_determinism_test.dart) が落として知らせる。
-const int pvpRulesVersion = 1;
+const int pvpBattleCalculationVersion = 1;
 
 /// 両陣営の手持ち ([prepareBattleMonster] で用意した 1〜3 体) でバトルを始める。
 /// [randomSeed] は行動順の同速判定・ダメージの乱数幅・命中・状態・状態で行動が止まるか・混乱・入れ替えに使い、同じ seed と同じ行動からは同じ結果になる。

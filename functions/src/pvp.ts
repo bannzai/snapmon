@@ -8,7 +8,7 @@ import { ENFORCE_APP_CHECK } from "./app_check";
 import { requireSignedInUid } from "./battle";
 import type { MonsterDocument } from "./generation/records";
 import { finishPvpBattle } from "./pvp_battle_finish";
-import type { PvpBattleDocument } from "./pvp_battle_rules";
+import { type PvpBattleDocument, pvpParticipantUIDs } from "./pvp_battle_rules";
 import {
   OPPONENT_CANDIDATE_SCAN_LIMIT,
   REPORT_HIDE_THRESHOLD,
@@ -262,14 +262,11 @@ export const blockUser = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (r
     requireActiveAccount({ userSnapshot });
     if (typeof battleID === "string") {
       const battle = (await transaction.get(firestore.doc(`pvpBattles/${battleID}`))).data() as PvpBattleDocument | undefined;
-      if (battle?.status === "active" && battle.participantUIDs.includes(uid) && battle.participantUIDs.includes(blockedUid)) {
-        await finishPvpBattle({
-          transaction,
-          firestore,
-          battleID,
-          battle,
-          outcome: { status: "void", winnerUID: null, finishReason: "blocked" },
-        });
+      if (
+        battle?.finishReason === null &&
+        [uid, blockedUid].every((participantUID) => pvpParticipantUIDs({ battle }).includes(participantUID))
+      ) {
+        await finishPvpBattle({ transaction, firestore, battleID, battle, outcome: { winnerUID: null, finishReason: "blocked" } });
       }
     }
     if (!blockSnapshot.exists) {

@@ -208,7 +208,7 @@ describe("人との対戦 (pvpMatchTickets・pvpBattles・turns)", () => {
     await testEnvironment.withSecurityRulesDisabled(async (context) => {
       const firestore = context.firestore();
       await setDoc(doc(firestore, "pvpMatchTickets/alice"), { searchID: "search", battleID: "battle" });
-      await setDoc(doc(firestore, "pvpBattles/battle"), { participantUIDs: ["alice", "bob"], status: "active", turnNumber: 1 });
+      await setDoc(doc(firestore, "pvpBattles/battle"), { host: { uid: "alice" }, guest: { uid: "bob" }, turnNumber: 1 });
       await setDoc(doc(firestore, "pvpBattles/battle/turns/alice_0"), { action: { kind: "move", moveID: "alice-move" } });
       await setDoc(doc(firestore, "pvpBattles/battle/turns/bob_0"), { action: { kind: "struggle" } });
       await setDoc(doc(firestore, "pvpBattles/battle/turns/bob_1"), { action: { kind: "struggle" } });
@@ -230,20 +230,16 @@ describe("人との対戦 (pvpMatchTickets・pvpBattles・turns)", () => {
     await assertFails(getDoc(doc(testEnvironment.unauthenticatedContext().firestore(), "pvpBattles/deleted-battle")));
   });
 
-  it("対戦の一覧は、自分が出ている対戦に絞った時だけ読める", async () => {
-    await assertSucceeds(
-      getDocs(query(collection(signedInFirestore("alice"), "pvpBattles"), where("participantUIDs", "array-contains", "alice"))),
-    );
+  it("対戦の一覧は、自分が出ている対戦に絞っても読めない (端末は 1 件だけを購読する)", async () => {
+    await assertFails(getDocs(query(collection(signedInFirestore("alice"), "pvpBattles"), where("host.uid", "==", "alice"))));
+    await assertFails(getDocs(query(collection(signedInFirestore("bob"), "pvpBattles"), where("guest.uid", "==", "bob"))));
     await assertFails(getDocs(collection(signedInFirestore("alice"), "pvpBattles")));
-    await assertFails(
-      getDocs(query(collection(signedInFirestore("carol"), "pvpBattles"), where("participantUIDs", "array-contains", "alice"))),
-    );
   });
 
   it("出ている利用者も対戦を書けない (行動と結果を改ざんさせないため)", async () => {
     const firestore = signedInFirestore("alice");
-    await assertFails(updateDoc(doc(firestore, "pvpBattles/battle"), { status: "finished", winnerUID: "alice" }));
-    await assertFails(setDoc(doc(firestore, "pvpBattles/another"), { participantUIDs: ["alice", "bob"] }));
+    await assertFails(updateDoc(doc(firestore, "pvpBattles/battle"), { finishReason: "result", winnerUID: "alice" }));
+    await assertFails(setDoc(doc(firestore, "pvpBattles/another"), { host: { uid: "alice" }, guest: { uid: "bob" } }));
     await assertFails(deleteDoc(doc(firestore, "pvpBattles/battle")));
   });
 

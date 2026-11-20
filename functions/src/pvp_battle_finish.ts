@@ -1,6 +1,6 @@
 import { FieldValue, type Firestore, type Transaction } from "firebase-admin/firestore";
 
-import type { PvpBattleDocument, PvpBattleOutcome } from "./pvp_battle_rules";
+import { type PvpBattleDocument, type PvpBattleOutcome, pvpParticipantUIDs } from "./pvp_battle_rules";
 
 /**
  * トランザクション [transaction] の中で、人との対戦 [battleID] ([battle]) を [outcome] で終える。
@@ -23,19 +23,13 @@ export async function finishPvpBattle({
   battle: PvpBattleDocument;
   outcome: PvpBattleOutcome;
 }): Promise<void> {
-  const recordSnapshots = await transaction.getAll(
-    ...battle.participantUIDs.map((uid) => firestore.doc(`users/${uid}/battles/${battleID}`)),
-  );
+  const participantUIDs = pvpParticipantUIDs({ battle });
+  const recordSnapshots = await transaction.getAll(...participantUIDs.map((uid) => firestore.doc(`users/${uid}/battles/${battleID}`)));
   transaction.update(firestore.doc(`pvpBattles/${battleID}`), { ...outcome, turnDeadline: null });
   for (const [index, recordSnapshot] of recordSnapshots.entries()) {
     if (recordSnapshot.exists) {
       transaction.update(recordSnapshot.ref, {
-        winner:
-          outcome.status === "finished"
-            ? outcome.winnerUID === battle.participantUIDs[index]
-              ? "player"
-              : "opponent"
-            : FieldValue.delete(),
+        winner: outcome.winnerUID === null ? FieldValue.delete() : outcome.winnerUID === participantUIDs[index] ? "player" : "opponent",
       });
     }
   }

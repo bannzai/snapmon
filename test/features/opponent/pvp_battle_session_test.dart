@@ -338,13 +338,13 @@ void main() {
       expect(server.timeoutClaimUIDs, isEmpty);
       await tester.pump(const Duration(seconds: 1));
       expect(server.timeoutClaimUIDs, unorderedEquals([host.uid, guest.uid]));
-      expect(server.battle!.status, PvpBattleStatus.active);
+      expect(server.battle!.isFinished, isFalse);
       expect(hostInterruption, isNull);
 
       // サーバーの期限を過ぎた後の頼み直しで終わる
       server.isTurnDeadlinePassed = true;
       await tester.pump(const Duration(seconds: 3));
-      expect(server.battle!.status, PvpBattleStatus.finished);
+      expect(server.battle!.winnerUID, isNotNull);
       expect(server.battle!.winnerUID, host.uid);
       expect(hostInterruption, (winner: BattleSideID.player));
       expect(guestInterruption, (winner: BattleSideID.opponent));
@@ -373,7 +373,7 @@ void main() {
       expect(isInterrupted, isFalse);
       await tester.pump(const Duration(seconds: 1));
 
-      expect(server.battle!.status, PvpBattleStatus.noContest);
+      expect(server.battle!.isNoContest, isTrue);
       expect(isInterrupted, isTrue);
       expect(hostInterruption, (winner: null));
     });
@@ -481,7 +481,7 @@ void main() {
       await tester.pump();
 
       expect(server.reportCalls.last, (uid: host.uid, winnerUID: null));
-      expect(server.battle!.status, PvpBattleStatus.noContest);
+      expect(server.battle!.isNoContest, isTrue);
       expect(server.battle!.finishReason, PvpFinishReason.mismatch);
       expect(isInterrupted, isTrue);
       expect(hostInterruption, (winner: null));
@@ -525,7 +525,7 @@ void main() {
 
       expect(hostNextState!.winner, BattleSideID.player);
       expect(isInterrupted, isFalse);
-      expect(server.battle!.status, PvpBattleStatus.finished);
+      expect(server.battle!.winnerUID, isNotNull);
       expect(server.reportCalls, [(uid: guest.uid, winnerUID: host.uid)]);
     });
 

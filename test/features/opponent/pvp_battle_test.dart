@@ -40,12 +40,10 @@ Map<String, dynamic> _battleJson({required Map<String, dynamic> overrides}) => {
     'iconPath': null,
     'monsters': [_publicMonsterJson(monsterID: 'guest-monster')],
   },
-  'participantUIDs': ['host-uid', 'guest-uid'],
   'randomSeed': 4294967295,
   'battleDate': '2026-11-20',
   'turnNumber': 0,
   'turnSeconds': 60,
-  'status': 'active',
   'winnerUID': null,
   'finishReason': null,
   'reportedWinnerUIDs': <String, dynamic>{},
@@ -72,7 +70,8 @@ void main() {
     expect(battle.battleDate, DateTime(2026, 11, 20));
     expect(battle.turnNumber, 0);
     expect(battle.turnSeconds, 60);
-    expect(battle.status, PvpBattleStatus.active);
+    expect(battle.isFinished, isFalse);
+    expect(battle.isNoContest, isFalse);
     expect(battle.winnerUID, isNull);
     expect(battle.finishReason, isNull);
   });
@@ -115,20 +114,20 @@ void main() {
         battleID: 'battle-1',
         json: _battleJson(
           overrides: {
-            'status': 'finished',
             'winnerUID': 'guest-uid',
             'finishReason': finishReasonJson,
           },
         ),
       );
 
-      expect(battle.status, PvpBattleStatus.finished);
+      expect(battle.isFinished, isTrue);
+      expect(battle.isNoContest, isFalse);
       expect(battle.winnerUID, 'guest-uid');
       expect(battle.finishReason, finishReason);
     }
   });
 
-  test('保存している状態 void を、勝敗なしとして読む', () {
+  test('勝者のいない終わりを、勝敗なしとして読む', () {
     for (final (finishReasonJson, finishReason) in [
       ('timeout', PvpFinishReason.timeout),
       ('mismatch', PvpFinishReason.mismatch),
@@ -136,31 +135,21 @@ void main() {
     ]) {
       final battle = PvpBattle.fromJson(
         battleID: 'battle-1',
-        json: _battleJson(
-          overrides: {'status': 'void', 'finishReason': finishReasonJson},
-        ),
+        json: _battleJson(overrides: {'finishReason': finishReasonJson}),
       );
 
-      expect(battle.status, PvpBattleStatus.noContest);
+      expect(battle.isFinished, isTrue);
+      expect(battle.isNoContest, isTrue);
       expect(battle.winnerUID, isNull);
       expect(battle.finishReason, finishReason);
     }
   });
 
-  test('知らない状態・終わり方・行動の種類は、別の値として読まずに失敗する', () {
+  test('知らない終わり方・行動の種類は、別の値として読まずに失敗する', () {
     expect(
       () => PvpBattle.fromJson(
         battleID: 'battle-1',
-        json: _battleJson(overrides: {'status': 'noContest'}),
-      ),
-      throwsFormatException,
-    );
-    expect(
-      () => PvpBattle.fromJson(
-        battleID: 'battle-1',
-        json: _battleJson(
-          overrides: {'status': 'void', 'finishReason': 'surrendered'},
-        ),
+        json: _battleJson(overrides: {'finishReason': 'surrendered'}),
       ),
       throwsArgumentError,
     );

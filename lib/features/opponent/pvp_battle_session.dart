@@ -92,15 +92,16 @@ class PvpBattleSession {
   /// 最後に受け取った対戦の状態。
   PvpBattle _battle;
 
-  /// 待っているラウンド ([_pendingRound]) のターンに相手が出した行動。まだ届いていない間と、待っていない間は null。
+  /// 待っているターン ([_pendingTurn]) に相手が出した行動。まだ届いていない間と、待っていない間は null。
   /// 対戦の状態とは別の購読で届く。
   BattleAction? _opponentAction;
 
   /// [remainingSeconds] の実体。
   final ValueNotifier<int> _remainingSeconds;
 
-  /// 自分の計算で進め終えたラウンドの数 (= 次に行動を出すターンの 0 始まりの番号)。
-  int _resolvedRoundCount = 0;
+  /// 次に自分が行動を出すターンの番号。[PvpBattle.turnNumber] と同じ数え方 (0 始まり) で、自分の計算で 2 人の行動を進め終えるたびに 1 増える。
+  /// バトルの計算の状態からは求めない (選べない行動で終える [finishBattleByForfeit] は [BattleState.turnNumber] を進めないため)。
+  int _turnNumber = 0;
 
   /// 対戦の同期を終えたか (自分の計算で決着した対戦をサーバーも勝者を決めて終えた・[interruption] が完了した・[dispose] した)。
   bool _isSettled = false;
@@ -111,13 +112,13 @@ class PvpBattleSession {
   /// [dispose] したか。
   bool _isDisposed = false;
 
-  /// 行動を出して相手の行動を待っているラウンド (進める前の状態・自分が出した行動・進めた状態を返す先)。待っていない間は null。
+  /// 行動を出して相手の行動を待っているターン (進める前の状態・自分が出した行動・進めた状態を返す先)。待っていない間は null。
   ({
     BattleState state,
     BattleAction playerAction,
     Completer<BattleState?> nextState,
   })?
-  _pendingRound;
+  _pendingTurn;
 
   /// [interruption] の実体。
   final Completer<PvpBattleInterruption> _interruption = Completer();
@@ -125,7 +126,7 @@ class PvpBattleSession {
   /// 対戦の状態の購読。[start] の前と同期を終えた後は null。
   StreamSubscription<PvpBattle?>? _battleSubscription;
 
-  /// 待っているラウンドのターンに相手が出す行動の購読。自分の行動を出し終えてから始める。待っていない間は null。
+  /// 待っているターンに相手が出す行動の購読。自分の行動を出し終えてから始める。待っていない間は null。
   StreamSubscription<BattleAction?>? _opponentActionSubscription;
 
   /// 残り時間を 1 秒ずつ数えるタイマー。[start] の前と同期を終えた後は null。
@@ -185,7 +186,7 @@ class PvpBattleSession {
 
   /// 自分の端末の向きの [state] から、自分の行動 [playerAction] を出して相手の行動を待ち、1 ラウンド進めた状態を返す。
   /// 待つ間に対戦が終わった時 ([interruption]) と [dispose] した時は null を返す。
-  /// 行動を出す呼び出しと、相手の行動の読み取りが失敗した時は、ラウンドが進むか対戦が終わるまで [_retryInterval] ごとにやり直す
+  /// 行動を出す呼び出しと、相手の行動の読み取りが失敗した時は、ターンが進むか対戦が終わるまで [_retryInterval] ごとにやり直す
   /// (通信が戻らなければ、行動を出せなかった側として時間切れで終わる)。
   Future<BattleState?> advance({
     required BattleState state,
@@ -195,26 +196,26 @@ class PvpBattleSession {
       return Future.value();
     }
     final nextState = Completer<BattleState?>();
-    _pendingRound = (
+    _pendingTurn = (
       state: state,
       playerAction: playerAction,
       nextState: nextState,
     );
-    unawaited(_submitAction(round: _resolvedRoundCount, action: playerAction));
+    unawaited(_submitAction(turnNumber: _turnNumber, action: playerAction));
     return nextState.future;
   }
 
-  /// [round] 番目のターンに [action] を出し、出し終えたら相手の同じターンの行動の購読を始める ([_watchOpponentAction])。
-  /// 失敗した時は、ラウンドが進むか同期を終えるまでやり直す。
+  /// [turnNumber] 番目のターンに [action] を出し、出し終えたら相手の同じターンの行動の購読を始める ([_watchOpponentAction])。
+  /// 失敗した時は、ターンが進むか同期を終えるまでやり直す。
   Future<void> _submitAction({
-    required int round,
+    required int turnNumber,
     required BattleAction action,
   }) async {
-    while (!_isSettled && _resolvedRoundCount == round) {
+    while (!_isSettled && _turnNumber == turnNumber) {
       try {
         await client.submitAction(
           battleID: battleID,
-          turnNumber: round,
+          turnNumber: turnNumber,
           action: action,
         );
         break;
@@ -223,14 +224,14 @@ class PvpBattleSession {
         await Future<void>.delayed(_retryInterval);
       }
     }
-    _watchOpponentAction(round: round);
+    _watchOpponentAction(turnNumber: turnNumber);
   }
 
-  /// [round] 番目のターンに相手が出す行動の購読を始める。そのラウンドを待っていない時 (進んだ・同期を終えた) は何もしない。
+  /// [turnNumber] 番目のターンに相手が出す行動の購読を始める。そのターンを待っていない時 (進んだ・同期を終えた) は何もしない。
   /// 自分の行動を出し終えてから呼ぶ (出す前の読み取りは Rules が通さない)。
-  /// 読めなかった時は、[_retryInterval] の後に購読し直す (ラウンドが進むか同期を終えるまで)。
-  void _watchOpponentAction({required int round}) {
-    if (_isSettled || _pendingRound == null || _resolvedRoundCount != round) {
+  /// 読めなかった時は、[_retryInterval] の後に購読し直す (ターンが進むか同期を終えるまで)。
+  void _watchOpponentAction({required int turnNumber}) {
+    if (_isSettled || _pendingTurn == null || _turnNumber != turnNumber) {
       return;
     }
     unawaited(_opponentActionSubscription?.cancel());
@@ -238,13 +239,13 @@ class PvpBattleSession {
         .watchTurnAction(
           battleID: battleID,
           uid: opponent.uid,
-          turnNumber: round,
+          turnNumber: turnNumber,
         )
         .listen(
           (opponentAction) {
             if (_isSettled ||
                 opponentAction == null ||
-                _resolvedRoundCount != round) {
+                _turnNumber != turnNumber) {
               return;
             }
             _opponentAction = opponentAction;
@@ -255,7 +256,7 @@ class PvpBattleSession {
             unawaited(
               Future<void>.delayed(
                 _retryInterval,
-              ).then((_) => _watchOpponentAction(round: round)),
+              ).then((_) => _watchOpponentAction(turnNumber: turnNumber)),
             );
           },
         );
@@ -274,33 +275,33 @@ class PvpBattleSession {
     _reconcile();
   }
 
-  /// 最後に受け取った対戦の状態と相手の行動から、待っているラウンドを進め、対戦が終わっていれば [interruption] を完了する。
+  /// 最後に受け取った対戦の状態と相手の行動から、待っているターンを進め、対戦が終わっていれば [interruption] を完了する。
   /// 対戦の状態と相手の行動は別の購読で届き、届く順は決まっていないため、どちらが届いた時も同じ判定をする。
   void _reconcile() {
     final battle = _battle;
     // 勝敗を付けずに終わった対戦は、最後のターンの行動が届いていても進めない
     // (進めて決着すると、この端末だけが勝敗を出して記録に進むため)
-    if (battle.status == PvpBattleStatus.noContest) {
+    if (battle.isNoContest) {
       _interrupt(interruption: (winner: null));
       return;
     }
-    final pendingRound = _pendingRound;
+    final pendingTurn = _pendingTurn;
     final opponentAction = _opponentAction;
-    if (pendingRound != null && opponentAction != null) {
+    if (pendingTurn != null && opponentAction != null) {
       final nextState = resolvePvpRound(
-        state: pendingRound.state,
-        hostAction: _isHost ? pendingRound.playerAction : opponentAction,
-        guestAction: _isHost ? opponentAction : pendingRound.playerAction,
+        state: pendingTurn.state,
+        hostAction: _isHost ? pendingTurn.playerAction : opponentAction,
+        guestAction: _isHost ? opponentAction : pendingTurn.playerAction,
         isHost: _isHost,
         definitions: definitions,
       );
-      _pendingRound = null;
+      _pendingTurn = null;
       _opponentAction = null;
       unawaited(_opponentActionSubscription?.cancel());
       _opponentActionSubscription = null;
-      _resolvedRoundCount += 1;
+      _turnNumber += 1;
       if (nextState.winner != null) {
-        // 購読は止めない。勝者を報告するのは最後のラウンドの演出の後で、それまでにサーバーが勝敗を付けずに終える
+        // 購読は止めない。勝者を報告するのは最後のターンの演出の後で、それまでにサーバーが勝敗を付けずに終える
         // (相手がブロックした・対戦が消えた) ことがあるため、サーバーが対戦を終えるまで受け取り続ける
         _isDecided = true;
         _turnTimer?.cancel();
@@ -309,14 +310,14 @@ class PvpBattleSession {
         _remainingSeconds.value = battle.turnSeconds;
         _secondsAfterDeadline = 0;
       }
-      pendingRound.nextState.complete(nextState);
+      pendingTurn.nextState.complete(nextState);
     }
-    if (_isSettled || battle.status != PvpBattleStatus.finished) {
+    if (_isSettled || !battle.isFinished) {
       return;
     }
     // 2 人とも出したターンの相手の行動がまだ届いていない間は、終わり方を判定しない (行動が届いて進めた後に、もう一度ここへ来る)。
     // 先に判定すると、最後のターンで決着した対戦の相手の報告を「自分の計算では決着していない」と扱い、勝敗なしにしてしまう
-    if (_resolvedRoundCount < battle.turnNumber) {
+    if (_turnNumber < battle.turnNumber) {
       return;
     }
     if (_isDecided) {
@@ -381,8 +382,8 @@ class PvpBattleSession {
     _opponentAction = null;
     _turnTimer?.cancel();
     _turnTimer = null;
-    _pendingRound?.nextState.complete(null);
-    _pendingRound = null;
+    _pendingTurn?.nextState.complete(null);
+    _pendingTurn = null;
   }
 }
 

@@ -546,7 +546,7 @@ void main() {
         maximumSeconds: 70,
       );
       expect(find.text(l10n.battleNoContestMessage), findsOneWidget);
-      expect(server.battle!.status, PvpBattleStatus.noContest);
+      expect(server.battle!.isNoContest, isTrue);
 
       await tester.tap(find.byKey(const Key('battle-no-contest-close')));
       await tester.pump();
@@ -693,7 +693,7 @@ void main() {
 
       expect(pvpCalls.blocks, isEmpty);
       expect(find.byType(BattleScreen), findsOneWidget);
-      expect(server.battle!.status, PvpBattleStatus.active);
+      expect(server.battle!.isFinished, isFalse);
     });
 
     testWidgets('メニューの「お問い合わせ」は連絡先を開き、開けなかった時はそのことを出す', (tester) async {

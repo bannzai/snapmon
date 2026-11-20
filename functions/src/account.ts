@@ -115,18 +115,21 @@ export async function deleteAccountData(dependencies: AccountDeletionDependencie
   // (関数の時間切れで途中で止まっても、消した対戦は次の読み取りに出ず、Auth のユーザーはこの後で消すため、
   // 本人がもう一度呼べば残りから消せる)。
   // 1 戦の行動の数はターンの数で決まり上限が無いため、batch の 1 回の書き込みに入れず、対戦ごとに recursiveDelete が分けて消す。
-  // 1 回に読んだ対戦は並行して消す (1 件ずつ待つと、対戦の数に比例して時間がかかるため)
+  // 1 回に読んだ対戦は並行して消す (1 件ずつ待つと、対戦の数に比例して時間がかかるため)。
+  // 本人は先に待っていた側 (host) か後から来た側 (guest) のどちらかで出ているため、それぞれの uid で探す
   await firestore.doc(`pvpMatchTickets/${uid}`).delete();
-  for (;;) {
-    const battles = await firestore
-      .collection("pvpBattles")
-      .where("participantUIDs", "array-contains", uid)
-      .limit(PVP_BATTLE_DELETION_PAGE_SIZE)
-      .get();
-    if (battles.empty) {
-      break;
+  for (const trainerUIDField of ["host.uid", "guest.uid"]) {
+    for (;;) {
+      const battles = await firestore
+        .collection("pvpBattles")
+        .where(trainerUIDField, "==", uid)
+        .limit(PVP_BATTLE_DELETION_PAGE_SIZE)
+        .get();
+      if (battles.empty) {
+        break;
+      }
+      await Promise.all(battles.docs.map((battle) => firestore.recursiveDelete(battle.ref)));
     }
-    await Promise.all(battles.docs.map((battle) => firestore.recursiveDelete(battle.ref)));
   }
   for (const collection of await userDocument.listCollections()) {
     await firestore.recursiveDelete(collection);

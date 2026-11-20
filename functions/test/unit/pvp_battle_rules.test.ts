@@ -9,18 +9,18 @@ import {
   isRulesVersion,
   outcomeAfterReport,
   parsePvpAction,
+  pvpParticipantUIDs,
   timeoutOutcome,
 } from "../../src/pvp_battle_rules";
 
 /** 進行中の対戦の進み具合。 */
-const activeProgress: PvpBattleProgress = { status: "active", winnerUID: null, finishReason: null, turnDeadline: Timestamp.fromMillis(0) };
+const activeProgress: PvpBattleProgress = { winnerUID: null, finishReason: null, turnDeadline: Timestamp.fromMillis(0) };
 
 /** host-uid と guest-uid の、進み具合が [progress] の対戦のドキュメント。 */
 function battleDocument({ progress }: { progress: PvpBattleProgress }): PvpBattleDocument {
   return {
     host: { uid: "host-uid", displayName: "ホスト", iconPath: null, monsters: [] },
     guest: { uid: "guest-uid", displayName: "ゲスト", iconPath: null, monsters: [] },
-    participantUIDs: ["host-uid", "guest-uid"],
     randomSeed: 1,
     battleDate: "2026-11-19",
     turnNumber: 0,
@@ -104,19 +104,18 @@ describe("isMatchableHostTicket", () => {
 
 describe("timeoutOutcome", () => {
   it("行動を出したのが片方だけなら、出した側の勝ちで終える", () => {
-    expect(timeoutOutcome({ submittedUIDs: ["guest-uid"] })).toEqual({ status: "finished", winnerUID: "guest-uid", finishReason: "timeout" });
-    expect(timeoutOutcome({ submittedUIDs: ["host-uid"] })).toEqual({ status: "finished", winnerUID: "host-uid", finishReason: "timeout" });
+    expect(timeoutOutcome({ submittedUIDs: ["guest-uid"] })).toEqual({ winnerUID: "guest-uid", finishReason: "timeout" });
+    expect(timeoutOutcome({ submittedUIDs: ["host-uid"] })).toEqual({ winnerUID: "host-uid", finishReason: "timeout" });
   });
 
   it("どちらも出していなければ、勝敗を付けずに終える", () => {
-    expect(timeoutOutcome({ submittedUIDs: [] })).toEqual({ status: "void", winnerUID: null, finishReason: "timeout" });
+    expect(timeoutOutcome({ submittedUIDs: [] })).toEqual({ winnerUID: null, finishReason: "timeout" });
   });
 });
 
 describe("outcomeAfterReport", () => {
   it("進行中の対戦は、最初の報告の勝者で終える", () => {
     expect(outcomeAfterReport({ battle: battleDocument({ progress: activeProgress }), reportedWinnerUID: "guest-uid" })).toEqual({
-      status: "finished",
       winnerUID: "guest-uid",
       finishReason: "result",
     });
@@ -129,22 +128,22 @@ describe("outcomeAfterReport", () => {
   it("報告で終わった対戦に同じ勝者の報告が届いても変えない", () => {
     expect(
       outcomeAfterReport({
-        battle: battleDocument({ progress: { status: "finished", winnerUID: "host-uid", finishReason: "result", turnDeadline: null } }),
+        battle: battleDocument({ progress: { winnerUID: "host-uid", finishReason: "result", turnDeadline: null } }),
         reportedWinnerUID: "host-uid",
       }),
     ).toBeUndefined();
   });
 
   it("報告で終わった対戦に、別の勝者・決着していないという報告が届いたら勝敗を付けない", () => {
-    const battle = battleDocument({ progress: { status: "finished", winnerUID: "host-uid", finishReason: "result", turnDeadline: null } });
-    expect(outcomeAfterReport({ battle, reportedWinnerUID: "guest-uid" })).toEqual({ status: "void", winnerUID: null, finishReason: "mismatch" });
-    expect(outcomeAfterReport({ battle, reportedWinnerUID: null })).toEqual({ status: "void", winnerUID: null, finishReason: "mismatch" });
+    const battle = battleDocument({ progress: { winnerUID: "host-uid", finishReason: "result", turnDeadline: null } });
+    expect(outcomeAfterReport({ battle, reportedWinnerUID: "guest-uid" })).toEqual({ winnerUID: null, finishReason: "mismatch" });
+    expect(outcomeAfterReport({ battle, reportedWinnerUID: null })).toEqual({ winnerUID: null, finishReason: "mismatch" });
   });
 
   it("期限切れで終わった対戦は、食い違う報告で変えない", () => {
     expect(
       outcomeAfterReport({
-        battle: battleDocument({ progress: { status: "finished", winnerUID: "host-uid", finishReason: "timeout", turnDeadline: null } }),
+        battle: battleDocument({ progress: { winnerUID: "host-uid", finishReason: "timeout", turnDeadline: null } }),
         reportedWinnerUID: "guest-uid",
       }),
     ).toBeUndefined();
@@ -153,9 +152,15 @@ describe("outcomeAfterReport", () => {
   it("勝敗を付けずに終わった対戦は、報告で変えない", () => {
     expect(
       outcomeAfterReport({
-        battle: battleDocument({ progress: { status: "void", winnerUID: null, finishReason: "blocked", turnDeadline: null } }),
+        battle: battleDocument({ progress: { winnerUID: null, finishReason: "blocked", turnDeadline: null } }),
         reportedWinnerUID: "host-uid",
       }),
     ).toBeUndefined();
+  });
+});
+
+describe("pvpParticipantUIDs", () => {
+  it("先に待っていた側・後から来た側の順で 2 人の uid を返す", () => {
+    expect(pvpParticipantUIDs({ battle: battleDocument({ progress: activeProgress }) })).toEqual(["host-uid", "guest-uid"]);
   });
 });

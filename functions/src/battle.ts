@@ -67,7 +67,7 @@ export const startBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async 
  * 勝敗とターン数は端末の計算をそのまま記録し、検証しない (レベルは勝敗に関係なく +1 のため。ADR 0001 の DB の行)。
  * 人との対戦 (joinPvpMatch が `opponentKind: "pvp"` で作った記録) は battleID に `pvpBattles/{battleID}` の ID を受け取り、
  * 勝敗を端末の値で書かない (サーバーが決めた勝敗を pvp_battle_finish.ts が書く)。レベルと 1 日の上限は CPU との対戦と同じに扱う。
- * 勝者が決まって終わった対戦 (`pvpBattles/{battleID}` の status が finished) だけを記録し、進行中・勝敗なしの対戦には
+ * 勝者が決まって終わった対戦 (`pvpBattles/{battleID}` の winnerUID が入っている) だけを記録し、進行中・勝敗なしの対戦には
  * failed-precondition を投げる。記録の後に、相手の食い違う報告で勝敗なしに変わった対戦のレベルは戻さない
  * (レベルは勝敗に関係なく +1 で、負けを認めた時と同じ値のため)。
  * 返す値: `{ levels: { [monsterID]: number } }` (上がった後のレベル)。
@@ -112,7 +112,7 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
     // documents/game-rules.md「人との対戦」)。対戦が消えている時 (相手がアカウントを削除した) も、終わり方を確かめられないため記録しない
     if (
       battleSnapshot.get("opponentKind") === "pvp" &&
-      (await transaction.get(firestore.doc(`pvpBattles/${battleID}`))).get("status") !== "finished"
+      typeof (await transaction.get(firestore.doc(`pvpBattles/${battleID}`))).get("winnerUID") !== "string"
     ) {
       throw new HttpsError("failed-precondition", "勝敗が決まっていない対戦は記録できません");
     }

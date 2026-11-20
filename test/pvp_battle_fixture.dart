@@ -147,12 +147,7 @@ class FakePvpBattleServer {
 
   /// 2 人を組み合わせる。相手を探している利用者には今の探す操作に、探していない利用者には次の探す操作に、対戦の ID を返すようになる。
   void match() {
-    _update(
-      turnNumber: 0,
-      status: PvpBattleStatus.active,
-      winnerUID: null,
-      finishReason: null,
-    );
+    _update(turnNumber: 0, winnerUID: null, finishReason: null);
     for (final uid in [host.uid, guest.uid]) {
       if (_tickets[uid] case final ticket?) {
         _tickets[uid] = (searchID: ticket.searchID, battleID: battleID);
@@ -163,11 +158,8 @@ class FakePvpBattleServer {
   }
 
   /// 進行中の対戦を、片方が相手をブロックした時と同じく勝敗を付けずに終える。
-  void finishByBlock() => _finish(
-    status: PvpBattleStatus.noContest,
-    winnerUID: null,
-    finishReason: PvpFinishReason.blocked,
-  );
+  void finishByBlock() =>
+      _finish(winnerUID: null, finishReason: PvpFinishReason.blocked);
 
   /// 今のターンに 2 人が [hostAction] と [guestAction] を出したことにし、同時にブロックでの勝敗なしで終える。
   /// 端末には、勝敗なしの終わり (対戦の状態) を先に、2 人が出した行動を後に届ける
@@ -182,7 +174,6 @@ class FakePvpBattleServer {
     };
     _update(
       turnNumber: _battle!.turnNumber + 1,
-      status: PvpBattleStatus.noContest,
       winnerUID: null,
       finishReason: PvpFinishReason.blocked,
     );
@@ -301,7 +292,7 @@ class FakePvpBattleServer {
     if (turnNumber < battle.turnNumber) {
       return;
     }
-    if (battle.status != PvpBattleStatus.active) {
+    if (battle.isFinished) {
       throw StateError('対戦は終わっています');
     }
     if (turnNumber > battle.turnNumber) {
@@ -315,12 +306,7 @@ class FakePvpBattleServer {
           () => {},
         )..putIfAbsent(uid, () => action)).length ==
         2) {
-      _update(
-        turnNumber: turnNumber + 1,
-        status: PvpBattleStatus.active,
-        winnerUID: null,
-        finishReason: null,
-      );
+      _update(turnNumber: turnNumber + 1, winnerUID: null, finishReason: null);
     }
   }
 
@@ -328,22 +314,14 @@ class FakePvpBattleServer {
   /// 行動を出したのが片方だけならその側の勝ち、どちらも出していなければ勝敗を付けずに終える。
   void claimTimeout({required String uid}) {
     timeoutClaimUIDs.add(uid);
-    if (_battle?.status != PvpBattleStatus.active || !isTurnDeadlinePassed) {
+    if ((_battle?.isFinished ?? true) || !isTurnDeadlinePassed) {
       return;
     }
     if (_actionsByTurnNumber[_battle!.turnNumber]?.keys.singleOrNull
         case final submittedUID?) {
-      _finish(
-        status: PvpBattleStatus.finished,
-        winnerUID: submittedUID,
-        finishReason: PvpFinishReason.timeout,
-      );
+      _finish(winnerUID: submittedUID, finishReason: PvpFinishReason.timeout);
     } else {
-      _finish(
-        status: PvpBattleStatus.noContest,
-        winnerUID: null,
-        finishReason: PvpFinishReason.timeout,
-      );
+      _finish(winnerUID: null, finishReason: PvpFinishReason.timeout);
     }
   }
 
@@ -355,39 +333,28 @@ class FakePvpBattleServer {
     if (_reportedUIDs.contains(uid)) {
       return;
     }
-    if (battle.status == PvpBattleStatus.active) {
+    if (!battle.isFinished) {
       if (winnerUID == null) {
         return;
       }
       _reportedUIDs.add(uid);
-      _finish(
-        status: PvpBattleStatus.finished,
-        winnerUID: winnerUID,
-        finishReason: PvpFinishReason.result,
-      );
+      _finish(winnerUID: winnerUID, finishReason: PvpFinishReason.result);
       return;
     }
     _reportedUIDs.add(uid);
-    if (battle.status == PvpBattleStatus.finished &&
-        battle.finishReason == PvpFinishReason.result &&
+    if (battle.finishReason == PvpFinishReason.result &&
         winnerUID != battle.winnerUID) {
-      _finish(
-        status: PvpBattleStatus.noContest,
-        winnerUID: null,
-        finishReason: PvpFinishReason.mismatch,
-      );
+      _finish(winnerUID: null, finishReason: PvpFinishReason.mismatch);
     }
   }
 
-  /// 対戦を [status]・[winnerUID]・[finishReason] で終える (今のターンは進めない)。
+  /// 対戦を [winnerUID]・[finishReason] で終える (今のターンは進めない)。
   void _finish({
-    required PvpBattleStatus status,
     required String? winnerUID,
     required PvpFinishReason finishReason,
   }) {
     _update(
       turnNumber: _battle!.turnNumber,
-      status: status,
       winnerUID: winnerUID,
       finishReason: finishReason,
     );
@@ -397,7 +364,6 @@ class FakePvpBattleServer {
   /// ([holdsTurnActions] の間は、2 人が出した行動を流さない)。
   void _update({
     required int turnNumber,
-    required PvpBattleStatus status,
     required String? winnerUID,
     required PvpFinishReason? finishReason,
   }) {
@@ -409,7 +375,6 @@ class FakePvpBattleServer {
       battleDate: DateTime(2026, 11, 19),
       turnNumber: turnNumber,
       turnSeconds: turnSeconds,
-      status: status,
       winnerUID: winnerUID,
       finishReason: finishReason,
     );

@@ -122,35 +122,38 @@ export type PvpFinishReason =
   /** 片方が相手をブロックした。 */
   | "blocked";
 
-/** 対戦の終わり方。勝者がいる終わり (finished) と、勝敗を付けない終わり (void)。 */
+/** 対戦の終わり方。勝者がいる終わり ([winnerUID] が入る) と、勝敗を付けない終わり ([winnerUID] が null)。 */
 export type PvpBattleOutcome =
-  | { status: "finished"; winnerUID: string; finishReason: Extract<PvpFinishReason, "result" | "timeout"> }
-  | { status: "void"; winnerUID: null; finishReason: Extract<PvpFinishReason, "timeout" | "mismatch" | "blocked"> };
+  | { winnerUID: string; finishReason: Extract<PvpFinishReason, "result" | "timeout"> }
+  | { winnerUID: null; finishReason: Extract<PvpFinishReason, "timeout" | "mismatch" | "blocked"> };
 
-/** 人との対戦 1 戦の進み具合。進行中か、どう終わったか。 */
+/** 人との対戦 1 戦の進み具合。進行中 ([finishReason] が null) か、どう終わったか。 */
 export type PvpBattleProgress =
   /** 進行中。[turnDeadline] は今のターンの行動の期限で、過ぎると行動を受け付けず、時間切れとして終える。 */
-  | { status: "active"; winnerUID: null; finishReason: null; turnDeadline: Timestamp }
+  | { winnerUID: null; finishReason: null; turnDeadline: Timestamp }
   /** 終わった。終わった対戦に行動の期限は無い。 */
   | (PvpBattleOutcome & { turnDeadline: null });
 
 /**
  * `pvpBattles/{battleID}` に保存する人との対戦 1 戦。2 人の利用者だけが読み、書くのは Functions だけ。
- * 進み具合の項目 (status・winnerUID・finishReason・turnDeadline) は [PvpBattleProgress] のどれかの組み合わせになる。
+ * 進み具合の項目 (winnerUID・finishReason・turnDeadline) は [PvpBattleProgress] のどれかの組み合わせになる。
  */
 export type PvpBattleDocument = PvpBattleProgress & {
-  /** 先に待っていた側。端末の計算では、同じ素早さの時の乱数と相打ちの扱いをこの側を基準に決める。 */
+  /**
+   * 先に待っていた側。端末の計算では、同じ素早さの時の乱数と相打ちの扱いをこの側を基準に決める。
+   * [host] と [guest] の uid は、読める利用者の判定 (Rules) と、アカウントの削除が本人の対戦を探すのにも使う。
+   */
   host: PvpTrainer;
   /** 後から来た側。 */
   guest: PvpTrainer;
-  /** 2 人の uid。読める利用者の判定 (Rules) と、アカウントの削除が本人の対戦を探すのに使う。 */
-  participantUIDs: string[];
   /** バトルの乱数の種 (1 以上の 32 ビットの整数)。サーバーが決め、2 人の端末が同じ乱数の列を使う。 */
   randomSeed: number;
   /** 対戦日 (日本時間の `YYYY-MM-DD`)。対戦日で効果が変わる技を、2 人の端末の時計に関係なく同じに計算する。 */
   battleDate: string;
   /**
    * 今のターンの番号 (0 始まり)。2 人の行動がそろうたびに 1 増える (これより小さい番号のターンは、2 人とも行動を出している)。
+   * 端末のバトルの計算の `BattleState.turnNumber` (片方の行動ごとに進む 1 始まりの番号) とは別の数で、
+   * 端末は進め終えたターンを自分で数えてこの番号と比べる (lib/features/opponent/pvp_battle_session.dart)。
    * 行動を受け付けるターンと、期限切れの時に行動を読むターンを決めるのに使う (行動そのものは `turns` のサブコレクションにある)。
    */
   turnNumber: number;
@@ -172,8 +175,13 @@ export interface PvpMatchTicketDocument {
   createdAt: Timestamp;
   /** 最後に joinPvpMatch を呼んだ時刻。[MATCH_TICKET_FRESH_SECONDS] より古い札とは組み合わせない。 */
   heartbeatAt: Timestamp;
-  /** 組み合わされた対戦の ID。まだ組み合わされていなければ null。ブロックした時に進行中の対戦を探すのにも使う。 */
+  /** 組み合わされた対戦の ID。まだ組み合わされていなければ null。 */
   battleID: string | null;
+}
+
+/** 対戦 [battle] に出ている 2 人の uid を、先に待っていた側・後から来た側の順で返す。 */
+export function pvpParticipantUIDs({ battle }: { battle: Pick<PvpBattleDocument, "host" | "guest"> }): [string, string] {
+  return [battle.host.uid, battle.guest.uid];
 }
 
 /**
@@ -205,8 +213,8 @@ export function isMatchableHostTicket({
  */
 export function timeoutOutcome({ submittedUIDs }: { submittedUIDs: string[] }): PvpBattleOutcome {
   return submittedUIDs.length === 1
-    ? { status: "finished", winnerUID: submittedUIDs[0], finishReason: "timeout" }
-    : { status: "void", winnerUID: null, finishReason: "timeout" };
+    ? { winnerUID: submittedUIDs[0], finishReason: "timeout" }
+    : { winnerUID: null, finishReason: "timeout" };
 }
 
 /**
@@ -221,11 +229,11 @@ export function outcomeAfterReport({
   battle: PvpBattleDocument;
   reportedWinnerUID: string | null;
 }): PvpBattleOutcome | undefined {
-  if (battle.status === "active") {
-    return reportedWinnerUID === null ? undefined : { status: "finished", winnerUID: reportedWinnerUID, finishReason: "result" };
+  if (battle.finishReason === null) {
+    return reportedWinnerUID === null ? undefined : { winnerUID: reportedWinnerUID, finishReason: "result" };
   }
-  if (battle.status === "finished" && battle.finishReason === "result" && reportedWinnerUID !== battle.winnerUID) {
-    return { status: "void", winnerUID: null, finishReason: "mismatch" };
+  if (battle.finishReason === "result" && reportedWinnerUID !== battle.winnerUID) {
+    return { winnerUID: null, finishReason: "mismatch" };
   }
   return undefined;
 }

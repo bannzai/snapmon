@@ -12,10 +12,10 @@ import 'pvp_battle_client.dart';
 const Duration pvpMatchJoinInterval = Duration(seconds: 3);
 
 /// 人との対戦で、同じ版の利用者だけを組み合わせるために Functions に渡す対戦の計算の版。
-/// バトルの計算の版 ([pvpRulesVersion]) と、技・属性・相性の表 [definitions] の版から作る
+/// バトルの計算の版 ([pvpBattleCalculationVersion]) と、技・属性・相性の表 [definitions] の版から作る
 /// (2 人の端末が違う計算や違う表で進めると、同じ行動から違う結果になるため)。
 String pvpMatchRulesVersion({required MasterData definitions}) =>
-    '$pvpRulesVersion.${definitions.version}';
+    '$pvpBattleCalculationVersion.${definitions.version}';
 
 /// 人との対戦の相手を探す 1 回の操作。[start] から [stop] まで [pvpMatchJoinInterval] ごとに相手を探す。
 /// 対戦タブの待つ画面と、初回のバトルの前の短い間の両方で使う (探す長さは呼ぶ側が [stop] で決める)。

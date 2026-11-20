@@ -10,7 +10,7 @@ import '../../battle_state_description.dart';
 import '../../sample_data_fixture.dart';
 
 // 人との対戦 (issue #386) で 2 人の端末が同じ結果を出すための、バトルの計算の土台:
-// 陣営の入れ替え (mirrorBattleState)、手持ちを残した決着 (finishBattleByForfeit)、選べる行動の判定 (isSelectableAction)、計算の版 (pvpRulesVersion)。
+// 陣営の入れ替え (mirrorBattleState)、手持ちを残した決着 (finishBattleByForfeit)、選べる行動の判定 (isSelectableAction)、計算の版 (pvpBattleCalculationVersion)。
 void main() {
   final sampleData = loadSampleDataFixture();
   final master = sampleData.definitions;
@@ -555,11 +555,11 @@ void main() {
     });
   });
 
-  group('pvpRulesVersion', () {
+  group('pvpBattleCalculationVersion', () {
     // バトルの計算を変えて下の値が変わった時は、人との対戦で版の違う端末どうしが組み合わされて結果が食い違わないよう
-    // pvpRulesVersion (lib/domain/battle/battle_engine.dart) を上げ、新しい値に書き換える。
+    // pvpBattleCalculationVersion (lib/domain/battle/battle_engine.dart) を上げ、新しい値に書き換える。
     test('版 1 の計算は、固定した手持ち・乱数の種・行動の決め方から同じ結果を出す', () {
-      expect(pvpRulesVersion, 1);
+      expect(pvpBattleCalculationVersion, 1);
       final finished = playUntilFinished(
         state: start(
           playerMonsterIDs: ['sample-mugmon', 'sample-keybon'],
@@ -575,7 +575,7 @@ void main() {
           'playerHitPoints=${[for (final member in finished.player.members) member.state.currentHitPoints]}',
           'opponentHitPoints=${[for (final member in finished.opponent.members) member.state.currentHitPoints]}',
         ].join(' '),
-        pvpRulesVersion1BattleFingerprint,
+        pvpBattleCalculationVersion1BattleFingerprint,
       );
     });
   });
@@ -583,6 +583,6 @@ void main() {
 
 /// 版 1 のバトルの計算で、上のテストの固定した対戦を決着まで進めた結果
 /// (2026-11-19 の flutter-ci の実行 https://github.com/bannzai/snapmon/actions/runs/44505632319 で得た値)。
-const String pvpRulesVersion1BattleFingerprint =
+const String pvpBattleCalculationVersion1BattleFingerprint =
     'winner=player turnNumber=11 eventCount=16 randomState=2216667923 '
     'playerHitPoints=[8, 16] opponentHitPoints=[0, 0]';
