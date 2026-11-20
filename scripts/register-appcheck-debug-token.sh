@@ -57,7 +57,10 @@ if [ -z "$token" ]; then
   }
   jq -n --arg name "$name" --arg token "$token" \
     '{title: $name, category: "PASSWORD", fields: [{id: "password", type: "CONCEALED", purpose: "PASSWORD", value: $token}]}' \
-    | op item create --vault snapmon - > /dev/null
+    | op item create --vault snapmon - > /dev/null || {
+    echo "1Password に ${name} を作れませんでした (App Check には登録していません)" >&2
+    exit 1
+  }
   echo "1Password に ${name} を作りました"
 fi
 

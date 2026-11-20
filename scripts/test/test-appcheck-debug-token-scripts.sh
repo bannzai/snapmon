@@ -95,11 +95,11 @@ test_register_stops_when_item_creation_fails() {
   work="$(mktemp -d)"
   prepare_workspace "$work"
   OP_CREATE_EXIT=1 run_script "$work" register-appcheck-debug-token.sh ios || exit_code=$?
-  if [ "$exit_code" = 0 ] || [ -e "$work/curl-args" ]; then
-    fail "register: 1Password に置けなかった token を App Check に登録した (exit $exit_code)"
+  if [ "$exit_code" != 1 ] || [ -e "$work/curl-args" ] || ! grep -q 'App Check には登録していません' "$work/stdout"; then
+    fail "register: 1Password に置けなかった token を App Check に登録した、または exit 1 と理由の表示にならない (exit $exit_code)"
     return
   fi
-  pass "register: 1Password への作成が失敗したら、App Check に登録せず失敗で終わる"
+  pass "register: 1Password への作成が失敗したら、App Check に登録せず理由を出して exit 1"
 }
 
 test_launch_fails_and_removes_file_when_launch_fails() {
@@ -116,6 +116,30 @@ test_launch_fails_and_removes_file_when_launch_fails() {
     return
   fi
   pass "launch: 起動に失敗したら exit 1 で終わり、token を書いた一時ファイルを消す"
+}
+
+test_register_treats_empty_token_as_not_given() {
+  local work exit_code=0
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  FIREBASE_APPCHECK_DEBUG_TOKEN_IOS= OP_ITEM_EXISTS=1 run_script "$work" register-appcheck-debug-token.sh ios || exit_code=$?
+  if [ "$exit_code" != 1 ] || [ -e "$work/curl-args" ]; then
+    fail "register: 空の token を渡された token として App Check に登録した (exit $exit_code)"
+    return
+  fi
+  pass "register: 空の token は渡されていない時と同じに扱い、item があれば何も登録せず exit 1"
+}
+
+test_launch_treats_empty_token_as_missing() {
+  local work exit_code=0
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  FIREBASE_APPCHECK_DEBUG_TOKEN_IOS= run_script "$work" launch-simtunnel-app.sh snapmon-issue-1 || exit_code=$?
+  if [ "$exit_code" != 1 ] || [ -e "$work/wda-args" ]; then
+    fail "launch: 空の token で起動した、または exit 1 にならない (exit $exit_code)"
+    return
+  fi
+  pass "launch: 空の token は無い時と同じに扱い、起動せず exit 1"
 }
 
 test_register_rejects_unknown_platform() {
@@ -186,6 +210,10 @@ test_register_uses_given_token_without_creating_item() {
     fail "register: 渡された token の登録が失敗した ($(cat "$work/stdout"))"
     return
   fi
+  if grep -q 'token-from-env' "$work/stdout" "$work/curl-args"; then
+    fail "register: 渡された token が画面か引数に出ている"
+    return
+  fi
   if [ -e "$work/op-create-args" ] || [ "$(jq -r '.token' "$work/curl-stdin")" != "token-from-env" ] \
     || [ "$(cat "$work/curl-args")" != "$(expected_curl_args android-app-id)" ]; then
     fail "register: 渡された token を Android のアプリに登録していない、または 1Password に作った"
@@ -254,6 +282,8 @@ test_launch_requires_session_name() {
 }
 
 test_register_rejects_unknown_platform
+test_register_treats_empty_token_as_not_given
+test_launch_treats_empty_token_as_missing
 test_register_stops_when_app_id_is_missing
 test_register_stops_when_item_creation_fails
 test_launch_fails_and_removes_file_when_launch_fails

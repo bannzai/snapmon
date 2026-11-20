@@ -40,6 +40,14 @@ const _appCheckDebugTokenAndroid = String.fromEnvironment(
   'FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID',
 );
 
+/// App Check の debug provider に渡す debug token を返す。DEBUG ビルドで token が渡されている時だけ [tokenFromEnvironment] を返し、
+/// リリースビルドと、token が渡されていない時 (空文字) は null を返す (null の時、SDK は自分で token を決める)。
+@visibleForTesting
+String? appCheckDebugToken({
+  required bool isDebugBuild,
+  required String tokenFromEnvironment,
+}) => isDebugBuild && tokenFromEnvironment != '' ? tokenFromEnvironment : null;
+
 /// Web の DEBUG ビルドで debug token を使うか (token が渡されている時だけ)。
 const _usesWebDebugProvider = kDebugMode && _appCheckDebugTokenWeb != '';
 
@@ -166,17 +174,19 @@ Future<void> activateAppCheck() async {
         ? WebDebugProvider(debugToken: _appCheckDebugTokenWeb)
         : ReCaptchaEnterpriseProvider(_recaptchaEnterpriseSiteKey),
     providerAndroid: kDebugMode
-        ? const AndroidDebugProvider(
-            debugToken: _appCheckDebugTokenAndroid == ''
-                ? null
-                : _appCheckDebugTokenAndroid,
+        ? AndroidDebugProvider(
+            debugToken: appCheckDebugToken(
+              isDebugBuild: kDebugMode,
+              tokenFromEnvironment: _appCheckDebugTokenAndroid,
+            ),
           )
         : const AndroidPlayIntegrityProvider(),
     providerApple: kDebugMode
-        ? const AppleDebugProvider(
-            debugToken: _appCheckDebugTokenIOS == ''
-                ? null
-                : _appCheckDebugTokenIOS,
+        ? AppleDebugProvider(
+            debugToken: appCheckDebugToken(
+              isDebugBuild: kDebugMode,
+              tokenFromEnvironment: _appCheckDebugTokenIOS,
+            ),
           )
         : const AppleAppAttestWithDeviceCheckFallbackProvider(),
   );
