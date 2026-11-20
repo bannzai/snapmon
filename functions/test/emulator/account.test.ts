@@ -94,7 +94,7 @@ async function seedAccount({ uid }: { uid: string }): Promise<void> {
   await adminFirestore.doc(`reportedMonsters/monster-${uid}`).set({ monsterOwnerUid: uid, reporterCount: 1 });
   await adminFirestore.doc(`pvpMatchTickets/${uid}`).set({ searchID: "search", battleID: `pvp-battle-of-${uid}` });
   await adminFirestore.doc(`pvpBattles/pvp-battle-of-${uid}`).set({ participantUIDs: [`opponent-of-${uid}`, uid], status: "active" });
-  await adminFirestore.doc(`pvpBattles/pvp-battle-of-${uid}/actions/0_${uid}`).set({ action: { kind: "struggle" } });
+  await adminFirestore.doc(`pvpBattles/pvp-battle-of-${uid}/turns/${uid}_0`).set({ action: { kind: "struggle" } });
   for (const path of [
     `users/${uid}/photos/request-saved`,
     `users/${uid}/masks/request-saved`,
@@ -120,7 +120,7 @@ async function remainingAccountData({ uid }: { uid: string }): Promise<string[]>
     `reportedMonsters/monster-${uid}`,
     `pvpMatchTickets/${uid}`,
     `pvpBattles/pvp-battle-of-${uid}`,
-    `pvpBattles/pvp-battle-of-${uid}/actions/0_${uid}`,
+    `pvpBattles/pvp-battle-of-${uid}/turns/${uid}_0`,
   ];
   const remainingDocuments = (await Promise.all(documentPaths.map(async (path) => ((await adminFirestore.doc(path).get()).exists ? path : null)))).filter(
     (path): path is string => path !== null,
@@ -208,15 +208,15 @@ describe("アカウントの削除 (deleteAccount)", () => {
     const user = await signInUser();
     await seedAccount({ uid: user.uid });
     await adminFirestore.doc("pvpBattles/shared-battle").set({ participantUIDs: [otherUser.uid, user.uid], status: "finished" });
-    await adminFirestore.doc(`pvpBattles/shared-battle/actions/0_${otherUser.uid}`).set({ action: { kind: "struggle" } });
-    await adminFirestore.doc(`pvpBattles/shared-battle/actions/0_${user.uid}`).set({ action: { kind: "struggle" } });
-    await adminFirestore.doc(`pvpBattles/shared-battle/actions/1_${user.uid}`).set({ action: { kind: "struggle" } });
+    await adminFirestore.doc(`pvpBattles/shared-battle/turns/${otherUser.uid}_0`).set({ action: { kind: "struggle" } });
+    await adminFirestore.doc(`pvpBattles/shared-battle/turns/${user.uid}_0`).set({ action: { kind: "struggle" } });
+    await adminFirestore.doc(`pvpBattles/shared-battle/turns/${user.uid}_1`).set({ action: { kind: "struggle" } });
     await adminFirestore.doc(`users/${otherUser.uid}/battles/shared-battle`).set({ status: "completed", opponentKind: "pvp", winner: "player" });
 
     expect((await callFunction({ name: "deleteAccount", idToken: await user.getIdToken(), data: null })).status).toBe(200);
 
     expect((await adminFirestore.doc("pvpBattles/shared-battle").get()).exists).toBe(false);
-    expect((await adminFirestore.collection("pvpBattles/shared-battle/actions").get()).size).toBe(0);
+    expect((await adminFirestore.collection("pvpBattles/shared-battle/turns").get()).size).toBe(0);
     expect((await adminFirestore.doc(`users/${otherUser.uid}/battles/shared-battle`).get()).data()).toEqual({
       status: "completed",
       opponentKind: "pvp",
@@ -232,7 +232,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
       const batch = adminFirestore.batch();
       for (let index = start; index < Math.min(start + 50, 101); index++) {
         batch.set(adminFirestore.doc(`pvpBattles/many-${index}`), { participantUIDs: [`opponent-${index}`, user.uid], status: "finished" });
-        batch.set(adminFirestore.doc(`pvpBattles/many-${index}/actions/0_opponent-${index}`), { action: { kind: "struggle" } });
+        batch.set(adminFirestore.doc(`pvpBattles/many-${index}/turns/opponent-${index}_0`), { action: { kind: "struggle" } });
       }
       await batch.commit();
     }
@@ -241,7 +241,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
     expect((await callFunction({ name: "deleteAccount", idToken: await user.getIdToken(), data: null })).status).toBe(200);
 
     expect((await adminFirestore.collection("pvpBattles").where("participantUIDs", "array-contains", user.uid).get()).size).toBe(0);
-    expect((await adminFirestore.doc("pvpBattles/many-100/actions/0_opponent-100").get()).exists).toBe(false);
+    expect((await adminFirestore.doc("pvpBattles/many-100/turns/opponent-100_0").get()).exists).toBe(false);
     expect((await adminFirestore.doc("pvpBattles/others").get()).exists).toBe(true);
   }, 60_000);
 

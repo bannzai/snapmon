@@ -87,7 +87,7 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
-    // 人との対戦 1 戦。対戦に出ている 2 人だけが読み (相手の手持ちの他人に見せてよい項目の写し・表示名・アイコン・公開された行動)、
+    // 人との対戦 1 戦。対戦に出ている 2 人だけが読み (相手の手持ちの他人に見せてよい項目の写し・表示名・アイコン・今のターンの番号・終わり方)、
     // 書くのは Functions だけ (行動と結果を改ざんさせないため)。
     // 無い対戦の 1 件の読み取りは、ログインしていれば「無い」と返す (resource == null)。対戦の途中で相手がアカウントを消して
     // 対戦が消えた時に、残った側の購読が拒否ではなく「無い」を受け取り、対戦を終えられるようにするため (lib/firebase/pvp.dart の
@@ -97,10 +97,14 @@ service cloud.firestore {
       allow list: if isSignedIn() && request.auth.uid in resource.data.participantUIDs;
       allow write: if false;
 
-      // 2 人が各ターンに出した行動。相手の行動を見てから選べないよう、相手にも本人にも読ませない
-      // (2 人分がそろったターンの行動は、Functions が上の対戦のドキュメントに公開する)。
-      match /actions/{actionID} {
-        allow read, write: if false;
+      // 2 人が各ターンに出した行動。対戦に出ている 2 人が、公開された行動 (同じターンの 2 人分がそろって Functions が isRevealed を
+      // true にした行動) だけを読む。相手の行動を見てから選べないよう、そろう前の行動は相手にも本人にも読ませない。
+      // 一覧は isRevealed == true で絞った時だけ通る (Rules は、絞っていない一覧が公開前の行動を含まないことを確かめられないため)。
+      match /turns/{turnID} {
+        allow read: if isSignedIn()
+          && resource.data.isRevealed == true
+          && request.auth.uid in get(/databases/$(database)/documents/pvpBattles/$(battleID)).data.participantUIDs;
+        allow write: if false;
       }
     }
 

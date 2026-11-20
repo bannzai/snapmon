@@ -81,18 +81,26 @@ export function parsePvpAction(value: unknown): PvpAction | undefined {
 }
 
 /**
- * `pvpBattles/{battleID}/actions/{actionID}` に保存する、利用者が 1 ターンに出した行動 1 件。クライアントは読み書きしない
- * (相手の行動を見てから選べないようにするため)。2 人分がそろうと、同じ行動を `pvpBattles/{battleID}` の `turns` に公開する。
- * 公開の後も消さず、誰がどのターンに何を出したかの記録として残す。
+ * `pvpBattles/{battleID}/turns/{uid}_{turnNumber}` に保存する、利用者が 1 ターンに出した行動 1 件。対戦の行動の置き場はここだけで、
+ * 誰がどのターンに出したかは ID が持つ ([pvpTurnDocumentID])。書くのは Functions だけ。
+ * 対戦に出ている 2 人は、公開された ([isRevealed] が true の) 行動だけを読める (相手の行動を見てから選べないようにするため)。
  */
-export interface PvpActionDocument {
+export interface PvpTurnDocument {
   /** 出した行動。出した後は変えられない。 */
   action: PvpAction;
+  /**
+   * 同じターンの 2 人分の行動がそろって公開されたか。そろった時に、2 人分を同じトランザクションで true にする。
+   * Rules が読める行動を決めるのに使う (Rules は一覧の読み取りで「相手の行動もあるか」を確かめられないため、その結果をここに持つ)。
+   */
+  isRevealed: boolean;
 }
 
-/** 対戦のターン [turn] (0 始まりの番号) に利用者 [uid] が出した行動 ([PvpActionDocument]) の ID を返す。同じターンの出し直しは同じ ID になる。 */
-export function pvpActionDocumentID({ turn, uid }: { turn: number; uid: string }): string {
-  return `${turn}_${uid}`;
+/**
+ * 利用者 [uid] が対戦のターン [turnNumber] (0 始まりの番号) に出した行動 ([PvpTurnDocument]) の ID を返す。
+ * 同じターンの出し直しは同じ ID になる。
+ */
+export function pvpTurnDocumentID({ uid, turnNumber }: { uid: string; turnNumber: number }): string {
+  return `${uid}_${turnNumber}`;
 }
 
 /** 対戦に出る 1 人。相手の端末が読むため、他人に見せてよい項目だけを持つ。 */
@@ -105,14 +113,6 @@ export interface PvpTrainer {
   iconPath: string | null;
   /** 組み合わせた時点の手持ちの写し (手持ちの順)。2 人の端末がこの写しから同じ計算をする。 */
   monsters: PublicMonster[];
-}
-
-/** 2 人の行動がそろって公開された 1 ターン。 */
-export interface PvpTurn {
-  /** 先に待っていた側 ([PvpBattleDocument.host]) の行動。 */
-  hostAction: PvpAction;
-  /** 後から来た側 ([PvpBattleDocument.guest]) の行動。 */
-  guestAction: PvpAction;
 }
 
 /** 対戦がどう終わったか。 */
@@ -153,8 +153,11 @@ export type PvpBattleDocument = PvpBattleProgress & {
   randomSeed: number;
   /** 対戦日 (日本時間の `YYYY-MM-DD`)。対戦日で効果が変わる技を、2 人の端末の時計に関係なく同じに計算する。 */
   battleDate: string;
-  /** 行動がそろって公開されたターン (古い順)。 */
-  turns: PvpTurn[];
+  /**
+   * 今のターンの番号 (0 始まり)。2 人の行動がそろって公開されるたびに 1 増える (これより小さい番号のターンは公開済み)。
+   * 行動を受け付けるターンと、期限切れの時に行動を読むターンを決めるのに使う (行動そのものは `turns` のサブコレクションにある)。
+   */
+  turnNumber: number;
   /** 1 ターンの行動を選ぶ時間 (秒)。端末が残り時間として出す。 */
   turnSeconds: number;
   /** 利用者ごとの、端末の計算が出した勝者の uid の報告 (決着していないという報告は null)。1 人 1 回で、後から変えられない。 */

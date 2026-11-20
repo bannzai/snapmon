@@ -407,12 +407,12 @@ void main() {
       await tester.pump(const Duration(seconds: 10));
       expect(battleLogText(tester: tester), l10n.battleLogWaitingForOpponent);
       expect(server.submitCalls.single.uid, 'player-uid');
-      expect(server.submitCalls.single.round, 0);
+      expect(server.submitCalls.single.turnNumber, 0);
 
       // sample-ringora は sweets_1 を Lv.1 で覚える (assets/samples/sample_monsters.json)
       server.submitAction(
         uid: 'opponent-uid',
-        round: 0,
+        turnNumber: 0,
         action: const UseMoveAction(moveID: 'sweets_1'),
       );
       await tester.pump();
@@ -420,7 +420,7 @@ void main() {
         battleLogText(tester: tester),
         isNot(l10n.battleLogWaitingForOpponent),
       );
-      expect(server.battle!.turns, hasLength(1));
+      expect(server.battle!.turnNumber, 1);
       // 演出が終わって次の行動を選べるようになるまで進める
       await tester.pump(const Duration(seconds: 20));
       expect(find.text(l10n.battleWon), findsNothing);
@@ -429,7 +429,7 @@ void main() {
       await tapFirstMove(tester: tester);
       server.submitAction(
         uid: 'opponent-uid',
-        round: 1,
+        turnNumber: 1,
         action: const UseMoveAction(moveID: 'no-such-move'),
       );
       await pumpUntilFound(
@@ -495,7 +495,7 @@ void main() {
       await matchAndOpenBattle(tester: tester);
       server.submitAction(
         uid: 'opponent-uid',
-        round: 0,
+        turnNumber: 0,
         action: const UseMoveAction(moveID: 'sweets_1'),
       );
 
@@ -570,7 +570,7 @@ void main() {
         server
           ..submitAction(
             uid: 'opponent-uid',
-            round: 0,
+            turnNumber: 0,
             action: const UseMoveAction(moveID: 'no-such-move'),
           )
           ..finishByBlock();
@@ -736,7 +736,7 @@ void main() {
       await tapFirstMove(tester: tester);
       server.submitAction(
         uid: 'opponent-uid',
-        round: 0,
+        turnNumber: 0,
         action: const UseMoveAction(moveID: 'no-such-move'),
       );
       await pumpUntilFound(

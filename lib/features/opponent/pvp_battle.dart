@@ -38,14 +38,29 @@ class PvpTrainer {
   final List<OwnedMonster> monsters;
 }
 
-/// 人との対戦で、2 人の行動がそろって公開された 1 ターン (functions/src/pvp_battle_rules.ts の `PvpTurn`)。
+/// 人との対戦で、利用者が 1 ターンに出して公開された行動 1 件。Firestore の `pvpBattles/{battleID}/turns/{uid}_{turnNumber}`
+/// (functions/src/pvp_battle_rules.ts の `PvpTurnDocument`) のうち、2 人分がそろって公開されたもの。
 typedef PvpTurn = ({
-  /// 先に待っていた側 ([PvpBattle.host]) の行動。
-  BattleAction hostAction,
+  /// 行動を出した利用者の uid。
+  String uid,
 
-  /// 後から来た側 ([PvpBattle.guest]) の行動。
-  BattleAction guestAction,
+  /// ターンの番号 (0 始まり)。
+  int turnNumber,
+
+  /// 出した行動。
+  BattleAction action,
 });
+
+/// ID が [turnID] (`{uid}_{turnNumber}`) の `pvpBattles/{battleID}/turns/{turnID}` のドキュメント [json] から、公開された行動を読む。
+/// 誰がどのターンに出したかは ID だけが持つ (uid に `_` が含まれていても、最後の `_` の後ろをターンの番号として読む)。
+PvpTurn pvpTurnFromDocument({
+  required String turnID,
+  required Map<String, dynamic> json,
+}) => (
+  uid: turnID.substring(0, turnID.lastIndexOf('_')),
+  turnNumber: int.parse(turnID.substring(turnID.lastIndexOf('_') + 1)),
+  action: battleActionFromJson(json: json['action'] as Map<String, dynamic>),
+);
 
 /// 人との対戦の状態 (`pvpBattles/{battleID}` の `status`)。
 enum PvpBattleStatus {
@@ -84,7 +99,7 @@ class PvpBattle {
     required this.guest,
     required this.randomSeed,
     required this.battleDate,
-    required this.turns,
+    required this.turnNumber,
     required this.turnSeconds,
     required this.status,
     required this.winnerUID,
@@ -101,19 +116,7 @@ class PvpBattle {
     guest: PvpTrainer.fromJson(json: json['guest'] as Map<String, dynamic>),
     randomSeed: json['randomSeed'] as int,
     battleDate: DateTime.parse(json['battleDate'] as String),
-    turns: [
-      for (final turnJson in json['turns'] as List<dynamic>)
-        (
-          hostAction: battleActionFromJson(
-            json:
-                (turnJson as Map<String, dynamic>)['hostAction']
-                    as Map<String, dynamic>,
-          ),
-          guestAction: battleActionFromJson(
-            json: turnJson['guestAction'] as Map<String, dynamic>,
-          ),
-        ),
-    ],
+    turnNumber: json['turnNumber'] as int,
     turnSeconds: json['turnSeconds'] as int,
     status: switch (json['status'] as String) {
       'active' => PvpBattleStatus.active,
@@ -143,8 +146,8 @@ class PvpBattle {
   /// 対戦日 (日本時間の日付)。
   final DateTime battleDate;
 
-  /// 行動がそろって公開されたターン (古い順)。
-  final List<PvpTurn> turns;
+  /// 今のターンの番号 (0 始まり)。これより小さい番号のターンは、2 人の行動がそろって公開されている。
+  final int turnNumber;
 
   /// 1 ターンの行動を選ぶ時間 (秒)。
   final int turnSeconds;
@@ -159,7 +162,7 @@ class PvpBattle {
   final PvpFinishReason? finishReason;
 }
 
-/// 公開されたターンの行動 [json] (functions/src/pvp_battle_rules.ts の `PvpAction`) をバトルの計算の行動として読む。
+/// 公開された行動 [json] (functions/src/pvp_battle_rules.ts の `PvpAction`) をバトルの計算の行動として読む。
 BattleAction battleActionFromJson({required Map<String, dynamic> json}) =>
     switch (json['kind'] as String) {
       'move' => UseMoveAction(moveID: json['moveID'] as String),

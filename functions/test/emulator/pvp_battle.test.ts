@@ -148,9 +148,9 @@ async function matchTrainers({ host, guest }: { host: TestUser; guest: TestUser 
   return battleID!;
 }
 
-/** [user] で対戦 [battleID] の [round] 番目のターンに技 [moveID] を出し、HTTP の応答を返す。 */
-async function submitMove({ user, battleID, round, moveID }: { user: TestUser; battleID: string; round: number; moveID: string }): Promise<Response> {
-  return callFunction({ name: "submitPvpAction", user, data: { battleID, round, action: { kind: "move", moveID } } });
+/** [user] で対戦 [battleID] の [turnNumber] 番目のターンに技 [moveID] を出し、HTTP の応答を返す。 */
+async function submitMove({ user, battleID, turnNumber, moveID }: { user: TestUser; battleID: string; turnNumber: number; moveID: string }): Promise<Response> {
+  return callFunction({ name: "submitPvpAction", user, data: { battleID, turnNumber, action: { kind: "move", moveID } } });
 }
 
 /** 対戦 [battleID] の今のターンの行動の期限を、Rules を通さずに過去にする (時間切れを待たずに確かめるため)。 */
@@ -264,7 +264,7 @@ describe("joinPvpMatch", () => {
 
     expect(battle).toMatchObject({
       participantUIDs: [host.uid, guest.uid],
-      turns: [],
+      turnNumber: 0,
       turnSeconds: TURN_SECONDS,
       status: "active",
       winnerUID: null,
@@ -560,42 +560,66 @@ describe("submitPvpAction", () => {
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
 
-    expect((await submitMove({ user: host, battleID, round: 0, moveID: "host-move-0" })).status).toBe(200);
-    expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turns).toEqual([]);
-    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/0_${host.uid}` })).toEqual({ action: { kind: "move", moveID: "host-move-0" } });
+    expect((await submitMove({ user: host, battleID, turnNumber: 0, moveID: "host-move-0" })).status).toBe(200);
+    expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turnNumber).toBe(0);
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_0` })).toEqual({
+      action: { kind: "move", moveID: "host-move-0" },
+      isRevealed: false,
+    });
 
-    expect((await submitMove({ user: guest, battleID, round: 0, moveID: "guest-move-0" })).status).toBe(200);
-    expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turns).toEqual([
-      { hostAction: { kind: "move", moveID: "host-move-0" }, guestAction: { kind: "move", moveID: "guest-move-0" } },
-    ]);
-    // 公開の後も、2 人が出した行動は記録として残る
-    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/0_${host.uid}` })).toEqual({ action: { kind: "move", moveID: "host-move-0" } });
-    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/0_${guest.uid}` })).toEqual({ action: { kind: "move", moveID: "guest-move-0" } });
+    expect((await submitMove({ user: guest, battleID, turnNumber: 0, moveID: "guest-move-0" })).status).toBe(200);
+    const battleAfterFirstTurn = (await readDocument({ path: `pvpBattles/${battleID}` }))!;
+    expect(battleAfterFirstTurn.turnNumber).toBe(1);
+    // 行動の置き場は turns のサブコレクションだけで、対戦のドキュメントには写さない
+    expect(battleAfterFirstTurn.turns).toBeUndefined();
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_0` })).toEqual({
+      action: { kind: "move", moveID: "host-move-0" },
+      isRevealed: true,
+    });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${guest.uid}_0` })).toEqual({
+      action: { kind: "move", moveID: "guest-move-0" },
+      isRevealed: true,
+    });
 
     // 次のターンは guest が先に出す
     expect(
-      (await callFunction({ name: "submitPvpAction", user: guest, data: { battleID, round: 1, action: { kind: "switch", memberIndex: 1 } } })).status,
+      (await callFunction({ name: "submitPvpAction", user: guest, data: { battleID, turnNumber: 1, action: { kind: "switch", memberIndex: 1 } } })).status,
     ).toBe(200);
-    expect((await callFunction({ name: "submitPvpAction", user: host, data: { battleID, round: 1, action: { kind: "struggle" } } })).status).toBe(200);
-    expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turns).toEqual([
-      { hostAction: { kind: "move", moveID: "host-move-0" }, guestAction: { kind: "move", moveID: "guest-move-0" } },
-      { hostAction: { kind: "struggle" }, guestAction: { kind: "switch", memberIndex: 1 } },
-    ]);
-    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/1_${host.uid}` })).toEqual({ action: { kind: "struggle" } });
-    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/1_${guest.uid}` })).toEqual({ action: { kind: "switch", memberIndex: 1 } });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${guest.uid}_1` })).toEqual({
+      action: { kind: "switch", memberIndex: 1 },
+      isRevealed: false,
+    });
+    expect((await callFunction({ name: "submitPvpAction", user: host, data: { battleID, turnNumber: 1, action: { kind: "struggle" } } })).status).toBe(200);
+    expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turnNumber).toBe(2);
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_1` })).toEqual({ action: { kind: "struggle" }, isRevealed: true });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${guest.uid}_1` })).toEqual({
+      action: { kind: "switch", memberIndex: 1 },
+      isRevealed: true,
+    });
+    // 前のターンの行動は、次のターンが公開されても変わらない
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_0` })).toEqual({
+      action: { kind: "move", moveID: "host-move-0" },
+      isRevealed: true,
+    });
   });
 
-  it("同じ行動のターンが続いても、ターンごとに足す", async () => {
+  it("同じ行動のターンが続いても、ターンごとに別の行動として残す", async () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
 
-    for (const round of [0, 1]) {
-      await submitMove({ user: host, battleID, round, moveID: "same-move" });
-      await submitMove({ user: guest, battleID, round, moveID: "same-move" });
+    for (const turnNumber of [0, 1]) {
+      await submitMove({ user: host, battleID, turnNumber, moveID: "same-move" });
+      await submitMove({ user: guest, battleID, turnNumber, moveID: "same-move" });
     }
 
-    expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turns).toHaveLength(2);
+    expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turnNumber).toBe(2);
+    for (const turnID of [`${host.uid}_0`, `${guest.uid}_0`, `${host.uid}_1`, `${guest.uid}_1`]) {
+      expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${turnID}` })).toEqual({
+        action: { kind: "move", moveID: "same-move" },
+        isRevealed: true,
+      });
+    }
   });
 
   it("出した行動は、同じターンに出し直しても変わらない", async () => {
@@ -603,26 +627,29 @@ describe("submitPvpAction", () => {
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
 
-    await submitMove({ user: host, battleID, round: 0, moveID: "first-choice" });
-    expect((await submitMove({ user: host, battleID, round: 0, moveID: "second-choice" })).status).toBe(200);
-    await submitMove({ user: guest, battleID, round: 0, moveID: "guest-move" });
+    await submitMove({ user: host, battleID, turnNumber: 0, moveID: "first-choice" });
+    expect((await submitMove({ user: host, battleID, turnNumber: 0, moveID: "second-choice" })).status).toBe(200);
+    await submitMove({ user: guest, battleID, turnNumber: 0, moveID: "guest-move" });
 
-    expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turns[0].hostAction).toEqual({ kind: "move", moveID: "first-choice" });
+    expect((await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_0` }))!.action).toEqual({ kind: "move", moveID: "first-choice" });
   });
 
   it("公開済みのターンの再送は何も変えず、まだ始まっていないターンの番号は受け付けない", async () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
-    await submitMove({ user: host, battleID, round: 0, moveID: "host-move" });
-    await submitMove({ user: guest, battleID, round: 0, moveID: "guest-move" });
+    await submitMove({ user: host, battleID, turnNumber: 0, moveID: "host-move" });
+    await submitMove({ user: guest, battleID, turnNumber: 0, moveID: "guest-move" });
 
-    expect((await submitMove({ user: host, battleID, round: 0, moveID: "resent" })).status).toBe(200);
-    expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turns).toHaveLength(1);
-    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/0_${host.uid}` })).toEqual({ action: { kind: "move", moveID: "host-move" } });
-    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/1_${host.uid}` })).toBeUndefined();
+    expect((await submitMove({ user: host, battleID, turnNumber: 0, moveID: "resent" })).status).toBe(200);
+    expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.turnNumber).toBe(1);
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_0` })).toEqual({
+      action: { kind: "move", moveID: "host-move" },
+      isRevealed: true,
+    });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_1` })).toBeUndefined();
     expect(
-      await callErrorStatus({ name: "submitPvpAction", user: host, data: { battleID, round: 2, action: { kind: "struggle" } } }),
+      await callErrorStatus({ name: "submitPvpAction", user: host, data: { battleID, turnNumber: 2, action: { kind: "struggle" } } }),
     ).toBe("INVALID_ARGUMENT");
   });
 
@@ -635,8 +662,8 @@ describe("submitPvpAction", () => {
     });
     const revealedAtMillis = Date.now();
 
-    await submitMove({ user: host, battleID, round: 0, moveID: "host-move" });
-    await submitMove({ user: guest, battleID, round: 0, moveID: "guest-move" });
+    await submitMove({ user: host, battleID, turnNumber: 0, moveID: "host-move" });
+    await submitMove({ user: guest, battleID, turnNumber: 0, moveID: "guest-move" });
 
     expect(((await readDocument({ path: `pvpBattles/${battleID}` }))!.turnDeadline as Timestamp).toMillis()).toBeGreaterThanOrEqual(
       revealedAtMillis + (TURN_SECONDS + TURN_DEADLINE_GRACE_SECONDS) * 1000,
@@ -649,9 +676,9 @@ describe("submitPvpAction", () => {
     await expireTurnDeadline({ battleID });
 
     expect(
-      await callErrorStatus({ name: "submitPvpAction", user: host, data: { battleID, round: 0, action: { kind: "struggle" } } }),
+      await callErrorStatus({ name: "submitPvpAction", user: host, data: { battleID, turnNumber: 0, action: { kind: "struggle" } } }),
     ).toBe("DEADLINE_EXCEEDED");
-    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/0_${host.uid}` })).toBeUndefined();
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${host.uid}_0` })).toBeUndefined();
   });
 
   it("対戦に出ていない利用者は、行動を出すことも時間切れ・勝者の報告もできない", async () => {
@@ -661,7 +688,7 @@ describe("submitPvpAction", () => {
     const battleID = await matchTrainers({ host, guest });
 
     expect(
-      await callErrorStatus({ name: "submitPvpAction", user: outsider, data: { battleID, round: 0, action: { kind: "struggle" } } }),
+      await callErrorStatus({ name: "submitPvpAction", user: outsider, data: { battleID, turnNumber: 0, action: { kind: "struggle" } } }),
     ).toBe("PERMISSION_DENIED");
     expect(await callErrorStatus({ name: "claimPvpTimeout", user: outsider, data: { battleID } })).toBe("PERMISSION_DENIED");
     expect(await callErrorStatus({ name: "reportPvpResult", user: outsider, data: { battleID, winnerUID: host.uid } })).toBe("PERMISSION_DENIED");
@@ -673,13 +700,13 @@ describe("submitPvpAction", () => {
     const battleID = await matchTrainers({ host, guest: await signInTrainer({ levels: [5] }) });
 
     expect(
-      await callErrorStatus({ name: "submitPvpAction", user: host, data: { battleID, round: 0, action: { kind: "forfeit" } } }),
+      await callErrorStatus({ name: "submitPvpAction", user: host, data: { battleID, turnNumber: 0, action: { kind: "forfeit" } } }),
     ).toBe("INVALID_ARGUMENT");
     expect(
-      await callErrorStatus({ name: "submitPvpAction", user: host, data: { battleID, round: -1, action: { kind: "struggle" } } }),
+      await callErrorStatus({ name: "submitPvpAction", user: host, data: { battleID, turnNumber: -1, action: { kind: "struggle" } } }),
     ).toBe("INVALID_ARGUMENT");
     expect(
-      await callErrorStatus({ name: "submitPvpAction", user: host, data: { battleID: "no-such-battle", round: 0, action: { kind: "struggle" } } }),
+      await callErrorStatus({ name: "submitPvpAction", user: host, data: { battleID: "no-such-battle", turnNumber: 0, action: { kind: "struggle" } } }),
     ).toBe("NOT_FOUND");
   });
 });
@@ -689,7 +716,7 @@ describe("claimPvpTimeout", () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
-    await submitMove({ user: guest, battleID, round: 0, moveID: "guest-move" });
+    await submitMove({ user: guest, battleID, turnNumber: 0, moveID: "guest-move" });
     await expireTurnDeadline({ battleID });
 
     expect(await callOk({ name: "claimPvpTimeout", user: guest, data: { battleID } })).toEqual({ status: "finished" });
@@ -709,21 +736,24 @@ describe("claimPvpTimeout", () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
-    await submitMove({ user: guest, battleID, round: 0, moveID: "guest-move" });
+    await submitMove({ user: guest, battleID, turnNumber: 0, moveID: "guest-move" });
 
     expect(await callOk({ name: "claimPvpTimeout", user: guest, data: { battleID } })).toEqual({ status: "active" });
 
     expect(await readDocument({ path: `pvpBattles/${battleID}` })).toMatchObject({ status: "active", winnerUID: null });
-    expect(await readDocument({ path: `pvpBattles/${battleID}/actions/0_${guest.uid}` })).toEqual({ action: { kind: "move", moveID: "guest-move" } });
+    expect(await readDocument({ path: `pvpBattles/${battleID}/turns/${guest.uid}_0` })).toEqual({
+      action: { kind: "move", moveID: "guest-move" },
+      isRevealed: false,
+    });
   });
 
   it("前のターンが公開された後のターンで片方だけが出した対戦は、期限の後に、そのターンに出した側の勝ちで終わる", async () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
-    await submitMove({ user: host, battleID, round: 0, moveID: "host-move" });
-    await submitMove({ user: guest, battleID, round: 0, moveID: "guest-move" });
-    await submitMove({ user: host, battleID, round: 1, moveID: "host-move" });
+    await submitMove({ user: host, battleID, turnNumber: 0, moveID: "host-move" });
+    await submitMove({ user: guest, battleID, turnNumber: 0, moveID: "guest-move" });
+    await submitMove({ user: host, battleID, turnNumber: 1, moveID: "host-move" });
     await expireTurnDeadline({ battleID });
 
     expect(await callOk({ name: "claimPvpTimeout", user: guest, data: { battleID } })).toEqual({ status: "finished" });
@@ -735,8 +765,8 @@ describe("claimPvpTimeout", () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
-    await submitMove({ user: host, battleID, round: 0, moveID: "host-move" });
-    await submitMove({ user: guest, battleID, round: 0, moveID: "guest-move" });
+    await submitMove({ user: host, battleID, turnNumber: 0, moveID: "host-move" });
+    await submitMove({ user: guest, battleID, turnNumber: 0, moveID: "guest-move" });
     await expireTurnDeadline({ battleID });
 
     expect(await callOk({ name: "claimPvpTimeout", user: host, data: { battleID } })).toEqual({ status: "void" });
@@ -761,13 +791,13 @@ describe("claimPvpTimeout", () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
-    await submitMove({ user: host, battleID, round: 0, moveID: "host-move" });
+    await submitMove({ user: host, battleID, turnNumber: 0, moveID: "host-move" });
     await expireTurnDeadline({ battleID });
     await callOk({ name: "claimPvpTimeout", user: host, data: { battleID } });
 
     expect(await callOk({ name: "claimPvpTimeout", user: guest, data: { battleID } })).toEqual({ status: "finished" });
     expect(
-      await callErrorStatus({ name: "submitPvpAction", user: guest, data: { battleID, round: 0, action: { kind: "struggle" } } }),
+      await callErrorStatus({ name: "submitPvpAction", user: guest, data: { battleID, turnNumber: 0, action: { kind: "struggle" } } }),
     ).toBe("FAILED_PRECONDITION");
     expect((await readDocument({ path: `pvpBattles/${battleID}` }))!.winnerUID).toBe(host.uid);
   });
@@ -778,8 +808,8 @@ describe("reportPvpResult と recordBattle", () => {
     const host = await signInTrainer({ levels: [5, 9] });
     const guest = await signInTrainer({ levels: [7] });
     const battleID = await matchTrainers({ host, guest });
-    await submitMove({ user: host, battleID, round: 0, moveID: "host-move" });
-    await submitMove({ user: guest, battleID, round: 0, moveID: "guest-move" });
+    await submitMove({ user: host, battleID, turnNumber: 0, moveID: "host-move" });
+    await submitMove({ user: guest, battleID, turnNumber: 0, moveID: "guest-move" });
 
     expect(await callOk({ name: "reportPvpResult", user: host, data: { battleID, winnerUID: host.uid } })).toEqual({ status: "finished" });
     expect(await callOk({ name: "reportPvpResult", user: guest, data: { battleID, winnerUID: host.uid } })).toEqual({ status: "finished" });
@@ -873,7 +903,7 @@ describe("reportPvpResult と recordBattle", () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
-    await submitMove({ user: host, battleID, round: 0, moveID: "host-move" });
+    await submitMove({ user: host, battleID, turnNumber: 0, moveID: "host-move" });
     await expireTurnDeadline({ battleID });
     await callOk({ name: "claimPvpTimeout", user: host, data: { battleID } });
 
@@ -969,7 +999,7 @@ describe("reportPvpResult と recordBattle", () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [7] });
     const battleID = await matchTrainers({ host, guest });
-    await submitMove({ user: host, battleID, round: 0, moveID: "host-move" });
+    await submitMove({ user: host, battleID, turnNumber: 0, moveID: "host-move" });
     await expireTurnDeadline({ battleID });
     expect(await callOk({ name: "claimPvpTimeout", user: host, data: { battleID } })).toEqual({ status: "finished" });
 
@@ -995,7 +1025,7 @@ describe("blockUser と進行中の人との対戦", () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
     const battleID = await matchTrainers({ host, guest });
-    await submitMove({ user: guest, battleID, round: 0, moveID: "guest-move" });
+    await submitMove({ user: guest, battleID, turnNumber: 0, moveID: "guest-move" });
 
     await callOk({ name: "blockUser", user: host, data: { blockedUid: guest.uid, battleID } });
 

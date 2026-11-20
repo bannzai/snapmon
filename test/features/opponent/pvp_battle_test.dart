@@ -43,7 +43,7 @@ Map<String, dynamic> _battleJson({required Map<String, dynamic> overrides}) => {
   'participantUIDs': ['host-uid', 'guest-uid'],
   'randomSeed': 4294967295,
   'battleDate': '2026-11-20',
-  'turns': <Map<String, dynamic>>[],
+  'turnNumber': 0,
   'turnSeconds': 60,
   'status': 'active',
   'winnerUID': null,
@@ -70,37 +70,68 @@ void main() {
     expect(battle.guest.monsters.single.level, 7);
     expect(battle.randomSeed, 4294967295);
     expect(battle.battleDate, DateTime(2026, 11, 20));
-    expect(battle.turns, isEmpty);
+    expect(battle.turnNumber, 0);
     expect(battle.turnSeconds, 60);
     expect(battle.status, PvpBattleStatus.active);
     expect(battle.winnerUID, isNull);
     expect(battle.finishReason, isNull);
   });
 
-  test('公開されたターンの行動を、技・わるあがき・交代のどれも host と guest を取り違えずに読む', () {
-    final turns = PvpBattle.fromJson(
-      battleID: 'battle-1',
-      json: _battleJson(
-        overrides: {
-          'turns': [
-            {
-              'hostAction': {'kind': 'move', 'moveID': 'fire_1'},
-              'guestAction': {'kind': 'switch', 'memberIndex': 2},
-            },
-            {
-              'hostAction': {'kind': 'struggle'},
-              'guestAction': {'kind': 'move', 'moveID': 'water_1'},
-            },
-          ],
-        },
-      ),
-    ).turns;
+  test('ターンが進んだ対戦の、今のターンの番号を読む', () {
+    expect(
+      PvpBattle.fromJson(
+        battleID: 'battle-1',
+        json: _battleJson(overrides: {'turnNumber': 12}),
+      ).turnNumber,
+      12,
+    );
+  });
 
-    expect(turns, hasLength(2));
-    expect((turns[0].hostAction as UseMoveAction).moveID, 'fire_1');
-    expect((turns[0].guestAction as SwitchMonsterAction).memberIndex, 2);
-    expect(turns[1].hostAction, isA<StruggleAction>());
-    expect((turns[1].guestAction as UseMoveAction).moveID, 'water_1');
+  test('公開された行動を、ID から出した利用者とターンの番号を取り違えずに、技・わるあがき・交代のどれも読む', () {
+    final move = pvpTurnFromDocument(
+      turnID: 'host-uid_0',
+      json: {
+        'action': {'kind': 'move', 'moveID': 'fire_1'},
+        'isRevealed': true,
+      },
+    );
+    expect(move.uid, 'host-uid');
+    expect(move.turnNumber, 0);
+    expect((move.action as UseMoveAction).moveID, 'fire_1');
+
+    final switching = pvpTurnFromDocument(
+      turnID: 'guest-uid_12',
+      json: {
+        'action': {'kind': 'switch', 'memberIndex': 2},
+        'isRevealed': true,
+      },
+    );
+    expect(switching.uid, 'guest-uid');
+    expect(switching.turnNumber, 12);
+    expect((switching.action as SwitchMonsterAction).memberIndex, 2);
+
+    expect(
+      pvpTurnFromDocument(
+        turnID: 'host-uid_1',
+        json: {
+          'action': {'kind': 'struggle'},
+          'isRevealed': true,
+        },
+      ).action,
+      isA<StruggleAction>(),
+    );
+  });
+
+  test('uid に _ が含まれていても、最後の _ の後ろをターンの番号として読む', () {
+    final turn = pvpTurnFromDocument(
+      turnID: 'user_with_underscores_3',
+      json: {
+        'action': {'kind': 'struggle'},
+        'isRevealed': true,
+      },
+    );
+    expect(turn.uid, 'user_with_underscores');
+    expect(turn.turnNumber, 3);
   });
 
   test('勝者が決まって終わった対戦の、勝者の uid と終わり方を読む', () {

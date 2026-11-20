@@ -197,16 +197,34 @@ Stream<PvpBattle?> watchPvpBattleWithFirebase({required String battleID}) =>
           },
         );
 
-/// Functions の submitPvpAction を呼び、対戦 [battleID] の [round] 番目のターンに自分の行動 [action] を出す。
+/// Firestore の `pvpBattles/{battleID}/turns` のうち、公開された行動 (`isRevealed` が true) の今の一覧と、その後の変化を流す。
+/// Rules は公開された行動に絞った一覧だけを通す (firebase/firestore.rules)。
+Stream<List<PvpTurn>> watchPvpRevealedTurnsWithFirebase({
+  required String battleID,
+}) => FirebaseFirestore.instance
+    .collection('pvpBattles/$battleID/turns')
+    .where('isRevealed', isEqualTo: true)
+    .snapshots()
+    .map(
+      (snapshot) => [
+        for (final turn in snapshot.docs)
+          pvpTurnFromDocument(
+            turnID: turn.id,
+            json: _toJson(turn.data())! as Map<String, dynamic>,
+          ),
+      ],
+    );
+
+/// Functions の submitPvpAction を呼び、対戦 [battleID] の [turnNumber] 番目のターンに自分の行動 [action] を出す。
 Future<void> submitPvpActionWithFirebase({
   required String battleID,
-  required int round,
+  required int turnNumber,
   required BattleAction action,
 }) => _call(
   name: 'submitPvpAction',
   data: {
     'battleID': battleID,
-    'round': round,
+    'turnNumber': turnNumber,
     'action': battleActionToJson(action: action),
   },
 );

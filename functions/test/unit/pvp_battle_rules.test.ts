@@ -23,7 +23,7 @@ function battleDocument({ progress }: { progress: PvpBattleProgress }): PvpBattl
     participantUIDs: ["host-uid", "guest-uid"],
     randomSeed: 1,
     battleDate: "2026-11-19",
-    turns: [],
+    turnNumber: 0,
     turnSeconds: 60,
     reportedWinnerUIDs: {},
     createdAt: Timestamp.fromMillis(0),

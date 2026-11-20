@@ -215,6 +215,7 @@ Future<void> main() async {
           joinMatch: joinPvpMatchWithFirebase,
           leaveMatch: leavePvpMatchWithFirebase,
           watchBattle: watchPvpBattleWithFirebase,
+          watchRevealedTurns: watchPvpRevealedTurnsWithFirebase,
           submitAction: submitPvpActionWithFirebase,
           claimTimeout: claimPvpTimeoutWithFirebase,
           reportResult: reportPvpResultWithFirebase,

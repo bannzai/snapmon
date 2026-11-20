@@ -14,16 +14,15 @@ import {
   MATCH_TICKET_SCAN_LIMIT,
   TURN_DEADLINE_GRACE_SECONDS,
   TURN_SECONDS,
-  type PvpActionDocument,
   type PvpBattleDocument,
   type PvpMatchTicketDocument,
   type PvpTrainer,
-  type PvpTurn,
+  type PvpTurnDocument,
   isMatchableHostTicket,
   isRulesVersion,
   outcomeAfterReport,
   parsePvpAction,
-  pvpActionDocumentID,
+  pvpTurnDocumentID,
   timeoutOutcome,
 } from "./pvp_battle_rules";
 import { blockDocumentID, displayNameOf, isDocumentID, profileIconOf, publicMonster } from "./pvp_rules";
@@ -238,7 +237,7 @@ export const joinPvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
       // 置き換えの起きない 1 以上の 32 ビットの整数にする
       randomSeed: randomInt(1, 2 ** 32),
       battleDate: battleDayKey({ now: now.toDate() }),
-      turns: [],
+      turnNumber: 0,
       turnSeconds: TURN_SECONDS,
       turnDeadline: turnDeadlineFrom({ now }),
       status: "active",
@@ -293,19 +292,23 @@ export const leavePvpMatch = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asyn
 /**
  * 人との対戦で、今のターンの自分の行動を出す callable。
  *
- * 受け取る data: `{ battleID: string, round: number, action: PvpAction }` (round は公開済みのターンの数 = 今のターンの 0 始まりの番号)。
- * 返す値: `{ submitted: true }`。行動を `pvpBattles/{battleID}/actions/{round}_{uid}` に置き (2 人とも読めない。公開の後も残す)、
- * 相手も同じターンの行動を出していれば 2 人の行動を `turns` に足して公開し、次のターンの期限を決める。
+ * 受け取る data: `{ battleID: string, turnNumber: number, action: PvpAction }` (turnNumber は今のターンの 0 始まりの番号)。
+ * 返す値: `{ submitted: true }`。行動を `pvpBattles/{battleID}/turns/{uid}_{turnNumber}` に置き (相手が出すまで 2 人とも読めない)、
+ * 相手も同じターンの行動を出していれば 2 人の行動を公開して (`isRevealed`)、次のターンに進めて期限を決める。
  * 出した行動は変えられず、同じターンの出し直しと公開済みのターンの再送は何もしない (冪等)。
  * 終わった対戦には failed-precondition、期限を過ぎたターンには deadline-exceeded、まだ来ていないターンの番号には invalid-argument を投げる。
  * 行動の形だけを確かめ、選べる行動かは確かめない (端末の計算が 2 台で同じに判定し、選べない行動を出した側の負けにする)。
  */
 export const submitPvpAction = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
-  const { battleID: requestedBattleID, round, action } = (request.data ?? {}) as { battleID?: unknown; round?: unknown; action?: unknown };
+  const {
+    battleID: requestedBattleID,
+    turnNumber,
+    action,
+  } = (request.data ?? {}) as { battleID?: unknown; turnNumber?: unknown; action?: unknown };
   const battleID = requireBattleID({ battleID: requestedBattleID });
-  if (typeof round !== "number" || !Number.isInteger(round) || round < 0) {
-    throw new HttpsError("invalid-argument", "round に 0 以上の整数を渡してください");
+  if (typeof turnNumber !== "number" || !Number.isInteger(turnNumber) || turnNumber < 0) {
+    throw new HttpsError("invalid-argument", "turnNumber に 0 以上の整数を渡してください");
   }
   const parsedAction = parsePvpAction(action);
   if (parsedAction === undefined) {
@@ -315,47 +318,38 @@ export const submitPvpAction = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
   const battleDocument = firestore.doc(`pvpBattles/${battleID}`);
   await firestore.runTransaction(async (transaction) => {
     const battle = requireParticipantBattle({ battleSnapshot: await transaction.get(battleDocument), uid });
-    if (round < battle.turns.length) {
+    if (turnNumber < battle.turnNumber) {
       return;
     }
     if (battle.status !== "active") {
       throw new HttpsError("failed-precondition", "対戦は終わっています");
     }
-    if (round > battle.turns.length) {
+    if (turnNumber > battle.turnNumber) {
       throw new HttpsError("invalid-argument", "まだ始まっていないターンです");
     }
     const now = Timestamp.now();
     if (now.toMillis() > battle.turnDeadline.toMillis()) {
       throw new HttpsError("deadline-exceeded", "行動を選ぶ時間を過ぎました");
     }
-    const actionDocument = firestore.doc(`pvpBattles/${battleID}/actions/${pvpActionDocumentID({ turn: round, uid })}`);
-    const [actionSnapshot, opponentActionSnapshot] = await transaction.getAll(
-      actionDocument,
+    const turnDocument = firestore.doc(`pvpBattles/${battleID}/turns/${pvpTurnDocumentID({ uid, turnNumber })}`);
+    const [turnSnapshot, opponentTurnSnapshot] = await transaction.getAll(
+      turnDocument,
       firestore.doc(
-        `pvpBattles/${battleID}/actions/${pvpActionDocumentID({
-          turn: round,
+        `pvpBattles/${battleID}/turns/${pvpTurnDocumentID({
           uid: battle.participantUIDs.find((participantUID) => participantUID !== uid)!,
+          turnNumber,
         })}`,
       ),
     );
-    if (actionSnapshot.exists) {
+    if (turnSnapshot.exists) {
       return;
     }
-    transaction.create(actionDocument, { action: parsedAction } satisfies PvpActionDocument);
-    if (!opponentActionSnapshot.exists) {
+    transaction.create(turnDocument, { action: parsedAction, isRevealed: opponentTurnSnapshot.exists } satisfies PvpTurnDocument);
+    if (!opponentTurnSnapshot.exists) {
       return;
     }
-    const opponentAction = (opponentActionSnapshot.data() as PvpActionDocument).action;
-    // 同じ行動のターンが続いても足せるよう、arrayUnion (同じ値を足さない) ではなく配列ごと書く
-    transaction.update(battleDocument, {
-      turns: [
-        ...battle.turns,
-        (battle.host.uid === uid
-          ? { hostAction: parsedAction, guestAction: opponentAction }
-          : { hostAction: opponentAction, guestAction: parsedAction }) satisfies PvpTurn,
-      ],
-      turnDeadline: turnDeadlineFrom({ now }),
-    });
+    transaction.update(opponentTurnSnapshot.ref, { isRevealed: true } satisfies Pick<PvpTurnDocument, "isRevealed">);
+    transaction.update(battleDocument, { turnNumber: turnNumber + 1, turnDeadline: turnDeadlineFrom({ now }) });
   });
   return { submitted: true };
 });
@@ -378,14 +372,14 @@ export const claimPvpTimeout = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
     if (battle.status !== "active" || Timestamp.now().toMillis() <= battle.turnDeadline.toMillis()) {
       return { status: battle.status };
     }
-    // 過去のターンの行動も残っているため、今のターン (公開済みのターンの数と同じ番号) の行動だけを読む
-    const actionSnapshots = await transaction.getAll(
+    // 過去のターンの行動も残っているため、今のターンの行動だけを読む
+    const turnSnapshots = await transaction.getAll(
       ...battle.participantUIDs.map((participantUID) =>
-        firestore.doc(`pvpBattles/${battleID}/actions/${pvpActionDocumentID({ turn: battle.turns.length, uid: participantUID })}`),
+        firestore.doc(`pvpBattles/${battleID}/turns/${pvpTurnDocumentID({ uid: participantUID, turnNumber: battle.turnNumber })}`),
       ),
     );
     const outcome = timeoutOutcome({
-      submittedUIDs: battle.participantUIDs.filter((_, index) => actionSnapshots[index].exists),
+      submittedUIDs: battle.participantUIDs.filter((_, index) => turnSnapshots[index].exists),
     });
     await finishPvpBattle({ transaction, firestore, battleID, battle, outcome });
     return { status: outcome.status };
@@ -395,7 +389,7 @@ export const claimPvpTimeout = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
 /**
  * 人との対戦で、自分の端末の計算が出した勝者を報告する callable。端末は決着の後、recordBattle (レベルの記録) の前に呼ぶ。
  *
- * 受け取る data: `{ battleID: string, winnerUID: string | null }` (winnerUID は 2 人のどちらかの uid。公開されたターンでは決着していない、という報告は null)。
+ * 受け取る data: `{ battleID: string, winnerUID: string | null }` (winnerUID は 2 人のどちらかの uid。公開された行動では決着していない、という報告は null)。
  * 返す値: `{ status: "active" | "finished" | "void" }` (呼んだ後の対戦の状態)。
  * 進行中の対戦は最初の報告の勝者で終え、2 人の `users/{uid}/battles/{battleID}` に勝敗を書く。報告で終わった対戦に、食い違う報告
  * (別の勝者・決着していない) が届いたら、勝敗を付けない終わりに変えて書いた勝敗を消す (pvp_battle_rules.ts の outcomeAfterReport)。

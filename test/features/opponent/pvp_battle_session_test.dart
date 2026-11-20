@@ -98,19 +98,19 @@ void main() {
       var guestState = startStateOf(player: guest, opponent: host);
       // 300 ラウンド: 手持ち 2 体ずつの対戦が決着する数より十分多く、決着しない不具合でテストが止まらない上限
       for (var round = 0; round < 300 && hostState.winner == null; round++) {
-        final PvpTurn turn = (
-          hostAction: chosenAction(state: hostState),
-          guestAction: chosenAction(state: guestState),
-        );
+        final hostAction = chosenAction(state: hostState);
+        final guestAction = chosenAction(state: guestState);
         hostState = resolvePvpRound(
           state: hostState,
-          turn: turn,
+          hostAction: hostAction,
+          guestAction: guestAction,
           isHost: true,
           definitions: definitions,
         );
         guestState = resolvePvpRound(
           state: guestState,
-          turn: turn,
+          hostAction: hostAction,
+          guestAction: guestAction,
           isHost: false,
           definitions: definitions,
         );
@@ -126,18 +126,17 @@ void main() {
 
     test('先に待っていた側の端末の結果は、その側を利用者の陣営にして進めた計算と同じ', () {
       final hostState = startStateOf(player: host, opponent: guest);
-      final PvpTurn turn = (
-        hostAction: chosenAction(state: hostState),
-        guestAction: chosenAction(
-          state: startStateOf(player: guest, opponent: host),
-        ),
+      final hostAction = chosenAction(state: hostState);
+      final guestAction = chosenAction(
+        state: startStateOf(player: guest, opponent: host),
       );
 
       expect(
         describeBattleState(
           state: resolvePvpRound(
             state: hostState,
-            turn: turn,
+            hostAction: hostAction,
+            guestAction: guestAction,
             isHost: true,
             definitions: definitions,
           ),
@@ -145,8 +144,8 @@ void main() {
         describeBattleState(
           state: advanceRound(
             state: hostState,
-            playerAction: turn.hostAction,
-            opponentAction: turn.guestAction,
+            playerAction: hostAction,
+            opponentAction: guestAction,
             master: definitions,
           ),
         ),
@@ -162,7 +161,8 @@ void main() {
       final hostStart = startStateOf(player: host, opponent: guest);
       final hostState = resolvePvpRound(
         state: hostStart,
-        turn: (hostAction: hostAction, guestAction: guestAction),
+        hostAction: hostAction,
+        guestAction: guestAction,
         isHost: true,
         definitions: definitions,
       );
@@ -170,7 +170,8 @@ void main() {
         hostWinner: hostState.winner,
         guestWinner: resolvePvpRound(
           state: startStateOf(player: guest, opponent: host),
-          turn: (hostAction: hostAction, guestAction: guestAction),
+          hostAction: hostAction,
+          guestAction: guestAction,
           isHost: false,
           definitions: definitions,
         ).winner,
@@ -257,7 +258,7 @@ void main() {
         await tester.pump();
         hostState = (await hostNext)!;
         guestState = (await guestNext)!;
-        expect(server.battle!.turns, hasLength(round + 1));
+        expect(server.battle!.turnNumber, round + 1);
         expect(
           describeBattleState(state: guestState),
           describeBattleState(state: mirrorBattleState(state: hostState)),
@@ -293,7 +294,7 @@ void main() {
 
       server.submitAction(
         uid: guest.uid,
-        round: 0,
+        turnNumber: 0,
         action: const UseMoveAction(moveID: 'paper_1'),
       );
       await tester.pump();
@@ -396,7 +397,7 @@ void main() {
           .ignore();
       server.submitAction(
         uid: guest.uid,
-        round: 0,
+        turnNumber: 0,
         action: const UseMoveAction(moveID: 'paper_1'),
       );
       await tester.pump();
@@ -432,7 +433,7 @@ void main() {
       }
     });
 
-    testWidgets('最後のターンの公開と勝敗なしの終わりが 1 回の知らせで届いた時は、そのターンを進めずに勝敗を付けずに終わる', (
+    testWidgets('勝敗なしの終わりが、最後のターンの行動より先に届いた時は、後から届いた行動でターンを進めずに勝敗を付けずに終わる', (
       tester,
     ) async {
       final server = matchedServer();
@@ -450,12 +451,10 @@ void main() {
       );
       await tester.pump();
 
-      // 進めれば先に待っていた側の勝ちで決着するターン (後から来た側が選べない行動) が、ブロックでの終わりと一緒に届く
+      // 進めれば先に待っていた側の勝ちで決着するターン (後から来た側が選べない行動) が、ブロックでの終わりの後に届く
       server.finishByBlockAfterRevealing(
-        turn: (
-          hostAction: const UseMoveAction(moveID: 'fire_1'),
-          guestAction: const UseMoveAction(moveID: 'water_1'),
-        ),
+        hostAction: const UseMoveAction(moveID: 'fire_1'),
+        guestAction: const UseMoveAction(moveID: 'water_1'),
       );
       await tester.pump();
 
@@ -488,6 +487,48 @@ void main() {
       expect(hostInterruption, (winner: null));
     });
 
+    testWidgets('相手の勝者の報告が、決着するターンの行動より先に届いても、行動が届いてから自分の計算で決着し、勝敗なしにしない', (
+      tester,
+    ) async {
+      final server = matchedServer();
+      final hostSession = sessionOf(server: server, player: host)..start();
+      addTearDown(hostSession.dispose);
+      var isInterrupted = false;
+      hostSession.interruption.then((_) => isInterrupted = true).ignore();
+      BattleState? hostNextState;
+      hostSession
+          .advance(
+            state: startStateOf(player: host, opponent: guest),
+            playerAction: const UseMoveAction(moveID: 'fire_1'),
+          )
+          .then((state) => hostNextState = state)
+          .ignore();
+      await tester.pump();
+
+      // 後から来た側が選べない行動を出して先に待っていた側の勝ちで決着し、後から来た側の端末がその勝者を報告する。
+      // 先に待っていた側の端末には、対戦の終わり (対戦の状態) だけが先に届く
+      server
+        ..holdsRevealedTurns = true
+        ..submitAction(
+          uid: guest.uid,
+          turnNumber: 0,
+          action: const UseMoveAction(moveID: 'water_1'),
+        )
+        ..reportResult(uid: guest.uid, winnerUID: host.uid);
+      await tester.pump();
+      expect(hostNextState, isNull);
+      expect(isInterrupted, isFalse);
+      expect(server.reportCalls, [(uid: guest.uid, winnerUID: host.uid)]);
+
+      server.releaseRevealedTurns();
+      await tester.pump();
+
+      expect(hostNextState!.winner, BattleSideID.player);
+      expect(isInterrupted, isFalse);
+      expect(server.battle!.status, PvpBattleStatus.finished);
+      expect(server.reportCalls, [(uid: guest.uid, winnerUID: host.uid)]);
+    });
+
     testWidgets('自分の計算で決着した後に相手の報告が届いても、途中で終わった扱いにしない', (tester) async {
       final server = matchedServer();
       final hostSession = sessionOf(server: server, player: host)..start();
@@ -501,7 +542,7 @@ void main() {
       );
       server.submitAction(
         uid: guest.uid,
-        round: 0,
+        turnNumber: 0,
         action: const UseMoveAction(moveID: 'water_1'),
       );
       await tester.pump();
@@ -536,7 +577,7 @@ void main() {
         );
         server.submitAction(
           uid: guest.uid,
-          round: 0,
+          turnNumber: 0,
           action: const UseMoveAction(moveID: 'water_1'),
         );
         await tester.pump();
@@ -569,7 +610,7 @@ void main() {
       expect(server.submitCalls, hasLength(2));
       server.submitAction(
         uid: guest.uid,
-        round: 0,
+        turnNumber: 0,
         action: const UseMoveAction(moveID: 'paper_1'),
       );
       await tester.pump();

@@ -20,14 +20,16 @@ typedef PvpBattleInterruption = ({
   BattleSideID? winner,
 });
 
-/// 自分の端末の向きの [state] を、公開されたターン [turn] の 2 人の行動で 1 ラウンド進めた状態 (自分の端末の向き) を返す。
+/// 自分の端末の向きの [state] を、同じターンに公開された 2 人の行動 (先に待っていた側の [hostAction] と後から来た側の [guestAction]) で
+/// 1 ラウンド進めた状態 (自分の端末の向き) を返す。
 /// [isHost] は自分が先に待っていた側かで、2 人の端末は同じ向き (先に待っていた側を利用者の陣営とする向き) で計算し、
 /// 後から来た側は前後で陣営を入れ替える ([mirrorBattleState])。
 /// 相手の端末から届いた行動が選べない行動 ([isSelectableAction]) の時は、ラウンドを進めずにその行動を出した側の負けで終える
 /// (2 人とも選べない行動の時は、先に待っていた側の負け)。2 人の端末が同じ入力から同じ結果を出す。
 BattleState resolvePvpRound({
   required BattleState state,
-  required PvpTurn turn,
+  required BattleAction hostAction,
+  required BattleAction guestAction,
   required bool isHost,
   required MasterData definitions,
 }) {
@@ -35,12 +37,12 @@ BattleState resolvePvpRound({
   final nextHostSideState = switch ((
     isSelectableAction(
       party: hostSideState.player,
-      action: turn.hostAction,
+      action: hostAction,
       master: definitions,
     ),
     isSelectableAction(
       party: hostSideState.opponent,
-      action: turn.guestAction,
+      action: guestAction,
       master: definitions,
     ),
   )) {
@@ -54,8 +56,8 @@ BattleState resolvePvpRound({
     ),
     (true, true) => advanceRound(
       state: hostSideState,
-      playerAction: turn.hostAction,
-      opponentAction: turn.guestAction,
+      playerAction: hostAction,
+      opponentAction: guestAction,
       master: definitions,
     ),
   };
@@ -90,6 +92,9 @@ class PvpBattleSession {
   /// 最後に受け取った対戦の状態。
   PvpBattle _battle;
 
+  /// 最後に受け取った、公開された行動の一覧 (並びは決まっていない)。対戦の状態とは別の購読で届く。
+  List<PvpTurn> _revealedTurns = const [];
+
   /// [remainingSeconds] の実体。
   final ValueNotifier<int> _remainingSeconds;
 
@@ -113,6 +118,9 @@ class PvpBattleSession {
 
   /// 対戦の状態の購読。[start] の前と同期を終えた後は null。
   StreamSubscription<PvpBattle?>? _battleSubscription;
+
+  /// 公開された行動の購読。[start] の前と同期を終えた後は null。
+  StreamSubscription<List<PvpTurn>>? _revealedTurnsSubscription;
 
   /// 残り時間を 1 秒ずつ数えるタイマー。[start] の前と同期を終えた後は null。
   Timer? _turnTimer;
@@ -144,7 +152,7 @@ class PvpBattleSession {
   /// 計算で決着してサーバーも勝者を決めた対戦と、[dispose] した対戦では完了しない。
   Future<PvpBattleInterruption> get interruption => _interruption.future;
 
-  /// 対戦の状態の購読と、残り時間のカウントを始める。
+  /// 対戦の状態と公開された行動の購読と、残り時間のカウントを始める。
   void start() {
     // 読めなかった時は終わり方が分からないため対戦を止めず、時間切れを頼む呼び出しの結果に任せる
     _battleSubscription = client
@@ -152,6 +160,12 @@ class PvpBattleSession {
         .listen(
           _onBattleChanged,
           onError: (Object error) => debugPrint('watchBattle: $error'),
+        );
+    _revealedTurnsSubscription = client
+        .watchRevealedTurns(battleID: battleID)
+        .listen(
+          _onRevealedTurnsChanged,
+          onError: (Object error) => debugPrint('watchRevealedTurns: $error'),
         );
     _turnTimer = Timer.periodic(
       const Duration(seconds: 1),
@@ -195,7 +209,7 @@ class PvpBattleSession {
       try {
         await client.submitAction(
           battleID: battleID,
-          round: round,
+          turnNumber: round,
           action: action,
         );
         return;
@@ -206,7 +220,7 @@ class PvpBattleSession {
     }
   }
 
-  /// 対戦の状態 [battle] (消えた時は null) を受け取り、待っているラウンドを進め、対戦が終わっていれば [interruption] を完了する。
+  /// 対戦の状態 [battle] (消えた時は null) を受け取り、[_reconcile] する。
   void _onBattleChanged(PvpBattle? battle) {
     if (_isSettled) {
       return;
@@ -216,17 +230,44 @@ class PvpBattleSession {
       return;
     }
     _battle = battle;
-    // 勝敗を付けずに終わった対戦は、同じ知らせに最後のターンが入っていても進めない
+    _reconcile();
+  }
+
+  /// 公開された行動の一覧 [revealedTurns] を受け取り、[_reconcile] する。
+  void _onRevealedTurnsChanged(List<PvpTurn> revealedTurns) {
+    if (_isSettled) {
+      return;
+    }
+    _revealedTurns = revealedTurns;
+    _reconcile();
+  }
+
+  /// 利用者 [uid] が、次に進めるターンに出して公開された行動を返す。まだ届いていなければ null。
+  BattleAction? _revealedActionOf({required String uid}) => _revealedTurns
+      .where(
+        (turn) => turn.uid == uid && turn.turnNumber == _resolvedRoundCount,
+      )
+      .firstOrNull
+      ?.action;
+
+  /// 最後に受け取った対戦の状態と公開された行動から、待っているラウンドを進め、対戦が終わっていれば [interruption] を完了する。
+  /// 対戦の状態と公開された行動は別の購読で届き、届く順は決まっていないため、どちらが届いた時も同じ判定をする。
+  void _reconcile() {
+    final battle = _battle;
+    // 勝敗を付けずに終わった対戦は、最後のターンの行動が届いていても進めない
     // (進めて決着すると、この端末だけが勝敗を出して記録に進むため)
     if (battle.status == PvpBattleStatus.noContest) {
       _interrupt(interruption: (winner: null));
       return;
     }
     final pendingRound = _pendingRound;
-    if (pendingRound != null && battle.turns.length > _resolvedRoundCount) {
+    final hostAction = _revealedActionOf(uid: battle.host.uid);
+    final guestAction = _revealedActionOf(uid: battle.guest.uid);
+    if (pendingRound != null && hostAction != null && guestAction != null) {
       final nextState = resolvePvpRound(
         state: pendingRound.state,
-        turn: battle.turns[_resolvedRoundCount],
+        hostAction: hostAction,
+        guestAction: guestAction,
         isHost: _isHost,
         definitions: definitions,
       );
@@ -247,6 +288,11 @@ class PvpBattleSession {
     if (_isSettled || battle.status != PvpBattleStatus.finished) {
       return;
     }
+    // 公開済みのターンの行動がまだ届いていない間は、終わり方を判定しない (行動が届いて進めた後に、もう一度ここへ来る)。
+    // 先に判定すると、最後のターンで決着した対戦の相手の報告を「自分の計算では決着していない」と扱い、勝敗なしにしてしまう
+    if (_resolvedRoundCount < battle.turnNumber) {
+      return;
+    }
     if (_isDecided) {
       // 自分の計算で決着した対戦を、サーバーも勝者を決めて終えた。途中で終わった扱いにしない
       _settle();
@@ -262,7 +308,7 @@ class PvpBattleSession {
       );
       return;
     }
-    // 相手が勝者を報告したが、公開されたターンを進めた自分の計算では決着していない。
+    // 相手が勝者を報告したが、公開された行動をすべて進めた自分の計算では決着していない。
     // 決着していないと報告して勝敗を付けずに終える (報告を出せなくても、この端末では勝敗なしとして閉じる)
     unawaited(
       client
@@ -304,6 +350,8 @@ class PvpBattleSession {
     _isSettled = true;
     unawaited(_battleSubscription?.cancel());
     _battleSubscription = null;
+    unawaited(_revealedTurnsSubscription?.cancel());
+    _revealedTurnsSubscription = null;
     _turnTimer?.cancel();
     _turnTimer = null;
     _pendingRound?.nextState.complete(null);

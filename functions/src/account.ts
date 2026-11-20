@@ -110,7 +110,7 @@ export async function deleteAccountData(dependencies: AccountDeletionDependencie
     }),
   );
   // 人との対戦の待ちの札と、本人が出た対戦 (2 人の手持ちの写し・表示名・アイコンのパスを持つ。pvp_battle.ts)。
-  // 対戦は 2 人が出した行動 (`pvpBattles/{battleID}/actions`) ごと消す。相手の `users/{uid}/battles/{battleID}` は本人の情報を持たないため残す。
+  // 対戦は 2 人が出した行動 (`pvpBattles/{battleID}/turns`) ごと消す。相手の `users/{uid}/battles/{battleID}` は本人の情報を持たないため残す。
   // 終わった対戦は消さずに残るため、長く使った利用者ほど件数が増える。1 回に読む件数を限って消し切るまで繰り返す
   // (関数の時間切れで途中で止まっても、消した対戦は次の読み取りに出ず、Auth のユーザーはこの後で消すため、
   // 本人がもう一度呼べば残りから消せる)。
