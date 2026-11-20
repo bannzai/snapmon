@@ -6,7 +6,7 @@ import 'status_condition.dart';
 /// 手持ちの数の上限 (DIRECTION.md「ゲームの仕様」の「手持ちは 3 体まで」)。
 const int maximumPartySize = 3;
 
-/// バトルの陣営。CPU 対戦では [opponent] が CPU、非同期 PvP では相手の手持ちを CPU が操作する。
+/// バトルの陣営。CPU 対戦では [opponent] が CPU、人との対戦では相手の利用者。
 enum BattleSideID {
   /// 端末を操作している利用者の陣営。
   player,

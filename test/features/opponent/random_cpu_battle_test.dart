@@ -7,6 +7,7 @@ import 'package:snapmon/features/opponent/random_cpu_battle.dart';
 
 import '../../battle_recorder_fixture.dart';
 import '../../card_sharer_fixture.dart';
+import '../../pvp_battle_fixture.dart';
 import '../../pvp_client_fixture.dart';
 import '../../sample_data_fixture.dart';
 
@@ -19,6 +20,7 @@ void main() {
         dexStore: dexStore,
         pvpClient: fakePvpClient(
           calls: RecordedPvpCalls(),
+          battleClient: signedOutPvpBattleClient(),
           fetchOpponents: () async => [],
           extraDefinitions: null,
           battleRecord: null,

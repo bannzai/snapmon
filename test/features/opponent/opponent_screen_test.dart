@@ -20,6 +20,7 @@ import 'package:snapmon/monster_ui/monster_parts.dart';
 import '../../battle_recorder_fixture.dart';
 import '../../card_sharer_fixture.dart';
 import '../../game_audio_fixture.dart';
+import '../../pvp_battle_fixture.dart';
 import '../../pvp_client_fixture.dart';
 import '../../sample_data_fixture.dart';
 
@@ -123,10 +124,13 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  /// ログインしていて、他のユーザーの候補 [opponents] を返せる (けれど呼ばれない) 相手の取得。
+  /// 戦績とプロフィールを読め、他のユーザーの候補 [opponents] を返せる (けれど呼ばれない) 相手の取得。
+  /// 人との対戦の相手は探せない (uid が無い [signedOutPvpBattleClient]) ため、「対戦をする」は待つ画面を開かずに CPU との対戦に入る
+  /// (人との対戦の待つ画面からの流れは pvp_matching_test.dart が確かめる)。
   PvpClient signedInPvpClient({required RecordedPvpCalls calls}) =>
       fakePvpClient(
         calls: calls,
+        battleClient: signedOutPvpBattleClient(),
         fetchOpponents: () async => opponents,
         extraDefinitions: null,
         battleRecord: (wins: 8, losses: 3),
@@ -138,7 +142,7 @@ void main() {
       );
 
   testWidgets(
-    'ログインしていても他のユーザーの手持ちを読まず、戦績と「ランダムな相手と戦う」「CPU と戦う」の 2 つの入口だけを出し、CPU トレーナーの一覧・「ほかの相手をさがす」・通報・ブロックを出さない',
+    'ログインしていても他のユーザーの手持ちを読まず、戦績と「対戦をする」「CPU と対戦をする」の 2 つの入口だけを出し、CPU トレーナーの一覧・「ほかの相手をさがす」・通報・ブロックを出さない',
     (tester) async {
       final calls = RecordedPvpCalls();
       await pumpOpponentScreen(
@@ -164,22 +168,22 @@ void main() {
         );
       }
       expect(
-        find.byKey(const Key('random-battle'), skipOffstage: false),
+        find.byKey(const Key('pvp-battle'), skipOffstage: false),
         findsOneWidget,
       );
       expect(
         tester
-            .widget<ButtonStyleButton>(find.byKey(const Key('random-battle')))
+            .widget<ButtonStyleButton>(find.byKey(const Key('pvp-battle')))
             .onPressed,
         isNotNull,
       );
       expect(find.byType(FilledButton, skipOffstage: false), findsOneWidget);
-      // 「ランダムな相手と戦う」とは別のボタンとして「CPU と戦う」を出す (issue #347)
+      // 「対戦をする」とは別のボタンとして「CPU と対戦をする」を出す (issue #347)
       final l10n = await AppLocalizations.delegate.load(const Locale('ja'));
       expect(
         find.descendant(
-          of: find.byKey(const Key('random-battle')),
-          matching: find.text(l10n.opponentRandomBattle),
+          of: find.byKey(const Key('pvp-battle')),
+          matching: find.text(l10n.opponentPvpBattle),
         ),
         findsOneWidget,
       );
@@ -241,7 +245,7 @@ void main() {
     expect(resultScreen.origin, ResultScreenOrigin.dex);
   });
 
-  testWidgets('ログインが無い時は戦績を出さず、見本の対戦相手を出さずに「ランダムな相手と戦う」を押せる', (tester) async {
+  testWidgets('ログインが無い時は戦績を出さず、見本の対戦相手を出さずに「対戦をする」を押せる', (tester) async {
     final calls = RecordedPvpCalls();
     await pumpOpponentScreen(
       tester: tester,
@@ -259,7 +263,7 @@ void main() {
     }
     expect(
       tester
-          .widget<ButtonStyleButton>(find.byKey(const Key('random-battle')))
+          .widget<ButtonStyleButton>(find.byKey(const Key('pvp-battle')))
           .onPressed,
       isNotNull,
     );
@@ -307,6 +311,8 @@ void main() {
     await pumpOpponentScreen(
       tester: tester,
       pvpClient: PvpClient(
+        battleClient: pvpClient.battleClient,
+        openContact: pvpClient.openContact,
         fetchOpponents: pvpClient.fetchOpponents,
         fetchDefinitions: pvpClient.fetchDefinitions,
         reportMonster: pvpClient.reportMonster,
@@ -331,6 +337,8 @@ void main() {
   }) {
     final pvpClient = signedInPvpClient(calls: RecordedPvpCalls());
     return PvpClient(
+      battleClient: pvpClient.battleClient,
+      openContact: pvpClient.openContact,
       fetchOpponents: pvpClient.fetchOpponents,
       fetchDefinitions: pvpClient.fetchDefinitions,
       reportMonster: pvpClient.reportMonster,
@@ -364,7 +372,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('opponent-tab-player-trainer')), findsNothing);
     expect(find.text('トレーナー 0001'), findsNothing);
-    await tester.tap(find.byKey(const Key('random-battle')));
+    await tester.tap(find.byKey(const Key('pvp-battle')));
     // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
@@ -429,6 +437,8 @@ void main() {
   }) {
     final pvpClient = signedInPvpClient(calls: RecordedPvpCalls());
     return PvpClient(
+      battleClient: pvpClient.battleClient,
+      openContact: pvpClient.openContact,
       fetchOpponents: pvpClient.fetchOpponents,
       fetchDefinitions: pvpClient.fetchDefinitions,
       reportMonster: pvpClient.reportMonster,
@@ -440,9 +450,9 @@ void main() {
     );
   }
 
-  /// 「ランダムな相手と戦う」でバトルに入り、バトルの画面を閉じて対戦のシーンに戻る (閉じると戦績を読み直す)。
+  /// 「対戦をする」でバトルに入り、バトルの画面を閉じて対戦のシーンに戻る (閉じると戦績を読み直す)。
   Future<void> battleAndReturn({required WidgetTester tester}) async {
-    await tester.tap(find.byKey(const Key('random-battle')));
+    await tester.tap(find.byKey(const Key('pvp-battle')));
     // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
@@ -459,7 +469,7 @@ void main() {
         pvpClient: signedInPvpClient(calls: RecordedPvpCalls()),
         onOpenSettings: () async {},
       );
-      await tester.tap(find.byKey(const Key('random-battle')));
+      await tester.tap(find.byKey(const Key('pvp-battle')));
       await tester.pump();
       await tester.pump(const Duration(seconds: 1));
       final firstBattle = tester.widget<BattleScreen>(
@@ -489,7 +499,7 @@ void main() {
       await tester.pump(const Duration(seconds: 1));
       await tester.pump(const Duration(seconds: 1));
       expect(find.byType(BattleScreen), findsNothing);
-      expect(find.byKey(const Key('random-battle')), findsOneWidget);
+      expect(find.byKey(const Key('pvp-battle')), findsOneWidget);
     },
   );
 
@@ -564,14 +574,14 @@ void main() {
   });
 
   testWidgets(
-    '「ランダムな相手と戦う」は、CPU トレーナーの名前と、自分の手持ちと同じ数で同じ絵を含まない自分の平均レベルの見本のモンスターを相手にしてバトルに入り、自分と相手の名前を渡す',
+    '人との対戦の相手を探せない時 (uid が無い) の「対戦をする」は、待つ画面を開かずに、CPU トレーナーの名前と、自分の手持ちと同じ数で同じ絵を含まない自分の平均レベルの見本のモンスターを相手にしてバトルに入り、自分と相手の名前を渡す',
     (tester) async {
       await pumpOpponentScreen(
         tester: tester,
         pvpClient: signedInPvpClient(calls: RecordedPvpCalls()),
         onOpenSettings: () async {},
       );
-      await tester.tap(find.byKey(const Key('random-battle')));
+      await tester.tap(find.byKey(const Key('pvp-battle')));
       // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
       await tester.pump();
       await tester.pump(const Duration(seconds: 1));
@@ -601,7 +611,7 @@ void main() {
   );
 
   testWidgets(
-    '「CPU と戦う」は、他のユーザーの手持ちを読まず、CPU トレーナーの名前と自分の手持ちと同じ数の見本のモンスターを相手にしてバトルに入る',
+    '「CPU と対戦をする」は、他のユーザーの手持ちを読まず、CPU トレーナーの名前と自分の手持ちと同じ数の見本のモンスターを相手にしてバトルに入る',
     (tester) async {
       final calls = RecordedPvpCalls();
       await pumpOpponentScreen(
@@ -628,7 +638,7 @@ void main() {
     },
   );
 
-  for (final challengeKey in ['random-battle', 'cpu-battle']) {
+  for (final challengeKey in ['pvp-battle', 'cpu-battle']) {
     testWidgets('$challengeKey で挑んでいる間は、2 つの入口のどちらも押せず、バトルを閉じると押せるように戻る', (
       tester,
     ) async {
@@ -643,7 +653,7 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(seconds: 1));
       expect(find.byType(BattleScreen), findsOneWidget);
-      for (final key in ['random-battle', 'cpu-battle']) {
+      for (final key in ['pvp-battle', 'cpu-battle']) {
         expect(
           tester
               .widget<ButtonStyleButton>(
@@ -657,7 +667,7 @@ void main() {
       Navigator.of(tester.element(find.byType(BattleScreen))).pop();
       await tester.pump();
       await tester.pump(const Duration(seconds: 1));
-      for (final key in ['random-battle', 'cpu-battle']) {
+      for (final key in ['pvp-battle', 'cpu-battle']) {
         expect(
           tester
               .widget<ButtonStyleButton>(
@@ -671,7 +681,7 @@ void main() {
     });
   }
 
-  testWidgets('手持ちが空の時は「ランダムな相手と戦う」も「CPU と戦う」も押せない', (tester) async {
+  testWidgets('手持ちが空の時は「対戦をする」も「CPU と対戦をする」も押せない', (tester) async {
     tester.view
       ..physicalSize = const Size(390, 844)
       ..devicePixelRatio = 1;
@@ -714,7 +724,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(
       tester
-          .widget<ButtonStyleButton>(find.byKey(const Key('random-battle')))
+          .widget<ButtonStyleButton>(find.byKey(const Key('pvp-battle')))
           .onPressed,
       isNull,
     );

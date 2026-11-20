@@ -1,0 +1,166 @@
+import { Timestamp } from "firebase-admin/firestore";
+import { describe, expect, it } from "vitest";
+
+import {
+  type PvpBattleDocument,
+  type PvpBattleProgress,
+  type PvpMatchTicketDocument,
+  isMatchableHostTicket,
+  isRulesVersion,
+  outcomeAfterReport,
+  parsePvpAction,
+  pvpParticipantUIDs,
+  timeoutOutcome,
+} from "../../src/pvp_battle_rules";
+
+/** 進行中の対戦の進み具合。 */
+const activeProgress: PvpBattleProgress = { winnerUID: null, finishReason: null, turnDeadline: Timestamp.fromMillis(0) };
+
+/** host-uid と guest-uid の、進み具合が [progress] の対戦のドキュメント。 */
+function battleDocument({ progress }: { progress: PvpBattleProgress }): PvpBattleDocument {
+  return {
+    host: { uid: "host-uid", displayName: "ホスト", iconPath: null, monsters: [] },
+    guest: { uid: "guest-uid", displayName: "ゲスト", iconPath: null, monsters: [] },
+    randomSeed: 1,
+    battleDate: "2026-11-19",
+    turnNumber: 0,
+    turnSeconds: 60,
+    reportedWinnerUIDs: {},
+    createdAt: Timestamp.fromMillis(0),
+    ...progress,
+  };
+}
+
+describe("parsePvpAction", () => {
+  it("技・わるあがき・交代の形を、決めた項目だけ写して返す", () => {
+    expect(parsePvpAction({ kind: "move", moveID: "warm-touch", extra: "x" })).toEqual({ kind: "move", moveID: "warm-touch" });
+    expect(parsePvpAction({ kind: "struggle", moveID: "warm-touch" })).toEqual({ kind: "struggle" });
+    expect(parsePvpAction({ kind: "switch", memberIndex: 2, extra: 1 })).toEqual({ kind: "switch", memberIndex: 2 });
+  });
+
+  it("交代は手持ちの 0〜2 番目だけを受け付ける", () => {
+    expect(parsePvpAction({ kind: "switch", memberIndex: 0 })).toEqual({ kind: "switch", memberIndex: 0 });
+    expect(parsePvpAction({ kind: "switch", memberIndex: 3 })).toBeUndefined();
+    expect(parsePvpAction({ kind: "switch", memberIndex: -1 })).toBeUndefined();
+    expect(parsePvpAction({ kind: "switch", memberIndex: 1.5 })).toBeUndefined();
+    expect(parsePvpAction({ kind: "switch", memberIndex: "1" })).toBeUndefined();
+    expect(parsePvpAction({ kind: "switch" })).toBeUndefined();
+  });
+
+  it("技は空でない 200 文字までの ID だけを受け付ける", () => {
+    expect(parsePvpAction({ kind: "move", moveID: "a".repeat(200) })).toEqual({ kind: "move", moveID: "a".repeat(200) });
+    expect(parsePvpAction({ kind: "move", moveID: "a".repeat(201) })).toBeUndefined();
+    expect(parsePvpAction({ kind: "move", moveID: "" })).toBeUndefined();
+    expect(parsePvpAction({ kind: "move", moveID: 1 })).toBeUndefined();
+    expect(parsePvpAction({ kind: "move" })).toBeUndefined();
+  });
+
+  it("決めていない種類と、オブジェクトでない値は受け付けない", () => {
+    expect(parsePvpAction({ kind: "forfeit" })).toBeUndefined();
+    expect(parsePvpAction({})).toBeUndefined();
+    expect(parsePvpAction(null)).toBeUndefined();
+    expect(parsePvpAction(undefined)).toBeUndefined();
+    expect(parsePvpAction("struggle")).toBeUndefined();
+  });
+});
+
+describe("isRulesVersion", () => {
+  it("空でない 64 文字までの文字列だけを版として受け付ける", () => {
+    expect(isRulesVersion("1")).toBe(true);
+    expect(isRulesVersion("a".repeat(64))).toBe(true);
+    expect(isRulesVersion("a".repeat(65))).toBe(false);
+    expect(isRulesVersion("")).toBe(false);
+    expect(isRulesVersion(1)).toBe(false);
+    expect(isRulesVersion(undefined)).toBe(false);
+  });
+});
+
+describe("isMatchableHostTicket", () => {
+  const freshSince = Timestamp.fromMillis(10_000);
+
+  /** 版 `1` でまだ組み合わされていない、最後の呼び出しが [freshSince] ちょうどの札に、[overrides] の項目を上書きした札。 */
+  function ticket(overrides: Partial<PvpMatchTicketDocument>): PvpMatchTicketDocument {
+    return { rulesVersion: "1", searchID: "search", createdAt: Timestamp.fromMillis(0), heartbeatAt: freshSince, battleID: null, ...overrides };
+  }
+
+  it("同じ版でまだ組み合わされておらず、最後の呼び出しが新しい札は組み合わせられる", () => {
+    expect(isMatchableHostTicket({ hostTicket: ticket({}), rulesVersion: "1", freshSince })).toBe(true);
+    expect(isMatchableHostTicket({ hostTicket: ticket({ heartbeatAt: Timestamp.fromMillis(10_001) }), rulesVersion: "1", freshSince })).toBe(true);
+  });
+
+  it("最後の呼び出しが 1 ミリ秒でも古い札は組み合わせられない", () => {
+    expect(isMatchableHostTicket({ hostTicket: ticket({ heartbeatAt: Timestamp.fromMillis(9_999) }), rulesVersion: "1", freshSince })).toBe(false);
+  });
+
+  it("候補を読んだ後に別の版で探し直した札は組み合わせられない", () => {
+    expect(isMatchableHostTicket({ hostTicket: ticket({ rulesVersion: "2" }), rulesVersion: "1", freshSince })).toBe(false);
+  });
+
+  it("他の利用者と組み合わされた札と、探すのをやめて消えた札は組み合わせられない", () => {
+    expect(isMatchableHostTicket({ hostTicket: ticket({ battleID: "battle" }), rulesVersion: "1", freshSince })).toBe(false);
+    expect(isMatchableHostTicket({ hostTicket: undefined, rulesVersion: "1", freshSince })).toBe(false);
+  });
+});
+
+describe("timeoutOutcome", () => {
+  it("行動を出したのが片方だけなら、出した側の勝ちで終える", () => {
+    expect(timeoutOutcome({ submittedUIDs: ["guest-uid"] })).toEqual({ winnerUID: "guest-uid", finishReason: "timeout" });
+    expect(timeoutOutcome({ submittedUIDs: ["host-uid"] })).toEqual({ winnerUID: "host-uid", finishReason: "timeout" });
+  });
+
+  it("どちらも出していなければ、勝敗を付けずに終える", () => {
+    expect(timeoutOutcome({ submittedUIDs: [] })).toEqual({ winnerUID: null, finishReason: "timeout" });
+  });
+});
+
+describe("outcomeAfterReport", () => {
+  it("進行中の対戦は、最初の報告の勝者で終える", () => {
+    expect(outcomeAfterReport({ battle: battleDocument({ progress: activeProgress }), reportedWinnerUID: "guest-uid" })).toEqual({
+      winnerUID: "guest-uid",
+      finishReason: "result",
+    });
+  });
+
+  it("進行中の対戦への「決着していない」は何も変えない", () => {
+    expect(outcomeAfterReport({ battle: battleDocument({ progress: activeProgress }), reportedWinnerUID: null })).toBeUndefined();
+  });
+
+  it("報告で終わった対戦に同じ勝者の報告が届いても変えない", () => {
+    expect(
+      outcomeAfterReport({
+        battle: battleDocument({ progress: { winnerUID: "host-uid", finishReason: "result", turnDeadline: null } }),
+        reportedWinnerUID: "host-uid",
+      }),
+    ).toBeUndefined();
+  });
+
+  it("報告で終わった対戦に、別の勝者・決着していないという報告が届いたら勝敗を付けない", () => {
+    const battle = battleDocument({ progress: { winnerUID: "host-uid", finishReason: "result", turnDeadline: null } });
+    expect(outcomeAfterReport({ battle, reportedWinnerUID: "guest-uid" })).toEqual({ winnerUID: null, finishReason: "mismatch" });
+    expect(outcomeAfterReport({ battle, reportedWinnerUID: null })).toEqual({ winnerUID: null, finishReason: "mismatch" });
+  });
+
+  it("期限切れで終わった対戦は、食い違う報告で変えない", () => {
+    expect(
+      outcomeAfterReport({
+        battle: battleDocument({ progress: { winnerUID: "host-uid", finishReason: "timeout", turnDeadline: null } }),
+        reportedWinnerUID: "guest-uid",
+      }),
+    ).toBeUndefined();
+  });
+
+  it("勝敗を付けずに終わった対戦は、報告で変えない", () => {
+    expect(
+      outcomeAfterReport({
+        battle: battleDocument({ progress: { winnerUID: null, finishReason: "blocked", turnDeadline: null } }),
+        reportedWinnerUID: "host-uid",
+      }),
+    ).toBeUndefined();
+  });
+});
+
+describe("pvpParticipantUIDs", () => {
+  it("先に待っていた側・後から来た側の順で 2 人の uid を返す", () => {
+    expect(pvpParticipantUIDs({ battle: battleDocument({ progress: activeProgress }) })).toEqual(["host-uid", "guest-uid"]);
+  });
+});

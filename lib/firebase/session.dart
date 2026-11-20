@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:snapmon/analytics/analytics_events.dart';
+import 'package:snapmon/firebase/emulator.dart';
 
 // Firebase のうち識別子を作る機能 (App Check・匿名ログイン・Analytics・Crashlytics) は、このファイルの関数からだけ始める
 // (ログインと計測を同じ時に始め、ログインせずに入った DEBUG ビルドでは計測しないため)。
@@ -195,7 +196,12 @@ Future<void> activateAppCheck() async {
 }
 
 /// Analytics と Crashlytics の収集を始め、未捕捉の例外を Crashlytics に送る。Crashlytics は Web 非対応のため Web では Analytics だけ。
+/// Emulator につなぐ DEBUG ビルド ([usesFirebaseEmulator]) では始めない (Analytics と Crashlytics に Emulator は無く、
+/// 動作確認のイベントが本番の計測に入るため)。
 Future<void> enableAnalyticsAndCrashlyticsCollection() async {
+  if (usesFirebaseEmulator) {
+    return;
+  }
   await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
   markAnalyticsCollectionStarted();
   if (kIsWeb) {

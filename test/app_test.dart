@@ -44,6 +44,7 @@ import 'battle_recorder_fixture.dart';
 import 'card_sharer_fixture.dart';
 import 'game_audio_fixture.dart';
 import 'monster_generator_fixture.dart';
+import 'pvp_battle_fixture.dart';
 import 'pvp_client_fixture.dart';
 import 'sample_data_fixture.dart';
 
@@ -1030,6 +1031,7 @@ void main() {
         generationGate = Completer<void>();
         pvpClient = fakePvpClient(
           calls: pvpCalls,
+          battleClient: signedOutPvpBattleClient(),
           // 他のユーザーの候補があっても、本人の操作なしに他人の手持ちを相手にしない (issue #130)
           fetchOpponents: () async => [
             for (final index in [1, 2])
@@ -1289,7 +1291,7 @@ void main() {
       // 図鑑から対戦へ撮るを経由せずに移る
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      expect(find.text('ランダムな相手と戦う'), findsOneWidget);
+      expect(find.text('対戦をする'), findsOneWidget);
       expect(find.byTooltip('戻る'), findsNothing);
       // 選んでいるタブだけを読み上げに「選択中」として伝える
       expect(
@@ -1311,7 +1313,7 @@ void main() {
 
       await tester.tap(find.byKey(const Key('tab-opponent')));
       await tester.pumpAndSettle();
-      expect(find.text('ランダムな相手と戦う'), findsOneWidget);
+      expect(find.text('対戦をする'), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('tab-capture')));
       await tester.pumpAndSettle();
@@ -1722,7 +1724,7 @@ void main() {
         );
       await tester.tap(find.byKey(const Key('capture-open-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(const Key('random-battle'));
+      final challengeButton = find.byKey(const Key('pvp-battle'));
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1760,7 +1762,7 @@ void main() {
         );
       await tester.tap(find.byKey(const Key('capture-open-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(const Key('random-battle'));
+      final challengeButton = find.byKey(const Key('pvp-battle'));
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1826,7 +1828,7 @@ void main() {
         );
       await tester.tap(find.byKey(const Key('capture-open-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(const Key('random-battle'));
+      final challengeButton = find.byKey(const Key('pvp-battle'));
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1864,7 +1866,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('capture-open-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(const Key('random-battle'));
+      final challengeButton = find.byKey(const Key('pvp-battle'));
       await tester.ensureVisible(challengeButton);
       await tester.pumpAndSettle();
       await tester.tap(challengeButton);
@@ -1923,7 +1925,7 @@ void main() {
       expect(find.text('手持ちを入れると挑めます'), findsOneWidget);
       expect(
         tester
-            .widget<ButtonStyleButton>(find.byKey(const Key('random-battle')))
+            .widget<ButtonStyleButton>(find.byKey(const Key('pvp-battle')))
             .onPressed,
         isNull,
       );
@@ -1942,7 +1944,7 @@ void main() {
       dexStore.replaceAll(monsters: sampleData.monsters);
       await tester.tap(find.byKey(const Key('capture-open-opponent')));
       await tester.pumpAndSettle();
-      final challengeButton = find.byKey(const Key('random-battle'));
+      final challengeButton = find.byKey(const Key('pvp-battle'));
 
       // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める。
       // 押した直後のフレームは新しい画面が offstage で作られる (Hero の計測のため) ので、もう 1 フレーム進めてから遷移を終わらせる
@@ -2008,7 +2010,7 @@ void main() {
     final partyBefore = dexStore.party;
     await tester.tap(find.byKey(const Key('capture-open-opponent')));
     await tester.pumpAndSettle();
-    final challengeButton = find.byKey(const Key('random-battle'));
+    final challengeButton = find.byKey(const Key('pvp-battle'));
     await tester.ensureVisible(challengeButton);
     await tester.pumpAndSettle();
     await tester.tap(challengeButton);
@@ -2064,7 +2066,7 @@ void main() {
     await tester.tap(find.text('もどる'));
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
-    expect(find.text('ランダムな相手と戦う'), findsOneWidget);
+    expect(find.text('対戦をする'), findsOneWidget);
   });
 
   testWidgets('ログインして記録した対戦は勝敗の画面に記録しましたと出し、Functions が返したレベルを図鑑に反映する', (
@@ -2085,7 +2087,7 @@ void main() {
     dexStore.replaceAll(monsters: sampleData.monsters);
     await tester.tap(find.byKey(const Key('capture-open-opponent')));
     await tester.pumpAndSettle();
-    final challengeButton = find.byKey(const Key('random-battle'));
+    final challengeButton = find.byKey(const Key('pvp-battle'));
     await tester.ensureVisible(challengeButton);
     await tester.pumpAndSettle();
     await tester.tap(challengeButton);
@@ -2127,7 +2129,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('capture-open-opponent')));
     await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key('random-battle')));
+    await tester.tap(find.byKey(const Key('pvp-battle')));
     // バトル画面の Flame のゲームループは止まらないため、pumpAndSettle を使わず時間を指定して進める
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
@@ -2162,6 +2164,8 @@ void main() {
             playerParty: sampleData.monsters.take(3).toList(),
             opponentParty: sampleData.monsters.skip(3).take(3).toList(),
             opponentKind: BattleOpponentKind.cpu,
+            pvpSession: null,
+            opponentSafetyMenuBuilder: null,
             definitions: sampleData.definitions,
             randomSeed: 1,
             battleRecorder: fakeBattleRecorder(
@@ -2308,6 +2312,7 @@ void main() {
     ) async {
       pvpClient = fakePvpClient(
         calls: pvpCalls,
+        battleClient: signedOutPvpBattleClient(),
         fetchOpponents: () async => [],
         extraDefinitions: null,
         battleRecord: (wins: 0, losses: 0),
@@ -2370,6 +2375,7 @@ void main() {
       var iconRejected = true;
       pvpClient = fakePvpClient(
         calls: pvpCalls,
+        battleClient: signedOutPvpBattleClient(),
         fetchOpponents: () async => [],
         extraDefinitions: null,
         battleRecord: (wins: 0, losses: 0),
@@ -2431,6 +2437,7 @@ void main() {
       final iconSaved = Completer<String>();
       pvpClient = fakePvpClient(
         calls: pvpCalls,
+        battleClient: signedOutPvpBattleClient(),
         fetchOpponents: () async => [],
         extraDefinitions: null,
         battleRecord: (wins: 0, losses: 0),
@@ -2472,6 +2479,7 @@ void main() {
       var fetchProfileFails = false;
       final base = fakePvpClient(
         calls: pvpCalls,
+        battleClient: signedOutPvpBattleClient(),
         fetchOpponents: () async => [],
         extraDefinitions: null,
         battleRecord: (wins: 0, losses: 0),
@@ -2482,6 +2490,8 @@ void main() {
         updateIcon: ({required photo}) async => 'users/uid/icons/upload.png',
       );
       pvpClient = PvpClient(
+        battleClient: base.battleClient,
+        openContact: base.openContact,
         fetchOpponents: base.fetchOpponents,
         fetchDefinitions: base.fetchDefinitions,
         reportMonster: base.reportMonster,
@@ -2552,6 +2562,7 @@ void main() {
       var fetchProfileFails = false;
       final base = fakePvpClient(
         calls: pvpCalls,
+        battleClient: signedOutPvpBattleClient(),
         fetchOpponents: () async => [],
         extraDefinitions: null,
         battleRecord: (wins: 0, losses: 0),
@@ -2562,6 +2573,8 @@ void main() {
         updateIcon: ({required photo}) async => 'users/uid/icons/upload.png',
       );
       pvpClient = PvpClient(
+        battleClient: base.battleClient,
+        openContact: base.openContact,
         fetchOpponents: base.fetchOpponents,
         fetchDefinitions: base.fetchDefinitions,
         reportMonster: base.reportMonster,
@@ -2620,6 +2633,7 @@ void main() {
           () => linkedAccountSignIn.future;
       pvpClient = fakePvpClient(
         calls: pvpCalls,
+        battleClient: signedOutPvpBattleClient(),
         fetchOpponents: () async => [],
         extraDefinitions: null,
         battleRecord: (wins: 0, losses: 0),
@@ -3003,6 +3017,7 @@ void main() {
           () async => 'uid-linked';
       final signedInPvpClient = fakePvpClient(
         calls: pvpCalls,
+        battleClient: signedOutPvpBattleClient(),
         fetchOpponents: () async => [],
         extraDefinitions: null,
         battleRecord: (wins: 0, losses: 0),
@@ -3013,6 +3028,8 @@ void main() {
         updateIcon: ({required photo}) async => 'users/uid/icons/upload.png',
       );
       pvpClient = PvpClient(
+        battleClient: signedInPvpClient.battleClient,
+        openContact: signedInPvpClient.openContact,
         fetchOpponents: signedInPvpClient.fetchOpponents,
         fetchDefinitions: signedInPvpClient.fetchDefinitions,
         reportMonster: signedInPvpClient.reportMonster,
@@ -3048,6 +3065,7 @@ void main() {
           () async => 'uid-linked';
       final signedInPvpClient = fakePvpClient(
         calls: pvpCalls,
+        battleClient: signedOutPvpBattleClient(),
         fetchOpponents: () async => [],
         extraDefinitions: null,
         battleRecord: null,
@@ -3058,6 +3076,8 @@ void main() {
         updateIcon: ({required photo}) async => 'users/uid/icons/upload.png',
       );
       pvpClient = PvpClient(
+        battleClient: signedInPvpClient.battleClient,
+        openContact: signedInPvpClient.openContact,
         fetchOpponents: signedInPvpClient.fetchOpponents,
         fetchDefinitions: signedInPvpClient.fetchDefinitions,
         reportMonster: signedInPvpClient.reportMonster,

@@ -80,7 +80,7 @@ function fakeGoogleCredential({ googleUserID }: { googleUserID: string }) {
   return GoogleAuthProvider.credential(JSON.stringify({ sub: googleUserID, email: `${googleUserID}@example.com`, email_verified: true }));
 }
 
-/** [uid] の図鑑・生成・バトル・手持ち・Storage のファイルと、本人と他人の通報・ブロックを Rules を通さずに置く。 */
+/** [uid] の図鑑・生成・バトル・手持ち・Storage のファイルと、本人の通報・ブロック・人との対戦の待ちの札と対戦を Rules を通さずに置く。 */
 async function seedAccount({ uid }: { uid: string }): Promise<void> {
   await adminFirestore.doc(`users/${uid}`).set({ dailyGeneration: { date: "2000-01-01", count: 1 } }, { merge: true });
   await adminFirestore.doc(`users/${uid}/monsters/monster-${uid}`).set({ artPath: `monsters/monster-${uid}/art.png`, level: 1 });
@@ -92,6 +92,9 @@ async function seedAccount({ uid }: { uid: string }): Promise<void> {
   await adminFirestore.doc(`reports/report-by-${uid}`).set({ reporterUid: uid });
   await adminFirestore.doc(`blocks/block-by-${uid}`).set({ blockerUid: uid });
   await adminFirestore.doc(`reportedMonsters/monster-${uid}`).set({ monsterOwnerUid: uid, reporterCount: 1 });
+  await adminFirestore.doc(`pvpMatchTickets/${uid}`).set({ searchID: "search", battleID: `pvp-battle-of-${uid}` });
+  await adminFirestore.doc(`pvpBattles/pvp-battle-of-${uid}`).set({ host: { uid: `opponent-of-${uid}` }, guest: { uid } });
+  await adminFirestore.doc(`pvpBattles/pvp-battle-of-${uid}/turns/${uid}_0`).set({ action: { kind: "struggle" } });
   for (const path of [
     `users/${uid}/photos/request-saved`,
     `users/${uid}/masks/request-saved`,
@@ -115,6 +118,9 @@ async function remainingAccountData({ uid }: { uid: string }): Promise<string[]>
     `reports/report-by-${uid}`,
     `blocks/block-by-${uid}`,
     `reportedMonsters/monster-${uid}`,
+    `pvpMatchTickets/${uid}`,
+    `pvpBattles/pvp-battle-of-${uid}`,
+    `pvpBattles/pvp-battle-of-${uid}/turns/${uid}_0`,
   ];
   const remainingDocuments = (await Promise.all(documentPaths.map(async (path) => ((await adminFirestore.doc(path).get()).exists ? path : null)))).filter(
     (path): path is string => path !== null,
@@ -184,7 +190,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
     await signOut(auth);
     const user = await signInUser();
     await seedAccount({ uid: user.uid });
-    expect(await remainingAccountData({ uid: user.uid })).toHaveLength(14);
+    expect(await remainingAccountData({ uid: user.uid })).toHaveLength(17);
 
     const response = await callFunction({ name: "deleteAccount", idToken: await user.getIdToken(), data: null });
 
@@ -192,9 +198,59 @@ describe("アカウントの削除 (deleteAccount)", () => {
     expect(await response.json()).toEqual({ result: { deleted: true } });
     expect(await remainingAccountData({ uid: user.uid })).toEqual([]);
     await expect(adminAuth.getUser(user.uid)).rejects.toMatchObject({ code: "auth/user-not-found" });
-    expect(await remainingAccountData({ uid: otherUser.uid })).toHaveLength(14);
+    expect(await remainingAccountData({ uid: otherUser.uid })).toHaveLength(17);
     expect((await adminAuth.getUser(otherUser.uid)).uid).toBe(otherUser.uid);
   });
+
+  it("本人が相手として出た人との対戦も消し、相手の利用者のバトルの記録は残す", async () => {
+    const otherUser = await signInUser();
+    await signOut(auth);
+    const user = await signInUser();
+    await seedAccount({ uid: user.uid });
+    await adminFirestore.doc("pvpBattles/shared-battle").set({ host: { uid: otherUser.uid }, guest: { uid: user.uid } });
+    await adminFirestore.doc(`pvpBattles/shared-battle/turns/${otherUser.uid}_0`).set({ action: { kind: "struggle" } });
+    await adminFirestore.doc(`pvpBattles/shared-battle/turns/${user.uid}_0`).set({ action: { kind: "struggle" } });
+    await adminFirestore.doc(`pvpBattles/shared-battle/turns/${user.uid}_1`).set({ action: { kind: "struggle" } });
+    await adminFirestore.doc(`users/${otherUser.uid}/battles/shared-battle`).set({ status: "completed", opponentKind: "pvp", winner: "player" });
+
+    expect((await callFunction({ name: "deleteAccount", idToken: await user.getIdToken(), data: null })).status).toBe(200);
+
+    expect((await adminFirestore.doc("pvpBattles/shared-battle").get()).exists).toBe(false);
+    expect((await adminFirestore.collection("pvpBattles/shared-battle/turns").get()).size).toBe(0);
+    expect((await adminFirestore.doc(`users/${otherUser.uid}/battles/shared-battle`).get()).data()).toEqual({
+      status: "completed",
+      opponentKind: "pvp",
+      winner: "player",
+    });
+  });
+
+  it("1 回に読む件数 (100) を超える数の人との対戦に出た利用者でも、出した対戦をすべて消し、他人どうしの対戦は残す", async () => {
+    const user = await signInUser();
+    await seedAccount({ uid: user.uid });
+    // seedAccount が置く 1 件と合わせて、1 回に読む件数 + 1 件を超える対戦にする
+    for (let start = 0; start < 101; start += 50) {
+      const batch = adminFirestore.batch();
+      for (let index = start; index < Math.min(start + 50, 101); index++) {
+        batch.set(
+          adminFirestore.doc(`pvpBattles/many-${index}`),
+          // 本人が先に待っていた側の対戦と、後から来た側の対戦を交互に置く
+          index % 2 === 0
+            ? { host: { uid: `opponent-${index}` }, guest: { uid: user.uid } }
+            : { host: { uid: user.uid }, guest: { uid: `opponent-${index}` } },
+        );
+        batch.set(adminFirestore.doc(`pvpBattles/many-${index}/turns/opponent-${index}_0`), { action: { kind: "struggle" } });
+      }
+      await batch.commit();
+    }
+    await adminFirestore.doc("pvpBattles/others").set({ host: { uid: "someone" }, guest: { uid: "someone-else" } });
+
+    expect((await callFunction({ name: "deleteAccount", idToken: await user.getIdToken(), data: null })).status).toBe(200);
+
+    expect((await adminFirestore.collection("pvpBattles").where("host.uid", "==", user.uid).get()).size).toBe(0);
+    expect((await adminFirestore.collection("pvpBattles").where("guest.uid", "==", user.uid).get()).size).toBe(0);
+    expect((await adminFirestore.doc("pvpBattles/many-100/turns/opponent-100_0").get()).exists).toBe(false);
+    expect((await adminFirestore.doc("pvpBattles/others").get()).exists).toBe(true);
+  }, 60_000);
 
   it("生成の途中 (生成中ロックが期限内) は断り、何も消さない", async () => {
     const user = await signInUser();
@@ -208,7 +264,7 @@ describe("アカウントの削除 (deleteAccount)", () => {
 
     expect(response.status).toBe(400);
     expect((await response.json()).error.status).toBe("FAILED_PRECONDITION");
-    expect(await remainingAccountData({ uid: user.uid })).toHaveLength(14);
+    expect(await remainingAccountData({ uid: user.uid })).toHaveLength(17);
     expect((await adminAuth.getUser(user.uid)).uid).toBe(user.uid);
   });
 

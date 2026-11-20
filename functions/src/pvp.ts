@@ -7,6 +7,8 @@ import { authUserExists } from "./account";
 import { ENFORCE_APP_CHECK } from "./app_check";
 import { requireSignedInUid } from "./battle";
 import type { MonsterDocument } from "./generation/records";
+import { finishPvpBattle } from "./pvp_battle_finish";
+import { type PvpBattleDocument, pvpParticipantUIDs } from "./pvp_battle_rules";
 import {
   OPPONENT_CANDIDATE_SCAN_LIMIT,
   REPORT_HIDE_THRESHOLD,
@@ -44,7 +46,7 @@ export function requireActiveAccount({ userSnapshot }: { userSnapshot: DocumentS
 }
 
 /** `users/{uid}/party/current` の monsterIDs のうち、文字列の ID だけを返す (無ければ空)。 */
-function partyMonsterIDsOf(partyData: DocumentData | undefined): string[] {
+export function partyMonsterIDsOf(partyData: DocumentData | undefined): string[] {
   const monsterIDs: unknown = partyData?.monsterIDs;
   return Array.isArray(monsterIDs) ? monsterIDs.filter(isDocumentID) : [];
 }
@@ -53,7 +55,7 @@ function partyMonsterIDsOf(partyData: DocumentData | undefined): string[] {
  * [partyMonsterIDsByUid] (uid ごとの手持ちの ID) の図鑑のモンスターを 1 回の getAll で読み、uid ごとに図鑑にあるものだけを返す
  * (手持ちの ID は消えたモンスターを指すことがあるため、無いものは落とす)。
  */
-async function partyMonstersOf({
+export async function partyMonstersOf({
   firestore,
   partyMonsterIDsByUid,
 }: {
@@ -80,7 +82,7 @@ async function partyMonstersOf({
  * "up to 30 equality (==) clauses on the same field with a logical OR" )、30 人ずつに分けて読む。
  * `in` と `reporterCount` の範囲の条件の組み合わせは複合インデックスを使う (firebase/firestore.indexes.json)。
  */
-async function ownersHiddenByReports({ firestore, ownerUids }: { firestore: Firestore; ownerUids: string[] }): Promise<Set<string>> {
+export async function ownersHiddenByReports({ firestore, ownerUids }: { firestore: Firestore; ownerUids: string[] }): Promise<Set<string>> {
   const chunks = Array.from({ length: Math.ceil(ownerUids.length / 30) }, (_, index) => ownerUids.slice(index * 30, index * 30 + 30));
   const snapshots = await Promise.all(
     chunks.map((chunk) =>
@@ -234,24 +236,39 @@ export const reportMonster = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, asyn
 /**
  * 他のユーザーをブロックする callable (ストアの UGC 要件のブロック)。
  *
- * 受け取る data: `{ blockedUid: string }`。
+ * 受け取る data: `{ blockedUid: string, battleID?: string | null }` (battleID は、ブロックの操作をした人との対戦の ID。対戦の外からのブロックは渡さない)。
  * 返す値: `{ blocked: true }`。`blocks/{blockerUid}_{blockedUid}` を作る。ブロックした相手とブロックされた相手は、互いの
- * fetchOpponents の候補に出ない。同じ相手をブロックし直しても 1 件のまま (冪等)。自分はブロックできない (invalid-argument)。
+ * fetchOpponents の候補に出ず、人との対戦 (pvp_battle.ts の joinPvpMatch) でも組み合わされない。
+ * battleID の対戦が、自分とその相手の進行中の対戦なら、同じトランザクションで勝敗を付けずに終える (ブロックした相手との対戦を
+ * 続けさせず、ブロックした側に負けを付けないため)。終わった対戦・無い対戦・自分とその相手の対戦でない ID は何も変えない。
+ * 同じ相手をブロックし直しても 1 件のまま (冪等)。自分はブロックできない (invalid-argument)。
  */
 export const blockUser = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   const uid = requireSignedInUid({ request });
-  const { blockedUid } = (request.data ?? {}) as { blockedUid?: unknown };
+  const { blockedUid, battleID } = (request.data ?? {}) as { blockedUid?: unknown; battleID?: unknown };
   if (!isDocumentID(blockedUid)) {
     throw new HttpsError("invalid-argument", "blockedUid を渡してください");
   }
   if (blockedUid === uid) {
     throw new HttpsError("invalid-argument", "自分はブロックできません");
   }
+  if (battleID !== undefined && battleID !== null && !isDocumentID(battleID)) {
+    throw new HttpsError("invalid-argument", "battleID に対戦の ID を渡してください");
+  }
   const firestore = getFirestore();
   const blockDocument = firestore.doc(`blocks/${blockDocumentID({ blockerUid: uid, blockedUid })}`);
   await firestore.runTransaction(async (transaction) => {
     const [userSnapshot, blockSnapshot] = await transaction.getAll(firestore.doc(`users/${uid}`), blockDocument);
     requireActiveAccount({ userSnapshot });
+    if (typeof battleID === "string") {
+      const battle = (await transaction.get(firestore.doc(`pvpBattles/${battleID}`))).data() as PvpBattleDocument | undefined;
+      if (
+        battle?.finishReason === null &&
+        [uid, blockedUid].every((participantUID) => pvpParticipantUIDs({ battle }).includes(participantUID))
+      ) {
+        await finishPvpBattle({ transaction, firestore, battleID, battle, outcome: { winnerUID: null, finishReason: "blocked" } });
+      }
+    }
     if (!blockSnapshot.exists) {
       transaction.create(blockDocument, { blockerUid: uid, blockedUid, createdAt: FieldValue.serverTimestamp() });
     }

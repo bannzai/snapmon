@@ -4,8 +4,8 @@ import {
   initializeTestEnvironment,
   type RulesTestEnvironment,
 } from "@firebase/rules-unit-testing";
-import { deleteDoc, doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
-import { afterAll, beforeAll, beforeEach, describe, it } from "vitest";
+import { collection, deleteDoc, doc, getDoc, getDocs, query, serverTimestamp, setDoc, updateDoc, where } from "firebase/firestore";
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 
 // firebase emulators:exec (package.json の test:emulator) の中で実行する。
 // Rules は Emulator が firebase.json の firebase/firestore.rules から読み込む (テストから別の Rules を渡さない)。
@@ -199,6 +199,108 @@ describe("reports と blocks と reportedMonsters", () => {
     await assertFails(getDoc(doc(firestore, "blocks/k1")));
     await assertFails(getDoc(doc(firestore, "reportedMonsters/b1")));
     await assertFails(setDoc(doc(firestore, "reportedMonsters/b1"), { reporterCount: 0 }));
+  });
+});
+
+describe("人との対戦 (pvpMatchTickets・pvpBattles・turns)", () => {
+  // 0 番目のターンは alice と bob の 2 人が行動を出していて、1 番目のターンは bob だけが出している
+  beforeEach(async () => {
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      const firestore = context.firestore();
+      await setDoc(doc(firestore, "pvpMatchTickets/alice"), { searchID: "search", battleID: "battle" });
+      await setDoc(doc(firestore, "pvpBattles/battle"), { host: { uid: "alice" }, guest: { uid: "bob" }, turnNumber: 1 });
+      await setDoc(doc(firestore, "pvpBattles/battle/turns/alice_0"), { action: { kind: "move", moveID: "alice-move" } });
+      await setDoc(doc(firestore, "pvpBattles/battle/turns/bob_0"), { action: { kind: "struggle" } });
+      await setDoc(doc(firestore, "pvpBattles/battle/turns/bob_1"), { action: { kind: "struggle" } });
+    });
+  });
+
+  it("対戦に出ている 2 人は対戦を読める", async () => {
+    await assertSucceeds(getDoc(doc(signedInFirestore("alice"), "pvpBattles/battle")));
+    await assertSucceeds(getDoc(doc(signedInFirestore("bob"), "pvpBattles/battle")));
+  });
+
+  it("対戦に出ていない利用者と未ログインは対戦を読めない", async () => {
+    await assertFails(getDoc(doc(signedInFirestore("carol"), "pvpBattles/battle")));
+    await assertFails(getDoc(doc(testEnvironment.unauthenticatedContext().firestore(), "pvpBattles/battle")));
+  });
+
+  it("無い対戦 (相手がアカウントを消して消えた対戦) の 1 件の読み取りは、ログインしていれば拒否ではなく「無い」と返る", async () => {
+    expect((await assertSucceeds(getDoc(doc(signedInFirestore("alice"), "pvpBattles/deleted-battle")))).exists()).toBe(false);
+    await assertFails(getDoc(doc(testEnvironment.unauthenticatedContext().firestore(), "pvpBattles/deleted-battle")));
+  });
+
+  it("対戦の一覧は、自分が出ている対戦に絞っても読めない (端末は 1 件だけを購読する)", async () => {
+    await assertFails(getDocs(query(collection(signedInFirestore("alice"), "pvpBattles"), where("host.uid", "==", "alice"))));
+    await assertFails(getDocs(query(collection(signedInFirestore("bob"), "pvpBattles"), where("guest.uid", "==", "bob"))));
+    await assertFails(getDocs(collection(signedInFirestore("alice"), "pvpBattles")));
+  });
+
+  it("出ている利用者も対戦を書けない (行動と結果を改ざんさせないため)", async () => {
+    const firestore = signedInFirestore("alice");
+    await assertFails(updateDoc(doc(firestore, "pvpBattles/battle"), { finishReason: "result", winnerUID: "alice" }));
+    await assertFails(setDoc(doc(firestore, "pvpBattles/another"), { host: { uid: "alice" }, guest: { uid: "bob" } }));
+    await assertFails(deleteDoc(doc(firestore, "pvpBattles/battle")));
+  });
+
+  it("自分が行動を出したターンは、相手の行動も自分の行動も 1 件ずつ読める", async () => {
+    for (const uid of ["alice", "bob"]) {
+      const firestore = signedInFirestore(uid);
+      expect((await assertSucceeds(getDoc(doc(firestore, "pvpBattles/battle/turns/alice_0")))).data()).toEqual({
+        action: { kind: "move", moveID: "alice-move" },
+      });
+      expect((await assertSucceeds(getDoc(doc(firestore, "pvpBattles/battle/turns/bob_0")))).data()).toEqual({
+        action: { kind: "struggle" },
+      });
+    }
+  });
+
+  it("自分がまだ行動を出していないターンの相手の行動は読めない (見てから選べない)", async () => {
+    await assertFails(getDoc(doc(signedInFirestore("alice"), "pvpBattles/battle/turns/bob_1")));
+  });
+
+  it("自分が行動を出したターンの、相手がまだ出していない行動の読み取りは、拒否ではなく「無い」と返る", async () => {
+    expect((await assertSucceeds(getDoc(doc(signedInFirestore("bob"), "pvpBattles/battle/turns/alice_1")))).exists()).toBe(false);
+  });
+
+  it("uid に _ が含まれていても、ID の最後の _ の後ろをターンの番号として、同じターンの行動を出したかを確かめる", async () => {
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      const firestore = context.firestore();
+      await setDoc(doc(firestore, "pvpBattles/battle/turns/under_score_3"), { action: { kind: "struggle" } });
+      await setDoc(doc(firestore, "pvpBattles/battle/turns/bob_3"), { action: { kind: "struggle" } });
+      await setDoc(doc(firestore, "pvpBattles/battle/turns/bob_4"), { action: { kind: "struggle" } });
+    });
+    await assertSucceeds(getDoc(doc(signedInFirestore("under_score"), "pvpBattles/battle/turns/bob_3")));
+    await assertSucceeds(getDoc(doc(signedInFirestore("bob"), "pvpBattles/battle/turns/under_score_3")));
+    await assertFails(getDoc(doc(signedInFirestore("under_score"), "pvpBattles/battle/turns/bob_4")));
+  });
+
+  it("対戦に出ていない利用者と未ログインは行動を読めず、別の対戦で同じターンの行動を出していても読めない", async () => {
+    await testEnvironment.withSecurityRulesDisabled(async (context) => {
+      await setDoc(doc(context.firestore(), "pvpBattles/other-battle/turns/carol_0"), { action: { kind: "struggle" } });
+    });
+    await assertFails(getDoc(doc(signedInFirestore("carol"), "pvpBattles/battle/turns/alice_0")));
+    await assertFails(getDoc(doc(testEnvironment.unauthenticatedContext().firestore(), "pvpBattles/battle/turns/alice_0")));
+  });
+
+  it("行動の一覧は、出ている利用者も読めない (自分が出していないターンの相手の行動を含むため)", async () => {
+    for (const uid of ["alice", "bob"]) {
+      await assertFails(getDocs(collection(signedInFirestore(uid), "pvpBattles/battle/turns")));
+    }
+  });
+
+  it("出ている利用者も行動を書けない (行動は Functions だけが受け付ける)", async () => {
+    const firestore = signedInFirestore("alice");
+    await assertFails(setDoc(doc(firestore, "pvpBattles/battle/turns/alice_1"), { action: { kind: "struggle" } }));
+    await assertFails(updateDoc(doc(firestore, "pvpBattles/battle/turns/alice_0"), { action: { kind: "move", moveID: "changed" } }));
+    await assertFails(deleteDoc(doc(firestore, "pvpBattles/battle/turns/alice_0")));
+  });
+
+  it("待ちの札は本人も読み書きできない", async () => {
+    const firestore = signedInFirestore("alice");
+    await assertFails(getDoc(doc(firestore, "pvpMatchTickets/alice")));
+    await assertFails(setDoc(doc(firestore, "pvpMatchTickets/alice"), { battleID: null }));
+    await assertFails(getDoc(doc(firestore, "pvpMatchTickets/bob")));
   });
 });
 

@@ -79,6 +79,8 @@ void main() {
             playerParty: [playerMonster],
             opponentParty: [weakOpponent],
             opponentKind: BattleOpponentKind.pvp,
+            pvpSession: null,
+            opponentSafetyMenuBuilder: null,
             definitions: sampleData.definitions,
             randomSeed: 1,
             battleRecorder: battleRecorder,
@@ -148,6 +150,8 @@ void main() {
                 playerParty: [strongPlayer],
                 opponentParty: [weakOpponent],
                 opponentKind: BattleOpponentKind.cpu,
+                pvpSession: null,
+                opponentSafetyMenuBuilder: null,
                 definitions: sampleData.definitions,
                 randomSeed: 1,
                 battleRecorder: fakeBattleRecorder(
@@ -211,6 +215,8 @@ void main() {
             playerParty: [strongPlayer],
             opponentParty: [weakOpponent],
             opponentKind: BattleOpponentKind.cpu,
+            pvpSession: null,
+            opponentSafetyMenuBuilder: null,
             definitions: sampleData.definitions,
             randomSeed: 1,
             battleRecorder: fakeBattleRecorder(
@@ -533,6 +539,8 @@ void main() {
           playerParty: [strongPlayer],
           opponentParty: [weakOpponent],
           opponentKind: BattleOpponentKind.pvp,
+          pvpSession: null,
+          opponentSafetyMenuBuilder: null,
           definitions: sampleData.definitions,
           randomSeed: 1,
           battleRecorder: fakeBattleRecorder(
@@ -1170,6 +1178,8 @@ void main() {
               playerParty: [playerMonster],
               opponentParty: [weakOpponent],
               opponentKind: BattleOpponentKind.cpu,
+              pvpSession: null,
+              opponentSafetyMenuBuilder: null,
               definitions: sampleData.definitions,
               randomSeed: 1,
               battleRecorder: fakeBattleRecorder(

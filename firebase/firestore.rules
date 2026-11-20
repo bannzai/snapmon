@@ -82,6 +82,37 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
+    // 人との対戦の待ちの札。組み合わせは Functions (joinPvpMatch) だけが行い、誰が相手を探しているかをクライアントから読ませない。
+    match /pvpMatchTickets/{uid} {
+      allow read, write: if false;
+    }
+
+    // 人との対戦 1 戦。対戦に出ている 2 人だけが読み (相手の手持ちの他人に見せてよい項目の写し・表示名・アイコン・今のターンの番号・終わり方)、
+    // 書くのは Functions だけ (行動と結果を改ざんさせないため)。
+    // 無い対戦の 1 件の読み取りは、ログインしていれば「無い」と返す (resource == null)。対戦の途中で相手がアカウントを消して
+    // 対戦が消えた時に、残った側の購読が拒否ではなく「無い」を受け取り、対戦を終えられるようにするため (lib/firebase/pvp.dart の
+    // watchPvpBattleWithFirebase)。ID は Functions が作る推測できない値で、無いことから分かる情報は無い。
+    match /pvpBattles/{battleID} {
+      // 一覧は読ませない (端末は組み合わされた対戦の ID を joinPvpMatch から受け取り、1 件だけを購読する)。
+      allow get: if isSignedIn()
+        && (resource == null || request.auth.uid == resource.data.host.uid || request.auth.uid == resource.data.guest.uid);
+      allow list, write: if false;
+
+      // 2 人が各ターンに出した行動 (ID は {uid}_{turnNumber})。利用者は、自分が同じターンの行動を出した後にだけ、そのターンの行動を
+      // 1 件ずつ読める (相手の行動を見てから選べないようにするため)。相手がまだ出していない時は、読み取りは通って「無い」と返る。
+      // 行動を書けるのは Functions が対戦に出ていると確かめた利用者だけのため、自分の行動があることが、対戦に出ていることも示す。
+      // 一覧は読ませない (自分の行動を出していないターンの相手の行動を含むため)。
+      match /turns/{turnID} {
+        // turnID の最後の `_` の後ろ (ターンの番号) を返す。uid に `_` が含まれていても番号は最後の区切りの後ろにある
+        function turnNumberOf() {
+          return turnID.split('_')[turnID.split('_').size() - 1];
+        }
+        allow get: if isSignedIn()
+          && exists(/databases/$(database)/documents/pvpBattles/$(battleID)/turns/$(request.auth.uid + '_' + turnNumberOf()));
+        allow list, write: if false;
+      }
+    }
+
     match /users/{uid} {
       // ユーザーのドキュメントには Functions が生成中ロック等を書く。
       allow read: if isOwner(uid);

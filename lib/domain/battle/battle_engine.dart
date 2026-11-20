@@ -192,6 +192,12 @@ MonsterStats effectiveStats({
   );
 }
 
+/// 人との対戦で 2 人の端末が同じ結果を出すための、バトルの計算の版。master の版と合わせて、同じ版の利用者だけを組み合わせる
+/// (lib/features/opponent/pvp_match_search.dart)。同じ手持ち・乱数の種・行動の列から出る結果が変わる変更
+/// (ダメージ・行動順・乱数を引く順・技の式・状態の扱い) を入れる時に上げる。上げ忘れは、固定した対戦の結果を照合するテスト
+/// (test/domain/battle/pvp_determinism_test.dart) が落として知らせる。
+const int pvpBattleCalculationVersion = 1;
+
 /// 両陣営の手持ち ([prepareBattleMonster] で用意した 1〜3 体) でバトルを始める。
 /// [randomSeed] は行動順の同速判定・ダメージの乱数幅・命中・状態・状態で行動が止まるか・混乱・入れ替えに使い、同じ seed と同じ行動からは同じ結果になる。
 /// [battleDate] は対戦日で、技の特殊効果の入力に渡す。
@@ -487,7 +493,7 @@ BattleAction chooseCpuAction({
   required MasterData master,
 }) {
   final attacker = state.partyOf(side: side).activeMember;
-  final defender = state.partyOf(side: _otherSide(side: side)).activeMember;
+  final defender = state.partyOf(side: otherSide(side: side)).activeMember;
   final moves = selectableMoves(monster: attacker, master: master);
   final cpuRandom = DeterministicRandom(
     seed:
@@ -741,7 +747,7 @@ BattleState advanceRound({
       );
       continue;
     }
-    final defenderSide = _otherSide(side: attackerSide);
+    final defenderSide = otherSide(side: attackerSide);
     // 先に動いた側が自爆や毒で倒れていたら、後に動く側は技を使わない (倒れた相手に当てて PP を使い、倒れたログが重ならないため)。
     // 状態の残りのターンと毒のダメージは、行動しないターンでも進める
     if (parties[defenderSide]!.activeMember.isFainted) {
@@ -1146,46 +1152,12 @@ BattleState advanceRound({
   }
 
   if (winner != null) {
-    for (final side in BattleSideID.values) {
-      final party = parties[side]!;
-      // 自分からの交代で手持ちは順不同に場に出るため、場に出たことがあるモンスターはログから求める
-      // (先頭のモンスターと、交代で場に出たモンスター)
-      final participantMonsterIDs = {
-        party.members.first.definition.id,
-        for (final event in events)
-          if (event is MonsterSwitchedInEvent && event.side == side)
-            event.monsterID,
-      };
-      parties[side] = BattleParty(
-        members: [
-          for (final member in party.members)
-            participantMonsterIDs.contains(member.definition.id)
-                ? BattleMonster(
-                    definition: member.definition,
-                    maximumHitPointsPercent: member.maximumHitPointsPercent,
-                    state: member.state.copyWith(
-                      level: math.min(member.state.level + 1, maximumLevel),
-                      experience: member.state.experience + 1,
-                    ),
-                  )
-                : member,
-        ],
-        activeMemberIndex: party.activeMemberIndex,
-      );
-      for (final member in parties[side]!.members.where(
-        (member) => participantMonsterIDs.contains(member.definition.id),
-      )) {
-        events.add(
-          LevelUpEvent(
-            turnNumber: lastTurnNumber,
-            side: side,
-            monsterID: member.definition.id,
-            newLevel: member.state.level,
-          ),
-        );
-      }
-    }
-    events.add(BattleFinishedEvent(turnNumber: lastTurnNumber, winner: winner));
+    _finishParties(
+      parties: parties,
+      events: events,
+      turnNumber: lastTurnNumber,
+      winner: winner,
+    );
   }
 
   return BattleState(
@@ -1197,6 +1169,91 @@ BattleState advanceRound({
     winner: winner,
     battleDate: state.battleDate,
     field: field,
+    opponentDamagePercent: state.opponentDamagePercent,
+  );
+}
+
+/// 決着した [parties] の、場に出たことがある手持ちのレベルを 1 上げ (上限 [maximumLevel])、レベルアップと [winner] の決着のログを
+/// [turnNumber] のターンとして [events] に足す。[parties] と [events] を書き換える。
+void _finishParties({
+  required Map<BattleSideID, BattleParty> parties,
+  required List<BattleEvent> events,
+  required int turnNumber,
+  required BattleSideID winner,
+}) {
+  for (final side in BattleSideID.values) {
+    final party = parties[side]!;
+    // 自分からの交代で手持ちは順不同に場に出るため、場に出たことがあるモンスターはログから求める
+    // (先頭のモンスターと、交代で場に出たモンスター)
+    final participantMonsterIDs = {
+      party.members.first.definition.id,
+      for (final event in events)
+        if (event is MonsterSwitchedInEvent && event.side == side)
+          event.monsterID,
+    };
+    parties[side] = BattleParty(
+      members: [
+        for (final member in party.members)
+          participantMonsterIDs.contains(member.definition.id)
+              ? BattleMonster(
+                  definition: member.definition,
+                  maximumHitPointsPercent: member.maximumHitPointsPercent,
+                  state: member.state.copyWith(
+                    level: math.min(member.state.level + 1, maximumLevel),
+                    experience: member.state.experience + 1,
+                  ),
+                )
+              : member,
+      ],
+      activeMemberIndex: party.activeMemberIndex,
+    );
+    for (final member in parties[side]!.members.where(
+      (member) => participantMonsterIDs.contains(member.definition.id),
+    )) {
+      events.add(
+        LevelUpEvent(
+          turnNumber: turnNumber,
+          side: side,
+          monsterID: member.definition.id,
+          newLevel: member.state.level,
+        ),
+      );
+    }
+  }
+  events.add(BattleFinishedEvent(turnNumber: turnNumber, winner: winner));
+}
+
+/// 決着していない [state] を、手持ちが残ったまま [winner] の勝ちで終えた状態を返す
+/// (人との対戦で、相手が行動の期限を過ぎた時と、選べない行動を出した時)。
+/// [advanceRound] の決着と同じく、両陣営の場に出たことがある手持ちのレベルを 1 上げ、レベルアップと決着のログを足す。
+/// ラウンドを解決しないため、乱数とターンの番号は進めない。決着済みの状態には例外を投げる。
+BattleState finishBattleByForfeit({
+  required BattleState state,
+  required BattleSideID winner,
+}) {
+  if (state.winner != null) {
+    throw StateError('決着済みのバトルは進められない');
+  }
+  final parties = {
+    BattleSideID.player: state.player,
+    BattleSideID.opponent: state.opponent,
+  };
+  final events = [...state.events];
+  _finishParties(
+    parties: parties,
+    events: events,
+    turnNumber: state.turnNumber,
+    winner: winner,
+  );
+  return BattleState(
+    player: parties[BattleSideID.player]!,
+    opponent: parties[BattleSideID.opponent]!,
+    turnNumber: state.turnNumber,
+    randomState: state.randomState,
+    events: events,
+    winner: winner,
+    battleDate: state.battleDate,
+    field: state.field,
     opponentDamagePercent: state.opponentDamagePercent,
   );
 }
@@ -1418,7 +1475,7 @@ void _endTurn({
 }
 
 /// [side] の相手の陣営を返す。
-BattleSideID _otherSide({required BattleSideID side}) => switch (side) {
+BattleSideID otherSide({required BattleSideID side}) => switch (side) {
   BattleSideID.player => BattleSideID.opponent,
   BattleSideID.opponent => BattleSideID.player,
 };
@@ -1435,6 +1492,21 @@ bool isSwitchBlocked({required BattleParty party}) => party
     .state
     .statusConditions
     .containsKey(StatusConditionKind.switchBlocked);
+
+/// [action] を [party] の場のモンスターが選べるか ([advanceRound] が受け付ける行動か)。
+/// 人との対戦で、相手の端末から届いた行動を進める前に確かめる (選べない行動は [advanceRound] が例外を投げるため)。
+bool isSelectableAction({
+  required BattleParty party,
+  required BattleAction action,
+  required MasterData master,
+}) {
+  try {
+    _validateAction(party: party, action: action, master: master);
+    return true;
+  } on ArgumentError {
+    return false;
+  }
+}
 
 /// [action] を [party] の場のモンスターが選べるかを確かめ、選べなければ [ArgumentError] を投げる。
 void _validateAction({

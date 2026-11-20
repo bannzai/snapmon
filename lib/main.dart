@@ -19,16 +19,19 @@ import 'package:snapmon/features/capture/monster_generator.dart';
 import 'package:snapmon/features/capture/photo_preparation.dart';
 import 'package:snapmon/features/capture/subject_mask.dart';
 import 'package:snapmon/features/dex/dex_store.dart';
+import 'package:snapmon/features/opponent/pvp_battle_client.dart';
 import 'package:snapmon/features/opponent/pvp_client.dart';
 import 'package:snapmon/features/session/session_store.dart';
 import 'package:snapmon/features/share/card_sharer.dart';
 import 'package:snapmon/features/share/render_widget_png.dart';
 import 'package:snapmon/features/share/share_image.dart';
 import 'package:snapmon/features/settings/account_store.dart';
+import 'package:snapmon/features/settings/settings_screen.dart';
 import 'package:snapmon/firebase/account.dart';
 import 'package:snapmon/firebase/action_cards.dart';
 import 'package:snapmon/firebase/battle_record.dart';
 import 'package:snapmon/firebase/dex_firestore.dart';
+import 'package:snapmon/firebase/emulator.dart';
 import 'package:snapmon/firebase/monster_generation.dart';
 import 'package:snapmon/firebase/purchases.dart';
 import 'package:snapmon/firebase/pvp.dart';
@@ -44,6 +47,10 @@ const Map<String, String> _fontLicenseAssetPaths = {
   'Dela Gothic One': 'assets/fonts/dela_gothic_one/OFL.txt',
   'Zen Kaku Gothic New': 'assets/fonts/zen_kaku_gothic_new/OFL.txt',
 };
+
+/// お問い合わせの宛先 ([contactUri]) を外部のアプリ (メール) で開き、開けたかを返す。
+Future<bool> _openContact() =>
+    launchUrl(contactUri, mode: LaunchMode.externalApplication);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -63,7 +70,12 @@ Future<void> main() async {
   });
   // initializeApp だけでは識別子を作らない (Analytics・Crashlytics の自動収集は既定で無効、App Check と匿名ログインは未開始)。
   // 識別子を作る機能は、ログインと同時に lib/firebase/session.dart から始める。
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+    options: firebaseOptionsForEmulator(
+      options: DefaultFirebaseOptions.currentPlatform,
+    ),
+  );
+  await connectFirebaseEmulators();
   String? resumedUid;
   try {
     resumedUid = await resumeSessionWithFirebase();
@@ -197,6 +209,18 @@ Future<void> main() async {
         fetchProfile: fetchProfileWithFirebase,
         updateDisplayName: updateDisplayNameWithFirebase,
         updateIcon: updateProfileIconWithFirebase,
+        battleClient: PvpBattleClient(
+          signedInUID: signedInUIDWithFirebase,
+          createSearchID: createPvpSearchID,
+          joinMatch: joinPvpMatchWithFirebase,
+          leaveMatch: leavePvpMatchWithFirebase,
+          watchBattle: watchPvpBattleWithFirebase,
+          watchTurnAction: watchPvpTurnActionWithFirebase,
+          submitAction: submitPvpActionWithFirebase,
+          claimTimeout: claimPvpTimeoutWithFirebase,
+          reportResult: reportPvpResultWithFirebase,
+        ),
+        openContact: _openContact,
       ),
       monsterGenerator: MonsterGenerator(
         listCameras: availableCameras,
