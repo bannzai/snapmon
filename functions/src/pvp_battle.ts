@@ -318,6 +318,9 @@ export const submitPvpAction = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, as
   const battleDocument = firestore.doc(`pvpBattles/${battleID}`);
   await firestore.runTransaction(async (transaction) => {
     const battle = requireParticipantBattle({ battleSnapshot: await transaction.get(battleDocument), uid });
+    if (battle.finishReason !== null) {
+      return;
+    }
     if (turnNumber < battle.turnNumber) {
       return;
     }
