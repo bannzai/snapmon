@@ -9,7 +9,7 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
 failures=0
 # 手元のシェルで export したサイトキー・debug token・RevenueCat の鍵が Makefile の変数に効き、gh の差し替えを使うテストの期待値を変えるため外す
-unset RECAPTCHA_ENTERPRISE_SITE_KEY FIREBASE_APPCHECK_DEBUG_TOKEN_WEB REVENUECAT_PUBLIC_API_KEY_IOS REVENUECAT_PUBLIC_API_KEY_ANDROID REVENUECAT_PUBLIC_API_KEY_WEB
+unset RECAPTCHA_ENTERPRISE_SITE_KEY FIREBASE_APPCHECK_DEBUG_TOKEN_WEB FIREBASE_APPCHECK_DEBUG_TOKEN_IOS FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID REVENUECAT_PUBLIC_API_KEY_IOS REVENUECAT_PUBLIC_API_KEY_ANDROID REVENUECAT_PUBLIC_API_KEY_WEB
 # 手元のシェルの指定が web のブラウザの選択と差し替えの振る舞いを変えるため外す
 unset CHROME_EXECUTABLE FAKE_UNAME FAKE_UNAME_MACHINE
 
@@ -113,7 +113,7 @@ test_ios_device_selects_supported_physical_device() {
     fail "ios-device: 実機があるのに失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if [ "$(recorded_run "$work")" != "run --debug -d my-phone --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS= --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID=" ]; then
+  if [ "$(recorded_run "$work")" != "run --debug -d my-phone --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS= --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID= --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=" ]; then
     fail "ios-device: simulator・非対応の実機・Android を飛ばして対応している実機を選んでいない ($(cat "$work/flutter-args"))"
     return
   fi
@@ -148,7 +148,7 @@ test_ios_device_uses_device_variable() {
     fail "ios-device: DEVICE= 指定で失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if [ "$(recorded_run "$work")" != "run --debug -d given-id --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS= --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID=" ]; then
+  if [ "$(recorded_run "$work")" != "run --debug -d given-id --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS= --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID= --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=" ]; then
     fail "ios-device: DEVICE= の値を使っていない ($(cat "$work/flutter-args"))"
     return
   fi
@@ -157,6 +157,68 @@ test_ios_device_uses_device_variable() {
     return
   fi
   pass "ios-device: DEVICE= の指定をそのまま使う"
+}
+
+test_ios_device_passes_debug_token_from_environment() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  if ! FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=ios-token-from-env FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID=android-token-from-env \
+    run_make "$work" '[]' ios-device DEVICE=given-id; then
+    fail "ios-device: debug token を渡した時に失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(recorded_run "$work")" != "run --debug -d given-id --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS= --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID= --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=ios-token-from-env" ]; then
+    fail "ios-device: 環境変数の iOS の debug token だけを --dart-define に渡していない ($(recorded_run "$work"))"
+    return
+  fi
+  pass "ios-device: 環境変数の iOS の debug token を渡し、Android の token は渡さない"
+}
+
+test_ios_passes_debug_token_to_given_simulator() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  if ! FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=ios-token-from-env run_make "$work" '[]' ios SIMULATOR_UDID=given-udid; then
+    fail "ios: SIMULATOR_UDID と debug token を渡した時に失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(recorded_run "$work")" != "run --debug -d given-udid --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS= --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID= --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=ios-token-from-env" ]; then
+    fail "ios: simulator への flutter run に iOS の debug token を渡していない ($(recorded_run "$work"))"
+    return
+  fi
+  pass "ios: 指定の simulator への flutter run に環境変数の iOS の debug token を渡す"
+}
+
+test_android_passes_empty_debug_token_without_environment() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  if ! run_make "$work" '[]' android DEVICE=given-id; then
+    fail "android: debug token が無い時に失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(recorded_run "$work")" != "run --debug -d given-id --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS= --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID= --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID=" ]; then
+    fail "android: debug token が無い時に空のまま渡していない ($(recorded_run "$work"))"
+    return
+  fi
+  pass "android: debug token が無ければ空のまま渡す"
+}
+
+test_android_passes_debug_token_from_environment() {
+  local work
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  if ! FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=ios-token-from-env FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID=android-token-from-env \
+    run_make "$work" '[]' android DEVICE=given-id; then
+    fail "android: debug token を渡した時に失敗した ($(cat "$work/stdout"))"
+    return
+  fi
+  if [ "$(recorded_run "$work")" != "run --debug -d given-id --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS= --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID= --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID=android-token-from-env" ]; then
+    fail "android: 環境変数の Android の debug token だけを --dart-define に渡していない ($(recorded_run "$work"))"
+    return
+  fi
+  pass "android: 環境変数の Android の debug token を渡し、iOS の token は渡さない"
 }
 
 # 引数: 作業ディレクトリ、gh variable get が返すサイトキー (空なら未登録として exit 1)、gh variable get が返す Web の RevenueCat の鍵
@@ -517,7 +579,7 @@ test_dart_defines_file_covers_keys_read_by_app() {
     fail "dart-defines-file: 失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if [ "$({ jq -r 'keys[]' "$work/build/dart_defines.json"; echo FIREBASE_APPCHECK_DEBUG_TOKEN_WEB; } | sort)" != "$(find "$repo_root/lib" -name '*.dart' -exec perl -0777 -ne 'print "$1\n" while /fromEnvironment\(\s*\x27([A-Z0-9_]+)\x27/g' {} + | sort -u)" ]; then
+  if [ "$({ jq -r 'keys[]' "$work/build/dart_defines.json"; printf "%s\n" FIREBASE_APPCHECK_DEBUG_TOKEN_WEB FIREBASE_APPCHECK_DEBUG_TOKEN_IOS FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID; } | sort)" != "$(find "$repo_root/lib" -name '*.dart' -exec perl -0777 -ne 'print "$1\n" while /fromEnvironment\(\s*\x27([A-Z0-9_]+)\x27/g' {} + | sort -u)" ]; then
     fail "dart-defines-file: 書き出すキーと debug token の合計が、lib の String.fromEnvironment のキーと一致しない ($(jq -c 'keys' "$work/build/dart_defines.json"))"
     return
   fi
@@ -550,6 +612,10 @@ test_editor_launch_reads_file_written_by_task() {
 test_ios_device_selects_supported_physical_device
 test_ios_device_fails_without_physical_device
 test_ios_device_uses_device_variable
+test_ios_device_passes_debug_token_from_environment
+test_ios_passes_debug_token_to_given_simulator
+test_android_passes_empty_debug_token_without_environment
+test_android_passes_debug_token_from_environment
 test_web_enables_web_then_runs_chrome
 test_web_prefers_environment_site_key
 test_web_runs_without_site_key

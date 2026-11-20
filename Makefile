@@ -10,6 +10,10 @@ SIMULATOR_UDID ?= $(shell SIMSLIM_EXCEPT=store,photos SCRIPT_QUIET=1 sim-boot | 
 REVENUECAT_PUBLIC_API_KEY_IOS ?= $(shell gh variable get REVENUECAT_PUBLIC_API_KEY_IOS 2>/dev/null)
 REVENUECAT_PUBLIC_API_KEY_ANDROID ?= $(shell gh variable get REVENUECAT_PUBLIC_API_KEY_ANDROID 2>/dev/null)
 purchases_dart_defines = --dart-define=REVENUECAT_PUBLIC_API_KEY_IOS=$(REVENUECAT_PUBLIC_API_KEY_IOS) --dart-define=REVENUECAT_PUBLIC_API_KEY_ANDROID=$(REVENUECAT_PUBLIC_API_KEY_ANDROID)
+# debug ビルドの App Check の debug token (秘匿値。発行と登録は scripts/register-appcheck-debug-token.sh。手元では
+# op run --env-file .env.1password -- make ios のように環境変数で渡す)。無ければ空のまま渡し、App Check の強制でサーバーの呼び出しが断られる
+ios_debug_dart_defines = $(purchases_dart_defines) --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=$(FIREBASE_APPCHECK_DEBUG_TOKEN_IOS)
+android_debug_dart_defines = $(purchases_dart_defines) --dart-define=FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID=$(FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID)
 
 # プロジェクト固有の simulator (sim-boot で起動) へ flutter run する。SIMULATOR_UDID=<UDID> で対象を指定できる
 .PHONY: ios
@@ -17,7 +21,7 @@ ios: flutter-version-check
 	@set -e; \
 	simulator_udid="$(SIMULATOR_UDID)"; \
 	[ -n "$$simulator_udid" ] || { echo "Error: sim-boot で Simulator を解決できません (sim-boot が PATH にあるか確認するか、SIMULATOR_UDID=<UDID> を指定してください)" >&2; exit 1; }; \
-	flutter run --debug -d "$$simulator_udid" $(purchases_dart_defines)
+	flutter run --debug -d "$$simulator_udid" $(ios_debug_dart_defines)
 
 # USB か Wi-Fi で繋いだ iPhone / iPad の実機へ flutter run する (署名は Runner.xcodeproj の Automatic + DEVELOPMENT_TEAM)。
 # DEVICE=<デバイス ID> で対象を指定でき、未指定なら flutter devices から実機 (iOS で emulator でなく、この環境で使える isSupported のもの) を自動解決する。
@@ -29,7 +33,7 @@ ios-device: flutter-version-check
 		device=$$(flutter devices --machine | jq -r '[.[] | select((.targetPlatform | startswith("ios")) and .emulator == false and .isSupported == true)][0].id // empty'); \
 	fi; \
 	[ -n "$$device" ] || { echo "Error: 繋がっている iOS の実機が見つかりません (Xcode で信頼済みか確認するか、DEVICE=<デバイス ID> を指定してください)" >&2; exit 1; }; \
-	flutter run --debug -d "$$device" $(purchases_dart_defines)
+	flutter run --debug -d "$$device" $(ios_debug_dart_defines)
 
 # Web の App Check に使う reCAPTCHA Enterprise のサイトキー (公開値。lib/firebase/session.dart が --dart-define で受ける)。
 # 環境変数 RECAPTCHA_ENTERPRISE_SITE_KEY が無ければ gh の Variable (deploy-hosting.yml と同じ値) から取る。
@@ -61,7 +65,8 @@ dart_defines_file = build/dart_defines.json
 # ios・android・web の target が渡す公開値の --dart-define を $(dart_defines_file) に JSON で書き出す (.vscode/tasks.json が実行の前に呼ぶ)。
 # エディタの実行は Makefile を通らず、環境変数が無い時に gh の Variable から取る処理が効かないため、ファイルで同じ値を渡す。何度実行しても同じ結果になる。
 # エディタの task は、Dock から起動した時も .zshrc 等の shell の環境 (PATH) で動く (https://code.visualstudio.com/docs/supporting/faq の Resolving shell environment)
-# FIREBASE_APPCHECK_DEBUG_TOKEN_WEB は秘匿値のためファイルに書かない (人が操作する Chrome は reCAPTCHA のサイトキーで App Check が通る)
+# FIREBASE_APPCHECK_DEBUG_TOKEN_WEB は秘匿値のためファイルに書かない (人が操作する Chrome は reCAPTCHA のサイトキーで App Check が通る)。
+# FIREBASE_APPCHECK_DEBUG_TOKEN_IOS・FIREBASE_APPCHECK_DEBUG_TOKEN_ANDROID も秘匿値のため書かない (エディタからの実行は App Check を通らない。通す時は make ios / make android を使う)
 .PHONY: dart-defines-file
 dart-defines-file: flutter-version-check
 	@mkdir -p $(dir $(dart_defines_file))
@@ -76,7 +81,7 @@ android: flutter-version-check
 		device=$$(flutter devices --machine | jq -r '[.[] | select((.targetPlatform | startswith("android")) and .emulator == true)][0].id // empty'); \
 	fi; \
 	[ -n "$$device" ] || { echo "Error: 起動中の Android Emulator が見つかりません (DEVICE=<デバイス ID> で指定してください)" >&2; exit 1; }; \
-	flutter run --debug -d "$$device" $(purchases_dart_defines)
+	flutter run --debug -d "$$device" $(android_debug_dart_defines)
 
 # Web 版のビルドだけを行う (成果物は build/web)。flutter config の enable-web が false の環境では失敗する
 .PHONY: build-web
@@ -94,6 +99,7 @@ verify: flutter-version-check
 	flutter test
 	bash scripts/test/test-set-webtunnel-setup-env-secret.sh
 	bash scripts/test/test-makefile-targets.sh
+	bash scripts/test/test-appcheck-debug-token-scripts.sh
 	bash scripts/test/test-metadata-check.sh
 	bash scripts/test/test-upload-crashlytics-symbols.sh
 	$(PYTHON) scripts/test/test_replace_og_logo.py
