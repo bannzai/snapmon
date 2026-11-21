@@ -97,7 +97,10 @@ void main() {
     createGame,
     (game) async {
       game.onGameResize(Vector2(1280, 263));
-      game.updateOverlayRects(rects: [const Rect.fromLTRB(20, 96, 210, 181)]);
+      game.updateOverlayRects(
+        rects: [const Rect.fromLTRB(20, 96, 210, 181)],
+        battleLogRect: null,
+      );
       expect(
         game.playerMonsterComponent.toRect().top,
         greaterThanOrEqualTo(181 - 0.001),
@@ -115,7 +118,10 @@ void main() {
     game,
   ) async {
     game.onGameResize(Vector2(1280, 180));
-    game.updateOverlayRects(rects: [const Rect.fromLTRB(20, 96, 210, 181)]);
+    game.updateOverlayRects(
+      rects: [const Rect.fromLTRB(20, 96, 210, 181)],
+      battleLogRect: null,
+    );
     expect(game.opponentMonsterComponent.size.x, greaterThan(0));
     expect(game.playerMonsterComponent.size.x, greaterThan(0));
   });
@@ -132,7 +138,7 @@ void main() {
         Rect.fromLTRB(20, 201, 210, 284),
         Rect.fromLTRB(183, 380, 373, 508),
       ];
-      game.updateOverlayRects(rects: overlayRects);
+      game.updateOverlayRects(rects: overlayRects, battleLogRect: null);
       final opponentRect = game.opponentMonsterComponent.toRect();
       final playerRect = game.playerMonsterComponent.toRect();
       for (final monsterRect in [opponentRect, playerRect]) {
@@ -160,15 +166,92 @@ void main() {
         const Rect.fromLTRB(360, 140, 393, 300),
         const Rect.fromLTRB(0, 510, 200, 532),
       ];
-      game.updateOverlayRects(rects: overlayRects);
+      game.updateOverlayRects(rects: overlayRects, battleLogRect: null);
       expect(game.opponentMonsterComponent.toRect(), opponentRectBefore);
       expect(game.playerMonsterComponent.toRect(), playerRectBefore);
 
       // 攻撃の前進の途中のように位置を動かしても、同じ並びの矩形 (別のリスト) では元の位置に戻さない
       game.opponentMonsterComponent.position += Vector2(10, 0);
       final movedPosition = game.opponentMonsterComponent.position.clone();
-      game.updateOverlayRects(rects: [...overlayRects]);
+      game.updateOverlayRects(rects: [...overlayRects], battleLogRect: null);
       expect(game.opponentMonsterComponent.position, movedPosition);
+    },
+  );
+
+  /// 393×394 は iPhone 17 (393×852) の負けた側の勝敗の画面のフィールド (#415 のスクリーンショットの実測)。
+  /// 矩形は、上端に左右いっぱいのログの帯 (下端 119)、その下の左の相手の情報カード、右下の自分の情報カード (札は出ない高さ)。
+  /// 高さの比率だけでは相手の絵の上端が 394 × 0.28 ≈ 110 で、帯の下端 119 より上に来る
+  testWithGame<BattleFieldGame>(
+    'ログの帯の下端が高さの 0.28 より下にある低いフィールドでは、相手の絵を帯の下に置き、2 体の絵をカードにも互いにも重ねない',
+    createGame,
+    (game) async {
+      game.onGameResize(Vector2(393, 394));
+      // 先頭がログの帯、残りが 2 枚の情報カード
+      const coveringRects = [
+        Rect.fromLTRB(20, 76, 373, 119),
+        Rect.fromLTRB(20, 155, 210, 238),
+        Rect.fromLTRB(183, 287, 373, 370),
+      ];
+      game.updateOverlayRects(
+        rects: coveringRects.sublist(1),
+        battleLogRect: coveringRects.first,
+      );
+      final opponentRect = game.opponentMonsterComponent.toRect();
+      final playerRect = game.playerMonsterComponent.toRect();
+      // 帯と絵の間はカードと絵の間と同じ 8 を空ける
+      expect(opponentRect.top, 119 + 8);
+      for (final monsterRect in [opponentRect, playerRect]) {
+        for (final coveringRect in coveringRects) {
+          expect(monsterRect.overlaps(coveringRect), isFalse);
+        }
+        expect(
+          const Rect.fromLTWH(0, 0, 393, 394).intersect(monsterRect),
+          monsterRect,
+        );
+      }
+      expect(opponentRect.overlaps(playerRect), isFalse);
+      expect(opponentRect.center.dx, greaterThan(game.size.x / 2));
+      expect(playerRect.center.dx, lessThan(game.size.x / 2));
+      // 被写体を見分けられる大きさ (battle_screen_test.dart の左右配置の下限 60px) を保つ
+      expect(opponentRect.width, greaterThanOrEqualTo(60));
+    },
+  );
+
+  /// 393×532 は勝った側と決着の前のフィールド。高さの 0.28 (約 149) がログの帯の下端 119 + 8 より下にある
+  testWithGame<BattleFieldGame>(
+    'ログの帯の下端が高さの 0.28 より上にあるフィールドでは、帯を受け取っても 2 体の絵を動かさず、帯だけが変わっても置き直さない',
+    createGame,
+    (game) async {
+      game.onGameResize(Vector2(393, 532));
+      const overlayRects = [
+        Rect.fromLTRB(20, 201, 210, 284),
+        Rect.fromLTRB(183, 425, 373, 508),
+      ];
+      game.updateOverlayRects(rects: overlayRects, battleLogRect: null);
+      final opponentRectBefore = game.opponentMonsterComponent.toRect();
+      final playerRectBefore = game.playerMonsterComponent.toRect();
+      game.updateOverlayRects(
+        rects: overlayRects,
+        battleLogRect: const Rect.fromLTRB(20, 76, 373, 119),
+      );
+      expect(game.opponentMonsterComponent.toRect(), opponentRectBefore);
+      expect(game.playerMonsterComponent.toRect(), playerRectBefore);
+
+      // ログの文が 2 行に折り返して帯が伸びても、相手の絵の上端 (高さの 0.28) を越えない間は、攻撃の前進の途中の位置を元に戻さない
+      game.opponentMonsterComponent.position += Vector2(10, 0);
+      final movedPosition = game.opponentMonsterComponent.position.clone();
+      game.updateOverlayRects(
+        rects: overlayRects,
+        battleLogRect: const Rect.fromLTRB(20, 76, 373, 139),
+      );
+      expect(game.opponentMonsterComponent.position, movedPosition);
+
+      // 帯が相手の絵の上端を越えて伸びた時は、絵を帯の下へ置き直す
+      game.updateOverlayRects(
+        rects: overlayRects,
+        battleLogRect: const Rect.fromLTRB(20, 76, 373, 159),
+      );
+      expect(game.opponentMonsterComponent.toRect().top, 159 + 8);
     },
   );
 
