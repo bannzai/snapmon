@@ -90,6 +90,8 @@ printf '%s %s\n' "$3" "$4" >> "$WORK/wda-calls"
 printf '%s %s\n' "$2" "$3" >> "$WORK/wda-sessions"
 if [ "$3" = terminate ]; then exit "${WDA_TERMINATE_EXIT:-0}"; fi
 printf '%s\n' "$*" > "$WORK/wda-args"
+# WDA_FAIL_LAUNCH_SESSION に名前を渡すと、そのセッションの launch だけを失敗させる
+if [ -n "${WDA_FAIL_LAUNCH_SESSION:-}" ] && [ "$2" = "$WDA_FAIL_LAUNCH_SESSION" ]; then exit 1; fi
 while [ $# -gt 0 ]; do
   if [ "$1" = --env-file ]; then cp "$2" "$WORK/wda-env-file"; printf "%s\n" "$2" > "$WORK/wda-env-path"; fi
   shift
@@ -359,6 +361,30 @@ test_launch_stops_before_next_session_when_launch_fails() {
   pass "launch: 先のセッションの起動に失敗したら、後のセッションに触れず理由を出して exit 1"
 }
 
+test_launch_names_second_session_when_its_launch_fails() {
+  local work exit_code=0
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env WDA_FAIL_LAUNCH_SESSION=snapmon-issue-1-b run_script "$work" launch-simtunnel-app.sh snapmon-issue-1-a snapmon-issue-1-b || exit_code=$?
+  if [ "$exit_code" != 1 ] || ! grep -q 'snapmon-issue-1-b のアプリを起動できませんでした' "$work/stdout" || grep -q 'snapmon-issue-1-a のアプリを起動できませんでした' "$work/stdout"; then
+    fail "launch: 2 つ目のセッションの起動の失敗で、そのセッション名を出して exit 1 にならない (exit $exit_code: $(cat "$work/stdout"))"
+    return
+  fi
+  pass "launch: 2 つ目のセッションの起動に失敗したら、そのセッション名を出して exit 1"
+}
+
+test_launch_stops_before_next_session_when_terminate_fails() {
+  local work exit_code=0
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env WDA_TERMINATE_EXIT=1 run_script "$work" launch-simtunnel-app.sh snapmon-issue-1-a snapmon-issue-1-b || exit_code=$?
+  if [ "$exit_code" != 1 ] || [ "$(cat "$work/wda-sessions")" != "snapmon-issue-1-a terminate" ] || ! grep -q 'snapmon-issue-1-a のアプリを終了できませんでした' "$work/stdout"; then
+    fail "launch: 1 つ目のセッションの終了の失敗で止まらず先へ進んだ、または exit 1 と理由の表示にならない (exit $exit_code: $(cat "$work/wda-sessions"))"
+    return
+  fi
+  pass "launch: 先のセッションのアプリの終了に失敗したら、起動も後のセッションにも進まず exit 1"
+}
+
 test_launch_stops_without_token() {
   local work exit_code=0
   work="$(mktemp -d)"
@@ -399,6 +425,8 @@ test_register_fails_on_other_status
 test_launch_passes_token_by_env_file
 test_launch_restarts_app_in_each_given_session
 test_launch_stops_before_next_session_when_launch_fails
+test_launch_names_second_session_when_its_launch_fails
+test_launch_stops_before_next_session_when_terminate_fails
 test_launch_stops_without_token
 test_launch_requires_session_name
 

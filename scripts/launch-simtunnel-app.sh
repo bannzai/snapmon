@@ -10,7 +10,8 @@
 #   人との対戦のように 2 人の利用者が要る確認は、1 台ずつの simtunnel のセッションを 2 つ起動し、2 つの名前を渡す。
 #   1 回の op run で全部のセッションを起動するのは、1Password の承認を 1 回で済ませるため。
 #   (1 つのセッションに 2 台を載せる simtunnel up --simulators 2 は、2026-11-21 に 2 回とも準備の途中で止まった。
-#   runner のアプリの install が 1 台 2〜5 分かかり、10 分の上限に達した。 https://github.com/bannzai/snapmon/issues/412 )
+#   1 回目は WebDriverAgent の起動の時間切れ、2 回目は 2 台目の install に時間がかかり install の step の 10 分の上限。
+#   https://github.com/bannzai/snapmon/issues/412 )
 # 環境変数: FIREBASE_APPCHECK_DEBUG_TOKEN_IOS (必須。発行と登録は scripts/register-appcheck-debug-token.sh)
 #           IOS_WDA (既定 ~/.claude/skills/ios-simulator/scripts/ios-wda.sh) — 起動に使うスクリプト
 # token は引数に出さず (引数はプロセス一覧から読めるため)、本人だけが読める一時ファイルで渡して終了時に消す。
