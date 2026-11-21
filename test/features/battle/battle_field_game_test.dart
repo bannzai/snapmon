@@ -267,7 +267,7 @@ void main() {
   });
 
   /// 500×200 は、帯を相手のカードの右に寄せた低いフィールド。帯の下端 56 と自分のカードの上端 90 の間に、
-  /// 下限の大きさの絵 (200 × 0.15 = 30) と間の 8 が入らない。下げる前の絵 (上端 56・下端 86) はカードにも帯にも重ならない
+  /// 帯の下へ下げる時の下限の大きさの絵 (200 × 0.1 = 20) と間の 8 が入らない (入る限界は上端 92)。下げる前の絵 (上端 56) はカードにも帯にも重ならない
   testWithGame<BattleFieldGame>(
     'ログの帯と自分の情報カードの間に下限の大きさの絵が入らないフィールドでは、相手の絵を帯の下へ下げず、カードに重ねない',
     createGame,
@@ -287,24 +287,79 @@ void main() {
     },
   );
 
-  /// 自分のカードの上端が 104 なら、下限の大きさの絵 (30) が帯の下 (64〜94) に間の 8 を空けて入る (入る限界は上端 102)
+  /// 自分のカードの上端ごとの、帯の下 (上端 64) に間の 8 を空けて入る絵の一辺。
+  /// 92 は下限 (200 × 0.1 = 20) がちょうど入る境界、96 は下限と高さの 0.15 (30) の間 (#419 の重なっていた低さ)、104 は高さの 0.15 を越える
+  for (final (playerCardTop, expectedArtSize) in const [
+    (92.0, 20.0),
+    (96.0, 24.0),
+    (104.0, 32.0),
+  ]) {
+    testWithGame<BattleFieldGame>(
+      'ログの帯と自分の情報カード (上端 $playerCardTop) の間に下限の大きさの絵が入るフィールドでは、相手の絵を帯の下へ下げ、間に入る大きさにする',
+      createGame,
+      (game) async {
+        game.onGameResize(Vector2(500, 200));
+        const battleLogRect = Rect.fromLTRB(218, 16, 480, 56);
+        game.updateOverlayRects(
+          rects: [
+            const Rect.fromLTRB(20, 16, 210, 102),
+            Rect.fromLTRB(290, playerCardTop, 480, playerCardTop + 86),
+          ],
+          battleLogRect: battleLogRect,
+        );
+        final opponentRect = game.opponentMonsterComponent.toRect();
+        expect(opponentRect.top, 56 + 8);
+        expect(opponentRect.height, closeTo(expectedArtSize, 0.001));
+        // 絵とカードの間は 8 を空ける
+        expect(
+          opponentRect.bottom,
+          lessThanOrEqualTo(playerCardTop - 8 + 0.001),
+        );
+        expect(opponentRect.overlaps(battleLogRect), isFalse);
+        expect(
+          opponentRect.overlaps(game.playerMonsterComponent.toRect()),
+          isFalse,
+        );
+      },
+    );
+  }
+
+  /// 360×225 は 360×640 の負けた側の勝敗の画面のフィールド (#419 の Web の画面のスクリーンショットから読んだ値)。
+  /// 矩形は、左上の相手の情報カード、その右に寄せたログの帯 (文が 2 行で下端 76)、右下の自分の情報カード (上端 118)。
+  /// 帯の下 (上端 84) と自分のカードの間に入る絵は 26 で、高さの 0.15 (33.75) に足りず、絵が高さの 0.28 (63) のまま帯に重なっていた
   testWithGame<BattleFieldGame>(
-    'ログの帯と自分の情報カードの間に下限の大きさの絵が入るフィールドでは、相手の絵を帯の下へ下げる',
+    '360×640 の負けた側の勝敗の画面のフィールドでは、相手の絵を帯の下に置き、2 体の絵を帯にもカードにも互いにも重ねない',
     createGame,
     (game) async {
-      game.onGameResize(Vector2(500, 200));
-      const playerCardRect = Rect.fromLTRB(290, 104, 480, 190);
+      game.onGameResize(Vector2(360, 225));
+      // 先頭がログの帯、残りが 2 枚の情報カード
+      const coveringRects = [
+        Rect.fromLTRB(218, 16, 340, 76),
+        Rect.fromLTRB(20, 16, 210, 101),
+        Rect.fromLTRB(150, 118, 340, 203),
+      ];
       game.updateOverlayRects(
-        rects: const [Rect.fromLTRB(20, 16, 210, 102), playerCardRect],
-        battleLogRect: const Rect.fromLTRB(218, 16, 480, 56),
+        rects: coveringRects.sublist(1),
+        battleLogRect: coveringRects.first,
       );
       final opponentRect = game.opponentMonsterComponent.toRect();
-      expect(opponentRect.top, 56 + 8);
-      expect(opponentRect.overlaps(playerCardRect), isFalse);
+      final playerRect = game.playerMonsterComponent.toRect();
+      expect(opponentRect.top, 76 + 8);
+      expect(opponentRect.height, closeTo(118 - 8 - 84, 0.001));
+      for (final monsterRect in [opponentRect, playerRect]) {
+        for (final coveringRect in coveringRects) {
+          expect(monsterRect.overlaps(coveringRect), isFalse);
+        }
+        expect(
+          const Rect.fromLTWH(0, 0, 360, 225).intersect(monsterRect),
+          monsterRect,
+        );
+      }
+      expect(opponentRect.overlaps(playerRect), isFalse);
     },
   );
 
-  /// 高さ 150 のフィールドで帯の下 (135 + 8) まで下げると、下限の大きさ (高さの 0.15) の絵でも自分の下端 (高さの 0.94) までに 2 体が収まらない
+  /// 高さ 150 のフィールドで帯の下 (135 + 8) まで下げると、帯の下へ下げる時の下限の大きさ (高さの 0.1) の絵でも自分の下端 (高さの 0.94) までに 2 体が収まらない
   testWithGame<BattleFieldGame>(
     'ログの帯の下に 2 体の絵が収まらないほど低いフィールドでは、相手の絵を帯の下へ下げず、2 体の絵をフィールドの中に描く',
     createGame,
