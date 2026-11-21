@@ -1149,6 +1149,8 @@ void main() {
       OwnedMonster? firstBattleBornMonster,
       // 既定は自分より弱い相手 (自分が勝つ)。負けた側の勝敗の画面を確かめる時に、自分より強い相手を渡す
       OwnedMonster? opponentMonster,
+      // 既定は他のテストと同じ日本語。文言の長さで勝敗のパネルとログの帯の高さが変わるため、報告の言語の配置を確かめる時に渡す
+      Locale locale = const Locale('ja'),
     }) async {
       tester.view
         ..physicalSize = size
@@ -1173,7 +1175,7 @@ void main() {
               child: child ?? const SizedBox.shrink(),
             ),
             theme: snapmonThemeData(),
-            locale: const Locale('ja'),
+            locale: locale,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             home: BattleScreen(
@@ -1282,9 +1284,8 @@ void main() {
       );
       return scrollable.evaluate().isEmpty
           ? battleLogRect(tester: tester)
-          : battleLogRect(
-              tester: tester,
-            ).intersect(tester.getRect(scrollable.first));
+          : battleLogRect(tester: tester)
+                .intersect(tester.getRect(scrollable.first));
     }
 
     /// フィールドに描いた 2 体 (相手・自分) の絵の、画面の座標での矩形。
@@ -2069,50 +2070,104 @@ void main() {
       });
 
       // 負けた側の勝敗の画面は手持ちの案内の分だけ高く、フィールドが勝った側より縮む。
-      // 相手の絵の上端をフィールドの高さの比率だけで決めると、位置の変わらないログの帯の下端より上に来ていた (#415)
-      testWidgets('縦向きのスマホ ($size) の負けた側の勝敗の画面でも、2 体の絵が 2 枚のカード・ログの帯に重ならない', (
-        tester,
-      ) async {
-        await pumpBattleScreenWithSize(
-          tester: tester,
-          size: size,
-          topPadding: topPadding,
-          bottomPadding: bottomPadding,
-          leftPadding: 0,
-          rightPadding: 0,
-          playerMonster: weakOpponent,
-          opponentMonster: strongPlayer,
-        );
-        await playUntilFinished(tester: tester);
-        // 勝敗の画面を測った次のフレームで配置を決め直すため
-        await tester.pump();
-        await tester.pump();
-        final l10n = tester.element(find.byType(BattleScreen)).l10n;
-        expect(find.text(l10n.battleLost), findsOneWidget);
-        // フィールドを縮める手持ちの案内が出ている画面で確かめる
-        expect(find.text(l10n.battleLostPartyHintTitle), findsOneWidget);
-
-        final statusCards = find.byWidgetPredicate(
-          (widget) => widget.runtimeType.toString() == '_MonsterStatusCard',
-        );
-        expect(statusCards, findsNWidgets(2));
-        for (final artRect in monsterArtRects(tester: tester)) {
-          expect(fieldRect(tester: tester).intersect(artRect), artRect);
-          for (final coveringRect in [
-            for (final statusCard in statusCards.evaluate())
-              tester.getRect(find.byWidget(statusCard.widget)),
-            battleLogRect(tester: tester),
-          ]) {
-            expect(
-              artRect.overlaps(coveringRect),
-              isFalse,
-              reason: '絵 $artRect が $coveringRect に重なっている',
+      // 相手の絵の上端をフィールドの高さの比率だけで決めると、位置の変わらないログの帯の下端より上に来ていた (#415)。
+      // 英語は #415 の報告の言語。日本語とは勝敗のパネルの高さが違い、ログの帯の置き方 (左右いっぱいか、相手のカードの右か) が変わる
+      for (final locale in const [Locale('ja'), Locale('en')]) {
+        testWidgets(
+          '縦向きのスマホ ($size・$locale) の負けた側の勝敗の画面でも、2 体の絵が 2 枚のカード・ログの帯に重ならない',
+          (tester) async {
+            await pumpBattleScreenWithSize(
+              tester: tester,
+              size: size,
+              topPadding: topPadding,
+              bottomPadding: bottomPadding,
+              leftPadding: 0,
+              rightPadding: 0,
+              playerMonster: weakOpponent,
+              opponentMonster: strongPlayer,
+              locale: locale,
             );
-          }
-          expect(artRect.height, greaterThanOrEqualTo(60));
-        }
-      });
+            await playUntilFinished(tester: tester);
+            // 勝敗の画面を測った次のフレームで配置を決め直すため
+            await tester.pump();
+            await tester.pump();
+            final l10n = tester.element(find.byType(BattleScreen)).l10n;
+            expect(find.text(l10n.battleLost), findsOneWidget);
+            // フィールドを縮める手持ちの案内が出ている画面で確かめる
+            expect(find.text(l10n.battleLostPartyHintTitle), findsOneWidget);
+
+            final statusCards = find.byWidgetPredicate(
+              (widget) => widget.runtimeType.toString() == '_MonsterStatusCard',
+            );
+            expect(statusCards, findsNWidgets(2));
+            for (final artRect in monsterArtRects(tester: tester)) {
+              expect(fieldRect(tester: tester).intersect(artRect), artRect);
+              for (final coveringRect in [
+                for (final statusCard in statusCards.evaluate())
+                  tester.getRect(find.byWidget(statusCard.widget)),
+                battleLogRect(tester: tester),
+              ]) {
+                expect(
+                  artRect.overlaps(coveringRect),
+                  isFalse,
+                  reason: '絵 $artRect が $coveringRect に重なっている',
+                );
+              }
+              expect(artRect.height, greaterThanOrEqualTo(60));
+            }
+
+            // 勝った側と同じ並び: 相手はカードが左で絵が右、自分は絵が左でカードが右、相手の絵は自分の絵より上
+            final [opponentArtRect, playerArtRect] = monsterArtRects(
+              tester: tester,
+            );
+            final opponentCardRect = tester.getRect(
+              find.ancestor(
+                of: find.text(strongPlayer.definition.name),
+                matching: statusCards,
+              ),
+            );
+            expect(
+              opponentCardRect.right,
+              lessThanOrEqualTo(opponentArtRect.left),
+            );
+            expect(
+              playerArtRect.right,
+              lessThanOrEqualTo(playerStatusCardRect(tester: tester).left),
+            );
+            expect(
+              opponentArtRect.bottom,
+              lessThanOrEqualTo(playerArtRect.top),
+            );
+            expect(opponentCardRect.top, lessThan(playerArtRect.top));
+          },
+        );
+      }
     }
+
+    // 決着の前はログの文の折り返しで帯の高さが変わる。帯を避けさせると、そのたびに絵を置き直して演出の途中の位置が元に戻る
+    testWidgets('決着の前は、ログの帯の下端が相手の絵の上端より下にあっても、相手の絵をフィールドの高さの 0.28 に置いたままにする', (
+      tester,
+    ) async {
+      await pumpBattleScreenWithSize(
+        tester: tester,
+        size: const Size(393, 640),
+        topPadding: 59,
+        bottomPadding: 34,
+        leftPadding: 0,
+        rightPadding: 0,
+        playerMonster: strongPlayer,
+      );
+      final field = fieldRect(tester: tester);
+      // 決着の後ならログの帯の下へ下げる配置であること (この前提が崩れると、下の確認は帯を渡していても通る)
+      expect(
+        battleLogRect(tester: tester).bottom + 8,
+        greaterThan(field.top + field.height * 0.28),
+      );
+      expect(
+        monsterArtRects(tester: tester).first.top,
+        closeTo(field.top + field.height * 0.28, 0.001),
+      );
+    });
 
     testWidgets('技の演出中に縦横を回転してもログとバトルの状態を維持し、横向きで決着まで操作できる', (tester) async {
       await pumpBattleScreenWithSize(
