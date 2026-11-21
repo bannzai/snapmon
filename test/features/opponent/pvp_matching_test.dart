@@ -24,7 +24,7 @@ import '../../pvp_battle_fixture.dart';
 import '../../pvp_client_fixture.dart';
 import '../../sample_data_fixture.dart';
 
-// 対戦のシーンの「対戦をする」から始める人との対戦 (issue #386)。待つ画面 (やめる・1 分後の「CPU と対戦をする」)、
+// 対戦のシーンの「対戦をする」から始める人との対戦 (issue #386)。待つ画面 (やめる・30 秒後の「CPU と対戦をする」)、
 // 組み合わされた後のバトルの画面 (相手の行動を待つ・通報・ブロック・時間切れ・勝敗なし)、「もう一回対戦する」を確かめる。
 void main() {
   final sampleData = loadSampleDataFixture();
@@ -194,7 +194,7 @@ void main() {
 
   group('待つ画面', () {
     testWidgets(
-      '「対戦をする」は待つ画面を開いて、対戦の計算の版を付けて相手を探し、1 分の前は「CPU と対戦をする」を出さず、1 分で出して探し続ける',
+      '「対戦をする」は待つ画面を開いて、対戦の計算の版を付けて相手を探し、30 秒の前は「CPU と対戦をする」を出さず、30 秒で出して探し続ける',
       (tester) async {
         await pumpOpponentScreen(tester: tester, blockUser: () async {});
         await openMatchingScreen(tester: tester);
@@ -210,7 +210,7 @@ void main() {
         ]);
         expect(find.byKey(const Key('pvp-matching-cpu-battle')), findsNothing);
 
-        await tester.pump(const Duration(seconds: 59));
+        await tester.pump(const Duration(seconds: 29));
         expect(find.byKey(const Key('pvp-matching-cpu-battle')), findsNothing);
 
         await tester.pump(const Duration(seconds: 1));
@@ -237,7 +237,7 @@ void main() {
     testWidgets('待つ画面の「CPU と対戦をする」は、探すのをやめて CPU トレーナーとの対戦に入る', (tester) async {
       await pumpOpponentScreen(tester: tester, blockUser: () async {});
       await openMatchingScreen(tester: tester);
-      await tester.pump(const Duration(seconds: 60));
+      await tester.pump(const Duration(seconds: 30));
 
       await tester.tap(find.byKey(const Key('pvp-matching-cpu-battle')));
       await tester.pump();
