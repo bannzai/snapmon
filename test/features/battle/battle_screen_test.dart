@@ -2076,14 +2076,20 @@ void main() {
 
       // 負けた側の勝敗の画面は手持ちの案内の分だけ高く、フィールドが勝った側より縮む。
       // 相手の絵の上端をフィールドの高さの比率だけで決めると、位置の変わらないログの帯の下端より上に来ていた (#415)。
-      // 英語は #415 の報告の言語。日本語とは勝敗のパネルの高さが違い、ログの帯の置き方 (左右いっぱいか、相手のカードの右か) が変わる
-      for (final locale in const [Locale('ja'), Locale('en')]) {
+      // 英語は #415 の報告の言語。日本語とは勝敗のパネルの高さが違い、ログの帯の置き方 (左右いっぱいか、相手のカードの右か) が変わる。
+      // 英語はこのテストの文字の幅では勝敗のパネルがさらに高く、同じ画面の高さではログの帯と自分のカードの間に
+      // 絵の下限の大きさ (フィールドの高さの 0.15) が入らず重なる (CI の run 44883453641 で実測)。その低さは #415 の報告の画面
+      // (フィールドの高さ 約 394) に当たらないため、画面を 80 高くして報告に近いフィールドの高さで確かめる
+      for (final (locale, extraHeight) in const [
+        (Locale('ja'), 0.0),
+        (Locale('en'), 80.0),
+      ]) {
         testWidgets(
-          '縦向きのスマホ ($size・$locale) の負けた側の勝敗の画面でも、2 体の絵が 2 枚のカード・ログの帯に重ならない',
+          '縦向きのスマホ ($size + 高さ $extraHeight・$locale) の負けた側の勝敗の画面でも、2 体の絵が 2 枚のカード・ログの帯に重ならない',
           (tester) async {
             await pumpBattleScreenWithSize(
               tester: tester,
-              size: size,
+              size: Size(size.width, size.height + extraHeight),
               topPadding: topPadding,
               bottomPadding: bottomPadding,
               leftPadding: 0,
