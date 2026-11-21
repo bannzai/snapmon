@@ -1147,6 +1147,8 @@ void main() {
       double topPadding = 0,
       // 既定は初回の導線ではない対戦。初回の 1 戦は勝敗の画面に生まれたカードも並べて高くなるため、決着の後の配置を確かめる時に渡す
       OwnedMonster? firstBattleBornMonster,
+      // 既定は自分より弱い相手 (自分が勝つ)。負けた側の勝敗の画面を確かめる時に、自分より強い相手を渡す
+      OwnedMonster? opponentMonster,
     }) async {
       tester.view
         ..physicalSize = size
@@ -1176,7 +1178,7 @@ void main() {
             supportedLocales: AppLocalizations.supportedLocales,
             home: BattleScreen(
               playerParty: [playerMonster],
-              opponentParty: [weakOpponent],
+              opponentParty: [opponentMonster ?? weakOpponent],
               opponentKind: BattleOpponentKind.cpu,
               pvpSession: null,
               opponentSafetyMenuBuilder: null,
@@ -2062,6 +2064,51 @@ void main() {
             expect(artRect.overlaps(coveringRect), isFalse);
           }
           // 被写体を見分けられる大きさ (左右配置の下限と同じ 60px。expectMonsterArtsVisible) を保つ
+          expect(artRect.height, greaterThanOrEqualTo(60));
+        }
+      });
+
+      // 負けた側の勝敗の画面は手持ちの案内の分だけ高く、フィールドが勝った側より縮む。
+      // 相手の絵の上端をフィールドの高さの比率だけで決めると、位置の変わらないログの帯の下端より上に来ていた (#415)
+      testWidgets('縦向きのスマホ ($size) の負けた側の勝敗の画面でも、2 体の絵が 2 枚のカード・ログの帯に重ならない', (
+        tester,
+      ) async {
+        await pumpBattleScreenWithSize(
+          tester: tester,
+          size: size,
+          topPadding: topPadding,
+          bottomPadding: bottomPadding,
+          leftPadding: 0,
+          rightPadding: 0,
+          playerMonster: weakOpponent,
+          opponentMonster: strongPlayer,
+        );
+        await playUntilFinished(tester: tester);
+        // 勝敗の画面を測った次のフレームで配置を決め直すため
+        await tester.pump();
+        await tester.pump();
+        final l10n = tester.element(find.byType(BattleScreen)).l10n;
+        expect(find.text(l10n.battleLost), findsOneWidget);
+        // フィールドを縮める手持ちの案内が出ている画面で確かめる
+        expect(find.text(l10n.battleLostPartyHintTitle), findsOneWidget);
+
+        final statusCards = find.byWidgetPredicate(
+          (widget) => widget.runtimeType.toString() == '_MonsterStatusCard',
+        );
+        expect(statusCards, findsNWidgets(2));
+        for (final artRect in monsterArtRects(tester: tester)) {
+          expect(fieldRect(tester: tester).intersect(artRect), artRect);
+          for (final coveringRect in [
+            for (final statusCard in statusCards.evaluate())
+              tester.getRect(find.byWidget(statusCard.widget)),
+            battleLogRect(tester: tester),
+          ]) {
+            expect(
+              artRect.overlaps(coveringRect),
+              isFalse,
+              reason: '絵 $artRect が $coveringRect に重なっている',
+            );
+          }
           expect(artRect.height, greaterThanOrEqualTo(60));
         }
       });
