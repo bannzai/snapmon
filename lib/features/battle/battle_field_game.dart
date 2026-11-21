@@ -44,7 +44,7 @@ const double _moveEffectFrameWidthPerMonsterSize = 1.3;
 /// battle_screen_test.dart の左右配置の絵の大きさの下限 60px を満たす
 const double landscapeMonsterArtAreaHeightDivisor = 1.75;
 
-/// 比率の配置で、モンスターの絵とフィールドに重ねる情報カード・トレーナーの札の間に空ける幅 (論理 px)。
+/// 比率の配置で、モンスターの絵とフィールドに重ねる情報カード・トレーナーの札・ログの帯の間に空ける幅 (論理 px)。
 /// バトル画面で相手のカードとその横のログの帯の間に空ける幅 (battle_screen.dart の _battleLogGapBesideCard) と揃えた
 const double _monsterArtGapToOverlay = 8;
 
@@ -90,6 +90,10 @@ class BattleFieldGame extends FlameGame {
   /// 比率の配置では 2 体の絵をこれらに重ならない大きさに抑える。バトル画面が測って渡すまでは空 (重ねる部品を考えない)
   List<Rect> _overlayRects = const [];
 
+  /// バトル画面がフィールドの上端に重ねるログの帯の、フィールドの座標での矩形。
+  /// 比率の配置では相手の絵をこの帯の下に置く。バトル画面が渡すまでと、帯を避けない間 (決着の前) は null (帯を考えない)
+  Rect? _battleLogRect;
+
   /// 2 体の絵を収めるフィールドの中の矩形 (バトル画面が Flutter で重ねる情報カードとログの帯の無い所)。
   /// 左右配置のバトルでは上下のカードの間、低い画面でカードを横に並べる時は左右のカードの間を渡す。
   /// null の時は画面の大きさの比率で置く
@@ -98,13 +102,23 @@ class BattleFieldGame extends FlameGame {
   /// 指定された絵の領域で自分を左下・相手を右上に置くか。既存のカード間の配置では false。
   bool _placesPlayerOnLeft = false;
 
-  /// フィールドに重ねる情報カードとトレーナーの札の矩形 [rects] (フィールドの座標) を受け取り、変わっていれば 2 体を置き直す。
-  /// 同じ矩形の並びなら何もしない (演出の途中に置き直すと、攻撃の前進の途中の位置が元に戻るため)。
-  void updateOverlayRects({required List<Rect> rects}) {
-    if (listEquals(rects, _overlayRects)) {
+  /// フィールドに重ねる情報カードとトレーナーの札の矩形 [rects] と、相手の絵に避けさせるログの帯の矩形 [battleLogRect]
+  /// (どちらもフィールドの座標。帯を避けさせない時は null) を受け取り、変わっていれば 2 体を置き直す。
+  /// 同じ矩形の並びで、帯が変わっても相手の絵の上端が変わらないなら何もしない (演出の途中に置き直すと、攻撃の前進の途中の位置が元に戻るため)。
+  void updateOverlayRects({
+    required List<Rect> rects,
+    required Rect? battleLogRect,
+  }) {
+    // 読み込みの前はフィールドの大きさが決まっておらず、置き直しもしないため、相手の絵の上端を比べない
+    if (listEquals(rects, _overlayRects) &&
+        (!isLoaded ||
+            _opponentArtTop(battleLogRect: battleLogRect) ==
+                _opponentArtTop(battleLogRect: _battleLogRect))) {
+      _battleLogRect = battleLogRect;
       return;
     }
     _overlayRects = List.unmodifiable(rects);
+    _battleLogRect = battleLogRect;
     if (isLoaded) {
       _layout();
     }
@@ -298,6 +312,34 @@ class BattleFieldGame extends FlameGame {
     _layout();
   }
 
+  /// ログの帯の矩形が [battleLogRect] (帯を考えない時は null) の時の、比率の配置での相手の絵の上端 (フィールドの座標)。
+  /// モックの比率 (高さの 0.28) と、ログの帯の下端から間を空けた位置の、下にある方。
+  /// ログの帯は画面の上端からの位置が変わらないため、負けた側の勝敗のパネルでフィールドが縮むと高さの 0.28 が帯の下端より上に来る (#415)。
+  /// 帯の下へ下げるのは、下げた位置に下限の大きさ (高さの 0.15。[_layout]) の絵が、情報カード・札にも自分の絵にも重ならずに入る時だけにする。
+  /// 入らない低さでは高さの 0.28 のままにする (帯の重なりは残るが、下げると帯の代わりにカードへ重なり、下げる前に重なっていなかった画面まで崩すため)
+  double _opponentArtTop({required Rect? battleLogRect}) {
+    final ratioTop = size.y * 0.28;
+    if (battleLogRect == null) {
+      return ratioTop;
+    }
+    final belowLogTop = battleLogRect.bottom + _monsterArtGapToOverlay;
+    if (belowLogTop <= ratioTop) {
+      return ratioTop;
+    }
+    return [
+          (size.y * 0.94 - belowLogTop) / 2.15,
+          for (final overlayRect in _overlayRects)
+            _maximumSizeBesideOverlay(
+              anchor: Offset(size.x * 0.88, belowLogTop),
+              growsLeft: true,
+              growsDown: true,
+              overlayRect: overlayRect,
+            ),
+        ].every((maximumSize) => maximumSize >= size.y * 0.15)
+        ? belowLogTop
+        : ratioTop;
+  }
+
   /// 画面の大きさに合わせて 2 体の位置と大きさを決める。比率はモック (Battle.dc.html) の配置から取った。
   void _layout() {
     // フィールドが相手のカードの上端より低い (幅の広い Web のウィンドウを高さ 120 ほどまで縮めた) 時は矩形の高さが 0 以下になり、
@@ -332,14 +374,19 @@ class BattleFieldGame extends FlameGame {
     // 情報カードとトレーナーの札 (_overlayRects) に重ならない大きさに抑える。
     // 縦向きのスマホ (393×852) では幅の 0.4 の絵がカードに横から重なっていたため (#243)。
     // 決着の後の勝敗のパネルでフィールドが低くなった時は、自分の上端が相手の情報カードの下端を越えない大きさになる。
-    // ただし重ねる部品で抑えるのは高さの 0.15 (高さで決まる上限の半分) までにする。それより低いフィールドでは絵を消すより、部品に一部が隠れても描く方を選ぶ
-    final opponentTopRight = Offset(size.x * 0.88, size.y * 0.28);
+    // ただし重ねる部品で抑えるのは高さの 0.15 (高さで決まる上限の半分) までにする。それより低いフィールドでは絵を消すより、部品に一部が隠れても描く方を選ぶ。
+    // 相手の上端をログの帯の下まで下げた時 ([_opponentArtTop]) は、下げた分だけ自分の上端と重ならない大きさ (0.3 と同じく 2 体の高さの合計 2.15m から) に抑える
+    final opponentTopRight = Offset(
+      size.x * 0.88,
+      _opponentArtTop(battleLogRect: _battleLogRect),
+    );
     final playerBottomLeft = Offset(size.x * 0.08, size.y * 0.94);
     final monsterSize = [
       size.x * 0.4,
       size.y * 0.3,
       math.max(
         [
+          (playerBottomLeft.dy - opponentTopRight.dy) / 2.15,
           for (final overlayRect in _overlayRects) ...[
             _maximumSizeBesideOverlay(
               anchor: opponentTopRight,
