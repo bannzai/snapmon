@@ -255,6 +255,30 @@ void main() {
     },
   );
 
+  /// 高さ 150 のフィールドで帯の下 (135 + 8) まで下げると、下限の大きさ (高さの 0.15) の絵でも自分の下端 (高さの 0.94) までに 2 体が収まらない
+  testWithGame<BattleFieldGame>(
+    'ログの帯の下に 2 体の絵が収まらないほど低いフィールドでは、相手の絵を高さの 0.6175 より下げず、2 体の絵をフィールドの中に描く',
+    createGame,
+    (game) async {
+      game.onGameResize(Vector2(393, 150));
+      game.updateOverlayRects(
+        rects: const [],
+        battleLogRect: const Rect.fromLTRB(20, 76, 373, 135),
+      );
+      final opponentRect = game.opponentMonsterComponent.toRect();
+      final playerRect = game.playerMonsterComponent.toRect();
+      expect(opponentRect.top, closeTo(150 * 0.6175, 0.001));
+      expect(opponentRect.height, closeTo(150 * 0.15, 0.001));
+      for (final monsterRect in [opponentRect, playerRect]) {
+        expect(
+          const Rect.fromLTWH(0, 0, 393, 150).intersect(monsterRect),
+          monsterRect,
+        );
+      }
+      expect(opponentRect.bottom, lessThanOrEqualTo(playerRect.top + 0.001));
+    },
+  );
+
   /// 600×103 は横向きのスマホ (844×390、下のセーフエリア 21) のフィールド。
   /// 218〜382・16〜102 は、左右に上げた 2 枚の情報カード (幅 190・高さ 86) の間 (battle_screen.dart の _monsterArtAreaMinimumWidthBetweenCards)。
   testWithGame<BattleFieldGame>(

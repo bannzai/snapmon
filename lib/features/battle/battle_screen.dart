@@ -249,9 +249,9 @@ class _BattleScreenState extends State<BattleScreen>
   /// (札を出すかの判定に使うため、出していない間に測り直すと、出すと収まらず消し、消すと収まり出す往復になる)。
   double? _trainerLabelPlateMeasuredHeight;
 
-  /// ログの帯の下に相手の情報カードを置く配置で、フィールドの上端に左右いっぱいに重ねるログの帯。
+  /// フィールドの上端に重ねるログの帯 (左右いっぱいの帯と、相手の情報カードの右に寄せた帯のどちらも)。
   /// 相手のモンスターの絵が帯に隠れないよう、矩形をフィールドに渡す (#415)。
-  final GlobalKey _fullWidthBattleLogKey = GlobalKey();
+  final GlobalKey _fieldBattleLogKey = GlobalKey();
 
   /// フィールドに重ねる自分の情報カード。HP の数値と属性の札の行が折り返すと相手のカードより高くなるため、高さを測って配置の判定に使う。
   final GlobalKey _playerStatusCardKey = GlobalKey();
@@ -1297,9 +1297,11 @@ class _BattleScreenState extends State<BattleScreen>
                                 ])
                                   ?_rectInField(widgetKey: overlayKey),
                               ],
-                              battleLogRect: _rectInField(
-                                widgetKey: _fullWidthBattleLogKey,
-                              ),
+                              // 帯を避けさせるのは決着の後だけにする。勝敗のパネルでフィールドが縮むのは決着の後で、
+                              // 決着の前はログの文の折り返しで帯の高さが変わるたびに絵が動き、演出の途中の位置が元に戻るため (#415)
+                              battleLogRect: isFinished
+                                  ? _rectInField(widgetKey: _fieldBattleLogKey)
+                                  : null,
                             )
                             // 2 枚のカードの間を、カードと同じ高さの範囲で絵に使う (自分のカードも相手のカードと同じ高さの 3 段に保つため)
                             ..updateMonsterArtArea(
@@ -1680,18 +1682,19 @@ class _BattleScreenState extends State<BattleScreen>
               _fieldHorizontalMargin,
               0,
             ),
-            child: battleLogMaxHeight == null
-                // フィールドに重ねる帯は、相手の情報カードの右に寄せた時は必ず高さを抑えるため、抑えない帯は左右いっぱいの帯
-                ? KeyedSubtree(
-                    key: _fullWidthBattleLogKey,
-                    child: _buildBattleLog(context: context),
-                  )
-                : ConstrainedBox(
-                    constraints: BoxConstraints(maxHeight: battleLogMaxHeight),
-                    child: SingleChildScrollView(
-                      child: _buildBattleLog(context: context),
+            child: KeyedSubtree(
+              key: _fieldBattleLogKey,
+              child: battleLogMaxHeight == null
+                  ? _buildBattleLog(context: context)
+                  : ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: battleLogMaxHeight,
+                      ),
+                      child: SingleChildScrollView(
+                        child: _buildBattleLog(context: context),
+                      ),
                     ),
-                  ),
+            ),
           ),
         ),
       if (showsTrainerLabels)
