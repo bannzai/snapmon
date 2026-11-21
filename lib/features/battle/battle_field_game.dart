@@ -315,18 +315,30 @@ class BattleFieldGame extends FlameGame {
   /// ログの帯の矩形が [battleLogRect] (帯を考えない時は null) の時の、比率の配置での相手の絵の上端 (フィールドの座標)。
   /// モックの比率 (高さの 0.28) と、ログの帯の下端から間を空けた位置の、下にある方。
   /// ログの帯は画面の上端からの位置が変わらないため、負けた側の勝敗のパネルでフィールドが縮むと高さの 0.28 が帯の下端より上に来る (#415)。
-  /// 下げるのは高さの 0.6175 までにする。それより下げると、2 体の絵が下限の大きさ (高さの 0.15。[_layout]) でも自分の下端 (高さの 0.94) までに収まらない
-  /// (0.94 − 0.15 × 2.15 = 0.6175)。そこまで低いフィールドでは絵を消すより、帯に一部が隠れても描く方を選ぶ
-  double _opponentArtTop({required Rect? battleLogRect}) =>
-      battleLogRect == null
-      ? size.y * 0.28
-      : math.max(
-          size.y * 0.28,
-          math.min(
-            battleLogRect.bottom + _monsterArtGapToOverlay,
-            size.y * 0.6175,
-          ),
-        );
+  /// 帯の下へ下げるのは、下げた位置に下限の大きさ (高さの 0.15。[_layout]) の絵が、情報カード・札にも自分の絵にも重ならずに入る時だけにする。
+  /// 入らない低さでは高さの 0.28 のままにする (帯の重なりは残るが、下げると帯の代わりにカードへ重なり、下げる前に重なっていなかった画面まで崩すため)
+  double _opponentArtTop({required Rect? battleLogRect}) {
+    final ratioTop = size.y * 0.28;
+    if (battleLogRect == null) {
+      return ratioTop;
+    }
+    final belowLogTop = battleLogRect.bottom + _monsterArtGapToOverlay;
+    if (belowLogTop <= ratioTop) {
+      return ratioTop;
+    }
+    return [
+          (size.y * 0.94 - belowLogTop) / 2.15,
+          for (final overlayRect in _overlayRects)
+            _maximumSizeBesideOverlay(
+              anchor: Offset(size.x * 0.88, belowLogTop),
+              growsLeft: true,
+              growsDown: true,
+              overlayRect: overlayRect,
+            ),
+        ].every((maximumSize) => maximumSize >= size.y * 0.15)
+        ? belowLogTop
+        : ratioTop;
+  }
 
   /// 画面の大きさに合わせて 2 体の位置と大きさを決める。比率はモック (Battle.dc.html) の配置から取った。
   void _layout() {

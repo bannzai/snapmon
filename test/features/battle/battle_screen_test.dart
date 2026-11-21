@@ -116,9 +116,9 @@ void main() {
       turn++
     ) {
       await tester.tap(
-        find.text('わるあがき').evaluate().isEmpty
+        find.text(l10n.battleStruggle).evaluate().isEmpty
             ? find.byKey(const Key('move-slot-0'))
-            : find.text('わるあがき'),
+            : find.text(l10n.battleStruggle),
       );
       // 1 ターンの演出 (技 2 回・倒れる・交代) が終わるまで進める
       await tester.pump();

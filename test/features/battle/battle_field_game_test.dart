@@ -266,9 +266,47 @@ void main() {
     );
   });
 
+  /// 500×200 は、帯を相手のカードの右に寄せた低いフィールド。帯の下端 56 と自分のカードの上端 90 の間に、
+  /// 下限の大きさの絵 (200 × 0.15 = 30) と間の 8 が入らない。下げる前の絵 (上端 56・下端 86) はカードにも帯にも重ならない
+  testWithGame<BattleFieldGame>(
+    'ログの帯と自分の情報カードの間に下限の大きさの絵が入らないフィールドでは、相手の絵を帯の下へ下げず、カードに重ねない',
+    createGame,
+    (game) async {
+      game.onGameResize(Vector2(500, 200));
+      const playerCardRect = Rect.fromLTRB(290, 90, 480, 176);
+      const overlayRects = [Rect.fromLTRB(20, 16, 210, 102), playerCardRect];
+      game.updateOverlayRects(rects: overlayRects, battleLogRect: null);
+      final opponentRectBefore = game.opponentMonsterComponent.toRect();
+      game.updateOverlayRects(
+        rects: overlayRects,
+        battleLogRect: const Rect.fromLTRB(218, 16, 480, 56),
+      );
+      expect(game.opponentMonsterComponent.toRect(), opponentRectBefore);
+      expect(opponentRectBefore.top, closeTo(200 * 0.28, 0.001));
+      expect(opponentRectBefore.overlaps(playerCardRect), isFalse);
+    },
+  );
+
+  /// 自分のカードの上端が 104 なら、下限の大きさの絵 (30) が帯の下 (64〜94) に間の 8 を空けて入る (入る限界は上端 102)
+  testWithGame<BattleFieldGame>(
+    'ログの帯と自分の情報カードの間に下限の大きさの絵が入るフィールドでは、相手の絵を帯の下へ下げる',
+    createGame,
+    (game) async {
+      game.onGameResize(Vector2(500, 200));
+      const playerCardRect = Rect.fromLTRB(290, 104, 480, 190);
+      game.updateOverlayRects(
+        rects: const [Rect.fromLTRB(20, 16, 210, 102), playerCardRect],
+        battleLogRect: const Rect.fromLTRB(218, 16, 480, 56),
+      );
+      final opponentRect = game.opponentMonsterComponent.toRect();
+      expect(opponentRect.top, 56 + 8);
+      expect(opponentRect.overlaps(playerCardRect), isFalse);
+    },
+  );
+
   /// 高さ 150 のフィールドで帯の下 (135 + 8) まで下げると、下限の大きさ (高さの 0.15) の絵でも自分の下端 (高さの 0.94) までに 2 体が収まらない
   testWithGame<BattleFieldGame>(
-    'ログの帯の下に 2 体の絵が収まらないほど低いフィールドでは、相手の絵を高さの 0.6175 より下げず、2 体の絵をフィールドの中に描く',
+    'ログの帯の下に 2 体の絵が収まらないほど低いフィールドでは、相手の絵を帯の下へ下げず、2 体の絵をフィールドの中に描く',
     createGame,
     (game) async {
       game.onGameResize(Vector2(393, 150));
@@ -278,8 +316,7 @@ void main() {
       );
       final opponentRect = game.opponentMonsterComponent.toRect();
       final playerRect = game.playerMonsterComponent.toRect();
-      expect(opponentRect.top, closeTo(150 * 0.6175, 0.001));
-      expect(opponentRect.height, closeTo(150 * 0.15, 0.001));
+      expect(opponentRect.top, closeTo(150 * 0.28, 0.001));
       for (final monsterRect in [opponentRect, playerRect]) {
         expect(
           const Rect.fromLTWH(0, 0, 393, 150).intersect(monsterRect),
