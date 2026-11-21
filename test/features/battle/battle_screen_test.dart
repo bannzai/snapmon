@@ -106,9 +106,13 @@ void main() {
   /// 1 番目の技 (使える攻撃技が無ければわるあがき) を選んで決着まで進める。
   Future<void> playUntilFinished({required WidgetTester tester}) async {
     // 100 ターン: 見本の手持ち同士なら数ターンで決着するため、決着しない不具合でテストが止まらない上限として十分な数
+    // 決着の見出しは画面の言語の文言で探す (英語の画面でも進められるように)
+    final l10n = tester.element(find.byType(BattleScreen)).l10n;
     for (
       var turn = 0;
-      turn < 100 && find.text('もどる').evaluate().isEmpty;
+      turn < 100 &&
+          find.text(l10n.battleWon).evaluate().isEmpty &&
+          find.text(l10n.battleLost).evaluate().isEmpty;
       turn++
     ) {
       await tester.tap(
@@ -1284,8 +1288,9 @@ void main() {
       );
       return scrollable.evaluate().isEmpty
           ? battleLogRect(tester: tester)
-          : battleLogRect(tester: tester)
-                .intersect(tester.getRect(scrollable.first));
+          : battleLogRect(
+              tester: tester,
+            ).intersect(tester.getRect(scrollable.first));
     }
 
     /// フィールドに描いた 2 体 (相手・自分) の絵の、画面の座標での矩形。
