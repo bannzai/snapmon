@@ -4,7 +4,7 @@ import 'package:snapmon/domain/battle/battle_state.dart';
 import 'package:snapmon/features/opponent/pvp_battle.dart';
 
 /// Functions (functions/src/pvp_rules.ts の publicMonster) が対戦に写す、ID が [monsterID] のモンスター 1 体の JSON。
-Map<String, dynamic> _publicMonsterJson({required String monsterID}) => {
+Map<String, dynamic> _publicMonsterJSON({required String monsterID}) => {
   'definition': {
     'id': monsterID,
     'name': 'マグモン',
@@ -27,18 +27,18 @@ Map<String, dynamic> _publicMonsterJson({required String monsterID}) => {
 
 /// joinPvpMatch (functions/src/pvp_battle.ts) が書く `pvpBattles/{battleID}` と同じキーの JSON。
 /// [overrides] のキーだけを、その値に置き換える。
-Map<String, dynamic> _battleJson({required Map<String, dynamic> overrides}) => {
+Map<String, dynamic> _battleJSON({required Map<String, dynamic> overrides}) => {
   'host': {
     'uid': 'host-uid',
     'displayName': 'トレーナー 1111',
     'iconPath': 'users/host-uid/icons/icon-1.png',
-    'monsters': [_publicMonsterJson(monsterID: 'host-monster')],
+    'monsters': [_publicMonsterJSON(monsterID: 'host-monster')],
   },
   'guest': {
     'uid': 'guest-uid',
     'displayName': 'トレーナー 2222',
     'iconPath': null,
-    'monsters': [_publicMonsterJson(monsterID: 'guest-monster')],
+    'monsters': [_publicMonsterJSON(monsterID: 'guest-monster')],
   },
   'randomSeed': 4294967295,
   'battleDate': '2026-11-20',
@@ -54,7 +54,7 @@ void main() {
   test('組み合わせた直後の対戦の文書を、2 人の手持ち・乱数の種・対戦日ごと読む', () {
     final battle = PvpBattle.fromJson(
       battleID: 'battle-1',
-      json: _battleJson(overrides: {}),
+      json: _battleJSON(overrides: {}),
     );
 
     expect(battle.battleID, 'battle-1');
@@ -80,7 +80,7 @@ void main() {
     expect(
       PvpBattle.fromJson(
         battleID: 'battle-1',
-        json: _battleJson(overrides: {'turnNumber': 12}),
+        json: _battleJSON(overrides: {'turnNumber': 12}),
       ).turnNumber,
       12,
     );
@@ -88,34 +88,34 @@ void main() {
 
   test('利用者が出した行動を、技・わるあがき・交代のどれも読む', () {
     expect(
-      (battleActionFromJson(json: {'kind': 'move', 'moveID': 'fire_1'})
+      (battleActionFromJSON(json: {'kind': 'move', 'moveID': 'fire_1'})
               as UseMoveAction)
           .moveID,
       'fire_1',
     );
     expect(
-      (battleActionFromJson(json: {'kind': 'switch', 'memberIndex': 2})
+      (battleActionFromJSON(json: {'kind': 'switch', 'memberIndex': 2})
               as SwitchMonsterAction)
           .memberIndex,
       2,
     );
     expect(
-      battleActionFromJson(json: {'kind': 'struggle'}),
+      battleActionFromJSON(json: {'kind': 'struggle'}),
       isA<StruggleAction>(),
     );
   });
 
   test('勝者が決まって終わった対戦の、勝者の uid と終わり方を読む', () {
-    for (final (finishReasonJson, finishReason) in [
+    for (final (finishReasonJSON, finishReason) in [
       ('result', PvpFinishReason.result),
       ('timeout', PvpFinishReason.timeout),
     ]) {
       final battle = PvpBattle.fromJson(
         battleID: 'battle-1',
-        json: _battleJson(
+        json: _battleJSON(
           overrides: {
             'winnerUID': 'guest-uid',
-            'finishReason': finishReasonJson,
+            'finishReason': finishReasonJSON,
           },
         ),
       );
@@ -128,14 +128,14 @@ void main() {
   });
 
   test('勝者のいない終わりを、勝敗なしとして読む', () {
-    for (final (finishReasonJson, finishReason) in [
+    for (final (finishReasonJSON, finishReason) in [
       ('timeout', PvpFinishReason.timeout),
       ('mismatch', PvpFinishReason.mismatch),
       ('blocked', PvpFinishReason.blocked),
     ]) {
       final battle = PvpBattle.fromJson(
         battleID: 'battle-1',
-        json: _battleJson(overrides: {'finishReason': finishReasonJson}),
+        json: _battleJSON(overrides: {'finishReason': finishReasonJSON}),
       );
 
       expect(battle.isFinished, isTrue);
@@ -149,26 +149,26 @@ void main() {
     expect(
       () => PvpBattle.fromJson(
         battleID: 'battle-1',
-        json: _battleJson(overrides: {'finishReason': 'surrendered'}),
+        json: _battleJSON(overrides: {'finishReason': 'surrendered'}),
       ),
       throwsArgumentError,
     );
     expect(
-      () => battleActionFromJson(json: {'kind': 'item'}),
+      () => battleActionFromJSON(json: {'kind': 'item'}),
       throwsFormatException,
     );
   });
 
   test('技・わるあがき・交代の行動を、Functions の submitPvpAction が受け取る形にする', () {
-    expect(battleActionToJson(action: const UseMoveAction(moveID: 'fire_1')), {
+    expect(battleActionToJSON(action: const UseMoveAction(moveID: 'fire_1')), {
       'kind': 'move',
       'moveID': 'fire_1',
     });
-    expect(battleActionToJson(action: const StruggleAction()), {
+    expect(battleActionToJSON(action: const StruggleAction()), {
       'kind': 'struggle',
     });
     expect(
-      battleActionToJson(action: const SwitchMonsterAction(memberIndex: 1)),
+      battleActionToJSON(action: const SwitchMonsterAction(memberIndex: 1)),
       {'kind': 'switch', 'memberIndex': 1},
     );
   });
