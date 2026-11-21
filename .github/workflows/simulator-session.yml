@@ -21,11 +21,6 @@ on:
         description: "セッション維持時間（分）"
         required: true
         default: "60"
-      # 人との対戦のように 2 人の利用者が要る確認で、1 つのセッションに 2 台を起動する (local/simtunnel の up --simulators)
-      simulators:
-        description: "起動する Simulator の台数 (1〜4)。i 台目 (0 始まり) は simtunnel の --slot i で操作する"
-        required: false
-        default: "1"
       serve_sim:
         description: "serve-sim (ブラウザ preview) を起動する。runner のメモリに余裕を持たせたい時は false"
         required: false
@@ -75,7 +70,6 @@ jobs:
       session: ${{ inputs.session }}
       device: ${{ inputs.device }}
       duration_minutes: ${{ inputs.duration_minutes }}
-      simulators: ${{ inputs.simulators }}
       serve_sim: ${{ inputs.serve_sim }}
       app_artifact: simulator-app
     secrets:

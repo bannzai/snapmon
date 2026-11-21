@@ -84,21 +84,11 @@ echo GENERATED-TOKEN-VALUE
 EOF
   cat > "$work/bin/ios-wda" <<'EOF'
 #!/usr/bin/env bash
-# 呼ばれた順に slot (--slot の値。無ければ 0)・command (--session と --slot の後の語)・アプリを wda-calls に残す。
-# terminate は記録だけして WDA_TERMINATE_EXIT (既定 0) で終わり、launch の引数を wda-args に残す (WDA_EXIT は launch の exit code)
-# 読み飛ばしの shift を subshell の中で行い、後で使う引数の全体 ("$@") を残す
-(
-  slot=0
-  while [ $# -gt 0 ]; do
-    case "$1" in
-      --session) shift 2 ;;
-      --slot) slot=$2; shift 2 ;;
-      *) break ;;
-    esac
-  done
-  printf 'slot%s %s %s\n' "$slot" "$1" "$2" >> "$WORK/wda-calls"
-)
-case " $* " in *" terminate "*) exit "${WDA_TERMINATE_EXIT:-0}" ;; esac
+# 呼ばれた順に command (--session <名前> の次の語) とアプリを wda-calls に残す。terminate は記録だけして WDA_TERMINATE_EXIT (既定 0) で終わり、
+# launch の引数を wda-args に残す (WDA_EXIT は launch の exit code)。セッション名と command は wda-sessions に残す
+printf '%s %s\n' "$3" "$4" >> "$WORK/wda-calls"
+printf '%s %s\n' "$2" "$3" >> "$WORK/wda-sessions"
+if [ "$3" = terminate ]; then exit "${WDA_TERMINATE_EXIT:-0}"; fi
 printf '%s\n' "$*" > "$WORK/wda-args"
 while [ $# -gt 0 ]; do
   if [ "$1" = --env-file ]; then cp "$2" "$WORK/wda-env-file"; printf "%s\n" "$2" > "$WORK/wda-env-path"; fi
@@ -152,7 +142,7 @@ test_launch_stops_when_terminate_fails() {
   work="$(mktemp -d)"
   prepare_workspace "$work"
   FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env WDA_TERMINATE_EXIT=1 run_script "$work" launch-simtunnel-app.sh snapmon-issue-1 || exit_code=$?
-  if [ "$exit_code" != 1 ] || [ "$(cat "$work/wda-calls")" != "slot0 terminate com.bannzai.snapmon" ]; then
+  if [ "$exit_code" != 1 ] || [ "$(cat "$work/wda-calls")" != "terminate com.bannzai.snapmon" ]; then
     fail "launch: アプリの終了が失敗したのに起動へ進んだ、または exit 1 にならない (exit $exit_code: $(cat "$work/wda-calls"))"
     return
   fi
@@ -323,7 +313,7 @@ test_launch_passes_token_by_env_file() {
     fail "launch: 環境変数のファイルに FIRAAppCheckDebugToken を書いていない"
     return
   fi
-  if [ "$(sed -E 's# --env-file .*##' "$work/wda-args")" != "--session snapmon-issue-1 --slot 0 launch com.bannzai.snapmon" ] || grep -q 'token-from-env' "$work/wda-args" "$work/stdout"; then
+  if [ "$(sed -E 's# --env-file .*##' "$work/wda-args")" != "--session snapmon-issue-1 launch com.bannzai.snapmon" ] || grep -q 'token-from-env' "$work/wda-args" "$work/stdout"; then
     fail "launch: セッションとアプリの指定が違う、または token が引数か画面に出ている ($(cat "$work/wda-args"))"
     return
   fi
@@ -331,54 +321,42 @@ test_launch_passes_token_by_env_file() {
     fail "launch: token を書いた一時ファイルが残っている"
     return
   fi
-  if [ "$(cat "$work/wda-calls")" != "$(printf 'slot0 terminate com.bannzai.snapmon\nslot0 launch com.bannzai.snapmon')" ]; then
-    fail "launch: slot を省いた時に slot 0 のアプリを終了してから起動していない ($(cat "$work/wda-calls"))"
+  if [ "$(cat "$work/wda-calls")" != "$(printf 'terminate com.bannzai.snapmon\nlaunch com.bannzai.snapmon')" ]; then
+    fail "launch: アプリを終了してから起動していない ($(cat "$work/wda-calls"))"
     return
   fi
-  pass "launch: slot を省くと slot 0 のアプリを終了してから、token を一時ファイルで渡して起動し、引数と画面に出さず、ファイルを消す"
+  pass "launch: アプリを終了してから、token を一時ファイルで渡して起動し、引数と画面に出さず、ファイルを消す"
 }
 
-test_launch_restarts_each_given_slot() {
+test_launch_restarts_app_in_each_given_session() {
   local work
   work="$(mktemp -d)"
   prepare_workspace "$work"
-  if ! FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env run_script "$work" launch-simtunnel-app.sh snapmon-issue-1 0 1; then
-    fail "launch: 2 台の起動が失敗した ($(cat "$work/stdout"))"
+  if ! FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env run_script "$work" launch-simtunnel-app.sh snapmon-issue-1-a snapmon-issue-1-b; then
+    fail "launch: 2 つのセッションの起動が失敗した ($(cat "$work/stdout"))"
     return
   fi
-  if [ "$(cat "$work/wda-calls")" != "$(printf 'slot0 terminate com.bannzai.snapmon\nslot0 launch com.bannzai.snapmon\nslot1 terminate com.bannzai.snapmon\nslot1 launch com.bannzai.snapmon')" ]; then
-    fail "launch: slot 0 と 1 のそれぞれでアプリを終了してから起動していない ($(cat "$work/wda-calls"))"
+  if [ "$(cat "$work/wda-sessions")" != "$(printf 'snapmon-issue-1-a terminate\nsnapmon-issue-1-a launch\nsnapmon-issue-1-b terminate\nsnapmon-issue-1-b launch')" ]; then
+    fail "launch: 2 つのセッションのそれぞれでアプリを終了してから起動していない ($(cat "$work/wda-sessions"))"
     return
   fi
   if [ "$(cat "$work/wda-env-file")" != "FIRAAppCheckDebugToken=token-from-env" ]; then
-    fail "launch: 2 台目にも token の環境変数のファイルを渡していない"
+    fail "launch: 2 つ目のセッションに token の環境変数のファイルを渡していない"
     return
   fi
-  pass "launch: 渡した slot (0 と 1) ごとに、アプリを終了してから token を渡して起動する"
+  pass "launch: 渡したセッションごとに、アプリを終了してから token を渡して起動する"
 }
 
-test_launch_stops_before_second_slot_when_first_fails() {
+test_launch_stops_before_next_session_when_launch_fails() {
   local work exit_code=0
   work="$(mktemp -d)"
   prepare_workspace "$work"
-  FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env WDA_EXIT=1 run_script "$work" launch-simtunnel-app.sh snapmon-issue-1 0 1 || exit_code=$?
-  if [ "$exit_code" != 1 ] || grep -q '^slot1 ' "$work/wda-calls" || ! grep -q 'slot 0 のアプリを起動できませんでした' "$work/stdout"; then
-    fail "launch: slot 0 の起動の失敗で止まらず slot 1 へ進んだ、または exit 1 と理由の表示にならない (exit $exit_code: $(cat "$work/wda-calls"))"
+  FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env WDA_EXIT=1 run_script "$work" launch-simtunnel-app.sh snapmon-issue-1-a snapmon-issue-1-b || exit_code=$?
+  if [ "$exit_code" != 1 ] || grep -q '^snapmon-issue-1-b ' "$work/wda-sessions" || ! grep -q 'snapmon-issue-1-a のアプリを起動できませんでした' "$work/stdout"; then
+    fail "launch: 1 つ目のセッションの起動の失敗で止まらず 2 つ目へ進んだ、または exit 1 と理由の表示にならない (exit $exit_code: $(cat "$work/wda-sessions"))"
     return
   fi
-  pass "launch: 先の slot の起動に失敗したら、後の slot に触れず理由を出して exit 1"
-}
-
-test_launch_rejects_non_numeric_slot() {
-  local work exit_code=0
-  work="$(mktemp -d)"
-  prepare_workspace "$work"
-  FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env run_script "$work" launch-simtunnel-app.sh snapmon-issue-1 1 x || exit_code=$?
-  if [ "$exit_code" != 2 ] || [ -e "$work/wda-calls" ]; then
-    fail "launch: 数でない slot (x) を含むのに、どれかの slot に触れた、または exit 2 にならない (exit $exit_code)"
-    return
-  fi
-  pass "launch: 数でない slot を 1 つでも含めば、どの slot にも触れず exit 2"
+  pass "launch: 先のセッションの起動に失敗したら、後のセッションに触れず理由を出して exit 1"
 }
 
 test_launch_stops_without_token() {
@@ -419,9 +397,8 @@ test_register_stops_when_item_lookup_fails_for_other_reason
 test_register_uses_given_token_without_creating_item
 test_register_fails_on_other_status
 test_launch_passes_token_by_env_file
-test_launch_restarts_each_given_slot
-test_launch_stops_before_second_slot_when_first_fails
-test_launch_rejects_non_numeric_slot
+test_launch_restarts_app_in_each_given_session
+test_launch_stops_before_next_session_when_launch_fails
 test_launch_stops_without_token
 test_launch_requires_session_name
 
