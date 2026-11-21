@@ -88,7 +88,18 @@ EOF
 # launch の引数を wda-args に残す (WDA_EXIT は launch の exit code)。セッション名と command は wda-sessions に残す
 printf '%s %s\n' "$3" "$4" >> "$WORK/wda-calls"
 printf '%s %s\n' "$2" "$3" >> "$WORK/wda-sessions"
+# WDA_FAIL_TERMINATE_SESSION に名前を渡すと、そのセッションの terminate だけを失敗させる
+if [ "$3" = terminate ] && [ -n "${WDA_FAIL_TERMINATE_SESSION:-}" ] && [ "$2" = "$WDA_FAIL_TERMINATE_SESSION" ]; then exit 1; fi
 if [ "$3" = terminate ]; then exit "${WDA_TERMINATE_EXIT:-0}"; fi
+# launch ごとに、セッション名と --env-file のファイルの中身 (読めなければ「無い」) を wda-env-files に 1 行ずつ足す
+env_file_content="無い"
+arguments=("$@")
+for ((index = 0; index < $#; index++)); do
+  if [ "${arguments[index]}" = --env-file ]; then
+    env_file_content="$(cat "${arguments[index + 1]}" 2> /dev/null || echo 無い)"
+  fi
+done
+printf '%s %s\n' "$2" "$env_file_content" >> "$WORK/wda-env-files"
 printf '%s\n' "$*" > "$WORK/wda-args"
 # WDA_FAIL_LAUNCH_SESSION に名前を渡すと、そのセッションの launch だけを失敗させる
 if [ -n "${WDA_FAIL_LAUNCH_SESSION:-}" ] && [ "$2" = "$WDA_FAIL_LAUNCH_SESSION" ]; then exit 1; fi
@@ -342,8 +353,8 @@ test_launch_restarts_app_in_each_given_session() {
     fail "launch: 2 つのセッションのそれぞれでアプリを終了してから起動していない ($(cat "$work/wda-sessions"))"
     return
   fi
-  if [ "$(cat "$work/wda-env-file")" != "FIRAAppCheckDebugToken=token-from-env" ]; then
-    fail "launch: 2 つ目のセッションに token の環境変数のファイルを渡していない"
+  if [ "$(cat "$work/wda-env-files")" != "$(printf 'snapmon-issue-1-a FIRAAppCheckDebugToken=token-from-env\nsnapmon-issue-1-b FIRAAppCheckDebugToken=token-from-env')" ]; then
+    fail "launch: 2 つのセッションの launch のそれぞれに token の環境変数のファイルを渡していない ($(cat "$work/wda-env-files"))"
     return
   fi
   pass "launch: 渡したセッションごとに、アプリを終了してから token を渡して起動する"
@@ -383,6 +394,18 @@ test_launch_stops_before_next_session_when_terminate_fails() {
     return
   fi
   pass "launch: 先のセッションのアプリの終了に失敗したら、起動も後のセッションにも進まず exit 1"
+}
+
+test_launch_names_second_session_when_its_terminate_fails() {
+  local work exit_code=0
+  work="$(mktemp -d)"
+  prepare_workspace "$work"
+  FIREBASE_APPCHECK_DEBUG_TOKEN_IOS=token-from-env WDA_FAIL_TERMINATE_SESSION=snapmon-issue-1-b run_script "$work" launch-simtunnel-app.sh snapmon-issue-1-a snapmon-issue-1-b || exit_code=$?
+  if [ "$exit_code" != 1 ] || [ "$(tail -n 1 "$work/wda-sessions")" != "snapmon-issue-1-b terminate" ] || ! grep -q 'snapmon-issue-1-b のアプリを終了できませんでした' "$work/stdout" || grep -q 'snapmon-issue-1-a のアプリを終了できませんでした' "$work/stdout"; then
+    fail "launch: 2 つ目のセッションの終了の失敗で、起動せずにそのセッション名を出して exit 1 にならない (exit $exit_code: $(cat "$work/wda-sessions"))"
+    return
+  fi
+  pass "launch: 2 つ目のセッションのアプリの終了に失敗したら、その起動に進まず、そのセッション名を出して exit 1"
 }
 
 test_launch_stops_without_token() {
@@ -427,6 +450,7 @@ test_launch_restarts_app_in_each_given_session
 test_launch_stops_before_next_session_when_launch_fails
 test_launch_names_second_session_when_its_launch_fails
 test_launch_stops_before_next_session_when_terminate_fails
+test_launch_names_second_session_when_its_terminate_fails
 test_launch_stops_without_token
 test_launch_requires_session_name
 
