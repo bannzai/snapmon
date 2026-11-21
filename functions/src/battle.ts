@@ -99,6 +99,14 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
   const firestore = getFirestore();
   const userDocument = firestore.doc(`users/${uid}`);
   const battleDocument = firestore.doc(`users/${uid}/battles/${battleID}`);
+  const breakCheckBattleSnapshot = await battleDocument.get();
+  if (
+    breakCheckBattleSnapshot.get("opponentKind") === "pvp" &&
+    breakCheckBattleSnapshot.get("status") !== "completed" &&
+    typeof (await firestore.doc(`pvpBattles/${battleID}`).get()).get("winnerUID") !== "string"
+  ) {
+    await userDocument.set({ dailyBattleCount: FieldValue.increment(1) }, { merge: true });
+  }
   const { levels, moveUsage } = await firestore.runTransaction(
     async (transaction): Promise<{ levels: Record<string, number>; moveUsage?: { dayKey: string; counts: Record<string, number> } }> => {
     const battleSnapshot = await transaction.get(battleDocument);
