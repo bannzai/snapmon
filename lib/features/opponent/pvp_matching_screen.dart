@@ -8,11 +8,11 @@ import '../../theme/snapmon_text_styles.dart';
 import 'pvp_battle_client.dart';
 import 'pvp_match_search.dart';
 
-/// 相手を探し始めてから「CPU と対戦をする」を出すまでの時間。issue #386 が決めた値 (1 分組み合わされなければ CPU と対戦できるようにする)。
-const Duration pvpMatchingCpuOfferDelay = Duration(minutes: 1);
+/// 相手を探し始めてから「CPU と対戦をする」を出すまでの時間。issue #420 で owner が決めた値 (issue #386 の 1 分は、待つ画面に「やめる」しか出ない時間が長かった)。
+const Duration pvpMatchingCpuOfferDelay = Duration(seconds: 30);
 
 /// 相手を探し続ける時間の上限。「CPU と対戦をする」を出した後も探し続け ([pvpMatchingCpuOfferDelay] の後に来た相手とも対戦できるように)、
-/// 画面を開いたまま離れた端末が Functions を呼び続けないよう、出してから 4 分で探すのをやめる。
+/// 画面を開いたまま離れた端末が Functions を呼び続けないよう、出してから 4 分 30 秒で探すのをやめる。
 const Duration pvpMatchingSearchLimit = Duration(minutes: 5);
 
 /// 人との対戦の待つ画面を閉じた時の結果。「やめる」で閉じた時は結果を返さない (null)。
