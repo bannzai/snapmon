@@ -20,8 +20,8 @@ class PvpTrainer {
         displayName: json['displayName'] as String,
         iconPath: json['iconPath'] as String?,
         monsters: [
-          for (final monsterJson in json['monsters'] as List<dynamic>)
-            OwnedMonster.fromJson(json: monsterJson as Map<String, dynamic>),
+          for (final monsterJSON in json['monsters'] as List<dynamic>)
+            OwnedMonster.fromJson(json: monsterJSON as Map<String, dynamic>),
         ],
       );
 
@@ -123,7 +123,7 @@ class PvpBattle {
 }
 
 /// 利用者が出した行動 [json] (functions/src/pvp_battle_rules.ts の `PvpAction`) をバトルの計算の行動として読む。
-BattleAction battleActionFromJson({required Map<String, dynamic> json}) =>
+BattleAction battleActionFromJSON({required Map<String, dynamic> json}) =>
     switch (json['kind'] as String) {
       'move' => UseMoveAction(moveID: json['moveID'] as String),
       'struggle' => const StruggleAction(),
@@ -132,7 +132,7 @@ BattleAction battleActionFromJson({required Map<String, dynamic> json}) =>
     };
 
 /// バトルの計算の行動 [action] を、Functions の submitPvpAction に渡す形 (functions/src/pvp_battle_rules.ts の `PvpAction`) にする。
-Map<String, Object> battleActionToJson({required BattleAction action}) =>
+Map<String, Object> battleActionToJSON({required BattleAction action}) =>
     switch (action) {
       UseMoveAction() => {'kind': 'move', 'moveID': action.moveID},
       StruggleAction() => {'kind': 'struggle'},

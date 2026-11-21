@@ -190,9 +190,9 @@ Stream<PvpBattle?> watchPvpBattleWithFirebase({required String battleID}) =>
         .map(
           (snapshot) => switch (snapshot.data()) {
             null => null,
-            final battleJson => PvpBattle.fromJson(
+            final battleJSON => PvpBattle.fromJson(
               battleID: battleID,
-              json: _toJson(battleJson)! as Map<String, dynamic>,
+              json: _toJson(battleJSON)! as Map<String, dynamic>,
             ),
           },
         );
@@ -209,9 +209,9 @@ Stream<BattleAction?> watchPvpTurnActionWithFirebase({
     .snapshots()
     .map(
       (snapshot) => switch (snapshot.data()) {
-        final data? => battleActionFromJson(
+        final turnJSON? => battleActionFromJSON(
           json:
-              (_toJson(data)! as Map<String, dynamic>)['action']
+              (_toJson(turnJSON)! as Map<String, dynamic>)['action']
                   as Map<String, dynamic>,
         ),
         null => null,
@@ -228,7 +228,7 @@ Future<void> submitPvpActionWithFirebase({
   data: {
     'battleID': battleID,
     'turnNumber': turnNumber,
-    'action': battleActionToJson(action: action),
+    'action': battleActionToJSON(action: action),
   },
 );
 
