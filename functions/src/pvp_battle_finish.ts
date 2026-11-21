@@ -30,6 +30,7 @@ export async function finishPvpBattle({
     if (recordSnapshot.exists) {
       transaction.update(recordSnapshot.ref, {
         winner: outcome.winnerUID === null ? FieldValue.delete() : outcome.winnerUID === participantUIDs[index] ? "player" : "opponent",
+        ...(outcome.winnerUID === null ? { levels: FieldValue.delete(), turnCount: FieldValue.delete() } : {}),
       });
     }
   }
