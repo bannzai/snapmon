@@ -874,7 +874,7 @@ describe("reportPvpResult と recordBattle", () => {
         data: { battleID, participantMonsterIDs: [`${host.uid}-monster-0`], winner: "player", turnCount: 3 },
       }),
     ).toEqual({ levels: { [`${host.uid}-monster-0`]: 6 } });
-    expect((await readDocument({ path: `users/${host.uid}/monsters/${host.uid}-monster-0` }))!.level).toBe(6);
+    expect(await readDocument({ path: `users/${host.uid}/monsters/${host.uid}-monster-0` })).toMatchObject({ level: 6, experience: 1 });
     expect((await readDocument({ path: `users/${host.uid}` }))!.dailyBattleCount).toBe(1);
     // まだ記録していなかった側は、勝敗なしに変わった後は記録できず、レベルが上がらない
     expect(
@@ -887,6 +887,7 @@ describe("reportPvpResult と recordBattle", () => {
     expect(await readDocument({ path: `users/${guest.uid}/battles/${battleID}` })).toMatchObject({ status: "started" });
     expect((await readDocument({ path: `users/${guest.uid}/battles/${battleID}` }))!.winner).toBeUndefined();
     expect((await readDocument({ path: `users/${guest.uid}/monsters/${guest.uid}-monster-0` }))!.level).toBe(7);
+    expect((await readDocument({ path: `users/${guest.uid}` }))!.dailyBattleCount).toBeUndefined();
   });
 
   it("決着していないターンで勝ちを報告された相手が「決着していない」と報告すると、勝敗を付けずに終わる", async () => {
