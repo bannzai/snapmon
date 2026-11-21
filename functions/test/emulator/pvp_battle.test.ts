@@ -839,6 +839,57 @@ describe("reportPvpResult と recordBattle", () => {
     expect((await readDocument({ path: `users/${guest.uid}/battles/${battleID}` }))!.winner).toBeUndefined();
   });
 
+  it("勝者ありで記録した後に相手の食い違う報告で勝敗なしに変わると、記録の勝敗だけが消え、上がったレベル・ターン数・1 日の数は残る", async () => {
+    const host = await signInTrainer({ levels: [5] });
+    const guest = await signInTrainer({ levels: [7] });
+    const battleID = await matchTrainers({ host, guest });
+    await callOk({ name: "reportPvpResult", user: host, data: { battleID, winnerUID: host.uid } });
+    expect(
+      await callOk({
+        name: "recordBattle",
+        user: host,
+        data: { battleID, participantMonsterIDs: [`${host.uid}-monster-0`], winner: "player", turnCount: 3 },
+      }),
+    ).toEqual({ levels: { [`${host.uid}-monster-0`]: 6 } });
+    expect(await readDocument({ path: `users/${host.uid}/battles/${battleID}` })).toMatchObject({ status: "completed", winner: "player" });
+
+    expect(await callOk({ name: "reportPvpResult", user: guest, data: { battleID, winnerUID: guest.uid } })).toEqual({ reported: true });
+
+    expect(await readDocument({ path: `pvpBattles/${battleID}` })).toMatchObject({ winnerUID: null, finishReason: "mismatch" });
+    const hostBattleRecord = (await readDocument({ path: `users/${host.uid}/battles/${battleID}` }))!;
+    expect(hostBattleRecord.winner).toBeUndefined();
+    expect(hostBattleRecord).toMatchObject({
+      status: "completed",
+      participantMonsterIDs: [`${host.uid}-monster-0`],
+      turnCount: 3,
+      levels: { [`${host.uid}-monster-0`]: 6 },
+    });
+    expect(await readDocument({ path: `users/${host.uid}/monsters/${host.uid}-monster-0` })).toMatchObject({ level: 6, experience: 1 });
+    expect((await readDocument({ path: `users/${host.uid}` }))!.dailyBattleCount).toBe(1);
+    // 記録済みの側の再送は、勝敗なしに変わった後も記録済みのレベルを返し、もう一度は上げない
+    expect(
+      await callOk({
+        name: "recordBattle",
+        user: host,
+        data: { battleID, participantMonsterIDs: [`${host.uid}-monster-0`], winner: "player", turnCount: 3 },
+      }),
+    ).toEqual({ levels: { [`${host.uid}-monster-0`]: 6 } });
+    expect(await readDocument({ path: `users/${host.uid}/monsters/${host.uid}-monster-0` })).toMatchObject({ level: 6, experience: 1 });
+    expect((await readDocument({ path: `users/${host.uid}` }))!.dailyBattleCount).toBe(1);
+    // まだ記録していなかった側は、勝敗なしに変わった後は記録できず、レベルが上がらない
+    expect(
+      await callErrorStatus({
+        name: "recordBattle",
+        user: guest,
+        data: { battleID, participantMonsterIDs: [`${guest.uid}-monster-0`], winner: "player", turnCount: 3 },
+      }),
+    ).toBe("FAILED_PRECONDITION");
+    expect(await readDocument({ path: `users/${guest.uid}/battles/${battleID}` })).toMatchObject({ status: "started" });
+    expect((await readDocument({ path: `users/${guest.uid}/battles/${battleID}` }))!.winner).toBeUndefined();
+    expect((await readDocument({ path: `users/${guest.uid}/monsters/${guest.uid}-monster-0` }))!.level).toBe(7);
+    expect((await readDocument({ path: `users/${guest.uid}` }))!.dailyBattleCount).toBeUndefined();
+  });
+
   it("決着していないターンで勝ちを報告された相手が「決着していない」と報告すると、勝敗を付けずに終わる", async () => {
     const host = await signInTrainer({ levels: [5] });
     const guest = await signInTrainer({ levels: [5] });
