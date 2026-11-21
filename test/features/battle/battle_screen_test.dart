@@ -506,6 +506,32 @@ void main() {
     expect(find.text('ターン 1'), findsOneWidget);
   });
 
+  testWidgets('ターンの表示は、技を 1 回選ぶたびに 1 つずつ増える', (tester) async {
+    // レベル 1 のリンゴラ同士にして、2 回の行動では決着しないようにする
+    await pumpBattleScreen(
+      tester: tester,
+      playerMonster: weakOpponent,
+      artImage: null,
+      battleRecorder: fakeBattleRecorder(
+        calls: RecordedBattleCalls(),
+        startBattleRecord: () async => null,
+        recordedLevels: const {},
+      ),
+    );
+    final l10n = lookupAppLocalizations(const Locale('ja'));
+    expect(find.text(l10n.battleTurn(1)), findsOneWidget);
+
+    for (final expectedTurn in [2, 3]) {
+      await tester.tap(find.byKey(const Key('move-slot-0')));
+      // 1 ターンの演出 (技 2 回) が終わるまで進める
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 5));
+
+      expect(find.text(l10n.battleTurn(expectedTurn)), findsOneWidget);
+      expect(find.text(l10n.battleTurn(expectedTurn - 1)), findsNothing);
+    }
+  });
+
   testWidgets('端のスワイプと端末の戻るではバトルの画面を閉じず、上に開いた技の詳細は端のスワイプで閉じ、勝敗の画面で閉じる', (
     tester,
   ) async {

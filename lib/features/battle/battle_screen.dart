@@ -1786,7 +1786,7 @@ class _BattleScreenState extends State<BattleScreen>
               ),
             ),
             Text(
-              context.l10n.battleTurn(_battleState.turnNumber),
+              context.l10n.battleTurn(_battleState.roundNumber),
               style: SnapmonTextStyles.caption,
             ),
           ],
