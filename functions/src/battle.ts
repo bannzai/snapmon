@@ -106,6 +106,9 @@ export const recordBattle = onCall({ enforceAppCheck: ENFORCE_APP_CHECK }, async
       throw new HttpsError("not-found", `バトル ${battleID} は始まっていません`);
     }
     if (battleSnapshot.get("status") === "completed") {
+      for (const monsterID of Object.keys(battleSnapshot.get("levels") as Record<string, number>)) {
+        transaction.update(firestore.doc(`users/${uid}/monsters/${monsterID}`), { experience: FieldValue.increment(1) });
+      }
       return { levels: battleSnapshot.get("levels") as Record<string, number> };
     }
     // 人との対戦は、勝者が決まって終わった対戦だけを記録する (進行中の対戦と、勝敗なしで終わった対戦でレベルを上げさせない。
