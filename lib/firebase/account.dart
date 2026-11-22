@@ -98,9 +98,8 @@ Future<AuthCredential> _googleCredentialOnAndroid() async {
 /// 連携できた時は null を返す。そのサインインが別の端末で連携済み (`credential-already-in-use`) の時は、連携済みのアカウントに
 /// サインインする関数を返す (呼ぶ前に、いまの匿名アカウントを捨ててよいかを利用者に確かめるため、ここではサインインしない)。
 /// 受け取った credential でサインインできないと分かる時 ([linkedAccountCredentialLacksNonce]) に返す関数は、[providerName] の
-/// サインインを画面の遷移 (`signInWithRedirect`) で出し直す。この関数は戻らず、戻ってきたページの起動が連携済みのアカウントで
-/// 始まる (匿名アカウントを捨てた後の非同期の処理の後に出すポップアップはブラウザに止められ得るため、遷移にする)。
-/// 連携済みのアカウントの credential を受け取れなかった時と、それ以外の失敗は投げる。
+/// サインインをポップアップ (`signInWithPopup`) で出し直す (画面の遷移 `signInWithRedirect` にしない理由は ADR 0003
+/// 「Web の Apple が連携済みの時」)。連携済みのアカウントの credential を受け取れなかった時と、それ以外の失敗は投げる。
 Future<Future<String> Function()?> linkAccountWithFirebase({
   required String providerName,
 }) => linkAccountWithAuth(
@@ -150,7 +149,7 @@ Future<Future<String> Function()?> linkAccountWithAuth({
       rethrow;
     }
     if (linkedAccountCredentialLacksNonce(credential: credential)) {
-      return () => _signInToLinkedAccountWithRedirect(
+      return () => _signInToLinkedAccountWithPopup(
         auth: auth,
         providerName: providerName,
       );
@@ -159,18 +158,14 @@ Future<Future<String> Function()?> linkAccountWithAuth({
   }
 }
 
-/// [auth] で [providerName] のサインインを画面の遷移で出し直し、連携済みのアカウントにサインインする。Web だけで使う。
-/// 遷移でページを離れるため戻らない。戻ってきたページの起動が `currentUser` (連携済みのアカウント) を使う (lib/firebase/session.dart)。
-/// 遷移を始められなかった時は投げる。
-Future<String> _signInToLinkedAccountWithRedirect({
+/// [auth] で [providerName] のサインインをポップアップで出し直してサインインし、その uid を返す。Web だけで使う。
+/// ポップアップが止められた・利用者が閉じた・失敗した時は投げる。
+Future<String> _signInToLinkedAccountWithPopup({
   required FirebaseAuth auth,
   required String providerName,
-}) async {
-  await auth.signInWithRedirect(
-    accountLinkAuthProvider(providerName: providerName),
-  );
-  throw StateError('$providerName のサインインの画面に移れませんでした');
-}
+}) async => (await auth.signInWithPopup(
+  accountLinkAuthProvider(providerName: providerName),
+)).user!.uid;
 
 /// [auth] に [credential] で連携済みのアカウントとしてサインインし、その uid を返す。
 Future<String> _signInToLinkedAccount({

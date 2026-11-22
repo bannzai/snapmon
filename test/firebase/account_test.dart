@@ -82,8 +82,11 @@ class _FakeAuth extends Fake implements FirebaseAuth {
   /// `signInWithCredential` に渡された credential。呼ばれた順。
   final List<AuthCredential> signInCredentials = [];
 
-  /// `signInWithRedirect` に渡された provider。呼ばれた順。
-  final List<AuthProvider> redirectProviders = [];
+  /// `signInWithPopup` に渡された provider。呼ばれた順。
+  final List<AuthProvider> popupProviders = [];
+
+  /// `signInWithPopup` が投げる失敗 (ポップアップが止められた・閉じられた等)。null なら連携済みのアカウントにサインインする。
+  FirebaseAuthException? popupError;
 
   @override
   Future<UserCredential> signInWithCredential(AuthCredential credential) async {
@@ -94,8 +97,14 @@ class _FakeAuth extends Fake implements FirebaseAuth {
   }
 
   @override
-  Future<void> signInWithRedirect(AuthProvider provider) async {
-    redirectProviders.add(provider);
+  Future<UserCredential> signInWithPopup(AuthProvider provider) async {
+    popupProviders.add(provider);
+    if (popupError case final error?) {
+      throw error;
+    }
+    return _FakeUserCredential(
+      user: _FakeUser(uid: linkedAccountUID, linkError: null),
+    );
   }
 }
 
@@ -277,7 +286,7 @@ void main() {
 
     test(
       'Web 版の Apple が連携済みで、ID トークンに nonce があり元の nonce が無い credential の時は、'
-      '返した関数を呼ぶまで何もせず、呼ぶと credential を使わずに Apple のサインインを画面の遷移で出し直す',
+      '返した関数を呼ぶまで何もせず、呼ぶと credential を使わずに Apple のサインインをポップアップで出し直し、連携済みの uid を返す',
       () async {
         final auth = _auth(
           linkError: FirebaseAuthException(
@@ -297,14 +306,38 @@ void main() {
         );
 
         expect(signInToLinkedAccount, isNotNull);
-        expect(auth.redirectProviders, isEmpty);
-        // 遷移が始まればページを離れて戻らないため、遷移の呼び出しが戻った時 (Fake) は失敗として投げる
-        await expectLater(signInToLinkedAccount!(), throwsStateError);
-        expect(auth.redirectProviders, hasLength(1));
-        expect(auth.redirectProviders.single.providerId, 'apple.com');
+        expect(auth.popupProviders, isEmpty);
+        expect(await signInToLinkedAccount!(), 'linked-uid');
+        expect(auth.popupProviders, hasLength(1));
+        expect(auth.popupProviders.single.providerId, 'apple.com');
         expect(auth.signInCredentials, isEmpty);
       },
     );
+
+    test('Web 版の Apple の出し直したポップアップが止められた時は、その失敗をそのまま投げる', () async {
+      final auth = _auth(
+        linkError: FirebaseAuthException(
+          code: 'credential-already-in-use',
+          credential: OAuthProvider('apple.com').credential(
+            idToken: _idToken(payload: {'sub': 'user', 'nonce': 'hashed'}),
+          ),
+        ),
+      );
+      final popupError = FirebaseAuthException(code: 'popup-blocked');
+      auth.popupError = popupError;
+
+      await expectLater(
+        (await linkAccountWithAuth(
+          auth: auth,
+          isWeb: true,
+          platform: TargetPlatform.macOS,
+          readGoogleCredentialOnAndroid: _failOnGoogleSignIn,
+          providerName: 'Apple',
+        ))!(),
+        throwsA(same(popupError)),
+      );
+      expect(auth.signInCredentials, isEmpty);
+    });
 
     test('連携済みのエラーに credential が無い時は、切り替えに進めず元のエラーを投げる', () async {
       final error = FirebaseAuthException(code: 'credential-already-in-use');
