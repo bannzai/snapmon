@@ -51,7 +51,8 @@ const double _monsterArtGapToOverlay = 8;
 /// 比率の配置で、相手の絵をログの帯の下へ下げる時の、フィールドの高さに対する絵の一辺の下限の割合。
 /// 360×640 の負けた側の勝敗の画面 (フィールドの高さ 約 222〜225) では、帯の下と自分の情報カードの間に入る絵が 約 23〜26px
 /// (高さの 約 0.10〜0.12) で、0.15 では入らず絵が帯に重なっていた (#419 の Web の画面の実測)。
-/// これより小さい絵しか入らない時は下げない (下げた絵が被写体を見分けられない大きさになるため)
+/// これより小さい絵しか入らない時は、高さの 0.28 に置いた絵が帯に重なる時だけ下げる (下げた絵が被写体を見分けられない大きさになるため、
+/// 帯との間が狭いだけの画面では下げない)
 const double _minimumMonsterSizeRatioBelowLog = 0.1;
 
 /// [effect] の主色 (`#RRGGBB`) を返す。
@@ -321,8 +322,9 @@ class BattleFieldGame extends FlameGame {
   /// ログの帯の矩形が [battleLogRect] (帯を考えない時は null) の時の、比率の配置での相手の絵の上端 (フィールドの座標)。
   /// モックの比率 (高さの 0.28) と、ログの帯の下端から間を空けた位置の、下にある方。
   /// ログの帯は画面の上端からの位置が変わらないため、負けた側の勝敗のパネルでフィールドが縮むと高さの 0.28 が帯の下端より上に来る (#415)。
-  /// 帯の下へ下げるのは、下げた位置に高さの [_minimumMonsterSizeRatioBelowLog] の絵が、情報カード・札にも自分の絵にも重ならずに入る時だけにする。
-  /// 入らない低さでは高さの 0.28 のままにする (帯の重なりは残るが、下げると帯の代わりにカードへ重なり、下げる前に重なっていなかった画面まで崩すため)
+  /// 帯の下へ下げるのは、下げた位置に高さの [_minimumMonsterSizeRatioBelowLog] の絵が、情報カード・札にも自分の絵にも重ならずに入る時と、
+  /// 入らなくても高さの 0.28 に置いた絵が帯に重なる時 (#415 の完了条件は画面の大きさを限らず帯に重ねないことのため。#431)。
+  /// 入らず、高さの 0.28 に置いても帯に重ならない時 (帯との間が [_monsterArtGapToOverlay] より狭いだけの時) は、絵を小さくしないよう高さの 0.28 のままにする
   double _opponentArtTop({required Rect? battleLogRect}) {
     final ratioTop = size.y * 0.28;
     if (battleLogRect == null) {
@@ -332,8 +334,17 @@ class BattleFieldGame extends FlameGame {
     if (belowLogTop <= ratioTop) {
       return ratioTop;
     }
-    return _maximumOpponentArtSize(top: belowLogTop) >=
-            size.y * _minimumMonsterSizeRatioBelowLog
+    if (_maximumOpponentArtSize(top: belowLogTop) >=
+        size.y * _minimumMonsterSizeRatioBelowLog) {
+      return belowLogTop;
+    }
+    final ratioTopMonsterSize = _monsterSize(opponentArtTop: ratioTop);
+    return Rect.fromLTWH(
+          size.x * 0.88 - ratioTopMonsterSize,
+          ratioTop,
+          ratioTopMonsterSize,
+          ratioTopMonsterSize,
+        ).overlaps(battleLogRect)
         ? belowLogTop
         : ratioTop;
   }
@@ -379,21 +390,32 @@ class BattleFieldGame extends FlameGame {
         );
       return;
     }
+    // 相手は右上の角 (右端 0.88w・上端 [_opponentArtTop])、自分は左下の角 (左端 0.08w・下端 0.94h) を固定する
+    final opponentArtTop = _opponentArtTop(battleLogRect: _battleLogRect);
+    final monsterSize = _monsterSize(opponentArtTop: opponentArtTop);
+    opponentMonsterComponent
+      ..size = Vector2.all(monsterSize)
+      ..position = Vector2(size.x * 0.88 - monsterSize, opponentArtTop);
+    playerMonsterComponent
+      ..size = Vector2.all(monsterSize * 1.15)
+      ..position = Vector2(size.x * 0.08, size.y * 0.94 - monsterSize * 1.15);
+  }
+
+  /// 比率の配置で、相手の絵の上端を [opponentArtTop] (フィールドの座標) に置く時の相手の絵の一辺 (自分の絵はこの 1.15 倍)。
+  /// 相手の上端をログの帯の下まで下げて、帯と情報カード・自分の絵の間に絵の入る所が無い時は 0 (2 体とも描かない)
+  double _monsterSize({required double opponentArtTop}) {
     // 高さの 0.3 は、相手の下端 (0.28h + m) が自分の上端 (0.94h - 1.15m) を越えない上限 m ≤ 0.66h / 2.15 ≈ 0.307h から取った。
     // 縦長のスマホでは幅の 0.4 の方が小さい。
-    // 相手は右上の角 (右端 0.88w・上端 0.28h)、自分は左下の角 (左端 0.08w・下端 0.94h) を固定し、
     // 情報カードとトレーナーの札 (_overlayRects) に重ならない大きさに抑える。
     // 縦向きのスマホ (393×852) では幅の 0.4 の絵がカードに横から重なっていたため (#243)。
     // 決着の後の勝敗のパネルでフィールドが低くなった時は、自分の上端が相手の情報カードの下端を越えない大きさになる。
     // ただし重ねる部品で抑えるのは高さの 0.15 (高さで決まる上限の半分) までにする。それより低いフィールドでは絵を消すより、部品に一部が隠れても描く方を選ぶ。
     // 相手の上端をログの帯の下まで下げた時 ([_opponentArtTop]) は、下げた分だけ自分の上端と重ならない大きさ (0.3 と同じく 2 体の高さの合計 2.15m から) に抑える。
-    // 下げた位置に高さの 0.15 が入らない時は、下限を帯の下に入る大きさまで下げる (0.15 のままだと、下げた絵が帯の代わりに自分の情報カードへ重なるため)
-    final opponentTopRight = Offset(
-      size.x * 0.88,
-      _opponentArtTop(battleLogRect: _battleLogRect),
-    );
+    // 下げた位置に高さの 0.15 が入らない時は、下限を帯の下に入る大きさまで下げる (0.15 のままだと、下げた絵が帯の代わりに自分の情報カードへ重なるため)。
+    // 入る所が無い時は負の値になるため 0 にする (帯にもカードにも重ねないことを、絵を描くことより優先する。DIRECTION.md の 2026-11-23 の #431 の行)
+    final opponentTopRight = Offset(size.x * 0.88, opponentArtTop);
     final playerBottomLeft = Offset(size.x * 0.08, size.y * 0.94);
-    final monsterSize = [
+    return [
       size.x * 0.4,
       size.y * 0.3,
       math.max(
@@ -416,25 +438,16 @@ class BattleFieldGame extends FlameGame {
           ],
         ].fold(double.infinity, math.min),
         opponentTopRight.dy > size.y * 0.28
-            ? math.min(
-                size.y * 0.15,
-                _maximumOpponentArtSize(top: opponentTopRight.dy),
+            ? math.max(
+                0.0,
+                math.min(
+                  size.y * 0.15,
+                  _maximumOpponentArtSize(top: opponentTopRight.dy),
+                ),
               )
             : size.y * 0.15,
       ),
     ].reduce(math.min);
-    opponentMonsterComponent
-      ..size = Vector2.all(monsterSize)
-      ..position = Vector2(
-        opponentTopRight.dx - monsterSize,
-        opponentTopRight.dy,
-      );
-    playerMonsterComponent
-      ..size = Vector2.all(monsterSize * 1.15)
-      ..position = Vector2(
-        playerBottomLeft.dx,
-        playerBottomLeft.dy - monsterSize * 1.15,
-      );
   }
 }
 
