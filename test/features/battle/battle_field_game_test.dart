@@ -359,26 +359,65 @@ void main() {
     },
   );
 
-  /// 高さ 150 のフィールドで帯の下 (135 + 8) まで下げると、帯の下へ下げる時の下限の大きさ (高さの 0.1) の絵でも自分の下端 (高さの 0.94) までに 2 体が収まらない
+  /// 393×308 は、英語の負けた側の勝敗の画面で勝敗のパネルが高く、フィールドがさらに縮んだ時の低さ
+  /// (帯の下端 135 と自分のカードの上端 169 は、PR #418 の widget test の 393×852・英語の実測。CI の run 44883453641)。
+  /// 帯の下 (上端 143) と自分のカード (間の 8 を空けて 161) の間に入る絵は 18 で、下限 (308 × 0.1 = 30.8) に足りない。
+  /// 下げないと、高さの 0.28 (約 86) に置いた絵 (一辺 約 75) が帯 (76〜135) に重なる (#431)
   testWithGame<BattleFieldGame>(
-    'ログの帯の下に 2 体の絵が収まらないほど低いフィールドでは、相手の絵を帯の下へ下げず、2 体の絵をフィールドの中に描く',
+    'ログの帯と自分の情報カードの間に下限の大きさの絵が入らなくても、高さの 0.28 の絵が帯に重なるフィールドでは、相手の絵を帯の下へ下げて間に入る大きさにする',
     createGame,
     (game) async {
-      game.onGameResize(Vector2(393, 150));
+      game.onGameResize(Vector2(393, 308));
+      const battleLogRect = Rect.fromLTRB(20, 76, 373, 135);
+      const playerCardRect = Rect.fromLTRB(183, 169, 373, 284);
+      game.updateOverlayRects(rects: [playerCardRect], battleLogRect: null);
+      // 帯を渡す前は高さの 0.28 にあり、帯の矩形に重なる位置であること (この前提が崩れると、下の確認は下げなくても通る)
+      expect(
+        game.opponentMonsterComponent.toRect().overlaps(battleLogRect),
+        isTrue,
+      );
       game.updateOverlayRects(
-        rects: const [],
-        battleLogRect: const Rect.fromLTRB(20, 76, 373, 135),
+        rects: [playerCardRect],
+        battleLogRect: battleLogRect,
       );
       final opponentRect = game.opponentMonsterComponent.toRect();
       final playerRect = game.playerMonsterComponent.toRect();
-      expect(opponentRect.top, closeTo(150 * 0.28, 0.001));
+      expect(opponentRect.top, 135 + 8);
+      expect(opponentRect.height, closeTo(169 - 8 - 143, 0.001));
       for (final monsterRect in [opponentRect, playerRect]) {
+        expect(monsterRect.overlaps(battleLogRect), isFalse);
+        expect(monsterRect.overlaps(playerCardRect), isFalse);
         expect(
-          const Rect.fromLTWH(0, 0, 393, 150).intersect(monsterRect),
+          const Rect.fromLTWH(0, 0, 393, 308).intersect(monsterRect),
           monsterRect,
         );
       }
-      expect(opponentRect.bottom, lessThanOrEqualTo(playerRect.top + 0.001));
+      expect(opponentRect.overlaps(playerRect), isFalse);
+    },
+  );
+
+  /// 高さ 150 のフィールドで帯の下 (135 + 8 = 143) まで下げると、自分の下端 (高さの 0.94 = 141) より下になり、2 体の絵の入る所が無い。
+  /// 高さの 0.28 (42) に置いた絵 (一辺 45) は帯 (76〜135) に重なる
+  testWithGame<BattleFieldGame>(
+    'ログの帯の下に 2 体の絵の入る所が無いほど低いフィールドでは、絵を帯に重ねず、2 体とも描かない',
+    createGame,
+    (game) async {
+      game.onGameResize(Vector2(393, 150));
+      const battleLogRect = Rect.fromLTRB(20, 76, 373, 135);
+      game.updateOverlayRects(rects: const [], battleLogRect: null);
+      expect(
+        game.opponentMonsterComponent.toRect().overlaps(battleLogRect),
+        isTrue,
+      );
+      game.updateOverlayRects(rects: const [], battleLogRect: battleLogRect);
+      for (final component in [
+        game.opponentMonsterComponent,
+        game.playerMonsterComponent,
+      ]) {
+        expect(component.toRect().overlaps(battleLogRect), isFalse);
+        expect(component.size.x, 0);
+        expect(component.size.y, 0);
+      }
     },
   );
 
