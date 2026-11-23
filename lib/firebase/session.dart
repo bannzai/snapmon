@@ -110,11 +110,13 @@ class SessionStartException implements Exception {
   String toString() => '$signInError\n\n$appCheckTokenError';
 }
 
-/// App Check のトークンの取得を試し、失敗した時の例外を返す。取得できた時は null を返す
+/// [getAppCheckToken] で App Check のトークンの取得を試し、失敗した時の例外を返す。取得できた時は null を返す
 /// (トークンの値は返さない。画面・例外・ログに出さないため)。
-Future<Object?> fetchAppCheckTokenErrorWithFirebase() async {
+Future<Object?> fetchAppCheckTokenError({
+  required Future<String?> Function() getAppCheckToken,
+}) async {
   try {
-    await FirebaseAppCheck.instance.getToken();
+    await getAppCheckToken();
     return null;
   } catch (error) {
     return error;
@@ -130,7 +132,9 @@ Future<String> startSessionWithFirebase() {
     signInAnonymously: () async =>
         FirebaseAuth.instance.currentUser?.uid ??
         (await FirebaseAuth.instance.signInAnonymously()).user!.uid,
-    fetchAppCheckTokenError: fetchAppCheckTokenErrorWithFirebase,
+    fetchAppCheckTokenError: () => fetchAppCheckTokenError(
+      getAppCheckToken: FirebaseAppCheck.instance.getToken,
+    ),
     enableCollection: enableAnalyticsAndCrashlyticsCollection,
   );
 }

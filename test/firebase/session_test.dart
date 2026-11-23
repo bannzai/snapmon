@@ -82,14 +82,15 @@ void main() {
         code: 'network-request-failed',
         message: 'A network error has occurred.',
       );
-      // 取得できたトークンの値。取得の関数は成功した時に null だけを返すため、startSession には渡らない
       const appCheckToken = 'app-check-token-value';
       Object? thrownError;
       try {
         await startSession(
           activateAppCheck: () async {},
           signInAnonymously: () async => throw signInError,
-          fetchAppCheckTokenError: () async => null,
+          fetchAppCheckTokenError: () => fetchAppCheckTokenError(
+            getAppCheckToken: () async => appCheckToken,
+          ),
           enableCollection: () async {},
         );
       } catch (error) {
@@ -98,6 +99,32 @@ void main() {
 
       expect(thrownError, same(signInError));
       expect(thrownError.toString(), isNot(contains(appCheckToken)));
+    });
+  });
+
+  group('fetchAppCheckTokenError', () {
+    test('トークンを取得できたら null を返す (トークンの値を返さない)', () async {
+      expect(
+        await fetchAppCheckTokenError(
+          getAppCheckToken: () async => 'app-check-token-value',
+        ),
+        isNull,
+      );
+    });
+
+    test('トークンの取得が例外を投げたら、その例外を投げずにそのまま返す', () async {
+      final appCheckTokenError = FirebaseException(
+        plugin: 'firebase_app_check',
+        code: 'unknown',
+        message: 'The attestation provider is not supported.',
+      );
+
+      expect(
+        await fetchAppCheckTokenError(
+          getAppCheckToken: () async => throw appCheckTokenError,
+        ),
+        same(appCheckTokenError),
+      );
     });
   });
 
