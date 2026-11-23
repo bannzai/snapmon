@@ -62,15 +62,63 @@ const _isWebAppCheckConfigured =
 /// 各段の実体は引数で受け取る (Firebase と切り離して順序を単体テストするため)。アプリからは [startSessionWithFirebase] を使う。
 ///
 /// 返す値は匿名ログインの uid。
+///
+/// 匿名ログインが失敗した時だけ [fetchAppCheckTokenError] を呼ぶ (ログインに成功する時は 1 回も呼ばない)。
+/// 例外が返れば、匿名ログインの例外と両方を持つ [SessionStartException] を投げ、null なら匿名ログインの例外をそのまま投げる
+/// (配布版でログインが App Check に断られた時、サーバーにも計測にも原因が残らないため、端末の証明のエラーを画面で読めるようにする。
+/// https://github.com/bannzai/snapmon/issues/435 )。
 Future<String> startSession({
   required Future<void> Function() activateAppCheck,
   required Future<String> Function() signInAnonymously,
+  required Future<Object?> Function() fetchAppCheckTokenError,
   required Future<void> Function() enableCollection,
 }) async {
   await activateAppCheck();
-  final uid = await signInAnonymously();
+  final String uid;
+  try {
+    uid = await signInAnonymously();
+  } catch (signInError) {
+    final appCheckTokenError = await fetchAppCheckTokenError();
+    if (appCheckTokenError == null) {
+      rethrow;
+    }
+    throw SessionStartException(
+      signInError: signInError,
+      appCheckTokenError: appCheckTokenError,
+    );
+  }
   await enableCollection();
   return uid;
+}
+
+/// 匿名ログインの失敗と、その後に試した端末の証明 (App Check) のトークンの取得の失敗。どちらの例外も加工せずに持つ。
+class SessionStartException implements Exception {
+  /// [signInError] で匿名ログインに失敗し、[appCheckTokenError] でトークンの取得にも失敗したことを表す例外を作る。
+  const SessionStartException({
+    required this.signInError,
+    required this.appCheckTokenError,
+  });
+
+  /// 匿名ログインが投げた例外。
+  final Object signInError;
+
+  /// App Check のトークンの取得が投げた例外。
+  final Object appCheckTokenError;
+
+  /// ログインの失敗の画面がそのまま出す文。2 つの例外の文を加工せずに並べる。
+  @override
+  String toString() => '$signInError\n\n$appCheckTokenError';
+}
+
+/// App Check のトークンの取得を試し、失敗した時の例外を返す。取得できた時は null を返す
+/// (トークンの値は返さない。画面・例外・ログに出さないため)。
+Future<Object?> fetchAppCheckTokenErrorWithFirebase() async {
+  try {
+    await FirebaseAppCheck.instance.getToken();
+    return null;
+  } catch (error) {
+    return error;
+  }
 }
 
 /// [startSession] を Firebase の実体で実行する。タイトル画面の裏のログインと、ログインの画面 (lib/features/session/session_screen.dart) が呼ぶ。
@@ -82,6 +130,7 @@ Future<String> startSessionWithFirebase() {
     signInAnonymously: () async =>
         FirebaseAuth.instance.currentUser?.uid ??
         (await FirebaseAuth.instance.signInAnonymously()).user!.uid,
+    fetchAppCheckTokenError: fetchAppCheckTokenErrorWithFirebase,
     enableCollection: enableAnalyticsAndCrashlyticsCollection,
   );
 }
