@@ -12,10 +12,15 @@ void main() {
           calledSteps.add('signInAnonymously');
           return 'uid-1';
         },
+        fetchAppCheckTokenError: () async {
+          calledSteps.add('fetchAppCheckTokenError');
+          return Exception('app-check');
+        },
         enableCollection: () async => calledSteps.add('enableCollection'),
       );
 
       expect(uid, 'uid-1');
+      // 匿名ログインが成功する時は、App Check のトークンの取得を 1 回も呼ばない
       expect(calledSteps, [
         'activateAppCheck',
         'signInAnonymously',
@@ -29,11 +34,97 @@ void main() {
         startSession(
           activateAppCheck: () async {},
           signInAnonymously: () async => throw Exception('network'),
+          fetchAppCheckTokenError: () async => null,
           enableCollection: () async => collectionEnabled = true,
         ),
         throwsException,
       );
       expect(collectionEnabled, isFalse);
+    });
+
+    test('匿名ログインもトークンの取得も失敗したら、両方のエラーの文を加工せずに持つ例外を投げ、収集を始めない', () async {
+      var fetchAppCheckTokenErrorCallCount = 0;
+      var collectionEnabled = false;
+      Object? thrownError;
+      try {
+        await startSession(
+          activateAppCheck: () async {},
+          signInAnonymously: () async => throw FirebaseAuthException(
+            code: 'internal-error',
+            message: 'An internal error has occurred. [ 401 ]',
+          ),
+          fetchAppCheckTokenError: () async {
+            fetchAppCheckTokenErrorCallCount++;
+            return FirebaseException(
+              plugin: 'firebase_app_check',
+              code: 'unknown',
+              message: 'The attestation provider is not supported.',
+            );
+          },
+          enableCollection: () async => collectionEnabled = true,
+        );
+      } catch (error) {
+        thrownError = error;
+      }
+
+      expect(thrownError, isA<SessionStartException>());
+      expect(
+        thrownError.toString(),
+        '[firebase_auth/internal-error] An internal error has occurred. [ 401 ]\n\n'
+        '[firebase_app_check/unknown] The attestation provider is not supported.',
+      );
+      expect(fetchAppCheckTokenErrorCallCount, 1);
+      expect(collectionEnabled, isFalse);
+    });
+
+    test('匿名ログインが失敗してトークンの取得は成功したら、匿名ログインの例外をそのまま投げる', () async {
+      final signInError = FirebaseAuthException(
+        code: 'network-request-failed',
+        message: 'A network error has occurred.',
+      );
+      const appCheckToken = 'app-check-token-value';
+      Object? thrownError;
+      try {
+        await startSession(
+          activateAppCheck: () async {},
+          signInAnonymously: () async => throw signInError,
+          fetchAppCheckTokenError: () => fetchAppCheckTokenError(
+            getAppCheckToken: () async => appCheckToken,
+          ),
+          enableCollection: () async {},
+        );
+      } catch (error) {
+        thrownError = error;
+      }
+
+      expect(thrownError, same(signInError));
+      expect(thrownError.toString(), isNot(contains(appCheckToken)));
+    });
+  });
+
+  group('fetchAppCheckTokenError', () {
+    test('トークンを取得できたら null を返す (トークンの値を返さない)', () async {
+      expect(
+        await fetchAppCheckTokenError(
+          getAppCheckToken: () async => 'app-check-token-value',
+        ),
+        isNull,
+      );
+    });
+
+    test('トークンの取得が例外を投げたら、その例外を投げずにそのまま返す', () async {
+      final appCheckTokenError = FirebaseException(
+        plugin: 'firebase_app_check',
+        code: 'unknown',
+        message: 'The attestation provider is not supported.',
+      );
+
+      expect(
+        await fetchAppCheckTokenError(
+          getAppCheckToken: () async => throw appCheckTokenError,
+        ),
+        same(appCheckTokenError),
+      );
     });
   });
 
