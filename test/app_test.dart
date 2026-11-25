@@ -3056,7 +3056,8 @@ void main() {
         );
         // 設定の画面は閉じず、その下でルートがタイトルに替わっている
         expect(find.text('データを引き継ぐ'), findsOneWidget);
-        await tester.pageBack();
+        // 見出しの戻るはアプリ独自のボタン (#264) で pageBack が探す BackButton ではないため、tooltip で押す
+        await tester.tap(find.byTooltip('戻る'));
         await tester.pumpAndSettle();
         expect(find.text('写真から選んではじめる'), findsOneWidget);
       },
