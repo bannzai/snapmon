@@ -3013,7 +3013,7 @@ void main() {
     });
 
     testWidgets(
-      '連携済みのアカウントへのサインインに失敗したら (Web の Apple の出し直したポップアップが止められた時など)、匿名アカウントは捨てたままタイトルに戻り、新しい匿名アカウントにログインし、理由をそのまま出す',
+      '連携済みのアカウントへのサインインに失敗したら (Web の Apple の出し直したポップアップが止められた時など)、匿名アカウントは捨てたまま新しい匿名アカウントにログインし、設定の画面に理由をそのまま出し、戻るとタイトルになる',
       (tester) async {
         linkAccount = ({required providerName}) async => () async {
           accountCalls.add('signInToLinkedAccount');
@@ -3047,7 +3047,6 @@ void main() {
         ]);
         expect(endSessionCallCount, endSessionCallCountBeforeSwitch + 1);
         expect(find.byType(HomeShell), findsNothing);
-        expect(find.text('写真から選んではじめる'), findsOneWidget);
         expect(sessionStore.uid, 'uid-1');
         expect(
           find.text(
@@ -3055,6 +3054,11 @@ void main() {
           ),
           findsOneWidget,
         );
+        // 設定の画面は閉じず、その下でルートがタイトルに替わっている
+        expect(find.text('データを引き継ぐ'), findsOneWidget);
+        await tester.pageBack();
+        await tester.pumpAndSettle();
+        expect(find.text('写真から選んではじめる'), findsOneWidget);
       },
     );
 
