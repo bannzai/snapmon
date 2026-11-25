@@ -11,7 +11,7 @@ Accepted
 - 連携しようとした Apple / Google のアカウントが、別の端末で既に連携済みの時の扱い。その端末の匿名アカウントの図鑑を捨てるか、連携済みのアカウントに合流させるか
 - アカウント削除の手順 (Functions `deleteAccount`)。消す範囲は [docs/AccountDeletion.md](../../docs/AccountDeletion.md) に合わせる
 
-連携済みのアカウントがある時に匿名アカウントへリンクしようとすると、Firebase Authentication は `credential-already-in-use` で失敗する (https://firebase.google.com/docs/auth/flutter/account-linking の `case "credential-already-in-use"`)。firebase_auth 7.0.0 の iOS・Android の plugin と Web の実装は、この失敗に連携済みのアカウントの credential を付けて返す (iOS: `AuthErrors.swift` が `AuthErrorUserInfoUpdatedCredentialKey` を、Web: `web_utils.dart` が `OAuthProviderJsImpl.credentialFromError` を読む)。Web の Apple の credential は、元の nonce が無くサインインに使えないと分かる時があり、その時は切り替えに進めない (下の「Android と Web の Sign in with Apple の連携」の「Web の Apple が連携済みの時」)。
+連携済みのアカウントがある時に匿名アカウントへリンクしようとすると、Firebase Authentication は `credential-already-in-use` で失敗する (https://firebase.google.com/docs/auth/flutter/account-linking の `case "credential-already-in-use"`)。firebase_auth 7.0.0 の iOS・Android の plugin と Web の実装は、この失敗に連携済みのアカウントの credential を付けて返す (iOS: `AuthErrors.swift` が `AuthErrorUserInfoUpdatedCredentialKey` を、Web: `web_utils.dart` が `OAuthProviderJsImpl.credentialFromError` を読む)。Web の Apple の credential は、元の nonce が無くサインインに使えないと分かる時があり、その時は credential を使わずに Apple のサインインを出し直して切り替える (下の「Android と Web の Sign in with Apple の連携」の「Web の Apple が連携済みの時」)。
 
 ## 比べた選択肢
 
@@ -77,22 +77,24 @@ iPhone のアプリで Apple と連携した人が、Android のアプリか Web
 Web の Apple が連携済みの時:
 
 - JS SDK がエラーから取り出す credential は `idToken`・`accessToken`・`nonce`・`pendingToken` を持ち (`packages/auth/src/core/providers/oauth.ts` の `oauthCredentialFromTaggedObject`)、サインインの要求は `pendingToken` があればそれだけを送る (`packages/auth/src/core/credentials/oauth.ts` の `buildRequest`)。firebase_auth_web は Dart の credential に移す時に `accessToken`・`secret`・`idToken` だけを写し、`pendingToken` と `nonce` を写さない (`web_utils.dart` の `getFirebaseAuthException`)。そのため、写した credential の `signInWithCredential` は nonce を付けずに ID トークンを送る
-- ID トークンに nonce がある時は元の nonce が要る (firebase_auth_platform_interface の `OAuthCredential.rawNonce` の説明 "It is required when an ID token with a nonce field is provided")。切り替えは端末の匿名アカウントを捨ててからサインインするため、この credential で進むと、捨てた後で失敗して端末の図鑑を失い、連携済みの図鑑にも入れない
-- そこで、エラーの credential が「Apple・ID トークンの payload に `nonce` がある・元の nonce を持たない」の時 (`lib/firebase/account.dart` の `linkedAccountCredentialLacksNonce`) は、切り替えの確認に進めず、元の `credential-already-in-use` のエラーをそのまま出す。端末の匿名アカウントと図鑑は残る。ID トークンに `nonce` が無い時は、今までどおり切り替えに進む
-- 止まる時、Web 版では Apple と連携済みの図鑑に入れない。入れるようにする候補は、匿名アカウントを捨てた後に credential ではなく `signInWithPopup(AppleAuthProvider())` で入り直すこと。捨てた後にポップアップが開くかと、止められた時の戻り方を実際のアカウントで確かめてから実装する (https://github.com/bannzai/snapmon/issues/380)
+- ID トークンに nonce がある時は元の nonce が要る (firebase_auth_platform_interface の `OAuthCredential.rawNonce` の説明 "It is required when an ID token with a nonce field is provided")。この credential でサインインし直すと失敗する
+- そこで、エラーの credential が「Apple・ID トークンの payload に `nonce` がある・元の nonce を持たない」の時 (`lib/firebase/account.dart` の `linkedAccountCredentialLacksNonce`) は、切り替えの確認までは同じに進め、端末の匿名アカウントを捨てた後に、credential を使い回さず `signInWithPopup(AppleAuthProvider())` で Apple のサインインを出し直す。Apple の同じアカウントを選べば、連携済みのアカウントにサインインし直す。ID トークンに `nonce` が無い時は、今までどおり credential でサインインし直す (https://github.com/bannzai/snapmon/issues/380)
+- 捨てる順を後ろにする (先に入り直す) と、入り直した後は匿名アカウントが今のユーザーでなくなり、deleteAccount (呼び出したユーザー自身だけを消す。`functions/src/account.ts` の `deleteAccount`) で消せないため、捨ててから出し直す
+- 画面の遷移 (`signInWithRedirect`) にしないのは、Web 版を開くドメイン (play.snapmonster.app) と Firebase の認証のドメイン (`authDomain` の snapmon-prod.firebaseapp.com) が違い、遷移の結果をサードパーティのストレージで受け渡す仕組みが、それを止めるブラウザ (Safari 等) で成り立たないおそれがあるため (agent の記憶による。Firebase の文書は今回読み直していない)。ポップアップは、捨てる処理を待った後に開くため、ボタンを押した直後の操作と扱われずブラウザに止められるおそれがある (未実測)
+- ポップアップが止められた・利用者が閉じた・失敗した時は、匿名アカウントは捨て済みのため、ほかの切り替えの失敗と同じくログインを終えて新しい匿名アカウントから始め直し、失敗のエラーを画面の下に出す (`lib/features/settings/account_store.dart` の `switchToLinkedAccount`)。連携済みの図鑑はサーバーに残るため、もう一度「データを引き継ぐ」で Apple を選べば切り替えられる。この扱いは owner が受け入れた (https://github.com/bannzai/snapmon/issues/380#issuecomment-7071594282 )
 - Web の Google の切り替え (#17) も同じ写し方を通るが、この判定の対象にしていない (#374 が変えていない経路。Google は ID トークンだけから credential を作る使い方を Firebase が文書にしている。https://firebase.google.com/docs/auth/flutter/federated-auth の `GoogleAuthProvider.credential(idToken: googleAuth.idToken)`、2026-11-19 に確認)
 - iOS と Android の credential は ID トークンを持たず、ネイティブ側が持つ credential を番号で引き直すため、この判定に当たらない
 
 確かめていないこと:
 
-- **Web で Apple が連携済みの時に、実際の ID トークンが `nonce` を持つか**。持てば上のとおり切り替えに進まずエラーが出て、持たなければ切り替えに進む。どちらになるかと、進んだ時にサインインが通るかは、実際のアカウントでしか分からない
+- **Web で Apple が連携済みの時に、実際の ID トークンが `nonce` を持つか**。持てば上のとおり Apple のサインインをポップアップで出し直し、持たなければ credential でサインインし直す。どちらになるかと、捨てる処理を待った後のポップアップがブラウザに止められずに開くか (Chrome・Safari) は、実際のアカウントと許されたドメインの版 (play.snapmonster.app) でしか分からない
 - 実際の Apple のアカウントでの、Android と Web の連携と切り替え。2026-11-19 の時点で snapmon-prod の Firebase Authentication は Apple のサインインを有効にしておらず (上の「iOS の Google の連携」の「確かめていないこと」)、Services ID も無いため、端から端までは動かせない。有効化の後に、上の太字の点を先に確かめる (リリース前の確認の一覧に移した)
 - Web で、一覧を挟んだ後に Apple のポップアップが開くこと。動作確認に使う webtunnel は Web 版を `http://localhost:8080/` で開くが、snapmon-prod の Firebase Authentication が OAuth を許すドメインは `snapmon-prod.firebaseapp.com`・`snapmon-prod.web.app`・`play.snapmonster.app` の 3 つで localhost が無い (Identity Toolkit の `GET /admin/v2/projects/snapmon-prod/config` の `authorizedDomains`、2026-11-19)。そのため webtunnel で一覧の Apple を押すと、ポップアップに進む前に `[firebase_auth/unauthorized-domain] This domain is not authorized for OAuth operations for your Firebase project. Edit the list of authorized domains from the Firebase console.` が出る (2026-11-19 に debug ビルドで確かめた。エラーは画面の下にそのまま出て、アプリは落ちず、匿名アカウントのまま)。ポップアップが開くかと、Apple が有効でない時に Web で返るエラーは、許されたドメイン (play.snapmonster.app) に出した版でしか確かめられない。確かめたブラウザは webtunnel の Chromium だけで、Safari では確かめていない
 - Android で、Custom Chrome Tab を開いている間にアプリのプロセスが止められた時の再開。plugin は `pendingAuthResult` を読まないため、その時は連携の結果を受け取れない (利用者はもう一度「データを引き継ぐ」を選ぶ)
 
 ## Consequences
 
-- iPhone・Android・Web のどれで連携した人も、ほかのどれに移っても同じ Apple か Google を選んで図鑑を引き継げる。例外は Web 版への Apple の引き継ぎで、連携済みのアカウントの ID トークンが nonce を持つ時は切り替えに進まずエラーになる (上の「Web の Apple が連携済みの時」)
+- iPhone・Android・Web のどれで連携した人も、ほかのどれに移っても同じ Apple か Google を選んで図鑑を引き継げる。Web 版への Apple の引き継ぎで、連携済みのアカウントの ID トークンが nonce を持つ時は、切り替えの確認の後に Apple のサインインの画面がもう一度出る (上の「Web の Apple が連携済みの時」)
 - Android のアプリか Web 版で Apple と連携済みのアカウントを削除した時は、Apple の側の記録 (「Apple でサインイン」を使っているアプリの一覧) が残る。利用者が Apple のアカウントの設定から消す (docs/AccountDeletion.md)
 - 先に Apple と連携した人は、別の端末で Google と連携した図鑑に後から切り替えられず、逆も同じ (連携済みのアカウントに 2 つ目を足さないため)。アカウントを削除して匿名から始め直せば、もう一方を選べる
 - 連携済みのアカウントへの切り替えでは、その端末で作ったモンスターは戻らない

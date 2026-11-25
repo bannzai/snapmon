@@ -3012,6 +3012,57 @@ void main() {
       expect(find.text('連携済みのアカウントに切り替えました'), findsOneWidget);
     });
 
+    testWidgets(
+      '連携済みのアカウントへのサインインに失敗したら (Web の Apple の出し直したポップアップが止められた時など)、匿名アカウントは捨てたまま新しい匿名アカウントにログインし、設定の画面に理由をそのまま出し、戻るとタイトルになる',
+      (tester) async {
+        linkAccount = ({required providerName}) async => () async {
+          accountCalls.add('signInToLinkedAccount');
+          throw FirebaseAuthException(
+            code: 'popup-blocked',
+            message: 'The popup was blocked by the browser.',
+          );
+        };
+        await pumpApp(
+          tester: tester,
+          hasStartedSession: true,
+          startSessionFailureCount: 0,
+          isDeveloperMenuEnabled: false,
+        );
+        await enterHomeFromTitle(tester: tester);
+        await tester.tap(find.byTooltip('設定'));
+        await tester.pumpAndSettle();
+        final endSessionCallCountBeforeSwitch = endSessionCallCount;
+        await tester.tap(find.text('データを引き継ぐ'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.byKey(const Key('settings-link-provider-Apple')));
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('切り替える'));
+        await tester.pumpAndSettle();
+
+        expect(accountCalls, [
+          'link Apple',
+          'discard',
+          'signInToLinkedAccount',
+        ]);
+        expect(endSessionCallCount, endSessionCallCountBeforeSwitch + 1);
+        expect(find.byType(HomeShell), findsNothing);
+        expect(sessionStore.uid, 'uid-1');
+        expect(
+          find.text(
+            '[firebase_auth/popup-blocked] The popup was blocked by the browser.',
+          ),
+          findsOneWidget,
+        );
+        // 設定の画面は閉じず、その下でルートがタイトルに替わっている
+        expect(find.text('データを引き継ぐ'), findsOneWidget);
+        // 見出しの戻るはアプリ独自のボタン (#264) で pageBack が探す BackButton ではないため、tooltip で押す
+        await tester.tap(find.byTooltip('戻る'));
+        await tester.pumpAndSettle();
+        expect(find.text('写真から選んではじめる'), findsOneWidget);
+      },
+    );
+
     testWidgets('連携済みのアカウントに切り替えると、プロフィールを切り替え先の名前に読み直す', (tester) async {
       linkAccount = ({required providerName}) async =>
           () async => 'uid-linked';

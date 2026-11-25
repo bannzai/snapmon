@@ -38,8 +38,8 @@ bool linksAccountWithGoogleSignIn({
 }) => !isWeb && platform == TargetPlatform.android && providerName == 'Google';
 
 /// 連携済みのアカウントの [credential] が、ID トークンに nonce があるのに元の nonce を持たない Apple の credential か。
-/// 当たる credential では連携済みのアカウントへの切り替えに進めない (元の nonce が無いとサインインできず、
-/// 匿名アカウントを捨てた後で失敗するため)。Web の Apple が当たり得る: firebase_auth_web は連携の失敗の credential に
+/// 当たる credential ではサインインし直せない (元の nonce が無いとサインインできない) ため、連携済みのアカウントへの切り替えは
+/// credential を使い回さず、Apple のサインインを出し直して行う。Web の Apple が当たり得る: firebase_auth_web は連携の失敗の credential に
 /// ID トークンを写すが nonce を写さない。iOS と Android の credential は [OAuthCredential] ではなく、ネイティブ側が持つ
 /// credential を番号で引き直すため当たらない。根拠は ADR 0003 の「Android と Web の Sign in with Apple の連携」。
 bool linkedAccountCredentialLacksNonce({required AuthCredential credential}) =>
@@ -97,8 +97,9 @@ Future<AuthCredential> _googleCredentialOnAndroid() async {
 ///
 /// 連携できた時は null を返す。そのサインインが別の端末で連携済み (`credential-already-in-use`) の時は、連携済みのアカウントに
 /// サインインする関数を返す (呼ぶ前に、いまの匿名アカウントを捨ててよいかを利用者に確かめるため、ここではサインインしない)。
-/// 連携済みのアカウントの credential を受け取れなかった時、受け取った credential でサインインできないと分かる時
-/// ([linkedAccountCredentialLacksNonce])、それ以外の失敗は投げる。
+/// 受け取った credential でサインインできないと分かる時 ([linkedAccountCredentialLacksNonce]) に返す関数は、[providerName] の
+/// サインインをポップアップ (`signInWithPopup`) で出し直す (画面の遷移 `signInWithRedirect` にしない理由は ADR 0003
+/// 「Web の Apple が連携済みの時」)。連携済みのアカウントの credential を受け取れなかった時と、それ以外の失敗は投げる。
 Future<Future<String> Function()?> linkAccountWithFirebase({
   required String providerName,
 }) => linkAccountWithAuth(
@@ -144,14 +145,27 @@ Future<Future<String> Function()?> linkAccountWithAuth({
     return null;
   } on FirebaseAuthException catch (error) {
     final credential = error.credential ?? googleCredential;
-    if (error.code != 'credential-already-in-use' ||
-        credential == null ||
-        linkedAccountCredentialLacksNonce(credential: credential)) {
+    if (error.code != 'credential-already-in-use' || credential == null) {
       rethrow;
+    }
+    if (linkedAccountCredentialLacksNonce(credential: credential)) {
+      return () => _signInToLinkedAccountWithPopup(
+        auth: auth,
+        providerName: providerName,
+      );
     }
     return () => _signInToLinkedAccount(auth: auth, credential: credential);
   }
 }
+
+/// [auth] で [providerName] のサインインをポップアップで出し直してサインインし、その uid を返す。Web だけで使う。
+/// ポップアップが止められた・利用者が閉じた・失敗した時は投げる。
+Future<String> _signInToLinkedAccountWithPopup({
+  required FirebaseAuth auth,
+  required String providerName,
+}) async => (await auth.signInWithPopup(
+  accountLinkAuthProvider(providerName: providerName),
+)).user!.uid;
 
 /// [auth] に [credential] で連携済みのアカウントとしてサインインし、その uid を返す。
 Future<String> _signInToLinkedAccount({
