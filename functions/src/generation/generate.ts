@@ -114,7 +114,7 @@ export const resumeGenerationTask = onTaskDispatched<ResumeTask>(
   async (request) => {
     const dependencies = createProductionDependencies();
     // メンテナンス中は Vision・Claude・Jev を呼ばず、同じタスクを積み直して成功で終える。throw すると Cloud Tasks の再試行
-    // (retryConfig の 10 回) を使い切り、判定待ちと処理中の生成を進めるタスクが無くなるため。積み直しは外部の API を呼ばず、
+    // (retryConfig の maxAttempts) を使い切り、判定待ちと処理中の生成を進めるタスクが無くなるため。積み直しは外部の API を呼ばず、
     // judge の再試行の回数 (judgeAttempt) も進めないため、メンテナンスが長く続いても生成は失敗にならない
     if ((await readMaintenanceState()).maintenance) {
       await dependencies.enqueueResume({ ...request.data, delaySeconds: MAINTENANCE_RESUME_DELAY_SECONDS });

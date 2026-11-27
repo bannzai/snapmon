@@ -50,6 +50,16 @@ vi.mock("../../../src/generation/dependencies", async (importOriginal) => ({
   },
 }));
 
+/** resumeGeneration (pipeline.ts) を呼んだ回数。resumeGenerationTask が生成を進めたかを見分ける */
+const resumeGenerationCalls = vi.hoisted(() => ({ count: 0 }));
+
+vi.mock("../../../src/generation/pipeline", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../../../src/generation/pipeline")>()),
+  resumeGeneration: async () => {
+    resumeGenerationCalls.count += 1;
+  },
+}));
+
 const { generate, MAINTENANCE_RESUME_DELAY_SECONDS, resumeGenerationTask } = await import("../../../src/generation/generate");
 const { setProfileIcon } = await import("../../../src/profile");
 
@@ -68,6 +78,7 @@ const resumeTask = { uid: "alice", requestID: "00000000-0000-4000-8000-000000000
 beforeEach(() => {
   Object.assign(externalCalls, { annotateImage: 0, describeSubject: 0, proposeElement: 0, askJev: 0, enqueuedTasks: [], dependencyCreations: 0 });
   productionDependenciesBehavior.throwOnCreate = false;
+  resumeGenerationCalls.count = 0;
 });
 
 describe("メンテナンス中", () => {
@@ -88,6 +99,7 @@ describe("メンテナンス中", () => {
     await resumeGenerationTask.run({ data: resumeTask } as never);
     expect(externalAPICallCount()).toBe(0);
     expect(externalCalls.enqueuedTasks).toEqual([{ ...resumeTask, delaySeconds: MAINTENANCE_RESUME_DELAY_SECONDS }]);
+    expect(resumeGenerationCalls.count).toBe(0);
   });
 });
 
@@ -100,10 +112,16 @@ describe("メンテナンス中でない時", () => {
   it.each([
     ["generate", () => generate.run(signedInRequest({ requestID: resumeTask.requestID, photoPath: `users/alice/photos/${resumeTask.requestID}` }))],
     ["setProfileIcon", () => setProfileIcon.run(signedInRequest({ uploadID: resumeTask.requestID }))],
-    ["resumeGeneration", () => resumeGenerationTask.run({ data: resumeTask } as never)],
   ])("%s は入口を通って生成・検査の依存を作る", async (_name, call) => {
     await expect(call()).rejects.toBeInstanceOf(ReachedProductionDependenciesError);
     expect(externalCalls.dependencyCreations).toBe(1);
+    expect(externalCalls.enqueuedTasks).toEqual([]);
+  });
+
+  it("resumeGeneration は積み直さずに生成を進める", async () => {
+    productionDependenciesBehavior.throwOnCreate = false;
+    await resumeGenerationTask.run({ data: resumeTask } as never);
+    expect(resumeGenerationCalls.count).toBe(1);
     expect(externalCalls.enqueuedTasks).toEqual([]);
   });
 });
