@@ -344,5 +344,6 @@
   "helpStatusDizzy": "Los movimientos aciertan menos durante 3 turnos",
   "helpStatusExcited": "Sube el Ataque y baja la Defensa",
   "helpStatusFrozen": "Puede impedir actuar durante varios turnos\nSe cura al recibir daño de un movimiento",
-  "helpStatusSwitchBlocked": "No puedes cambiar de monstruo por decisión propia durante 3 turnos"
+  "helpStatusSwitchBlocked": "No puedes cambiar de monstruo por decisión propia durante 3 turnos",
+  "maintenanceDefaultMessage": "En mantenimiento\nVuelve a abrirla dentro de un rato"
 }

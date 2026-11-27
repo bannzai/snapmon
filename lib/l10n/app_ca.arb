@@ -344,5 +344,6 @@
   "helpStatusDizzy": "Els moviments encerten menys durant 3 torns",
   "helpStatusExcited": "Puja l'atac i baixa la defensa",
   "helpStatusFrozen": "Pot impedir actuar durant uns quants torns\nEs cura en rebre dany d’un moviment",
-  "helpStatusSwitchBlocked": "No pots canviar de monstre per decisió pròpia durant 3 torns"
+  "helpStatusSwitchBlocked": "No pots canviar de monstre per decisió pròpia durant 3 torns",
+  "maintenanceDefaultMessage": "En manteniment\nTorna-ho a obrir d'aquí a una estona"
 }

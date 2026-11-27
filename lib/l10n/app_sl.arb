@@ -344,5 +344,6 @@
   "helpStatusDizzy": "Poteze 3 kroge težje zadenejo",
   "helpStatusExcited": "Napad se poveča, obramba zmanjša",
   "helpStatusFrozen": "Lahko prepreči delovanje za nekaj krogov\nMine ob škodi zaradi poteze",
-  "helpStatusSwitchBlocked": "3 kroge ne moreš sam zamenjati pošasti"
+  "helpStatusSwitchBlocked": "3 kroge ne moreš sam zamenjati pošasti",
+  "maintenanceDefaultMessage": "Poteka vzdrževanje\nOdprite znova malo pozneje"
 }

@@ -344,5 +344,6 @@
   "helpStatusDizzy": "Angrep treffer sjeldnere i 3 turer",
   "helpStatusExcited": "Angrep øker, forsvar synker",
   "helpStatusFrozen": "Kan hindre handling i noen turer\nOpphører ved skade fra et angrep",
-  "helpStatusSwitchBlocked": "Du kan ikke bytte monster selv i 3 turer"
+  "helpStatusSwitchBlocked": "Du kan ikke bytte monster selv i 3 turer",
+  "maintenanceDefaultMessage": "Vedlikehold pågår\nPrøv å åpne igjen litt senere"
 }

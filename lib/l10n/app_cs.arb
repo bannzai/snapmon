@@ -344,5 +344,6 @@
   "helpStatusDizzy": "Útoky mají 3 tahy nižší přesnost",
   "helpStatusExcited": "Útok roste, obrana klesá",
   "helpStatusFrozen": "Několik tahů nemusí být možné jednat\nPomine po zásahu útokem, který způsobí poškození",
-  "helpStatusSwitchBlocked": "Po 3 tahy nemůžeš sám vyměnit příšeru"
+  "helpStatusSwitchBlocked": "Po 3 tahy nemůžeš sám vyměnit příšeru",
+  "maintenanceDefaultMessage": "Probíhá údržba\nOtevřete aplikaci prosím za chvíli znovu"
 }

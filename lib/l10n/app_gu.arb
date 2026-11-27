@@ -344,5 +344,6 @@
   "helpStatusDizzy": "૩ ટર્ન સુધી ચાલ નિશાન પર લાગવાની શક્યતા ઘટે છે",
   "helpStatusExcited": "હુમલો વધે છે, બચાવ ઘટે છે",
   "helpStatusFrozen": "થોડા ટર્ન સુધી કદાચ ચાલ ન કરી શકે\nનુકસાન કરતી ચાલથી ઈજા થતાં અસર દૂર થાય છે",
-  "helpStatusSwitchBlocked": "તમે 3 ટર્ન સુધી જાતે મોન્સ્ટર બદલી શકતા નથી"
+  "helpStatusSwitchBlocked": "તમે 3 ટર્ન સુધી જાતે મોન્સ્ટર બદલી શકતા નથી",
+  "maintenanceDefaultMessage": "હાલમાં જાળવણી ચાલી રહી છે\nથોડી વાર પછી ફરી ખોલો"
 }

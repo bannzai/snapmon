@@ -344,5 +344,6 @@
   "helpStatusDizzy": "Angreb rammer sjældnere i 3 ture",
   "helpStatusExcited": "Angreb stiger, forsvar falder",
   "helpStatusFrozen": "Kan forhindre handling i nogle ture\nOphører ved skade fra et angreb",
-  "helpStatusSwitchBlocked": "Du kan ikke selv skifte monster i 3 ture"
+  "helpStatusSwitchBlocked": "Du kan ikke selv skifte monster i 3 ture",
+  "maintenanceDefaultMessage": "Under vedligeholdelse\nPrøv at åbne igen lidt senere"
 }

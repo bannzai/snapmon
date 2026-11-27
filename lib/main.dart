@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
@@ -188,6 +189,7 @@ Future<void> main() async {
   );
   runApp(
     SnapmonApp(
+      maintenanceHTTPClient: http.Client(),
       sampleData: sampleData,
       dexStore: dexStore,
       sessionStore: sessionStore,

@@ -344,5 +344,6 @@
   "helpStatusDizzy": "Liikkeet osuvat harvemmin 3 vuoron ajan",
   "helpStatusExcited": "Hyökkäys nousee, puolustus laskee",
   "helpStatusFrozen": "Voi estää toimimisen muutaman vuoron ajan\nPoistuu, kun vahingoittava liike osuu",
-  "helpStatusSwitchBlocked": "Et voi vaihtaa hirviötä itse 3 vuoroon"
+  "helpStatusSwitchBlocked": "Et voi vaihtaa hirviötä itse 3 vuoroon",
+  "maintenanceDefaultMessage": "Huoltokatko käynnissä\nAvaa sovellus hetken päästä uudelleen"
 }

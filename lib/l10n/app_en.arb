@@ -344,5 +344,6 @@
   "helpStatusDizzy": "Moves are less accurate for 3 turns",
   "helpStatusExcited": "Attack rises and Defense falls",
   "helpStatusFrozen": "May be unable to act for a few turns\nThawed by taking move damage",
-  "helpStatusSwitchBlocked": "Can't switch out for 3 turns"
+  "helpStatusSwitchBlocked": "Can't switch out for 3 turns",
+  "maintenanceDefaultMessage": "Under maintenance\nPlease come back a little later"
 }

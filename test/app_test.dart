@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -8,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
 import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
@@ -35,6 +38,7 @@ import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/features/title/title_screen.dart';
 import 'package:snapmon/firebase/account.dart';
 import 'package:snapmon/l10n/l10n.dart';
+import 'package:snapmon/maintenance/maintenance_gate.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 import 'package:snapmon/common_ui/storage_image.dart';
 import 'package:snapmon/monster_ui/trainer_icon.dart';
@@ -72,6 +76,13 @@ void main() {
 
   /// [pumpApp] のアプリが、Web 版のように提供者が直接売るビルドか。既定はストアで売るアプリ (iOS・Android)。直接売るテストは [pumpApp] の前に変える。
   var isDirectSales = false;
+
+  /// [pumpApp] のアプリがメンテナンス中かを読んだ時に返す応答の body (状態を返す Worker の JSON)。null の時は通信の失敗にする。
+  /// 既定はメンテナンス中でない。テストが [pumpApp] の前と後に変える
+  late Map<String, Object?>? maintenanceStateBody;
+
+  /// [pumpApp] のアプリがメンテナンス中かを読んだ URL (読んだ順)。
+  late List<Uri> maintenanceStateRequestedURLs;
 
   /// タイトル画面が Analytics に送ったイベント (呼ばれた順)。
   late List<({AnalyticsEvent event, Map<String, Object>? parameters})>
@@ -120,6 +131,14 @@ void main() {
     albumPhoto = testPhotoBytes;
     audioWaitsForUserInteraction = false;
     isDirectSales = false;
+    maintenanceStateBody = {
+      'maintenance': false,
+      'message': null,
+      'button': null,
+      'source': 'owner',
+      'changedAt': '2026-11-25T08:00:00.000Z',
+    };
+    maintenanceStateRequestedURLs = [];
     startSessionGate = null;
     generationGate = null;
     startBattleRecord = () async => null;
@@ -291,6 +310,12 @@ void main() {
           sampleActionCards: null,
         ),
         isDirectSales: isDirectSales,
+        maintenanceHTTPClient: MockClient((request) async {
+          maintenanceStateRequestedURLs.add(request.url);
+          final body = maintenanceStateBody;
+          if (body == null) throw http.ClientException('connection failed');
+          return http.Response.bytes(utf8.encode(jsonEncode(body)), 200);
+        }),
       ),
     );
     await tester.pumpAndSettle();
@@ -417,6 +442,60 @@ void main() {
     await tester.tap(find.byKey(const Key('title-continue')));
     await tester.pumpAndSettle();
   }
+
+  group('メンテナンス中の画面', () {
+    /// メンテナンス中で、状態に文もボタンも無い応答
+    const inMaintenanceBody = {
+      'maintenance': true,
+      'message': null,
+      'button': null,
+      'source': 'owner',
+      'changedAt': '2026-11-25T07:00:00.000Z',
+    };
+
+    testWidgets('メンテナンス中はタイトル画面の代わりに既定の文を出し、通常に戻ると前面に戻った時にタイトル画面へ戻る', (
+      tester,
+    ) async {
+      maintenanceStateBody = inMaintenanceBody;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(maintenanceStateRequestedURLs, [
+        Uri.parse(
+          'https://service-maintenance.star-kojiki.workers.dev/snapmon',
+        ),
+      ]);
+      expect(
+        find.text(
+          lookupAppLocalizations(const Locale('ja')).maintenanceDefaultMessage,
+        ),
+        findsOneWidget,
+      );
+      expect(find.text('写真から選んではじめる'), findsNothing);
+
+      maintenanceStateBody = {...inMaintenanceBody, 'maintenance': false};
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pumpAndSettle();
+      expect(find.byType(MaintenanceScreen), findsNothing);
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+    });
+
+    testWidgets('メンテナンス中かを読めない時はタイトル画面を出す', (tester) async {
+      maintenanceStateBody = null;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(maintenanceStateRequestedURLs, hasLength(1));
+      expect(find.byType(MaintenanceScreen), findsNothing);
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+    });
+  });
 
   group('タイトル画面', () {
     testWidgets('起動直後にタイトル画面が出て、年齢などの入力を挟まずに裏で匿名ログインする', (tester) async {

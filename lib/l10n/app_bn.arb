@@ -344,5 +344,6 @@
   "helpStatusDizzy": "৩ টার্ন ধরে কৌশল লক্ষ্যভেদে কম সফল হয়",
   "helpStatusExcited": "আক্রমণ বাড়ে, প্রতিরক্ষা কমে",
   "helpStatusFrozen": "কয়েক টার্ন ধরে কাজ করতে না-ও পারে\nকৌশলের আঘাতে কেটে যায়",
-  "helpStatusSwitchBlocked": "৩ টার্ন ধরে নিজে থেকে মনস্টার বদলাতে পারবে না"
+  "helpStatusSwitchBlocked": "৩ টার্ন ধরে নিজে থেকে মনস্টার বদলাতে পারবে না",
+  "maintenanceDefaultMessage": "এখন রক্ষণাবেক্ষণ চলছে\nকিছুক্ষণ পরে আবার খুলুন"
 }

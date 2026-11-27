@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 import 'analytics/analytics_events.dart';
 import 'app_display_name.dart';
@@ -20,6 +21,7 @@ import 'features/settings/settings_screen.dart';
 import 'features/share/card_sharer.dart';
 import 'features/title/title_screen.dart';
 import 'l10n/l10n.dart';
+import 'maintenance/maintenance_gate.dart';
 import 'sample/sample_data.dart';
 import 'theme/snapmon_theme.dart';
 import 'common_ui/app_content_width.dart';
@@ -55,6 +57,12 @@ final Set<LogicalKeyboardKey> keysNotCountedAsUserInteraction = {
   LogicalKeyboardKey.symbolLock,
 };
 
+/// snapmon がメンテナンス中かを返す URL (`<状態を返す Worker の URL>/<サービス名>`)。owner が `service-maintenance on snapmon` /
+/// `off snapmon` で切り替える (castle の service-maintenance-setup skill。https://github.com/bannzai/castle/issues/3490 )。
+final Uri snapmonMaintenanceStateURL = Uri.parse(
+  'https://service-maintenance.star-kojiki.workers.dev/snapmon',
+);
+
 /// アプリのルート。起動するとタイトル画面を出し、タイトルのボタンでログインを済ませてからホームの画面 ([HomeShell]) に入る。
 /// ログインを終えた (アカウントの削除・開発者メニューのやり直し) 時はタイトルに戻る。
 class SnapmonApp extends StatefulWidget {
@@ -75,7 +83,11 @@ class SnapmonApp extends StatefulWidget {
     required this.logEvent,
     required this.actionCardStore,
     required this.isDirectSales,
+    required this.maintenanceHTTPClient,
   });
+
+  /// メンテナンス中かを [snapmonMaintenanceStateURL] から読む HTTP のクライアント ([MaintenanceGate.client])。
+  final http.Client maintenanceHTTPClient;
 
   /// ストアを通さず提供者が直接売るビルドか (Web 版。main.dart が kIsWeb を渡す)。true の時だけ [DirectSalesScope] を置き、
   /// 購入の画面が購入の前に連携を確かめ、特定商取引法に基づく表記へのリンクを出す。widget test は両方の値で確かめる。
@@ -201,20 +213,27 @@ class _SnapmonAppState extends State<SnapmonApp> {
           preferredLocales: preferredLocales,
           supportedLocales: supportedLocales,
         ),
-    // Navigator より外に置き、push したバトル画面・設定画面からも引けるようにする
-    builder: (context, child) => GameAudioScope(
-      gameAudio: widget.gameAudio,
-      child: ActionCardScope(
-        actionCardStore: widget.actionCardStore,
-        child: _directSalesScoped(
-          // Web はユーザーが一度ページを操作するまで音を出せないため、最初のタップ・クリックを BGM に伝える (キーは _onHardwareKeyEvent)
-          child: Listener(
-            onPointerDown: (event) =>
-                _notifyPointerInteraction(event: event, isDown: true),
-            onPointerUp: (event) =>
-                _notifyPointerInteraction(event: event, isDown: false),
-            child: constrainToAppContentWidth(
-              child: child ?? const SizedBox.shrink(),
+    // Navigator より外に置き、push したバトル画面・設定画面からも引けるようにする。
+    // MaintenanceGate は一番外側に置き、メンテナンス中はどの画面の代わりにもメンテナンス中の画面を出す
+    builder: (context, child) => MaintenanceGate(
+      stateURL: snapmonMaintenanceStateURL,
+      defaultMessage: context.l10n.maintenanceDefaultMessage,
+      onOpenURL: (url) => unawaited(widget.openURL(uri: url)),
+      client: widget.maintenanceHTTPClient,
+      child: GameAudioScope(
+        gameAudio: widget.gameAudio,
+        child: ActionCardScope(
+          actionCardStore: widget.actionCardStore,
+          child: _directSalesScoped(
+            // Web はユーザーが一度ページを操作するまで音を出せないため、最初のタップ・クリックを BGM に伝える (キーは _onHardwareKeyEvent)
+            child: Listener(
+              onPointerDown: (event) =>
+                  _notifyPointerInteraction(event: event, isDown: true),
+              onPointerUp: (event) =>
+                  _notifyPointerInteraction(event: event, isDown: false),
+              child: constrainToAppContentWidth(
+                child: child ?? const SizedBox.shrink(),
+              ),
             ),
           ),
         ),

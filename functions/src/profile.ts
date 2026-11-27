@@ -16,6 +16,8 @@ import { downscalePhoto } from "./generation/cutout";
 import { createProductionDependencies } from "./generation/dependencies";
 import { downloadFile, type StorageBucket, tokyoDate } from "./generation/pipeline";
 import { type AnnotateImage, visionDetectsFace, visionRejectionLogFields, visionRejectionReason } from "./generation/vision";
+import { assertNotInMaintenance } from "./maintenance/firebase-functions-maintenance-guard";
+import { readMaintenanceState } from "./maintenance/reader";
 
 /**
  * アイコンの一辺 (px)。画面に出す大きさ (対戦タブ・対戦画面・プロフィールの 32〜96 論理 px) を 3 倍の画面でも粗く見せない大きさにし、
@@ -205,6 +207,8 @@ const PROFILE_ICON_UPLOAD_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-
  * memory 1GiB: 生成 (generate.ts) と同じく長辺 1024px の写真を sharp で展開するため、同じ値にした。
  */
 export const setProfileIcon = onCall({ enforceAppCheck: ENFORCE_APP_CHECK, memory: "1GiB" }, async (request) => {
+  // メンテナンス中は Cloud Vision を呼ばずに unavailable で断る (maintenance/reader.ts)
+  await assertNotInMaintenance(readMaintenanceState);
   const uid = requireSignedInUid({ request });
   const { uploadID } = (request.data ?? {}) as { uploadID?: unknown };
   if (typeof uploadID !== "string" || !PROFILE_ICON_UPLOAD_ID_PATTERN.test(uploadID)) {

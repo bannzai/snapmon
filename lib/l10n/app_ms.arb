@@ -344,5 +344,6 @@
   "helpStatusDizzy": "Gerakan lebih sukar mengena selama 3 giliran",
   "helpStatusExcited": "Serangan naik, pertahanan turun",
   "helpStatusFrozen": "Mungkin tidak dapat bertindak selama beberapa giliran\nHilang apabila terkena gerakan yang menyebabkan kerosakan",
-  "helpStatusSwitchBlocked": "Kamu tak boleh tukar monster sendiri selama 3 giliran"
+  "helpStatusSwitchBlocked": "Kamu tak boleh tukar monster sendiri selama 3 giliran",
+  "maintenanceDefaultMessage": "Sedang diselenggara\nSila buka semula sebentar lagi"
 }

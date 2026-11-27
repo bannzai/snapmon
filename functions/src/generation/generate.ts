@@ -4,6 +4,8 @@ import { onTaskDispatched } from "firebase-functions/v2/tasks";
 
 import { rejectDeletedAccount } from "../account";
 import { ENFORCE_APP_CHECK } from "../app_check";
+import { assertNotInMaintenance } from "../maintenance/firebase-functions-maintenance-guard";
+import { readMaintenanceState } from "../maintenance/reader";
 import { typesafeApiKey } from "../secrets";
 import { FUNCTIONS_SERVICE_ACCOUNT } from "../service_account";
 import { createProductionDependencies } from "./dependencies";
@@ -75,8 +77,16 @@ export async function handleGenerateRequest(dependencies: GenerationDependencies
  */
 const GENERATION_FUNCTION_OPTIONS = { timeoutSeconds: 300, memory: "1GiB" as const, secrets: [typesafeApiKey] };
 
+/**
+ * メンテナンス中に届いた再試行のタスクを積み直すまでの秒数。通常に戻してから止まっていた生成が動き出すまでの遅れを 10 分までにする値で、
+ * 積み直しは外部の API を呼ばないため、10 分おきでも費用は Cloud Tasks の分だけになる。
+ */
+export const MAINTENANCE_RESUME_DELAY_SECONDS = 600;
+
 /** 写真からモンスターを生成する callable (App Check の強制は app_check.ts)。設計は pipeline.ts の冒頭。 */
 export const generate = onCall({ ...GENERATION_FUNCTION_OPTIONS, enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
+  // メンテナンス中は Vision・Claude・Jev を呼ばずに unavailable で断る (maintenance/reader.ts)
+  await assertNotInMaintenance(readMaintenanceState);
   const dependencies = createProductionDependencies();
   if (request.auth) {
     await rejectDeletedAccount({ auth: getAuth(), bucket: dependencies.bucket, uid: request.auth.uid });
@@ -102,6 +112,14 @@ export const resumeGenerationTask = onTaskDispatched<ResumeTask>(
     rateLimits: { maxConcurrentDispatches: 10 },
   },
   async (request) => {
-    await resumeGeneration(createProductionDependencies(), request.data);
+    const dependencies = createProductionDependencies();
+    // メンテナンス中は Vision・Claude・Jev を呼ばず、同じタスクを積み直して成功で終える。throw すると Cloud Tasks の再試行
+    // (retryConfig の 10 回) を使い切り、判定待ちと処理中の生成を進めるタスクが無くなるため。積み直しは外部の API を呼ばず、
+    // judge の再試行の回数 (judgeAttempt) も進めないため、メンテナンスが長く続いても生成は失敗にならない
+    if ((await readMaintenanceState()).maintenance) {
+      await dependencies.enqueueResume({ ...request.data, delaySeconds: MAINTENANCE_RESUME_DELAY_SECONDS });
+      return;
+    }
+    await resumeGeneration(dependencies, request.data);
   },
 );
