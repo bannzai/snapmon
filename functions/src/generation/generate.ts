@@ -1,4 +1,5 @@
 import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
 import { CallableRequest, HttpsError, onCall } from "firebase-functions/v2/https";
 import { onTaskDispatched } from "firebase-functions/v2/tasks";
 
@@ -86,13 +87,16 @@ export const MAINTENANCE_RESUME_DELAY_SECONDS = 600;
 /** 写真からモンスターを生成する callable (App Check の強制は app_check.ts)。設計は pipeline.ts の冒頭。 */
 export const generate = onCall({ ...GENERATION_FUNCTION_OPTIONS, enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
   // メンテナンス中は Vision・Claude・Jev を呼ばずに unavailable で断り、この要求で置かれた写真とマスクを消す (maintenance/uploads.ts)。
-  // パスは handleGenerateRequest が受け付ける形 (uid と UUID の要求 ID) の時だけ決め、それ以外の要求は何も消さずに断る
+  // パスは handleGenerateRequest が受け付ける形 (uid と UUID の要求 ID) の時だけ決め、それ以外の要求は何も消さずに断る。
+  // 同じ要求 ID の生成のレコードが既にある時 (応答を受け取れなかった端末の再送) は、続きの段階が写真とマスクを読むため消さない
   const { requestID } = (request.data ?? {}) as { requestID?: unknown };
+  const uid = request.auth?.uid;
   await assertNotInMaintenanceDeletingUploads({
-    uploadedPaths:
-      request.auth && typeof requestID === "string" && REQUEST_ID_PATTERN.test(requestID)
-        ? [`users/${request.auth.uid}/photos/${requestID}`, `users/${request.auth.uid}/masks/${requestID}`]
-        : [],
+    uploadedPaths: async () => {
+      if (uid === undefined || typeof requestID !== "string" || !REQUEST_ID_PATTERN.test(requestID)) return [];
+      if ((await getFirestore().doc(`users/${uid}/generations/${requestID}`).get()).exists) return [];
+      return [`users/${uid}/photos/${requestID}`, `users/${uid}/masks/${requestID}`];
+    },
   });
   const dependencies = createProductionDependencies();
   if (request.auth) {

@@ -53,7 +53,17 @@ vi.mock("../../../src/generation/dependencies", async (importOriginal) => ({
 }));
 
 /** メンテナンス中に断った要求で、差し替えた Storage から消したファイルのパス (消した順) */
-const deletedStoragePaths = vi.hoisted(() => ({ paths: [] as string[] }));
+const deletedStoragePaths = vi.hoisted(() => ({ paths: [] as string[], failsDelete: false }));
+
+/** 差し替えた Firestore にあるドキュメントのパス (生成のレコードの有無の判定に使う) */
+const existingFirestoreDocuments = vi.hoisted(() => ({ paths: new Set<string>() }));
+
+vi.mock("firebase-admin/firestore", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("firebase-admin/firestore")>()),
+  getFirestore: () => ({
+    doc: (path: string) => ({ get: async () => ({ exists: existingFirestoreDocuments.paths.has(path) }) }),
+  }),
+}));
 
 vi.mock("firebase-admin/storage", async (importOriginal) => ({
   ...(await importOriginal<typeof import("firebase-admin/storage")>()),
@@ -61,6 +71,7 @@ vi.mock("firebase-admin/storage", async (importOriginal) => ({
     bucket: () => ({
       file: (path: string) => ({
         delete: async () => {
+          if (deletedStoragePaths.failsDelete) throw new Error("Storage の障害");
           deletedStoragePaths.paths.push(path);
         },
       }),
@@ -99,6 +110,8 @@ beforeEach(() => {
   productionDependenciesBehavior.throwOnCreate = false;
   resumeGenerationCalls.count = 0;
   deletedStoragePaths.paths = [];
+  deletedStoragePaths.failsDelete = false;
+  existingFirestoreDocuments.paths = new Set();
 });
 
 describe("メンテナンス中", () => {
@@ -118,6 +131,22 @@ describe("メンテナンス中", () => {
     expect(externalCalls.dependencyCreations).toBe(0);
     expect(externalAPICallCount()).toBe(0);
     expect(deletedStoragePaths.paths).toEqual(expectedDeletedPaths);
+  });
+
+  it("generate は同じ要求 ID の生成のレコードが既にある時、写真とマスクを消さずに unavailable で断る", async () => {
+    existingFirestoreDocuments.paths.add(`users/alice/generations/${resumeTask.requestID}`);
+    await expect(generate.run(signedInRequest({ requestID: resumeTask.requestID, photoPath: `users/alice/photos/${resumeTask.requestID}` }))).rejects.toMatchObject({
+      code: "unavailable",
+    });
+    expect(deletedStoragePaths.paths).toEqual([]);
+  });
+
+  it("ファイルを消すのに失敗しても、unavailable で断る", async () => {
+    deletedStoragePaths.failsDelete = true;
+    await expect(setProfileIcon.run(signedInRequest({ uploadID: resumeTask.requestID }))).rejects.toMatchObject({
+      code: "unavailable",
+      details: { maintenance: IN_MAINTENANCE_WITH_BUTTON_JSON },
+    });
   });
 
   it("generate は要求 ID が UUID でない時、ファイルを消さずに unavailable で断る", async () => {

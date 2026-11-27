@@ -212,7 +212,7 @@ export const setProfileIcon = onCall({ enforceAppCheck: ENFORCE_APP_CHECK, memor
     throw new HttpsError("invalid-argument", "uploadID を渡してください");
   }
   // メンテナンス中は Cloud Vision を呼ばずに unavailable で断り、この要求で置かれた写真を消す (maintenance/uploads.ts)
-  await assertNotInMaintenanceDeletingUploads({ uploadedPaths: [profileIconUploadPath({ uid, uploadID })] });
+  await assertNotInMaintenanceDeletingUploads({ uploadedPaths: async () => [profileIconUploadPath({ uid, uploadID })] });
   const { firestore, bucket, annotateImage } = createProductionDependencies();
   // 生成 (generate.ts) と同じく、削除を消し終えた uid が置いたファイル (users/{uid}/ の配下) を消して断る
   await rejectDeletedAccount({ auth: getAuth(), bucket, uid });
