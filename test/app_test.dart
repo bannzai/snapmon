@@ -483,6 +483,24 @@ void main() {
       expect(find.text('写真から選んではじめる'), findsOneWidget);
     });
 
+    testWidgets('メンテナンス中の画面のボタンを押すと、アプリの openURL で状態のボタンの URL を開く', (
+      tester,
+    ) async {
+      maintenanceStateBody = {
+        ...inMaintenanceBody,
+        'button': {'label': 'お知らせを見る', 'url': 'https://example.com/news'},
+      };
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await tester.tap(find.text('お知らせを見る'));
+      await tester.pumpAndSettle();
+      expect(openedUris, [Uri.parse('https://example.com/news')]);
+    });
+
     testWidgets('メンテナンス中かを読めない時はタイトル画面を出す', (tester) async {
       maintenanceStateBody = null;
       await pumpApp(

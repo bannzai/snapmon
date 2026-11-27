@@ -7,18 +7,20 @@ import { IN_MAINTENANCE_WITH_BUTTON_JSON, NOT_IN_MAINTENANCE_JSON } from "./supp
 // (Vision・Claude・Jev) を 1 回も呼ばずに断ることを確かめる。外部の API のクライアントは createProductionDependencies だけが作るため、
 // それを差し替えて呼ばれた回数を数える。
 
+/** 差し替えた readMaintenanceState が返す状態。各 describe の beforeEach が決める */
 const maintenanceState = vi.hoisted(() => ({ current: null as MaintenanceState | null }));
 
 vi.mock("../../../src/maintenance/reader", () => ({
   readMaintenanceState: async () => maintenanceState.current,
 }));
 
-/** 差し替えた createProductionDependencies が返す依存。外部の API の呼び出しと、タスクを積んだ引数を記録する */
+/** 差し替えた createProductionDependencies を作った回数と、それが返す依存の外部の API の呼び出し回数・積んだタスクの記録 */
 const externalCalls = vi.hoisted(() => ({ annotateImage: 0, describeSubject: 0, proposeElement: 0, askJev: 0, enqueuedTasks: [] as unknown[], dependencyCreations: 0 }));
 
 /** 通常どおり進んだ時に、入口の検査の先へ進んだことを見分けるためにテストの依存が投げるエラー */
 class ReachedProductionDependenciesError extends Error {}
 
+/** 差し替えた createProductionDependencies の振る舞い。throwOnCreate が true の時は依存を作る時点で ReachedProductionDependenciesError を投げる */
 const productionDependenciesBehavior = vi.hoisted(() => ({ throwOnCreate: false }));
 
 vi.mock("../../../src/generation/dependencies", async (importOriginal) => ({
@@ -73,6 +75,7 @@ function signedInRequest(data: unknown) {
   return { data, auth: { uid: "alice", token: {} }, rawRequest: {}, acceptsStreaming: false } as never;
 }
 
+/** resumeGeneration のタスクに渡す入力。判定の再試行の途中 (judgeAttempt 3) のタスク */
 const resumeTask = { uid: "alice", requestID: "00000000-0000-4000-8000-000000000000", purpose: "judge" as const, judgeAttempt: 3 };
 
 beforeEach(() => {
