@@ -62,7 +62,7 @@ vi.mock("../../../src/generation/pipeline", async (importOriginal) => ({
   },
 }));
 
-const { generate, MAINTENANCE_RESUME_DELAY_SECONDS, resumeGenerationTask } = await import("../../../src/generation/generate");
+const { generate, resumeGenerationTask } = await import("../../../src/generation/generate");
 const { setProfileIcon } = await import("../../../src/profile");
 
 /** 外部の API の呼び出しの合計 */
@@ -101,7 +101,8 @@ describe("メンテナンス中", () => {
   it("resumeGeneration は外部の API を呼ばず、同じタスクを後に積み直して成功で終える", async () => {
     await resumeGenerationTask.run({ data: resumeTask } as never);
     expect(externalAPICallCount()).toBe(0);
-    expect(externalCalls.enqueuedTasks).toEqual([{ ...resumeTask, delaySeconds: MAINTENANCE_RESUME_DELAY_SECONDS }]);
+    // 通常に戻してから止まっていた生成が動き出すまでの遅れを 10 分までにする要件 (generate.ts の MAINTENANCE_RESUME_DELAY_SECONDS)
+    expect(externalCalls.enqueuedTasks).toEqual([{ ...resumeTask, delaySeconds: 600 }]);
     expect(resumeGenerationCalls.count).toBe(0);
   });
 });
