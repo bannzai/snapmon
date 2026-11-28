@@ -547,8 +547,14 @@ void main() {
         startSessionFailureCount: 0,
         isDeveloperMenuEnabled: false,
       );
-      await tester.tap(find.text('お知らせを見る'));
+      // タップで始まる非同期の処理のエラーを受け取る zone の中で押し、処理されないエラーが残らないことを確かめる
+      final unhandledErrors = <Object>[];
+      await runZonedGuarded(() async {
+        await tester.tap(find.text('お知らせを見る'));
+        await tester.pumpAndSettle();
+      }, (error, stackTrace) => unhandledErrors.add(error));
       await tester.pumpAndSettle();
+      expect(unhandledErrors, isEmpty);
       expect(tester.takeException(), isNull);
       expect(openedUris, [Uri.parse('https://example.com/news')]);
       expect(find.byType(MaintenanceScreen), findsOneWidget);
