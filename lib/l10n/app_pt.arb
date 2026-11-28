@@ -344,5 +344,6 @@
   "helpStatusDizzy": "Os golpes acertam menos por 3 turnos",
   "helpStatusExcited": "O Ataque sobe e a Defesa cai",
   "helpStatusFrozen": "Pode impedir ações por alguns turnos\nPassa ao sofrer dano de um golpe",
-  "helpStatusSwitchBlocked": "Você não pode trocar de monstro por conta própria por 3 turnos"
+  "helpStatusSwitchBlocked": "Você não pode trocar de monstro por conta própria por 3 turnos",
+  "maintenanceDefaultMessage": "Em manutenção\nAbra novamente daqui a pouco"
 }

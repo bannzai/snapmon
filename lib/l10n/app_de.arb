@@ -344,5 +344,6 @@
   "helpStatusDizzy": "Attacken treffen 3 Runden lang seltener",
   "helpStatusExcited": "Angriff steigt, Verteidigung sinkt",
   "helpStatusFrozen": "Kann einige Runden lang am Handeln hindern\nEndet bei Schaden durch eine Attacke",
-  "helpStatusSwitchBlocked": "Du kannst dein Monster 3 Runden lang nicht selbst auswechseln"
+  "helpStatusSwitchBlocked": "Du kannst dein Monster 3 Runden lang nicht selbst auswechseln",
+  "maintenanceDefaultMessage": "Wartungsarbeiten\nBitte versuche es später noch einmal"
 }

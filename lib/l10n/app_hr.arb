@@ -344,5 +344,6 @@
   "helpStatusDizzy": "Potezi teže pogađaju tijekom 3 kruga",
   "helpStatusExcited": "Napad raste, obrana pada",
   "helpStatusFrozen": "Možda neće moći djelovati nekoliko krugova\nNestaje nakon štete od poteza",
-  "helpStatusSwitchBlocked": "Ne možeš sam zamijeniti čudovište tijekom 3 kruga"
+  "helpStatusSwitchBlocked": "Ne možeš sam zamijeniti čudovište tijekom 3 kruga",
+  "maintenanceDefaultMessage": "U tijeku je održavanje\nOtvorite ponovno malo kasnije"
 }

@@ -478,5 +478,7 @@
   "helpStatusDizzy": "3 ターンの間 技が当たりにくくなる",
   "helpStatusExcited": "攻撃が上がり 防御が下がる",
   "helpStatusFrozen": "数ターンの間 行動できないことがある\n技のダメージを受けると解ける",
-  "helpStatusSwitchBlocked": "3 ターンの間 自分から交代できない"
+  "helpStatusSwitchBlocked": "3 ターンの間 自分から交代できない",
+  "maintenanceDefaultMessage": "ただいまメンテナンス中です\nしばらくしてからもう一度開いてください",
+  "@maintenanceDefaultMessage": {"description": "サービスのメンテナンス中に、状態に文が無い時に出す既定の文 (lib/maintenance/maintenance_resolver.dart)"}
 }

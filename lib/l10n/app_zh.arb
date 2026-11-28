@@ -344,5 +344,6 @@
   "helpStatusDizzy": "3回合内招式更容易落空",
   "helpStatusExcited": "攻击提升，防御下降",
   "helpStatusFrozen": "可能有几个回合无法行动\n受到招式伤害后解除",
-  "helpStatusSwitchBlocked": "3回合内不能主动替换怪物"
+  "helpStatusSwitchBlocked": "3回合内不能主动替换怪物",
+  "maintenanceDefaultMessage": "正在维护中\n请稍后再打开"
 }

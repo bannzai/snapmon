@@ -344,5 +344,6 @@
   "helpStatusDizzy": "Attacker träffar mer sällan i 3 turer",
   "helpStatusExcited": "Attacken ökar, försvaret sjunker",
   "helpStatusFrozen": "Kan hindra handling i några turer\nUpphör vid skada från en attack",
-  "helpStatusSwitchBlocked": "Du kan inte byta monster själv på 3 turer"
+  "helpStatusSwitchBlocked": "Du kan inte byta monster själv på 3 turer",
+  "maintenanceDefaultMessage": "Underhåll pågår\nÖppna igen om en stund"
 }

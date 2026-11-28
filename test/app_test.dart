@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -8,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
 import 'package:share_plus/share_plus.dart';
 
 import 'package:snapmon/analytics/analytics_events.dart';
@@ -35,6 +38,7 @@ import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/features/title/title_screen.dart';
 import 'package:snapmon/firebase/account.dart';
 import 'package:snapmon/l10n/l10n.dart';
+import 'package:snapmon/maintenance/maintenance_resolver.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 import 'package:snapmon/common_ui/storage_image.dart';
 import 'package:snapmon/monster_ui/trainer_icon.dart';
@@ -61,6 +65,10 @@ void main() {
   var startSessionCallCount = 0;
   var endSessionCallCount = 0;
   late List<Uri> openedUris;
+
+  /// [pumpApp] のアプリの openURL が投げる例外。null なら開けたとして true を返す。
+  /// [pumpApp] の中で null に戻るため、[pumpApp] の後に入れる
+  Object? openURLError;
   late RecordedBattleCalls battleCalls;
   late RecordedGenerationCalls generationCalls;
 
@@ -72,6 +80,13 @@ void main() {
 
   /// [pumpApp] のアプリが、Web 版のように提供者が直接売るビルドか。既定はストアで売るアプリ (iOS・Android)。直接売るテストは [pumpApp] の前に変える。
   var isDirectSales = false;
+
+  /// [pumpApp] のアプリがメンテナンス中かを読んだ時に返す応答の body (状態を返す Worker の JSON)。null の時は通信の失敗にする。
+  /// 既定はメンテナンス中でない。テストが [pumpApp] の前と後に変える
+  late Map<String, Object?>? maintenanceStateBody;
+
+  /// [pumpApp] のアプリがメンテナンス中かを読んだ URL (読んだ順)。
+  late List<Uri> maintenanceStateRequestedURLs;
 
   /// タイトル画面が Analytics に送ったイベント (呼ばれた順)。
   late List<({AnalyticsEvent event, Map<String, Object>? parameters})>
@@ -120,6 +135,14 @@ void main() {
     albumPhoto = testPhotoBytes;
     audioWaitsForUserInteraction = false;
     isDirectSales = false;
+    maintenanceStateBody = {
+      'maintenance': false,
+      'message': null,
+      'button': null,
+      'source': 'owner',
+      'changedAt': '2026-11-25T08:00:00.000Z',
+    };
+    maintenanceStateRequestedURLs = [];
     startSessionGate = null;
     generationGate = null;
     startBattleRecord = () async => null;
@@ -223,6 +246,7 @@ void main() {
       failureCount: startSessionFailureCount,
     );
     openedUris = [];
+    openURLError = null;
     battleCalls = RecordedBattleCalls();
     audioCalls = RecordedAudioCalls();
     shareCalls = RecordedShareCalls();
@@ -266,6 +290,8 @@ void main() {
         ),
         openURL: ({required uri}) async {
           openedUris.add(uri);
+          final error = openURLError;
+          if (error != null) throw error;
           return true;
         },
         isDeveloperMenuEnabled: isDeveloperMenuEnabled,
@@ -291,6 +317,12 @@ void main() {
           sampleActionCards: null,
         ),
         isDirectSales: isDirectSales,
+        maintenanceHTTPClient: MockClient((request) async {
+          maintenanceStateRequestedURLs.add(request.url);
+          final body = maintenanceStateBody;
+          if (body == null) throw http.ClientException('connection failed');
+          return http.Response.bytes(utf8.encode(jsonEncode(body)), 200);
+        }),
       ),
     );
     await tester.pumpAndSettle();
@@ -417,6 +449,131 @@ void main() {
     await tester.tap(find.byKey(const Key('title-continue')));
     await tester.pumpAndSettle();
   }
+
+  group('メンテナンス中の画面', () {
+    /// メンテナンス中で、状態に文もボタンも無い応答
+    const inMaintenanceBody = {
+      'maintenance': true,
+      'message': null,
+      'button': null,
+      'source': 'owner',
+      'changedAt': '2026-11-25T07:00:00.000Z',
+    };
+
+    testWidgets('メンテナンス中は既定の文だけを出し、本来の画面 (Navigator とタイトル画面) を作らない', (
+      tester,
+    ) async {
+      maintenanceStateBody = inMaintenanceBody;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(maintenanceStateRequestedURLs, [
+        Uri.parse(
+          'https://service-maintenance.star-kojiki.workers.dev/snapmon',
+        ),
+      ]);
+      expect(
+        find.text(
+          lookupAppLocalizations(const Locale('ja')).maintenanceDefaultMessage,
+        ),
+        findsOneWidget,
+      );
+      expect(find.byType(Navigator), findsNothing);
+      expect(find.text('写真から選んではじめる'), findsNothing);
+    });
+
+    testWidgets('メンテナンス中でない時はタイトル画面を出す', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(maintenanceStateRequestedURLs, hasLength(1));
+      expect(find.byType(MaintenanceScreen), findsNothing);
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+    });
+
+    testWidgets('前面と背面を切り替えて時間を進めても読み直さず、起動時に読んだ状態のまま', (tester) async {
+      maintenanceStateBody = inMaintenanceBody;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      maintenanceStateBody = {...inMaintenanceBody, 'maintenance': false};
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      // 古い雛形が読み直していた間隔 (60 秒) を十分に超える時間を進める
+      await tester.pump(const Duration(minutes: 5));
+      await tester.pumpAndSettle();
+      expect(maintenanceStateRequestedURLs, hasLength(1));
+      expect(find.byType(MaintenanceScreen), findsOneWidget);
+      expect(find.text('写真から選んではじめる'), findsNothing);
+    });
+
+    testWidgets('メンテナンス中の画面のボタンを押すと、アプリの openURL で状態のボタンの URL を開く', (
+      tester,
+    ) async {
+      maintenanceStateBody = {
+        ...inMaintenanceBody,
+        'button': {'label': 'お知らせを見る', 'url': 'https://example.com/news'},
+      };
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await tester.tap(find.text('お知らせを見る'));
+      await tester.pumpAndSettle();
+      expect(openedUris, [Uri.parse('https://example.com/news')]);
+    });
+
+    testWidgets('メンテナンス中の画面のボタンの URL を開けず例外になっても、処理されないエラーにせず画面のまま', (
+      tester,
+    ) async {
+      maintenanceStateBody = {
+        ...inMaintenanceBody,
+        'button': {'label': 'お知らせを見る', 'url': 'https://example.com/news'},
+      };
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      openURLError = PlatformException(code: 'ACTIVITY_NOT_FOUND');
+      // タップで始まる非同期の処理のエラーを受け取る zone の中で押し、処理されないエラーが残らないことを確かめる
+      final unhandledErrors = <Object>[];
+      await runZonedGuarded(() async {
+        await tester.tap(find.text('お知らせを見る'));
+        await tester.pumpAndSettle();
+      }, (error, stackTrace) => unhandledErrors.add(error));
+      await tester.pumpAndSettle();
+      expect(unhandledErrors, isEmpty);
+      expect(tester.takeException(), isNull);
+      expect(openedUris, [Uri.parse('https://example.com/news')]);
+      expect(find.byType(MaintenanceScreen), findsOneWidget);
+    });
+
+    testWidgets('メンテナンス中かを読めない時はタイトル画面を出す', (tester) async {
+      maintenanceStateBody = null;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(maintenanceStateRequestedURLs, hasLength(1));
+      expect(find.byType(MaintenanceScreen), findsNothing);
+      expect(find.text('写真から選んではじめる'), findsOneWidget);
+    });
+  });
 
   group('タイトル画面', () {
     testWidgets('起動直後にタイトル画面が出て、年齢などの入力を挟まずに裏で匿名ログインする', (tester) async {

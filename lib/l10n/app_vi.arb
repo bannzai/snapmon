@@ -344,5 +344,6 @@
   "helpStatusDizzy": "Chiêu khó trúng hơn trong 3 lượt",
   "helpStatusExcited": "Tấn công tăng, phòng thủ giảm",
   "helpStatusFrozen": "Có thể không hành động được trong vài lượt\nHết khi chịu sát thương từ chiêu",
-  "helpStatusSwitchBlocked": "Bạn không thể tự đổi quái vật trong 3 lượt"
+  "helpStatusSwitchBlocked": "Bạn không thể tự đổi quái vật trong 3 lượt",
+  "maintenanceDefaultMessage": "Đang bảo trì\nVui lòng mở lại sau ít phút"
 }

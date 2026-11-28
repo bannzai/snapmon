@@ -344,5 +344,6 @@
   "helpStatusDizzy": "Útoky zasahujú menej často počas 3 ťahov",
   "helpStatusExcited": "Útok rastie, obrana klesá",
   "helpStatusFrozen": "Môže zabrániť v konaní na niekoľko ťahov\nPominie po zásahu útokom, ktorý spôsobí poškodenie",
-  "helpStatusSwitchBlocked": "Počas 3 ťahov nemôžeš sám vymeniť príšeru"
+  "helpStatusSwitchBlocked": "Počas 3 ťahov nemôžeš sám vymeniť príšeru",
+  "maintenanceDefaultMessage": "Prebieha údržba\nOtvorte aplikáciu prosím o chvíľu znova"
 }
