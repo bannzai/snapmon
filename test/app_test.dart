@@ -38,7 +38,7 @@ import 'package:snapmon/features/share/share_cards.dart';
 import 'package:snapmon/features/title/title_screen.dart';
 import 'package:snapmon/firebase/account.dart';
 import 'package:snapmon/l10n/l10n.dart';
-import 'package:snapmon/maintenance/maintenance_gate.dart';
+import 'package:snapmon/maintenance/maintenance_resolver.dart';
 import 'package:snapmon/theme/snapmon_theme.dart';
 import 'package:snapmon/common_ui/storage_image.dart';
 import 'package:snapmon/monster_ui/trainer_icon.dart';
@@ -453,7 +453,7 @@ void main() {
       'changedAt': '2026-11-25T07:00:00.000Z',
     };
 
-    testWidgets('メンテナンス中はタイトル画面の代わりに既定の文を出し、通常に戻ると前面に戻った時にタイトル画面へ戻る', (
+    testWidgets('メンテナンス中は既定の文だけを出し、本来の画面 (Navigator とタイトル画面) を作らない', (
       tester,
     ) async {
       maintenanceStateBody = inMaintenanceBody;
@@ -474,13 +474,39 @@ void main() {
         ),
         findsOneWidget,
       );
+      expect(find.byType(Navigator), findsNothing);
       expect(find.text('写真から選んではじめる'), findsNothing);
+    });
 
-      maintenanceStateBody = {...inMaintenanceBody, 'maintenance': false};
-      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
-      await tester.pumpAndSettle();
+    testWidgets('メンテナンス中でない時はタイトル画面を出す', (tester) async {
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      expect(maintenanceStateRequestedURLs, hasLength(1));
       expect(find.byType(MaintenanceScreen), findsNothing);
       expect(find.text('写真から選んではじめる'), findsOneWidget);
+    });
+
+    testWidgets('前面と背面を切り替えて時間を進めても読み直さず、起動時に読んだ状態のまま', (tester) async {
+      maintenanceStateBody = inMaintenanceBody;
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      maintenanceStateBody = {...inMaintenanceBody, 'maintenance': false};
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      // 古い雛形が読み直していた間隔 (60 秒) を十分に超える時間を進める
+      await tester.pump(const Duration(minutes: 5));
+      await tester.pumpAndSettle();
+      expect(maintenanceStateRequestedURLs, hasLength(1));
+      expect(find.byType(MaintenanceScreen), findsOneWidget);
+      expect(find.text('写真から選んではじめる'), findsNothing);
     });
 
     testWidgets('メンテナンス中の画面のボタンを押すと、アプリの openURL で状態のボタンの URL を開く', (

@@ -21,7 +21,7 @@ import 'features/settings/settings_screen.dart';
 import 'features/share/card_sharer.dart';
 import 'features/title/title_screen.dart';
 import 'l10n/l10n.dart';
-import 'maintenance/maintenance_gate.dart';
+import 'maintenance/maintenance_resolver.dart';
 import 'sample/sample_data.dart';
 import 'theme/snapmon_theme.dart';
 import 'common_ui/app_content_width.dart';
@@ -86,7 +86,7 @@ class SnapmonApp extends StatefulWidget {
     required this.maintenanceHTTPClient,
   });
 
-  /// メンテナンス中かを [snapmonMaintenanceStateURL] から読む HTTP のクライアント ([MaintenanceGate.client])。
+  /// メンテナンス中かを [snapmonMaintenanceStateURL] から読む HTTP のクライアント ([MaintenanceResolver.client])。
   final http.Client maintenanceHTTPClient;
 
   /// ストアを通さず提供者が直接売るビルドか (Web 版。main.dart が kIsWeb を渡す)。true の時だけ [DirectSalesScope] を置き、
@@ -214,8 +214,9 @@ class _SnapmonAppState extends State<SnapmonApp> {
           supportedLocales: supportedLocales,
         ),
     // Navigator より外に置き、push したバトル画面・設定画面からも引けるようにする。
-    // MaintenanceGate は一番外側に置き、メンテナンス中はどの画面の代わりにもメンテナンス中の画面を出す
-    builder: (context, child) => MaintenanceGate(
+    // MaintenanceResolver は一番外側に置き、起動時に 1 回だけ状態を読む。メンテナンス中はメンテナンス中の画面だけを出し、
+    // 本来の画面 (Navigator とその上の画面) を作らない
+    builder: (context, child) => MaintenanceResolver(
       stateURL: snapmonMaintenanceStateURL,
       defaultMessage: context.l10n.maintenanceDefaultMessage,
       onOpenURL: (url) => unawaited(widget.openURL(uri: url)),

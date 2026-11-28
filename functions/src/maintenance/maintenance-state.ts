@@ -80,14 +80,21 @@ export function parseMaintenanceState(value: unknown): MaintenanceState | null {
  * (状態の置き場の障害で、読む側のサービスを止めないため)
  */
 export async function fetchMaintenanceState(stateURL: string, options: MaintenanceFetchOptions = {}): Promise<MaintenanceState> {
+  // 待つ上限は AbortSignal の静的メソッド timeout ではなく AbortController と setTimeout で効かせる
+  // (React Native 0.86.3 の Libraries/Core/setUpXHR.js は AbortSignal を abort-controller/dist/abort-controller の polyfill に置き換え、
+  // その polyfill に timeout の定義は無い。Expo のアプリで AbortSignal の timeout を呼ぶと TypeError になるのはこのソースからの推測で、端末では確かめていない)
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? DEFAULT_FETCH_TIMEOUT_MS);
   try {
     // options.fetchImpl が無い時は fetch をそのまま呼ぶ (fetch を変数に取り出して別の this で呼ぶと、Cloudflare Workers では Illegal invocation になる)
-    const init = { signal: AbortSignal.timeout(options.timeoutMs ?? DEFAULT_FETCH_TIMEOUT_MS) };
+    const init = { signal: controller.signal };
     const response = await (options.fetchImpl === undefined ? fetch(stateURL, init) : options.fetchImpl(stateURL, init));
     if (!response.ok) return NOT_IN_MAINTENANCE;
     return parseMaintenanceState(await response.json()) ?? NOT_IN_MAINTENANCE;
   } catch {
     return NOT_IN_MAINTENANCE;
+  } finally {
+    clearTimeout(timer);
   }
 }
 
