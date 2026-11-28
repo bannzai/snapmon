@@ -219,7 +219,10 @@ class _SnapmonAppState extends State<SnapmonApp> {
     builder: (context, child) => MaintenanceResolver(
       stateURL: snapmonMaintenanceStateURL,
       defaultMessage: context.l10n.maintenanceDefaultMessage,
-      onOpenURL: (url) => unawaited(widget.openURL(uri: url)),
+      // 開けなかった時 (launchUrl が false を返す・例外を投げる) は何もしない。メンテナンス中の画面は雛形のもので失敗を出す場所が無く、
+      // 利用者はもう一度押せる。例外は握り、処理されない非同期のエラーにしない
+      onOpenURL: (url) =>
+          unawaited(widget.openURL(uri: url).catchError((Object _) => false)),
       client: widget.maintenanceHTTPClient,
       child: GameAudioScope(
         gameAudio: widget.gameAudio,

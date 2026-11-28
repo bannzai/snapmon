@@ -65,6 +65,9 @@ void main() {
   var startSessionCallCount = 0;
   var endSessionCallCount = 0;
   late List<Uri> openedUris;
+
+  /// [pumpApp] のアプリの openURL が投げる例外。null なら開けたとして true を返す
+  Object? openURLError;
   late RecordedBattleCalls battleCalls;
   late RecordedGenerationCalls generationCalls;
 
@@ -242,6 +245,7 @@ void main() {
       failureCount: startSessionFailureCount,
     );
     openedUris = [];
+    openURLError = null;
     battleCalls = RecordedBattleCalls();
     audioCalls = RecordedAudioCalls();
     shareCalls = RecordedShareCalls();
@@ -285,6 +289,8 @@ void main() {
         ),
         openURL: ({required uri}) async {
           openedUris.add(uri);
+          final error = openURLError;
+          if (error != null) throw error;
           return true;
         },
         isDeveloperMenuEnabled: isDeveloperMenuEnabled,
@@ -525,6 +531,27 @@ void main() {
       await tester.tap(find.text('お知らせを見る'));
       await tester.pumpAndSettle();
       expect(openedUris, [Uri.parse('https://example.com/news')]);
+    });
+
+    testWidgets('メンテナンス中の画面のボタンの URL を開けず例外になっても、処理されないエラーにせず画面のまま', (
+      tester,
+    ) async {
+      maintenanceStateBody = {
+        ...inMaintenanceBody,
+        'button': {'label': 'お知らせを見る', 'url': 'https://example.com/news'},
+      };
+      openURLError = PlatformException(code: 'ACTIVITY_NOT_FOUND');
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      await tester.tap(find.text('お知らせを見る'));
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+      expect(openedUris, [Uri.parse('https://example.com/news')]);
+      expect(find.byType(MaintenanceScreen), findsOneWidget);
     });
 
     testWidgets('メンテナンス中かを読めない時はタイトル画面を出す', (tester) async {
