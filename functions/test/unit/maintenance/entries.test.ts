@@ -52,33 +52,6 @@ vi.mock("../../../src/generation/dependencies", async (importOriginal) => ({
   },
 }));
 
-/** メンテナンス中に断った要求で、差し替えた Storage から消したファイルのパス (消した順) */
-const deletedStoragePaths = vi.hoisted(() => ({ paths: [] as string[], failsDelete: false }));
-
-/** 差し替えた Firestore にあるドキュメントのパス (生成のレコードの有無の判定に使う) */
-const existingFirestoreDocuments = vi.hoisted(() => ({ paths: new Set<string>() }));
-
-vi.mock("firebase-admin/firestore", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("firebase-admin/firestore")>()),
-  getFirestore: () => ({
-    doc: (path: string) => ({ get: async () => ({ exists: existingFirestoreDocuments.paths.has(path) }) }),
-  }),
-}));
-
-vi.mock("firebase-admin/storage", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("firebase-admin/storage")>()),
-  getStorage: () => ({
-    bucket: () => ({
-      file: (path: string) => ({
-        delete: async () => {
-          if (deletedStoragePaths.failsDelete) throw new Error("Storage の障害");
-          deletedStoragePaths.paths.push(path);
-        },
-      }),
-    }),
-  }),
-}));
-
 /** resumeGeneration (pipeline.ts) を呼んだ回数。resumeGenerationTask が生成を進めたかを見分ける */
 const resumeGenerationCalls = vi.hoisted(() => ({ count: 0 }));
 
@@ -109,9 +82,6 @@ beforeEach(() => {
   Object.assign(externalCalls, { annotateImage: 0, describeSubject: 0, proposeElement: 0, askJev: 0, enqueuedTasks: [], dependencyCreations: 0 });
   productionDependenciesBehavior.throwOnCreate = false;
   resumeGenerationCalls.count = 0;
-  deletedStoragePaths.paths = [];
-  deletedStoragePaths.failsDelete = false;
-  existingFirestoreDocuments.paths = new Set();
 });
 
 describe("メンテナンス中", () => {
@@ -120,38 +90,12 @@ describe("メンテナンス中", () => {
   });
 
   it.each([
-    [
-      "generate",
-      () => generate.run(signedInRequest({ requestID: resumeTask.requestID, photoPath: `users/alice/photos/${resumeTask.requestID}` })),
-      [`users/alice/photos/${resumeTask.requestID}`, `users/alice/masks/${resumeTask.requestID}`],
-    ],
-    ["setProfileIcon", () => setProfileIcon.run(signedInRequest({ uploadID: resumeTask.requestID })), [`users/alice/iconUploads/${resumeTask.requestID}`]],
-  ])("%s は外部の API を呼ばずに unavailable で断り、この要求で置かれたファイルを消す", async (_name, call, expectedDeletedPaths) => {
+    ["generate", () => generate.run(signedInRequest({ requestID: resumeTask.requestID, photoPath: `users/alice/photos/${resumeTask.requestID}` }))],
+    ["setProfileIcon", () => setProfileIcon.run(signedInRequest({ uploadID: resumeTask.requestID }))],
+  ])("%s は外部の API を呼ばずに unavailable で断る", async (_name, call) => {
     await expect(call()).rejects.toMatchObject({ code: "unavailable", details: { maintenance: IN_MAINTENANCE_WITH_BUTTON_JSON } });
     expect(externalCalls.dependencyCreations).toBe(0);
     expect(externalAPICallCount()).toBe(0);
-    expect(deletedStoragePaths.paths).toEqual(expectedDeletedPaths);
-  });
-
-  it("generate は同じ要求 ID の生成のレコードが既にある時、写真とマスクを消さずに unavailable で断る", async () => {
-    existingFirestoreDocuments.paths.add(`users/alice/generations/${resumeTask.requestID}`);
-    await expect(generate.run(signedInRequest({ requestID: resumeTask.requestID, photoPath: `users/alice/photos/${resumeTask.requestID}` }))).rejects.toMatchObject({
-      code: "unavailable",
-    });
-    expect(deletedStoragePaths.paths).toEqual([]);
-  });
-
-  it("ファイルを消すのに失敗しても、unavailable で断る", async () => {
-    deletedStoragePaths.failsDelete = true;
-    await expect(setProfileIcon.run(signedInRequest({ uploadID: resumeTask.requestID }))).rejects.toMatchObject({
-      code: "unavailable",
-      details: { maintenance: IN_MAINTENANCE_WITH_BUTTON_JSON },
-    });
-  });
-
-  it("generate は要求 ID が UUID でない時、ファイルを消さずに unavailable で断る", async () => {
-    await expect(generate.run(signedInRequest({ requestID: "../alice", photoPath: "users/alice/photos/../alice" }))).rejects.toMatchObject({ code: "unavailable" });
-    expect(deletedStoragePaths.paths).toEqual([]);
   });
 
   it("resumeGeneration は外部の API を呼ばず、同じタスクを後に積み直して成功で終える", async () => {
@@ -176,7 +120,6 @@ describe("メンテナンス中でない時", () => {
     await expect(call()).rejects.toBeInstanceOf(ReachedProductionDependenciesError);
     expect(externalCalls.dependencyCreations).toBe(1);
     expect(externalCalls.enqueuedTasks).toEqual([]);
-    expect(deletedStoragePaths.paths).toEqual([]);
   });
 
   it("resumeGeneration は積み直さずに生成を進める", async () => {

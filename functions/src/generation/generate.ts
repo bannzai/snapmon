@@ -1,12 +1,11 @@
 import { getAuth } from "firebase-admin/auth";
-import { getFirestore } from "firebase-admin/firestore";
 import { CallableRequest, HttpsError, onCall } from "firebase-functions/v2/https";
 import { onTaskDispatched } from "firebase-functions/v2/tasks";
 
 import { rejectDeletedAccount } from "../account";
 import { ENFORCE_APP_CHECK } from "../app_check";
+import { assertNotInMaintenance } from "../maintenance/firebase-functions-maintenance-guard";
 import { readMaintenanceState } from "../maintenance/reader";
-import { assertNotInMaintenanceDeletingUploads } from "../maintenance/uploads";
 import { typesafeApiKey } from "../secrets";
 import { FUNCTIONS_SERVICE_ACCOUNT } from "../service_account";
 import { createProductionDependencies } from "./dependencies";
@@ -86,18 +85,8 @@ export const MAINTENANCE_RESUME_DELAY_SECONDS = 600;
 
 /** 写真からモンスターを生成する callable (App Check の強制は app_check.ts)。設計は pipeline.ts の冒頭。 */
 export const generate = onCall({ ...GENERATION_FUNCTION_OPTIONS, enforceAppCheck: ENFORCE_APP_CHECK }, async (request) => {
-  // メンテナンス中は Vision・Claude・Jev を呼ばずに unavailable で断り、この要求で置かれた写真とマスクを消す (maintenance/uploads.ts)。
-  // パスは handleGenerateRequest が受け付ける形 (uid と UUID の要求 ID) の時だけ決め、それ以外の要求は何も消さずに断る。
-  // 同じ要求 ID の生成のレコードが既にある時 (応答を受け取れなかった端末の再送) は、続きの段階が写真とマスクを読むため消さない
-  const { requestID } = (request.data ?? {}) as { requestID?: unknown };
-  const uid = request.auth?.uid;
-  await assertNotInMaintenanceDeletingUploads({
-    uploadedPaths: async () => {
-      if (uid === undefined || typeof requestID !== "string" || !REQUEST_ID_PATTERN.test(requestID)) return [];
-      if ((await getFirestore().doc(`users/${uid}/generations/${requestID}`).get()).exists) return [];
-      return [`users/${uid}/photos/${requestID}`, `users/${uid}/masks/${requestID}`];
-    },
-  });
+  // メンテナンス中は Vision・Claude・Jev を呼ばずに unavailable で断る (maintenance/reader.ts)
+  await assertNotInMaintenance(readMaintenanceState);
   const dependencies = createProductionDependencies();
   if (request.auth) {
     await rejectDeletedAccount({ auth: getAuth(), bucket: dependencies.bucket, uid: request.auth.uid });
