@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { test } from "vitest";
+import { test, vi } from "vitest";
 
 import { createMaintenanceReader, fetchMaintenanceState, parseMaintenanceState } from "../../../src/maintenance/maintenance-state";
 import {
@@ -204,8 +204,9 @@ test("fetchMaintenanceState: ヘッダーが返った後に本文が届かなけ
   assert.equal(aborted, true);
 });
 
-test("fetchMaintenanceState: 応答を読み終えた後に timeoutMs が過ぎても、渡した signal を abort しない (待つ上限のタイマーを残さない)", async (t) => {
-  t.mock.timers.enable({ apis: ["setTimeout"] });
+test("fetchMaintenanceState: 応答を読み終えた後に timeoutMs が過ぎても、渡した signal を abort しない (待つ上限のタイマーを残さない)", async () => {
+  // 雛形は node:test の t.mock.timers を使うが、このプロジェクトのテストは vitest で動くため vitest の偽のタイマーに読み替えた
+  vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
   const signals: AbortSignal[] = [];
   assert.equal(
     (
@@ -219,7 +220,8 @@ test("fetchMaintenanceState: 応答を読み終えた後に timeoutMs が過ぎ�
     ).maintenance,
     true,
   );
-  t.mock.timers.tick(1_000);
+  vi.advanceTimersByTime(1_000);
+  vi.useRealTimers();
   assert.equal(signals.length, 1);
   assert.equal(signals[0].aborted, false);
 });
