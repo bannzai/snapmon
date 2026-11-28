@@ -65,6 +65,10 @@ void main() {
   var startSessionCallCount = 0;
   var endSessionCallCount = 0;
   late List<Uri> openedUris;
+
+  /// [pumpApp] のアプリの openURL が投げる例外。null なら開けたとして true を返す。
+  /// [pumpApp] の中で null に戻るため、[pumpApp] の後に入れる
+  Object? openURLError;
   late RecordedBattleCalls battleCalls;
   late RecordedGenerationCalls generationCalls;
 
@@ -242,6 +246,7 @@ void main() {
       failureCount: startSessionFailureCount,
     );
     openedUris = [];
+    openURLError = null;
     battleCalls = RecordedBattleCalls();
     audioCalls = RecordedAudioCalls();
     shareCalls = RecordedShareCalls();
@@ -285,6 +290,8 @@ void main() {
         ),
         openURL: ({required uri}) async {
           openedUris.add(uri);
+          final error = openURLError;
+          if (error != null) throw error;
           return true;
         },
         isDeveloperMenuEnabled: isDeveloperMenuEnabled,
@@ -525,6 +532,33 @@ void main() {
       await tester.tap(find.text('お知らせを見る'));
       await tester.pumpAndSettle();
       expect(openedUris, [Uri.parse('https://example.com/news')]);
+    });
+
+    testWidgets('メンテナンス中の画面のボタンの URL を開けず例外になっても、処理されないエラーにせず画面のまま', (
+      tester,
+    ) async {
+      maintenanceStateBody = {
+        ...inMaintenanceBody,
+        'button': {'label': 'お知らせを見る', 'url': 'https://example.com/news'},
+      };
+      await pumpApp(
+        tester: tester,
+        hasStartedSession: false,
+        startSessionFailureCount: 0,
+        isDeveloperMenuEnabled: false,
+      );
+      openURLError = PlatformException(code: 'ACTIVITY_NOT_FOUND');
+      // タップで始まる非同期の処理のエラーを受け取る zone の中で押し、処理されないエラーが残らないことを確かめる
+      final unhandledErrors = <Object>[];
+      await runZonedGuarded(() async {
+        await tester.tap(find.text('お知らせを見る'));
+        await tester.pumpAndSettle();
+      }, (error, stackTrace) => unhandledErrors.add(error));
+      await tester.pumpAndSettle();
+      expect(unhandledErrors, isEmpty);
+      expect(tester.takeException(), isNull);
+      expect(openedUris, [Uri.parse('https://example.com/news')]);
+      expect(find.byType(MaintenanceScreen), findsOneWidget);
     });
 
     testWidgets('メンテナンス中かを読めない時はタイトル画面を出す', (tester) async {
